@@ -13,7 +13,9 @@ class OnboardingScreen extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Column(
-                children: [],
+                children: [
+                  // Going to add stuffs soon
+                ],
               ),
             ),
           ),
