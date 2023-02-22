@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-final _currentCarouselIndex = StateProvider<int>((_) => 0);
+import '../controllers/onboarding_controller.dart';
+
+final _currentCarouselIndex = StateProvider.autoDispose<int>((_) => 0);
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -22,21 +24,31 @@ class OnboardingScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Consumer(
                 builder: (context, ref, child) {
+                  final onboardingMessages = ref
+                      .read(onboardingControllerProvider.notifier)
+                      .onboardingMessages;
                   final actualIndex = ref.watch(_currentCarouselIndex);
                   return Column(
-                  children: [
-                    CarouselSlider.builder(
-                      carouselController: carouselController,
-                      itemBuilder: (context, index, realIndex) => ,
-                    ),
-                    AnimatedSmoothIndicator(
-                      activeIndex: actualIndex,
-                      count: 3,
-                      effect: const ExpandingDotsEffect(),
-                    ),
-                  ],
-                );
-                } ,
+                    children: [
+                      CarouselSlider.builder(
+                        itemCount: onboardingMessages.length,
+                        carouselController: carouselController,
+                        itemBuilder: (context, index, _) => Column(
+                          children: [
+                            Container(), // TODO : flutter_svg onboardingMessages[index].imageSvgPath
+                            Text(onboardingMessages[index].title),
+                            Text(onboardingMessages[index].message),
+                          ],
+                        ),
+                      ),
+                      AnimatedSmoothIndicator(
+                        activeIndex: actualIndex,
+                        count: onboardingMessages.length,
+                        effect: const ExpandingDotsEffect(),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ),
