@@ -9,10 +9,104 @@ import 'package:vector_graphics/vector_graphics.dart';
 import '../../domain/models/onboarding_message.dart';
 import '../controllers/onboarding_controller.dart';
 
-final _currentCarouselIndex = StateProvider.autoDispose<int>((_) => 0);
+//final _currentCarouselIndex = StateProvider.autoDispose<int>((_) => 0);
+
+class OnboardingScreen extends ConsumerWidget {
+  const OnboardingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final mediaQuery = MediaQuery.of(context);
+    final onboardingMessages =
+        ref.read(onboardingControllerProvider.notifier).onboardingMessages;
+    final carouselController =
+        ref.read(onboardingControllerProvider.notifier).carouselController;
+    final listKey =
+        ref.read(onboardingControllerProvider.notifier).animatedListKey;
+
+    final buttons = <Widget>[
+      ElevatedButton(
+        onPressed: () {},
+        child: Text(
+          (ref.watch(onboardingControllerProvider) ==
+                  onboardingMessages.length - 1)
+              ? "NEXT"
+              : "GET STARTED",
+        ),
+      ),
+      TextButton(
+        onPressed: () {},
+        child: const Text("Skip"),
+      ),
+    ];
+
+    final animatedButton = ElevatedButton(
+      onPressed: () {},
+      child: const Text("BACK"),
+    );
+
+    if (ref.watch(onboardingControllerProvider) >= 1) {}
+
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                children: [
+                  CarouselSlider.builder(
+                    itemCount: onboardingMessages.length,
+                    carouselController: carouselController,
+                    itemBuilder: (context, index, _) => Column(
+                      children: [
+                        SvgPicture(
+                          AssetBytesLoader(
+                              onboardingMessages[index].imageSvgPath),
+                        ),
+                        Text(onboardingMessages[index].title),
+                        Text(onboardingMessages[index].message),
+                      ],
+                    ),
+                    options: CarouselOptions(),
+                  ),
+                  AnimatedSmoothIndicator(
+                    activeIndex: ref.watch(onboardingControllerProvider),
+                    count: onboardingMessages.length,
+                    effect: const ExpandingDotsEffect(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: mediaQuery.size.height * 0.23,
+            child: AnimatedList(
+              key: listKey,
+              initialItemCount: 2,
+              itemBuilder: (context, index, animation) {
+                return SizeTransition(
+                  sizeFactor: animation,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Text("BACK"),
+                  ),
+                );
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
+
+  final _carouselController = CarouselController();
 
   @override
   ConsumerState<OnboardingScreen> createState() => _OnboardingScreenState();
