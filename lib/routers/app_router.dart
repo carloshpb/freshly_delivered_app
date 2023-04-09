@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../features/authentication/presentation/screens/login_screen.dart';
 import '../features/authentication/presentation/screens/onboarding_screen.dart';
 import 'go_router_refresh_stream.dart';
 import 'not_found_screen.dart';
@@ -14,6 +15,7 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
 /// Enum for Router
 enum AppRouter {
   intro('/'),
+  login('/login'),
   loginPhone('/login/phone'),
   loginName('/login/name'),
   loginProfile('/login/profile'),
@@ -39,6 +41,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: AppRouter.intro.path,
         name: AppRouter.intro.name,
         builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: AppRouter.login.path,
+        name: AppRouter.login.name,
+        builder: (context, state) => const LoginScreen(),
       ),
     ],
   );
