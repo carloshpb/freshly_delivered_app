@@ -55,7 +55,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         ref.read(onboardingControllerProvider.notifier).onboardingMessages;
 
     void goToLoginScreen() =>
-        ref.read(goRouterProvider).pushReplacementNamed(AppRouter.login.path);
+        ref.read(goRouterProvider).pushReplacement(AppRouter.login.path);
 
     final lowerButtons = <Widget>[
       Consumer(
@@ -95,6 +95,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           TextButton(
             onPressed: goToLoginScreen,
             //child: skipText.,
+            style: TextButton.styleFrom(
+              splashFactory: NoSplash.splashFactory,
+            ),
             child: const Text(
               "Skip",
               style: TextStyle(
@@ -140,10 +143,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
 
     goToPage = (int nextPageIndex) {
-      //print("\nGOING TO NEXT PAGE\n");
       final currentIndex = ref.read(onboardingControllerProvider);
-      //print("NEXT PAGE: $nextPageIndex");
-      //print("CURRENT PAGE: $currentIndex");
 
       // Don't do anything at the limit of the message page's list
       if (nextPageIndex >= onboardingMessages.length || nextPageIndex < 0) {
@@ -152,17 +152,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
       // swiping right
       if (nextPageIndex > currentIndex && currentIndex == 0) {
-        //print("HAS SWIPED TO RIGHT!");
         lowerButtons.insert(1, backButton);
-        //print("CURRENT LOWER BUTTONS AFTER INSERT : ${lowerButtons.length}");
         _listKey.currentState!.insertItem(1);
       }
 
       // swiping left
       else if (nextPageIndex < currentIndex && currentIndex == 1) {
-        //print("HAS SWIPED TO LEFT!");
         lowerButtons.removeAt(1);
-        //print("CURRENT LOWER BUTTONS AFTER REMOVE : $lowerButtons");
         _listKey.currentState?.removeItem(
           1,
           (context, animation) => FadeTransition(
@@ -262,6 +258,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   onPageChanged: (nextPageIndex) => goToPage(
                     nextPageIndex,
                   ),
+                  itemCount: onboardingPages.length,
                   itemBuilder: (_, index) =>
                       onboardingPages[index % onboardingPages.length],
                 ),
