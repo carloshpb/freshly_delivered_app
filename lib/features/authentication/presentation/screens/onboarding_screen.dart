@@ -1,3 +1,4 @@
+import 'package:easy_debounce/easy_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,6 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
+import '../../../../common_widgets/throttled_elevated_button.dart';
+import '../../../../common_widgets/debounced_text_button.dart';
 import '../../../../routers/app_router.dart';
 import '../../domain/models/onboarding_message.dart';
 import '../controllers/onboarding_controller.dart';
@@ -43,25 +46,24 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     }
   }
 
+  void goToLoginScreen() =>
+      ref.read(goRouterProvider).pushReplacement(AppRouter.login.path);
+
   //TODO : Fix double disappearing BACK button that appears when pressing fastly the back button, from index 1 to 0
 
   @override
   Widget build(BuildContext context) {
     late final Function(int) goToPage;
 
-    // final theme = Theme.of(context);
     final mediaQuery = MediaQuery.of(context);
-    final List<OnboardingMessage> onboardingMessages =
+    final onboardingMessages =
         ref.read(onboardingControllerProvider.notifier).onboardingMessages;
-
-    void goToLoginScreen() =>
-        ref.read(goRouterProvider).pushReplacement(AppRouter.login.path);
 
     final lowerButtons = <Widget>[
       Consumer(
         builder: (context, ref, child) {
-          return ElevatedButton(
-            onPressed: (ref.read(onboardingControllerProvider.notifier).state ==
+          return DebouncedElevatedButton(
+            onPressed: (ref.read(onboardingControllerProvider) ==
                     onboardingMessages.length - 1)
                 ? goToLoginScreen
                 : () {
@@ -92,7 +94,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          TextButton(
+          DebouncedTextButton(
             onPressed: goToLoginScreen,
             //child: skipText.,
             style: TextButton.styleFrom(
@@ -116,12 +118,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       builder: (context, ref, child) {
         return Padding(
           padding: const EdgeInsets.only(top: 10.0),
-          child: ElevatedButton(
-            onPressed: () {
-              goToPage(ref.read(onboardingControllerProvider) - 1);
-              _animateToNewOnboardMessagePage(
-                  ref.read(onboardingControllerProvider));
-            },
+          child: DebouncedElevatedButton(
+            onPressed: (ref.read(onboardingControllerProvider) ==
+                    onboardingMessages.length - 1)
+                ? goToLoginScreen
+                : () {
+                    goToPage(ref.read(onboardingControllerProvider) - 1);
+                    _animateToNewOnboardMessagePage(
+                        ref.read(onboardingControllerProvider));
+                  },
             style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(54.0),
               backgroundColor: const Color.fromRGBO(168, 174, 170, 0.5),
@@ -142,52 +147,21 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       },
     );
 
-    goToPage = (int nextPageIndex) {
-      final currentIndex = ref.read(onboardingControllerProvider);
+    // This is just to avoid RangeError (index): Invalid value: Not in inclusive range 0..1: 2 on rebuild state
+    if (ref.read(onboardingControllerProvider) == 2 &&
+        !lowerButtons.contains(backButton)) {
+      lowerButtons.insert(1, backButton);
+      _listKey.currentState!.insertItem(1);
+    }
 
-      // Don't do anything at the limit of the message page's list
-      if (nextPageIndex >= onboardingMessages.length || nextPageIndex < 0) {
-        return;
-      }
-
-      // swiping right
-      if (nextPageIndex > currentIndex && currentIndex == 0) {
-        lowerButtons.insert(1, backButton);
-        _listKey.currentState!.insertItem(1);
-      }
-
-      // swiping left
-      else if (nextPageIndex < currentIndex && currentIndex == 1) {
-        lowerButtons.removeAt(1);
-        _listKey.currentState?.removeItem(
-          1,
-          (context, animation) => FadeTransition(
-            opacity: animation,
-            child: backButton,
-          ),
-        );
-      }
-
-      ref
-          .read(onboardingControllerProvider.notifier)
-          .onPageChanged(nextPageIndex);
-    };
-
+    // Onboarding Pages list
     final onboardingPages = List.generate(
       3,
       (index) => LayoutBuilder(
         builder: (context, constraints) {
           return Container(
             constraints: constraints,
-            // constraints: BoxConstraints(
-            //   minHeight: 203,
-            //   maxHeight: mediaQuery.size.height * 0.4242,
-            // ),
-            // padding: const EdgeInsets.symmetric(
-            //   horizontal: 31.0,
-            // ),
             child: Column(
-              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
@@ -234,6 +208,37 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       ),
     );
 
+    goToPage = (int nextPageIndex) {
+      final currentIndex = ref.read(onboardingControllerProvider);
+
+      // Don't do anything at the limit of the message page's list
+      if (nextPageIndex >= onboardingMessages.length || nextPageIndex < 0) {
+        return;
+      }
+
+      ref
+          .read(onboardingControllerProvider.notifier)
+          .onPageChanged(nextPageIndex);
+
+      // swiping right
+      if (nextPageIndex > currentIndex && currentIndex == 0) {
+        lowerButtons.insert(1, backButton);
+        _listKey.currentState!.insertItem(1);
+      }
+
+      // swiping left
+      else if (nextPageIndex < currentIndex && currentIndex == 1) {
+        lowerButtons.removeAt(1);
+        _listKey.currentState?.removeItem(
+          1,
+          (context, animation) => FadeTransition(
+            opacity: animation,
+            child: backButton,
+          ),
+        );
+      }
+    };
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -271,9 +276,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   dotColor: Color.fromRGBO(23, 104, 46, 1.0),
                 ),
               ),
-              // const SizedBox(
-              //   height: 10.0,
-              // ),
               const Spacer(),
               SizedBox(
                 height: mediaQuery.size.height * 0.173,
