@@ -23,9 +23,11 @@ class OnboardingController extends AutoDisposeNotifier<int> {
 
   List<OnboardingMessage> get onboardingMessages => _onboardingMessages;
 
-  void onPageChanged(int indexPage) {
-    print("OK, CHANGING PAGE TO THE NEXT PAGE: $indexPage");
-    state = indexPage;
-    print("--- CURRENT STATE : $state");
+  void onPageChanged(int next) {
+    if (next >= 0 && next < _onboardingMessages.length) {
+      print("OK, CHANGING PAGE TO THE NEXT PAGE: $next");
+      state = next;
+      print("--- CURRENT STATE : $state");
+    }
   }
 }

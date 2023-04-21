@@ -27,6 +27,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     initialPage: 0,
   );
 
+  late final List<Widget> _lowerButtons;
+  late final Widget _backButton;
+
   @override
   void initState() {
     super.initState();
@@ -36,17 +39,37 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     });
 
     ref.listen(onboardingControllerProvider, (previous, next) {
-      if (previous != null) {
-        _onboardingMessagePageController.animateToPage(
-          next,
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeInOut,
+      if (previous == null) {
+        return;
+      }
+
+      _onboardingMessagePageController.animateToPage(
+        next,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+
+      // swiping right - add BACK button
+      if (next > previous && previous == 0) {
+        _lowerButtons.insert(1, _backButton);
+        _listKey.currentState!.insertItem(1);
+      }
+
+      // swiping left - remove BACK button
+      else if (next < previous && previous == 1) {
+        _lowerButtons.removeAt(1);
+        _listKey.currentState?.removeItem(
+          1,
+          (context, animation) => FadeTransition(
+            opacity: animation,
+            child: _backButton,
+          ),
         );
       }
     });
   }
 
-  void goToLoginScreen() =>
+  void _goToLoginScreen() =>
       ref.read(goRouterProvider).pushReplacement(AppRouter.login.path);
 
   //TODO : Fix double disappearing BACK button that appears when pressing fastly the back button, from index 1 to 0
@@ -59,17 +82,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     final onboardingMessages =
         ref.read(onboardingControllerProvider.notifier).onboardingMessages;
 
-    final lowerButtons = <Widget>[
+    _lowerButtons = <Widget>[
       Consumer(
         builder: (context, ref, child) {
           return DefaultElevatedButton(
             onPressed: (ref.read(onboardingControllerProvider) ==
                     onboardingMessages.length - 1)
-                ? throttle(500, goToLoginScreen)
+                ? throttle(500, _goToLoginScreen)
                 : throttle(
                     500,
-                    goToPage(ref.read(onboardingControllerProvider),
-                        ref.read(onboardingControllerProvider) + 1)),
+                    ref
+                        .read(onboardingControllerProvider.notifier)
+                        .onPageChanged(
+                            ref.read(onboardingControllerProvider) - 1),
+                  ),
+            // goToPage(ref.read(onboardingControllerProvider),
+            //     ref.read(onboardingControllerProvider) + 1)),
             text: (ref.watch(onboardingControllerProvider) ==
                     onboardingMessages.length - 1)
                 ? "GET STARTED"
@@ -81,8 +109,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           TextButton(
-            onPressed: goToLoginScreen,
-            //child: skipText.,
+            onPressed: _goToLoginScreen,
             style: TextButton.styleFrom(
               splashFactory: NoSplash.splashFactory,
             ),
@@ -100,15 +127,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
       ),
     ];
 
-    final backButton = Consumer(
+    _backButton = Consumer(
       builder: (context, ref, child) {
         return Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: DefaultElevatedButton(
             onPressed: throttle(
-                500,
-                goToPage(ref.read(onboardingControllerProvider),
-                    ref.read(onboardingControllerProvider) - 1)),
+              500,
+              ref
+                  .read(onboardingControllerProvider.notifier)
+                  .onPageChanged(ref.read(onboardingControllerProvider) - 1),
+            ),
+            // goToPage(ref.read(onboardingControllerProvider),
+            //     ref.read(onboardingControllerProvider) - 1)),
             text: "BACK",
             backgroundColor: const Color.fromRGBO(168, 174, 170, 0.5),
             style: const TextStyle(
@@ -126,40 +157,34 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     //   _listKey.currentState!.insertItem(1);
     // }
 
-    // Onboarding Pages list
-    final onboardingPages = List.generate(
-      3,
-      (index) => OnboardingPage(onboardingMessage: onboardingMessages[index]),
-    );
+    // goToPage = (int currentIndex, int nextPageIndex) {
+    //   // Don't do anything at the limit of the message page's list
+    //   if (nextPageIndex >= onboardingMessages.length || nextPageIndex < 0) {
+    //     return;
+    //   }
 
-    goToPage = (int currentIndex, int nextPageIndex) {
-      // Don't do anything at the limit of the message page's list
-      if (nextPageIndex >= onboardingMessages.length || nextPageIndex < 0) {
-        return;
-      }
+    //   // swiping right
+    //   if (nextPageIndex > currentIndex && currentIndex == 0) {
+    //     lowerButtons.insert(1, backButton);
+    //     _listKey.currentState!.insertItem(1);
+    //   }
 
-      // swiping right
-      if (nextPageIndex > currentIndex && currentIndex == 0) {
-        lowerButtons.insert(1, backButton);
-        _listKey.currentState!.insertItem(1);
-      }
+    //   // swiping left
+    //   else if (nextPageIndex < currentIndex && currentIndex == 1) {
+    //     lowerButtons.removeAt(1);
+    //     _listKey.currentState?.removeItem(
+    //       1,
+    //       (context, animation) => FadeTransition(
+    //         opacity: animation,
+    //         child: backButton,
+    //       ),
+    //     );
+    //   }
 
-      // swiping left
-      else if (nextPageIndex < currentIndex && currentIndex == 1) {
-        lowerButtons.removeAt(1);
-        _listKey.currentState?.removeItem(
-          1,
-          (context, animation) => FadeTransition(
-            opacity: animation,
-            child: backButton,
-          ),
-        );
-      }
-
-      ref
-          .read(onboardingControllerProvider.notifier)
-          .onPageChanged(nextPageIndex);
-    };
+    //   ref
+    //       .read(onboardingControllerProvider.notifier)
+    //       .onPageChanged(nextPageIndex);
+    // };
 
     return Scaffold(
       body: SafeArea(
@@ -202,9 +227,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                       throttle(500, goToPage(currentIndex, nextPageIndex));
                     }
                   },
-                  itemCount: onboardingPages.length,
-                  itemBuilder: (_, index) =>
-                      onboardingPages[index % onboardingPages.length],
+                  itemCount: onboardingMessages.length,
+                  itemBuilder: (_, index) => OnboardingPage(
+                      onboardingMessage: onboardingMessages[
+                          index % onboardingMessages.length]),
                 ),
               ),
               SmoothPageIndicator(
