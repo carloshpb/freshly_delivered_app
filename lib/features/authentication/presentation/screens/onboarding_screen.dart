@@ -1,4 +1,3 @@
-import 'package:easy_debounce/easy_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,10 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-import '../../../../common_widgets/throttled_elevated_button.dart';
 import '../../../../common_widgets/debounced_text_button.dart';
+import '../../../../common_widgets/default_elevated_button.dart';
+import '../../../../common_widgets/onboarding_page.dart';
 import '../../../../routers/app_router.dart';
-import '../../domain/models/onboarding_message.dart';
+import '../../../../utils/throttler.dart';
 import '../controllers/onboarding_controller.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -20,7 +20,8 @@ class OnboardingScreen extends ConsumerStatefulWidget {
       _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
+class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
+    with Throttler {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   final PageController _onboardingMessagePageController = PageController(
     initialPage: 0,
@@ -33,17 +34,16 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       FlutterNativeSplash.remove();
     });
-  }
 
-  void _animateToNewOnboardMessagePage(int pageIndex) {
-    if (_onboardingMessagePageController.page!.round() !=
-        ref.read(onboardingControllerProvider)) {
-      _onboardingMessagePageController.animateToPage(
-        ref.read(onboardingControllerProvider),
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
-      );
-    }
+    ref.listen(onboardingControllerProvider, (previous, next) {
+      if (previous != null) {
+        _onboardingMessagePageController.animateToPage(
+          next,
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
   }
 
   void goToLoginScreen() =>
@@ -53,7 +53,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    late final Function(int) goToPage;
+    late final Function(int, int) goToPage;
 
     final mediaQuery = MediaQuery.of(context);
     final onboardingMessages =
@@ -62,39 +62,25 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final lowerButtons = <Widget>[
       Consumer(
         builder: (context, ref, child) {
-          return DebouncedElevatedButton(
+          return DefaultElevatedButton(
             onPressed: (ref.read(onboardingControllerProvider) ==
                     onboardingMessages.length - 1)
-                ? goToLoginScreen
-                : () {
-                    goToPage(ref.read(onboardingControllerProvider) + 1);
-                    _animateToNewOnboardMessagePage(
-                        ref.watch(onboardingControllerProvider));
-                  },
-            style: ElevatedButton.styleFrom(
-              disabledBackgroundColor: const Color.fromRGBO(23, 104, 46, 0.5),
-              minimumSize: const Size.fromHeight(54.0),
-              backgroundColor: const Color.fromRGBO(23, 104, 46, 1.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  10.0,
-                ),
-              ),
-            ),
-            child: Text(
-              (ref.watch(onboardingControllerProvider) ==
-                      onboardingMessages.length - 1)
-                  ? "GET STARTED"
-                  : "NEXT",
-              style: const TextStyle(color: Colors.white),
-            ),
+                ? throttle(500, goToLoginScreen)
+                : throttle(
+                    500,
+                    goToPage(ref.read(onboardingControllerProvider),
+                        ref.read(onboardingControllerProvider) + 1)),
+            text: (ref.watch(onboardingControllerProvider) ==
+                    onboardingMessages.length - 1)
+                ? "GET STARTED"
+                : "NEXT",
           );
         },
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          DebouncedTextButton(
+          TextButton(
             onPressed: goToLoginScreen,
             //child: skipText.,
             style: TextButton.styleFrom(
@@ -118,29 +104,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       builder: (context, ref, child) {
         return Padding(
           padding: const EdgeInsets.only(top: 10.0),
-          child: DebouncedElevatedButton(
-            onPressed: (ref.read(onboardingControllerProvider) ==
-                    onboardingMessages.length - 1)
-                ? goToLoginScreen
-                : () {
-                    goToPage(ref.read(onboardingControllerProvider) - 1);
-                    _animateToNewOnboardMessagePage(
-                        ref.read(onboardingControllerProvider));
-                  },
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size.fromHeight(54.0),
-              backgroundColor: const Color.fromRGBO(168, 174, 170, 0.5),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  10.0,
-                ),
-              ),
-            ),
-            child: const Text(
-              "BACK",
-              style: TextStyle(
-                color: Color.fromRGBO(23, 104, 46, 1.0),
-              ),
+          child: DefaultElevatedButton(
+            onPressed: throttle(
+                500,
+                goToPage(ref.read(onboardingControllerProvider),
+                    ref.read(onboardingControllerProvider) - 1)),
+            text: "BACK",
+            backgroundColor: const Color.fromRGBO(168, 174, 170, 0.5),
+            style: const TextStyle(
+              color: Color.fromRGBO(23, 104, 46, 1.0),
             ),
           ),
         );
@@ -148,77 +120,23 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
 
     // This is just to avoid RangeError (index): Invalid value: Not in inclusive range 0..1: 2 on rebuild state
-    if (ref.read(onboardingControllerProvider) == 2 &&
-        !lowerButtons.contains(backButton)) {
-      lowerButtons.insert(1, backButton);
-      _listKey.currentState!.insertItem(1);
-    }
+    // if (ref.read(onboardingControllerProvider) == 2 &&
+    //     !lowerButtons.contains(backButton)) {
+    //   lowerButtons.insert(1, backButton);
+    //   _listKey.currentState!.insertItem(1);
+    // }
 
     // Onboarding Pages list
     final onboardingPages = List.generate(
       3,
-      (index) => LayoutBuilder(
-        builder: (context, constraints) {
-          return Container(
-            constraints: constraints,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  flex: 4,
-                  child: SvgPicture(
-                    AssetBytesLoader(
-                      onboardingMessages[index].imageSvgPath,
-                    ),
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-                const Spacer(),
-                Flexible(
-                  child: Text(
-                    onboardingMessages[index].title,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Color.fromRGBO(37, 197, 115, 1.0),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 18.0,
-                      height: 1.5,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 7.0,
-                ),
-                Flexible(
-                  child: Text(
-                    onboardingMessages[index].message,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.0,
-                      height: 1.5,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+      (index) => OnboardingPage(onboardingMessage: onboardingMessages[index]),
     );
 
-    goToPage = (int nextPageIndex) {
-      final currentIndex = ref.read(onboardingControllerProvider);
-
+    goToPage = (int currentIndex, int nextPageIndex) {
       // Don't do anything at the limit of the message page's list
       if (nextPageIndex >= onboardingMessages.length || nextPageIndex < 0) {
         return;
       }
-
-      ref
-          .read(onboardingControllerProvider.notifier)
-          .onPageChanged(nextPageIndex);
 
       // swiping right
       if (nextPageIndex > currentIndex && currentIndex == 0) {
@@ -237,6 +155,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           ),
         );
       }
+
+      ref
+          .read(onboardingControllerProvider.notifier)
+          .onPageChanged(nextPageIndex);
     };
 
     return Scaffold(
@@ -260,9 +182,26 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 ),
                 child: PageView.builder(
                   controller: _onboardingMessagePageController,
-                  onPageChanged: (nextPageIndex) => goToPage(
-                    nextPageIndex,
-                  ),
+                  onPageChanged: (nextPageIndex) {
+                    // throttle(500, () {
+                    //   var currentIndex = ref.read(onboardingControllerProvider);
+                    //   print("PAGE VIEW CALL : $currentIndex -> $nextPageIndex");
+                    //   if (currentIndex != nextPageIndex) {
+                    //     goToPage(currentIndex, nextPageIndex);
+                    //   }
+                    // });
+
+                    var currentIndex = ref.read(onboardingControllerProvider);
+                    // print("PAGE VIEW CALL : $currentIndex -> $nextPageIndex");
+                    // if (currentIndex != nextPageIndex) {
+                    //   goToPage(currentIndex, nextPageIndex);
+                    // }
+                    // var currentPage =
+                    //     _onboardingMessagePageController.page?.round();
+                    if (currentIndex != nextPageIndex) {
+                      throttle(500, goToPage(currentIndex, nextPageIndex));
+                    }
+                  },
                   itemCount: onboardingPages.length,
                   itemBuilder: (_, index) =>
                       onboardingPages[index % onboardingPages.length],
