@@ -27,8 +27,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     initialPage: 0,
   );
 
-  late final List<Widget> _lowerButtons;
-  late final Widget _backButton;
+  late List<Widget> _lowerButtons;
+  late Widget _backButton;
 
   @override
   void initState() {
@@ -37,8 +37,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       FlutterNativeSplash.remove();
     });
+  }
 
-    ref.listen(onboardingControllerProvider, (previous, next) {
+  void _goToLoginScreen() =>
+      ref.read(goRouterProvider).pushReplacement(AppRouter.login.path);
+
+  //TODO : Fix double disappearing BACK button that appears when pressing fastly the back button, from index 1 to 0
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen<int>(onboardingControllerProvider, (previous, next) {
+      print("TA ESCUTANDO?");
       if (previous == null) {
         return;
       }
@@ -67,16 +76,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
         );
       }
     });
-  }
-
-  void _goToLoginScreen() =>
-      ref.read(goRouterProvider).pushReplacement(AppRouter.login.path);
-
-  //TODO : Fix double disappearing BACK button that appears when pressing fastly the back button, from index 1 to 0
-
-  @override
-  Widget build(BuildContext context) {
-    late final Function(int, int) goToPage;
 
     final mediaQuery = MediaQuery.of(context);
     final onboardingMessages =
@@ -85,24 +84,24 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     _lowerButtons = <Widget>[
       Consumer(
         builder: (context, ref, child) {
-          return DefaultElevatedButton(
-            onPressed: (ref.read(onboardingControllerProvider) ==
-                    onboardingMessages.length - 1)
-                ? throttle(500, _goToLoginScreen)
-                : throttle(
+          // If I use the same widget (DefaultElevatedButton), the throttling won't work out
+          // For it to work out, I need to use ref.watch to set the current button, and not a ref.read to set the function of onPressed.
+          return (ref.watch(onboardingControllerProvider) ==
+                  onboardingMessages.length - 1)
+              ? DefaultElevatedButton(
+                  onPressed: _goToLoginScreen,
+                  text: "GET STARTED",
+                )
+              : DefaultElevatedButton(
+                  onPressed: throttle(
                     500,
-                    ref
+                    () => ref
                         .read(onboardingControllerProvider.notifier)
                         .onPageChanged(
-                            ref.read(onboardingControllerProvider) - 1),
+                            ref.read(onboardingControllerProvider) + 1),
                   ),
-            // goToPage(ref.read(onboardingControllerProvider),
-            //     ref.read(onboardingControllerProvider) + 1)),
-            text: (ref.watch(onboardingControllerProvider) ==
-                    onboardingMessages.length - 1)
-                ? "GET STARTED"
-                : "NEXT",
-          );
+                  text: "NEXT",
+                );
         },
       ),
       Row(
@@ -134,12 +133,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           child: DefaultElevatedButton(
             onPressed: throttle(
               500,
-              ref
+              () => ref
                   .read(onboardingControllerProvider.notifier)
                   .onPageChanged(ref.read(onboardingControllerProvider) - 1),
             ),
-            // goToPage(ref.read(onboardingControllerProvider),
-            //     ref.read(onboardingControllerProvider) - 1)),
             text: "BACK",
             backgroundColor: const Color.fromRGBO(168, 174, 170, 0.5),
             style: const TextStyle(
@@ -149,42 +146,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
         );
       },
     );
-
-    // This is just to avoid RangeError (index): Invalid value: Not in inclusive range 0..1: 2 on rebuild state
-    // if (ref.read(onboardingControllerProvider) == 2 &&
-    //     !lowerButtons.contains(backButton)) {
-    //   lowerButtons.insert(1, backButton);
-    //   _listKey.currentState!.insertItem(1);
-    // }
-
-    // goToPage = (int currentIndex, int nextPageIndex) {
-    //   // Don't do anything at the limit of the message page's list
-    //   if (nextPageIndex >= onboardingMessages.length || nextPageIndex < 0) {
-    //     return;
-    //   }
-
-    //   // swiping right
-    //   if (nextPageIndex > currentIndex && currentIndex == 0) {
-    //     lowerButtons.insert(1, backButton);
-    //     _listKey.currentState!.insertItem(1);
-    //   }
-
-    //   // swiping left
-    //   else if (nextPageIndex < currentIndex && currentIndex == 1) {
-    //     lowerButtons.removeAt(1);
-    //     _listKey.currentState?.removeItem(
-    //       1,
-    //       (context, animation) => FadeTransition(
-    //         opacity: animation,
-    //         child: backButton,
-    //       ),
-    //     );
-    //   }
-
-    //   ref
-    //       .read(onboardingControllerProvider.notifier)
-    //       .onPageChanged(nextPageIndex);
-    // };
 
     return Scaffold(
       body: SafeArea(
@@ -208,23 +169,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                 child: PageView.builder(
                   controller: _onboardingMessagePageController,
                   onPageChanged: (nextPageIndex) {
-                    // throttle(500, () {
-                    //   var currentIndex = ref.read(onboardingControllerProvider);
-                    //   print("PAGE VIEW CALL : $currentIndex -> $nextPageIndex");
-                    //   if (currentIndex != nextPageIndex) {
-                    //     goToPage(currentIndex, nextPageIndex);
-                    //   }
-                    // });
-
                     var currentIndex = ref.read(onboardingControllerProvider);
-                    // print("PAGE VIEW CALL : $currentIndex -> $nextPageIndex");
-                    // if (currentIndex != nextPageIndex) {
-                    //   goToPage(currentIndex, nextPageIndex);
-                    // }
-                    // var currentPage =
-                    //     _onboardingMessagePageController.page?.round();
                     if (currentIndex != nextPageIndex) {
-                      throttle(500, goToPage(currentIndex, nextPageIndex));
+                      ref
+                          .read(onboardingControllerProvider.notifier)
+                          .onPageChanged(nextPageIndex);
                     }
                   },
                   itemCount: onboardingMessages.length,
@@ -246,12 +195,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                 height: mediaQuery.size.height * 0.173,
                 child: AnimatedList(
                   key: _listKey,
-                  initialItemCount: lowerButtons.length,
+                  initialItemCount: _lowerButtons.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index, animation) {
                     return FadeTransition(
                       opacity: animation,
-                      child: lowerButtons[index],
+                      child: _lowerButtons[index],
                     );
                   },
                 ),
