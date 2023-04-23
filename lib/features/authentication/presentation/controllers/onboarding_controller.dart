@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../utils/throttler.dart';
 import '../../domain/models/onboarding_message.dart';
 import '../../domain/services/impl/onboarding_service_impl.dart';
 
@@ -9,7 +10,7 @@ final onboardingControllerProvider =
   name: r'onboardingControllerProvider',
 );
 
-class OnboardingController extends AutoDisposeNotifier<int> {
+class OnboardingController extends AutoDisposeNotifier<int> with Throttler {
   late final List<OnboardingMessage> _onboardingMessages;
 
   @override

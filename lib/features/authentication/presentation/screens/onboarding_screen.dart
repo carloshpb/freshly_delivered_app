@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:vector_graphics/vector_graphics.dart';
 
-import '../../../../common_widgets/debounced_text_button.dart';
 import '../../../../common_widgets/default_elevated_button.dart';
-import '../../../../common_widgets/onboarding_page.dart';
+import '../../../../common_widgets/onboarding_message_box.dart';
 import '../../../../routers/app_router.dart';
 import '../../../../utils/throttler.dart';
 import '../controllers/onboarding_controller.dart';
+
+// State providers for NEXT button, to be able to throttle it
+final nextTextStateProvider = StateProvider.autoDispose<String>(
+  (ref) => "NEXT",
+);
+
+final nextFunctionStateProvider = StateProvider.autoDispose<void Function()>(
+  (ref) => () => ref
+      .read(onboardingControllerProvider.notifier)
+      .onPageChanged(ref.read(onboardingControllerProvider) + 1),
+);
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -42,10 +50,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
   void _goToLoginScreen() =>
       ref.read(goRouterProvider).pushReplacement(AppRouter.login.path);
 
-  //TODO : Fix double disappearing BACK button that appears when pressing fastly the back button, from index 1 to 0
-
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final onboardingMessages =
+        ref.read(onboardingControllerProvider.notifier).onboardingMessages;
+
     ref.listen<int>(onboardingControllerProvider, (previous, next) {
       print("TA ESCUTANDO?");
       if (previous == null) {
@@ -75,33 +85,47 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           ),
         );
       }
+      // Solution for throttling current NEXT button with condition, without using ref.watch in the button
+      else if (next > previous && next == onboardingMessages.length - 1) {
+        ref.read(nextTextStateProvider.notifier).state = "GET STARTED";
+        ref.read(nextFunctionStateProvider.notifier).state = _goToLoginScreen;
+      } else if (next < previous && previous == onboardingMessages.length - 1) {
+        ref.read(nextTextStateProvider.notifier).state = "NEXT";
+        ref.read(nextFunctionStateProvider.notifier).state = () => ref
+            .read(onboardingControllerProvider.notifier)
+            .onPageChanged(ref.read(onboardingControllerProvider) + 1);
+      }
     });
-
-    final mediaQuery = MediaQuery.of(context);
-    final onboardingMessages =
-        ref.read(onboardingControllerProvider.notifier).onboardingMessages;
 
     _lowerButtons = <Widget>[
       Consumer(
         builder: (context, ref, child) {
-          // If I use the same widget (DefaultElevatedButton), the throttling won't work out
-          // For it to work out, I need to use ref.watch to set the current button, and not a ref.read to set the function of onPressed.
-          return (ref.watch(onboardingControllerProvider) ==
-                  onboardingMessages.length - 1)
-              ? DefaultElevatedButton(
-                  onPressed: _goToLoginScreen,
-                  text: "GET STARTED",
-                )
-              : DefaultElevatedButton(
-                  onPressed: throttle(
-                    500,
-                    () => ref
-                        .read(onboardingControllerProvider.notifier)
-                        .onPageChanged(
-                            ref.read(onboardingControllerProvider) + 1),
-                  ),
-                  text: "NEXT",
-                );
+          return DefaultElevatedButton(
+            onPressed: throttle(
+              250,
+              ref.watch(nextFunctionStateProvider),
+            ),
+            text: ref.watch(nextTextStateProvider),
+          );
+
+          //! Code below doesn't work for throttling. Throttling it while using watch over it, will make the throttle be ignore and call another function over it, due to the change of state
+          //! Riverpod still doesn't have a better way to handle throttling in a single provider
+          // return DefaultElevatedButton(
+          //   onPressed: (ref.watch(onboardingControllerProvider) ==
+          //           onboardingMessages.length - 1)
+          //       ? _goToLoginScreen
+          //       : () => throttle(
+          //             300,
+          //             () => ref
+          //                 .read(onboardingControllerProvider.notifier)
+          //                 .onPageChanged(
+          //                     ref.read(onboardingControllerProvider) + 1),
+          //           ),
+          //   text: (ref.watch(onboardingControllerProvider) ==
+          //           onboardingMessages.length - 1)
+          //       ? "GET STARTED"
+          //       : "NEXT",
+          // );
         },
       ),
       Row(
@@ -132,7 +156,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           padding: const EdgeInsets.only(top: 10.0),
           child: DefaultElevatedButton(
             onPressed: throttle(
-              500,
+              250,
               () => ref
                   .read(onboardingControllerProvider.notifier)
                   .onPageChanged(ref.read(onboardingControllerProvider) - 1),
@@ -177,7 +201,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                     }
                   },
                   itemCount: onboardingMessages.length,
-                  itemBuilder: (_, index) => OnboardingPage(
+                  itemBuilder: (_, index) => OnboardingMessageBox(
                       onboardingMessage: onboardingMessages[
                           index % onboardingMessages.length]),
                 ),

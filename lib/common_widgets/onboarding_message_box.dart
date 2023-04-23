@@ -4,10 +4,10 @@ import 'package:vector_graphics/vector_graphics.dart';
 
 import '../features/authentication/domain/models/onboarding_message.dart';
 
-class OnboardingPage extends StatelessWidget {
+class OnboardingMessageBox extends StatelessWidget {
   final OnboardingMessage _onboardingMessage;
 
-  const OnboardingPage({
+  const OnboardingMessageBox({
     super.key,
     required OnboardingMessage onboardingMessage,
   }) : _onboardingMessage = onboardingMessage;
