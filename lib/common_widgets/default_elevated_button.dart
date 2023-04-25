@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+@Deprecated("Use normal ElevatedButton instead")
 class DefaultElevatedButton extends StatelessWidget {
   final void Function()? _onPressed;
   final Color _backgroundColor;
