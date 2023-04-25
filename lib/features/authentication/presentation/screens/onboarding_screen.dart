@@ -3,15 +3,16 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../../common_widgets/default_elevated_button.dart';
 import '../../../../common_widgets/onboarding_message_box.dart';
+import '../../../../constants/custom_colors.dart';
+import '../../../../constants/strings.dart';
 import '../../../../routers/app_router.dart';
 import '../../../../utils/throttler.dart';
 import '../controllers/onboarding_controller.dart';
 
 // State providers for NEXT button, to be able to throttle it
 final nextTextStateProvider = StateProvider.autoDispose<String>(
-  (ref) => "NEXT",
+  (ref) => Strings.next.toUpperCase(),
 );
 
 final nextFunctionStateProvider = StateProvider.autoDispose<void Function()>(
@@ -48,7 +49,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
   }
 
   void _goToLoginScreen() =>
-      ref.read(goRouterProvider).pushReplacement(AppRouter.login.path);
+      ref.read(goRouterProvider).go(AppRouter.login.path);
 
   @override
   Widget build(BuildContext context) {
@@ -87,10 +88,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
       }
       // Solution for throttling current NEXT button with condition, without using ref.watch in the button
       else if (next > previous && next == onboardingMessages.length - 1) {
-        ref.read(nextTextStateProvider.notifier).state = "GET STARTED";
+        ref.read(nextTextStateProvider.notifier).state =
+            Strings.getStarted.toUpperCase();
         ref.read(nextFunctionStateProvider.notifier).state = _goToLoginScreen;
       } else if (next < previous && previous == onboardingMessages.length - 1) {
-        ref.read(nextTextStateProvider.notifier).state = "NEXT";
+        ref.read(nextTextStateProvider.notifier).state =
+            Strings.next.toUpperCase();
         ref.read(nextFunctionStateProvider.notifier).state = () => ref
             .read(onboardingControllerProvider.notifier)
             .onPageChanged(ref.read(onboardingControllerProvider) + 1);
@@ -100,12 +103,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     _lowerButtons = <Widget>[
       Consumer(
         builder: (context, ref, child) {
-          return DefaultElevatedButton(
+          return ElevatedButton(
             onPressed: throttle(
               250,
               ref.watch(nextFunctionStateProvider),
             ),
-            text: ref.watch(nextTextStateProvider),
+            child: Text(
+              ref.watch(nextTextStateProvider),
+              style: const TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
           );
 
           //! Code below doesn't work for throttling. Throttling it while using watch over it, will make the throttle be ignore and call another function over it, due to the change of state
@@ -137,12 +147,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
               splashFactory: NoSplash.splashFactory,
             ),
             child: const Text(
-              "Skip",
+              Strings.skip,
               style: TextStyle(
-                color: Color.fromRGBO(23, 104, 46, 1.0),
-                fontWeight: FontWeight.w400,
+                color: CustomColors.buttonGreen,
+                fontWeight: FontWeight.normal,
                 fontSize: 12.0,
-                height: 1.5,
               ),
             ),
           ),
@@ -154,17 +163,23 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
       builder: (context, ref, child) {
         return Padding(
           padding: const EdgeInsets.only(top: 10.0),
-          child: DefaultElevatedButton(
+          child: ElevatedButton(
             onPressed: throttle(
               250,
               () => ref
                   .read(onboardingControllerProvider.notifier)
                   .onPageChanged(ref.read(onboardingControllerProvider) - 1),
             ),
-            text: "BACK",
-            backgroundColor: const Color.fromRGBO(168, 174, 170, 0.5),
-            style: const TextStyle(
-              color: Color.fromRGBO(23, 104, 46, 1.0),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: CustomColors.buttonGreyDeactivated,
+            ),
+            child: Text(
+              Strings.back.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: CustomColors.buttonGreen,
+              ),
             ),
           ),
         );
@@ -210,8 +225,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                 controller: _onboardingMessagePageController,
                 count: onboardingMessages.length,
                 effect: const ExpandingDotsEffect(
-                  activeDotColor: Color.fromRGBO(23, 104, 46, 1.0),
-                  dotColor: Color.fromRGBO(23, 104, 46, 1.0),
+                  activeDotColor: CustomColors.buttonGreen,
+                  dotColor: CustomColors.buttonGreen,
                 ),
               ),
               const Spacer(),

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'constants/custom_colors.dart';
 import 'routers/app_router.dart';
 
 Future<void> main() async {
@@ -33,8 +34,21 @@ class App extends ConsumerWidget {
       title: 'Freshly Delivered',
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: const Color.fromRGBO(37, 197, 115, 1),
+        colorSchemeSeed: CustomColors.mainGreen,
         fontFamily: 'Poppins',
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            disabledBackgroundColor: CustomColors.buttonGreenDeactivated,
+            minimumSize: const Size.fromHeight(54.0),
+            backgroundColor: CustomColors.buttonGreen,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                10.0,
+              ),
+            ),
+            textStyle: const TextStyle(color: Colors.white),
+          ),
+        ),
       ),
       routerConfig: goRouter,
     );
