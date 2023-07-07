@@ -15,27 +15,27 @@ class LoginScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mediaQuery = MediaQuery.of(context);
+    final mediaQuerySize = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: CustomColors.mainGreen,
       body: SafeArea(
         // Weird Flutter bug where body has its width squeezed. Fix it with SizedBox
         child: SizedBox(
-          height: mediaQuery.size.height,
-          width: mediaQuery.size.width,
+          height: mediaQuerySize.height,
+          width: mediaQuerySize.width,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: mediaQuery.size.height * 0.21522,
+                  height: mediaQuerySize.height * 0.21522,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Image.asset(
                         Paths.logoPath,
-                        height: mediaQuery.size.height * 0.1189,
+                        height: mediaQuerySize.height * 0.1189,
                       ),
                       Text(
                         Strings.login.toUpperCase(),

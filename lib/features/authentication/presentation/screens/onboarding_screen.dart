@@ -53,7 +53,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
+    final mediaQuerySize = MediaQuery.sizeOf(context);
     final onboardingMessages =
         ref.read(onboardingControllerProvider.notifier).onboardingMessages;
 
@@ -200,7 +200,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
               Container(
                 constraints: BoxConstraints(
                   minHeight: 203,
-                  maxHeight: mediaQuery.size.height * 0.4242,
+                  maxHeight: mediaQuerySize.height * 0.4242,
                 ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 31.0,
@@ -231,7 +231,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
               ),
               const Spacer(),
               SizedBox(
-                height: mediaQuery.size.height * 0.173,
+                height: mediaQuerySize.height * 0.173,
                 child: AnimatedList(
                   key: _listKey,
                   initialItemCount: _lowerButtons.length,
