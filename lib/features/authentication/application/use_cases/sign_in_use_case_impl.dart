@@ -1,0 +1,31 @@
+import 'dart:async';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:multiple_result/multiple_result.dart';
+
+import '../../../../exceptions/app_exception.dart';
+import '../../../use_case.dart';
+import '../../domain/repositories/authentication_repository.dart';
+import '../../domain/use_cases/sign_in_use_case.dart';
+
+final signInUseCaseProvider = Provider.autoDispose<SignInUseCaseImpl>(
+  (ref) {
+    return SignInUseCaseImpl(
+      authRepository: ref.watch(authRepositoryProvider),
+    );
+  },
+  name: r"signInUseCaseProvider",
+);
+
+class SignInUseCaseImpl implements SignInUseCase {
+  final AuthenticationRepository _authRepository;
+
+  SignInUseCaseImpl({required AuthenticationRepository authRepository})
+      : _authRepository = authRepository;
+
+  @override
+  Future<Result<void, AppException>> execute(
+      {required (String email, String password) request}) async {
+    return _authRepository.signIn(request.$1, request.$2);
+  }
+}

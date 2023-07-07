@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 
-abstract class Throttler {
+mixin Throttler {
   // throttling functions of buttons (stop to call it twice after fast pressing it more than once)
   Function() throttle(int throttleDurationInMillis, Function() function) {
     final throttler = PublishSubject<Function()>();
