@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'app_exception.dart';
-
 final errorLoggerProvider = Provider<ErrorLogger>((ref) {
   return ErrorLogger();
 });
@@ -13,7 +11,7 @@ class ErrorLogger {
     debugPrint('$error, $stackTrace');
   }
 
-  void logAppException(AppException exception) {
+  void logException(Exception exception) {
     // * This can be replaced with a call to a crash reporting tool of choice
     debugPrint('$exception');
   }

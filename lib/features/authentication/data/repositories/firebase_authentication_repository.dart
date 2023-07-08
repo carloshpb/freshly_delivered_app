@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freshly_delivered_app/exceptions/app_exception.dart';
+import 'package:multiple_result/multiple_result.dart';
 
-import 'package:multiple_result/src/result.dart';
-
+import '../../../../exceptions/app_auth_exception.dart';
 import '../../domain/repositories/authentication_repository.dart';
 
 final firebaseAuthenticationRepositoryProvider =
@@ -14,21 +14,39 @@ final firebaseAuthenticationRepositoryProvider =
 );
 
 class FirebaseAuthenticationRepository implements AuthenticationRepository {
+  final _firebaseAuth = FirebaseAuth.instance;
+
   @override
-  Future<Result<void, AppException>> resetPassword(String email) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<Result<void, AppAuthException>> resetPassword(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      return const Success(null);
+    } on FirebaseAuthException catch (e) {
+      return Error(e.convertToAppException());
+    }
   }
 
   @override
-  Future<Result<void, AppException>> signIn(String email, String password) {
-    // TODO: implement signIn
-    throw UnimplementedError();
+  Future<Result<void, AppAuthException>> signIn(
+      String email, String password) async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return const Success(null);
+    } on FirebaseAuthException catch (e) {
+      return Error(e.convertToAppException());
+    }
   }
 
   @override
-  Future<Result<void, AppException>> signUp(String email, String password) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+  Future<Result<void, AppAuthException>> signUp(
+      String email, String password) async {
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return const Success(null);
+    } on FirebaseAuthException catch (e) {
+      return Error(e.convertToAppException());
+    }
   }
 }

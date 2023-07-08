@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multiple_result/multiple_result.dart';
 
-import '../../../../exceptions/app_exception.dart';
+import '../../../../exceptions/app_auth_exception.dart';
 import '../../data/repositories/firebase_authentication_repository.dart';
 import '../../domain/repositories/authentication_repository.dart';
 import '../../domain/use_cases/sign_in_use_case.dart';
@@ -24,7 +24,7 @@ class SignInUseCaseImpl implements SignInUseCase {
       : _authRepository = authRepository;
 
   @override
-  Future<Result<void, AppException>> execute(
+  Future<Result<void, AppAuthException>> execute(
       {required (String email, String password) request}) async {
     return _authRepository.signIn(request.$1, request.$2);
   }

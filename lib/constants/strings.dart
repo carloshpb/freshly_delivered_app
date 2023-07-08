@@ -29,4 +29,19 @@ class Strings {
       "The operation can't be completed (not signed in)";
   static const invalidEmailOrPasswordSignIn =
       "The email or password does not match";
+
+  // Firebase Auth
+  static const invalidEmail = "The email address is not valid";
+  static const missingAndroidPkgName = "The email address is not valid.";
+  static const missingContinueUri = "The email address is not valid.";
+  static const missingIosBundleId = "The email address is not valid.";
+  static const invalidContinueUri = "The email address is not valid.";
+  static const unauthorizedContinueUri = "The email address is not valid.";
+  static const userNotFound = "The email address is not valid.";
+  static const unknownErrorCode =
+      "This exception code is unknown. Please contact the company to report this error";
+  static const userDisabled = "";
+  static const wrongPassword = "";
+  static const emailAlreadyInUseException = "";
+  static const operationNotAllowedException = "";
 }
