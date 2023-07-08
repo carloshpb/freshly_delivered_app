@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../exceptions/app_auth_exception.dart';
@@ -17,6 +18,16 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   final _firebaseAuth = FirebaseAuth.instance;
 
   @override
+  Stream<AppUser?> authStateChanges() {
+    // TODO: implement authStateChanges
+    throw UnimplementedError();
+  }
+
+  @override
+  // TODO: implement currentUser
+  AppUser? get currentUser => throw UnimplementedError();
+
+  @override
   Future<Result<void, AppAuthException>> resetPassword(String email) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
@@ -27,7 +38,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   }
 
   @override
-  Future<Result<void, AppAuthException>> signIn(
+  Future<Result<void, AppAuthException>> signInWithEmailAndPassword(
       String email, String password) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
@@ -39,7 +50,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   }
 
   @override
-  Future<Result<void, AppAuthException>> signUp(
+  Future<Result<void, AppAuthException>> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(

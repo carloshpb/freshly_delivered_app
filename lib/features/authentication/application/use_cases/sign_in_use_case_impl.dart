@@ -26,6 +26,6 @@ class SignInUseCaseImpl implements SignInUseCase {
   @override
   Future<Result<void, AppAuthException>> execute(
       {required (String email, String password) request}) async {
-    return _authRepository.signIn(request.$1, request.$2);
+    return _authRepository.signInWithEmailAndPassword(request.$1, request.$2);
   }
 }

@@ -27,6 +27,7 @@ sealed class AppAuthException with _$AppAuthException implements Exception {
       EmailAlreadyInUseException;
   const factory AppAuthException.operationNotAllowedException() =
       OperationNotAllowedException;
+  const factory AppAuthException.weakPassword() = WeakPasswordException;
   const factory AppAuthException.unknownAuthCode(String code) =
       UnknownAuthCodeException;
 
@@ -54,6 +55,8 @@ sealed class AppAuthException with _$AppAuthException implements Exception {
         return Strings.emailAlreadyInUseException;
       case OperationNotAllowedException():
         return Strings.operationNotAllowedException;
+      case WeakPasswordException():
+        return Strings.weakPassword;
       case UnknownAuthCodeException(:final String code):
         return "${Strings.unknownErrorCode} : $code";
     }
@@ -85,6 +88,8 @@ extension FirebaseAuthCodeIdentifier on FirebaseAuthException {
         return const EmailAlreadyInUseException();
       case "auth/operation-not-allowed":
         return const OperationNotAllowedException();
+      case "auth/weak-password":
+        return const WeakPasswordException();
       default:
         return UnknownAuthCodeException(code);
     }

@@ -44,4 +44,5 @@ class Strings {
   static const wrongPassword = "";
   static const emailAlreadyInUseException = "";
   static const operationNotAllowedException = "";
+  static const weakPassword = "The password must be 6 characters long or more";
 }
