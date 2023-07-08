@@ -1,30 +1,29 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:multiple_result/multiple_result.dart';
 
-import '../../../../exceptions/app_auth_exception.dart';
 import '../../data/repositories/firebase_authentication_repository.dart';
 import '../../domain/repositories/authentication_repository.dart';
-import '../../domain/use_cases/sign_in_use_case.dart';
+import '../../domain/use_cases/sign_in_email_password_use_case.dart';
 
-final signInUseCaseProvider = Provider.autoDispose<SignInUseCaseImpl>(
+final signInUseCaseProvider = Provider.autoDispose<SignInEmailPasswordUseCase>(
   (ref) {
-    return SignInUseCaseImpl(
-      authRepository: ref.watch(firebaseAuthenticationRepositoryProvider),
+    return SignInEmailPasswordUseCaseImpl(
+      authRepository: ref.watch(authenticationRepositoryProvider),
     );
   },
   name: r"signInUseCaseProvider",
 );
 
-class SignInUseCaseImpl implements SignInUseCase {
+class SignInEmailPasswordUseCaseImpl implements SignInEmailPasswordUseCase {
   final AuthenticationRepository _authRepository;
 
-  SignInUseCaseImpl({required AuthenticationRepository authRepository})
+  SignInEmailPasswordUseCaseImpl(
+      {required AuthenticationRepository authRepository})
       : _authRepository = authRepository;
 
   @override
-  Future<Result<void, AppAuthException>> execute(
+  Future<void> execute(
       {required (String email, String password) request}) async {
     return _authRepository.signInWithEmailAndPassword(request.$1, request.$2);
   }

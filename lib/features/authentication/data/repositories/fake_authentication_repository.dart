@@ -1,31 +1,28 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:multiple_result/src/result.dart';
-
 import '../../../../exceptions/app_auth_exception.dart';
 import '../../../../utils/delay.dart';
 import '../../../../utils/in_memory_store.dart';
 import '../../domain/models/app_user.dart';
 import '../../domain/repositories/authentication_repository.dart';
 
-final fakeAuthenticationRepositoryProvider =
-    Provider.autoDispose<FakeAuthenticationRepository>(
-  (ref) {
-    final auth = FakeAuthenticationRepository();
-    ref.onDispose(() => auth.dispose());
-    ref.keepAlive();
-    return auth;
-  },
-  name: r"fakeAuthenticationRepositoryProvider",
-);
+// final fakeAuthenticationRepositoryProvider =
+//     Provider.autoDispose<FakeAuthenticationRepository>(
+//   (ref) {
+//     final auth = FakeAuthenticationRepository();
+//     ref.onDispose(() => auth.dispose());
+//     ref.keepAlive();
+//     return auth;
+//   },
+//   name: r"fakeAuthenticationRepositoryProvider",
+// );
 
-final fakeAuthStateChangesProvider = Provider.autoDispose<Stream<AppUser?>>(
-  (ref) {
-    final authRepository = ref.watch(fakeAuthenticationRepositoryProvider);
-    ref.keepAlive();
-    return authRepository.authStateChanges();
-  },
-  name: r"fakeAuthStateChangesProvider",
-);
+// final fakeAuthStateChangesProvider = Provider.autoDispose<Stream<AppUser?>>(
+//   (ref) {
+//     final authRepository = ref.watch(fakeAuthenticationRepositoryProvider);
+//     ref.keepAlive();
+//     return authRepository.authStateChanges();
+//   },
+//   name: r"fakeAuthStateChangesProvider",
+// );
 
 class FakeAuthenticationRepository implements AuthenticationRepository {
   FakeAuthenticationRepository({this.addDelay = true});
@@ -94,7 +91,7 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
   }
 
   @override
-  Future<Result<void, AppAuthException>> resetPassword(String email) {
+  Future<void> resetPassword(String email) {
     // TODO: implement resetPassword
     throw UnimplementedError();
   }

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +5,9 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'constants/custom_colors.dart';
+import 'exceptions/async_error_logger.dart';
+import 'features/authentication/data/repositories/fake_authentication_repository.dart';
+import 'features/authentication/data/repositories/firebase_authentication_repository.dart';
 import 'firebase_options.dart';
 import 'routers/app_router.dart';
 
@@ -27,9 +29,19 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
 
+  // * Create ProviderContainer with any required overrides
+  final container = ProviderContainer(
+    overrides: [
+      authenticationRepositoryProvider
+          .overrideWithValue(FakeAuthenticationRepository()),
+    ],
+    observers: [AsyncErrorLogger()],
+  );
+
   runApp(
-    const ProviderScope(
-      child: App(),
+    UncontrolledProviderScope(
+      container: container,
+      child: const App(),
     ),
   );
 }

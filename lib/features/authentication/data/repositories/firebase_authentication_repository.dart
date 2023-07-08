@@ -6,12 +6,23 @@ import 'package:multiple_result/multiple_result.dart';
 import '../../../../exceptions/app_auth_exception.dart';
 import '../../domain/repositories/authentication_repository.dart';
 
-final firebaseAuthenticationRepositoryProvider =
-    Provider<FirebaseAuthenticationRepository>(
+final authenticationRepositoryProvider =
+    Provider.autoDispose<AuthenticationRepository>(
   (ref) {
-    return FirebaseAuthenticationRepository();
+    final auth = FirebaseAuthenticationRepository();
+    ref.keepAlive();
+    return auth;
   },
-  name: r"firebaseAuthenticationRepositoryProvider",
+  name: r"authenticationRepositoryProvider",
+);
+
+final authStateChangesProvider = Provider.autoDispose<Stream<AppUser?>>(
+  (ref) {
+    final authRepository = ref.watch(authenticationRepositoryProvider);
+    ref.keepAlive();
+    return authRepository.authStateChanges();
+  },
+  name: r"authStateChangesProvider",
 );
 
 class FirebaseAuthenticationRepository implements AuthenticationRepository {
@@ -19,13 +30,29 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
 
   @override
   Stream<AppUser?> authStateChanges() {
-    // TODO: implement authStateChanges
-    throw UnimplementedError();
+    var authState = _firebaseAuth.authStateChanges();
+    return authState.map<AppUser?>((userData) {
+      if (userData == null) {
+        return null;
+      }
+      return AppUser(
+        uid: userData.uid,
+        email: userData.email!,
+      );
+    });
   }
 
   @override
-  // TODO: implement currentUser
-  AppUser? get currentUser => throw UnimplementedError();
+  AppUser? get currentUser {
+    var user = _firebaseAuth.currentUser;
+    if (user == null) {
+      return null;
+    }
+    return AppUser(
+      uid: user.uid,
+      email: user.email!,
+    );
+  }
 
   @override
   Future<Result<void, AppAuthException>> resetPassword(String email) async {
