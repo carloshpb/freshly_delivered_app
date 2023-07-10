@@ -6,14 +6,14 @@ import '../../data/repositories/firebase_authentication_repository.dart';
 import '../../domain/repositories/authentication_repository.dart';
 import '../../domain/use_cases/send_password_reset_email_use_case.dart';
 
-final resetPasswordUseCaseProvider =
+final sendPasswordResetEmailUseCaseProvider =
     Provider.autoDispose<SendPasswordResetEmailUseCase>(
   (ref) {
     return SendPasswordResetEmailUseCaseImpl(
       authRepository: ref.watch(authenticationRepositoryProvider),
     );
   },
-  name: r"resetPasswordUseCaseProvider",
+  name: r"sendPasswordResetEmailUseCaseProvider",
 );
 
 class SendPasswordResetEmailUseCaseImpl

@@ -49,7 +49,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
   }
 
   void _goToLoginScreen() =>
-      ref.read(goRouterProvider).go(AppRouter.login.path);
+      ref.read(goRouterProvider).pushReplacement(AppRouter.login.path);
 
   @override
   Widget build(BuildContext context) {

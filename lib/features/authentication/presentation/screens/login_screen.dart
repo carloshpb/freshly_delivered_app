@@ -1,20 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../common_widgets/custom_snackbar.dart';
 import '../../../../common_widgets/ensure_visible_when_focused.dart';
 import '../../../../constants/custom_colors.dart';
 import '../../../../constants/paths.dart';
 import '../../../../constants/strings.dart';
+import '../../../../exceptions/app_auth_exception.dart';
+import '../../../../routers/app_router.dart';
+import '../controllers/login_controller.dart';
 
 final _passwordVisibleStateProvider = StateProvider.autoDispose<bool>(
   (ref) => true,
 );
 
-class LoginScreen extends ConsumerWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  // create a TextEditingController
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  // dispose it when the widget is unmounted
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // error handling
+    ref.listen<AsyncValue<void>>(
+      loginControllerProvider,
+      (_, state) => state.whenOrNull(
+        error: (error, stackTrace) {
+          if (!(error is UserNotFoundException ||
+              error is WrongPasswordException)) {
+            CustomSnackbar.showErrorToast(context, 'Erro', error.toString());
+          }
+        },
+      ),
+    );
+
     //final mediaQuerySize = MediaQuery.sizeOf(context);
     final emailFocusNode = FocusNode();
     final passwordFocusNode = FocusNode();
@@ -38,10 +72,9 @@ class LoginScreen extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         //mainAxisSize: MainAxisSize.min,
                         children: [
-                          Expanded(
-                            child: Image.asset(
-                              Paths.logoPath,
-                            ),
+                          Image.asset(
+                            Paths.logoPath,
+                            height: (constraints.maxHeight) * 0.1189,
                           ),
                           Text(
                             Strings.login.toUpperCase(),
@@ -73,12 +106,22 @@ class LoginScreen extends ConsumerWidget {
                           focusNode: emailFocusNode,
                           child: TextField(
                             autofillHints: const [AutofillHints.email],
+                            controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
                             focusNode: emailFocusNode,
                             style: const TextStyle(
                               color: CustomColors.buttonGreen,
                               fontSize: 16.0,
                             ),
+                            onChanged: (_) {
+                              if (ref.read(loginControllerProvider).hasError &&
+                                  ref.read(loginControllerProvider).error
+                                      is UserNotFoundException) {
+                                ref
+                                    .read(loginControllerProvider.notifier)
+                                    .clearState();
+                              }
+                            },
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
@@ -86,6 +129,15 @@ class LoginScreen extends ConsumerWidget {
                                 Icons.mail,
                                 color: CustomColors.greenIcon,
                               ),
+                              errorText: (ref
+                                          .watch(loginControllerProvider)
+                                          .hasError &&
+                                      ref.watch(loginControllerProvider).error
+                                          is UserNotFoundException)
+                                  ? (ref.watch(loginControllerProvider).error
+                                          as UserNotFoundException)
+                                      .message
+                                  : null,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(
                                   10.0,
@@ -117,6 +169,7 @@ class LoginScreen extends ConsumerWidget {
                           focusNode: passwordFocusNode,
                           child: TextField(
                             autofillHints: const [AutofillHints.password],
+                            controller: _passwordController,
                             keyboardType:
                                 (ref.watch(_passwordVisibleStateProvider))
                                     ? TextInputType.text
@@ -129,9 +182,27 @@ class LoginScreen extends ConsumerWidget {
                               color: CustomColors.buttonGreen,
                               fontSize: 16.0,
                             ),
+                            onChanged: (_) {
+                              if (ref.read(loginControllerProvider).hasError &&
+                                  ref.read(loginControllerProvider).error
+                                      is WrongPasswordException) {
+                                ref
+                                    .read(loginControllerProvider.notifier)
+                                    .clearState();
+                              }
+                            },
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
+                              errorText: (ref
+                                          .watch(loginControllerProvider)
+                                          .hasError &&
+                                      ref.watch(loginControllerProvider).error
+                                          is WrongPasswordException)
+                                  ? (ref.watch(loginControllerProvider).error
+                                          as WrongPasswordException)
+                                      .message
+                                  : null,
                               prefixIcon: const Icon(
                                 Icons.lock,
                                 color: CustomColors.greenIcon,
@@ -172,7 +243,9 @@ class LoginScreen extends ConsumerWidget {
                                 ),
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () => ref
+                                    .read(goRouterProvider)
+                                    .go(AppRouter.signUp.path),
                                 style: TextButton.styleFrom(
                                   minimumSize: Size.zero,
                                   padding: const EdgeInsets.symmetric(
@@ -193,6 +266,18 @@ class LoginScreen extends ConsumerWidget {
                           ),
                         ),
                         ElevatedButton(
+                          onPressed: (ref
+                                      .watch(loginControllerProvider)
+                                      .hasError &&
+                                  (ref.watch(loginControllerProvider).error
+                                          is WrongPasswordException ||
+                                      ref.watch(loginControllerProvider).error
+                                          is UserNotFoundException))
+                              ? null
+                              : () => ref
+                                  .read(loginControllerProvider.notifier)
+                                  .signIn(_emailController.text,
+                                      _passwordController.text),
                           child: Text(
                             Strings.login.toUpperCase(),
                             style: const TextStyle(
@@ -201,7 +286,6 @@ class LoginScreen extends ConsumerWidget {
                               color: Colors.white,
                             ),
                           ),
-                          onPressed: () {},
                         ),
                       ],
                     ),
@@ -216,7 +300,9 @@ class LoginScreen extends ConsumerWidget {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () => ref
+                              .read(goRouterProvider)
+                              .go(AppRouter.signUp.path),
                           child: Text(
                             Strings.register.toUpperCase(),
                             style: const TextStyle(
