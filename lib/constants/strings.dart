@@ -8,11 +8,20 @@ class Strings {
   static const back = "Back";
   static const skip = "Skip";
   static const register = "Register";
+  static const recoverAccount = "Recover Account";
+  static const resetLinkSent = "Reset Link Sent";
+  static const here = "Here";
 
   /// Messages
   static const forgotPasword = "Forgot password?";
   static const getStarted = "Get started";
   static const questionDontHaveAccount = "Don’t have an account?";
+  static const questionNoResetPassSentLink = "Didn’t receive the reset link?";
+  static const questionAlreadyHaveAccount = "Already have an account?";
+  static const recoverPassMessage =
+      "Enter the email address connected to your account and we will send you a link to reset your password";
+  static const sentResetLinkMessage =
+      "We have sent a link to the email provided. Please click on the link to reset your account. Please check your spam folder if you did not see it in your inbox";
 
   /// Exceptions
   /// General

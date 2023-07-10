@@ -9,16 +9,15 @@ import '../../../../exceptions/app_auth_exception.dart';
 import '../../../../routers/app_router.dart';
 import '../controllers/forgot_password_login_controller.dart';
 
-class ForgotPasswordLoginScreen extends ConsumerStatefulWidget {
-  const ForgotPasswordLoginScreen({super.key});
+class ResetLinkSentScreen extends ConsumerStatefulWidget {
+  const ResetLinkSentScreen({super.key});
 
   @override
-  ConsumerState<ForgotPasswordLoginScreen> createState() =>
-      _ForgotPasswordLoginScreenState();
+  ConsumerState<ResetLinkSentScreen> createState() =>
+      _ResetLinkSentScreenState();
 }
 
-class _ForgotPasswordLoginScreenState
-    extends ConsumerState<ForgotPasswordLoginScreen> {
+class _ResetLinkSentScreenState extends ConsumerState<ResetLinkSentScreen> {
   final _emailController = TextEditingController();
 
   // dispose it when the widget is unmounted
@@ -59,7 +58,8 @@ class _ForgotPasswordLoginScreenState
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Text(
-                          Strings.recoverAccount.toUpperCase(),
+                          Strings.resetLinkSent.toUpperCase(),
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Color.fromRGBO(245, 134, 52, 1.0),
                             fontSize: 25.0,
@@ -73,9 +73,25 @@ class _ForgotPasswordLoginScreenState
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
-                          Strings.recoverPassMessage.toUpperCase(),
+                          Strings.sentResetLinkMessage.toUpperCase(),
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.white,
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 25.0),
+                        child: Text(
+                          Strings.questionNoResetPassSentLink.toUpperCase(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.black,
                             fontSize: 12.0,
                             fontWeight: FontWeight.w700,
                           ),
@@ -177,6 +193,33 @@ class _ForgotPasswordLoginScreenState
                             color: Colors.white,
                           ),
                         ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            Strings.questionAlreadyHaveAccount,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () => ref
+                                .read(goRouterProvider)
+                                .go(AppRouter.login.path),
+                            child: Text(
+                              "${Strings.login} ${Strings.here}".toUpperCase(),
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                     const Spacer(),
