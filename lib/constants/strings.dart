@@ -32,17 +32,28 @@ class Strings {
 
   // Firebase Auth
   static const invalidEmail = "The email address is not valid";
-  static const missingAndroidPkgName = "The email address is not valid.";
-  static const missingContinueUri = "The email address is not valid.";
-  static const missingIosBundleId = "The email address is not valid.";
-  static const invalidContinueUri = "The email address is not valid.";
-  static const unauthorizedContinueUri = "The email address is not valid.";
-  static const userNotFound = "The email address is not valid.";
+  static const missingAndroidPkgName =
+      "A package name must be provided to install the Android app";
+  static const missingContinueUri =
+      "The next URL must be provided in the request";
+  static const missingIosBundleId =
+      "A bundle name must be provided to install the iOS app";
+  static const invalidContinueUri =
+      "The next URL provided in the request is invalid";
+  static const unauthorizedContinueUri =
+      "The domain of the next URL is not whitelisted";
+  static const userNotFound = "The user does not match any credentials";
   static const unknownErrorCode =
       "This exception code is unknown. Please contact the company to report this error";
-  static const userDisabled = "";
-  static const wrongPassword = "";
-  static const emailAlreadyInUseException = "";
-  static const operationNotAllowedException = "";
+  static const userDisabled =
+      "The user corresponding to the given credential has been disabled";
+  static const wrongPassword = "Wrong password";
+  static const emailAlreadyInUseException =
+      "The provided email is already in use";
+  static const operationNotAllowedException =
+      "The account type corresponding to this credential is not yet activated";
   static const weakPassword = "The password must be 6 characters long or more";
+  static const expiredActionCode = "The action code or link has expired";
+  static const invalidActionCode =
+      "The action code is invalid. This can happen if the code is malformed or has already been used";
 }

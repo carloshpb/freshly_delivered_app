@@ -4,25 +4,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/repositories/firebase_authentication_repository.dart';
 import '../../domain/repositories/authentication_repository.dart';
-import '../../domain/use_cases/reset_password_use_case.dart';
+import '../../domain/use_cases/send_password_reset_email_use_case.dart';
 
-final resetPasswordUseCaseProvider = Provider.autoDispose<ResetPasswordUseCase>(
+final resetPasswordUseCaseProvider =
+    Provider.autoDispose<SendPasswordResetEmailUseCase>(
   (ref) {
-    return ResetPasswordUseCaseImpl(
+    return SendPasswordResetEmailUseCaseImpl(
       authRepository: ref.watch(authenticationRepositoryProvider),
     );
   },
   name: r"resetPasswordUseCaseProvider",
 );
 
-class ResetPasswordUseCaseImpl implements ResetPasswordUseCase {
+class SendPasswordResetEmailUseCaseImpl
+    implements SendPasswordResetEmailUseCase {
   final AuthenticationRepository _authRepository;
 
-  ResetPasswordUseCaseImpl({required AuthenticationRepository authRepository})
+  SendPasswordResetEmailUseCaseImpl(
+      {required AuthenticationRepository authRepository})
       : _authRepository = authRepository;
 
   @override
   Future<void> execute({required String request}) async {
-    return _authRepository.resetPassword(request);
+    return _authRepository.sendPasswordResetEmail(request);
   }
 }

@@ -32,8 +32,12 @@ Future<void> main() async {
   // * Create ProviderContainer with any required overrides
   final container = ProviderContainer(
     overrides: [
-      authenticationRepositoryProvider
-          .overrideWithValue(FakeAuthenticationRepository()),
+      authenticationRepositoryProvider.overrideWith((ref) {
+        final auth = FakeAuthenticationRepository();
+        ref.onDispose(() => auth.dispose());
+        ref.keepAlive();
+        return auth;
+      }),
     ],
     observers: [AsyncErrorLogger()],
   );
