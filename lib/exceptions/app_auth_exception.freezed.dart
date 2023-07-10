@@ -30,6 +30,8 @@ mixin _$AppAuthException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +49,8 @@ mixin _$AppAuthException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) =>
       throw _privateConstructorUsedError;
@@ -64,6 +68,8 @@ mixin _$AppAuthException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) =>
@@ -89,6 +95,10 @@ mixin _$AppAuthException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) =>
       throw _privateConstructorUsedError;
@@ -110,6 +120,8 @@ mixin _$AppAuthException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) =>
       throw _privateConstructorUsedError;
@@ -131,6 +143,8 @@ mixin _$AppAuthException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) =>
@@ -205,6 +219,8 @@ class _$InvalidEmailException extends InvalidEmailException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return invalidEmail();
@@ -225,6 +241,8 @@ class _$InvalidEmailException extends InvalidEmailException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return invalidEmail?.call();
@@ -245,6 +263,8 @@ class _$InvalidEmailException extends InvalidEmailException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -276,6 +296,10 @@ class _$InvalidEmailException extends InvalidEmailException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return invalidEmail(this);
@@ -300,6 +324,8 @@ class _$InvalidEmailException extends InvalidEmailException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return invalidEmail?.call(this);
@@ -324,6 +350,8 @@ class _$InvalidEmailException extends InvalidEmailException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -393,6 +421,8 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return missingAndroidPkgName();
@@ -413,6 +443,8 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return missingAndroidPkgName?.call();
@@ -433,6 +465,8 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -464,6 +498,10 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return missingAndroidPkgName(this);
@@ -488,6 +526,8 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return missingAndroidPkgName?.call(this);
@@ -512,6 +552,8 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -581,6 +623,8 @@ class _$MissingContinueUriException extends MissingContinueUriException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return missingContinueUri();
@@ -601,6 +645,8 @@ class _$MissingContinueUriException extends MissingContinueUriException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return missingContinueUri?.call();
@@ -621,6 +667,8 @@ class _$MissingContinueUriException extends MissingContinueUriException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -652,6 +700,10 @@ class _$MissingContinueUriException extends MissingContinueUriException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return missingContinueUri(this);
@@ -676,6 +728,8 @@ class _$MissingContinueUriException extends MissingContinueUriException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return missingContinueUri?.call(this);
@@ -700,6 +754,8 @@ class _$MissingContinueUriException extends MissingContinueUriException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -768,6 +824,8 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return missingIosBundleId();
@@ -788,6 +846,8 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return missingIosBundleId?.call();
@@ -808,6 +868,8 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -839,6 +901,10 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return missingIosBundleId(this);
@@ -863,6 +929,8 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return missingIosBundleId?.call(this);
@@ -887,6 +955,8 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -955,6 +1025,8 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return invalidContinueUri();
@@ -975,6 +1047,8 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return invalidContinueUri?.call();
@@ -995,6 +1069,8 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1026,6 +1102,10 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return invalidContinueUri(this);
@@ -1050,6 +1130,8 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return invalidContinueUri?.call(this);
@@ -1074,6 +1156,8 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1144,6 +1228,8 @@ class _$UnauthorizedContinueUriException
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return unauthorizedContinueUri();
@@ -1164,6 +1250,8 @@ class _$UnauthorizedContinueUriException
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return unauthorizedContinueUri?.call();
@@ -1184,6 +1272,8 @@ class _$UnauthorizedContinueUriException
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1215,6 +1305,10 @@ class _$UnauthorizedContinueUriException
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return unauthorizedContinueUri(this);
@@ -1239,6 +1333,8 @@ class _$UnauthorizedContinueUriException
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return unauthorizedContinueUri?.call(this);
@@ -1263,6 +1359,8 @@ class _$UnauthorizedContinueUriException
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1329,6 +1427,8 @@ class _$UserNotFoundException extends UserNotFoundException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return userNotFound();
@@ -1349,6 +1449,8 @@ class _$UserNotFoundException extends UserNotFoundException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return userNotFound?.call();
@@ -1369,6 +1471,8 @@ class _$UserNotFoundException extends UserNotFoundException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1400,6 +1504,10 @@ class _$UserNotFoundException extends UserNotFoundException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return userNotFound(this);
@@ -1424,6 +1532,8 @@ class _$UserNotFoundException extends UserNotFoundException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return userNotFound?.call(this);
@@ -1448,6 +1558,8 @@ class _$UserNotFoundException extends UserNotFoundException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1513,6 +1625,8 @@ class _$UserDisabledException extends UserDisabledException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return userDisabled();
@@ -1533,6 +1647,8 @@ class _$UserDisabledException extends UserDisabledException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return userDisabled?.call();
@@ -1553,6 +1669,8 @@ class _$UserDisabledException extends UserDisabledException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1584,6 +1702,10 @@ class _$UserDisabledException extends UserDisabledException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return userDisabled(this);
@@ -1608,6 +1730,8 @@ class _$UserDisabledException extends UserDisabledException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return userDisabled?.call(this);
@@ -1632,6 +1756,8 @@ class _$UserDisabledException extends UserDisabledException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1697,6 +1823,8 @@ class _$WrongPasswordException extends WrongPasswordException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return wrongPassword();
@@ -1717,6 +1845,8 @@ class _$WrongPasswordException extends WrongPasswordException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return wrongPassword?.call();
@@ -1737,6 +1867,8 @@ class _$WrongPasswordException extends WrongPasswordException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1768,6 +1900,10 @@ class _$WrongPasswordException extends WrongPasswordException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return wrongPassword(this);
@@ -1792,6 +1928,8 @@ class _$WrongPasswordException extends WrongPasswordException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return wrongPassword?.call(this);
@@ -1816,6 +1954,8 @@ class _$WrongPasswordException extends WrongPasswordException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1884,6 +2024,8 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return emailAlreadyInUseException();
@@ -1904,6 +2046,8 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return emailAlreadyInUseException?.call();
@@ -1924,6 +2068,8 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1955,6 +2101,10 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return emailAlreadyInUseException(this);
@@ -1979,6 +2129,8 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return emailAlreadyInUseException?.call(this);
@@ -2003,6 +2155,8 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2071,6 +2225,8 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return operationNotAllowedException();
@@ -2091,6 +2247,8 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return operationNotAllowedException?.call();
@@ -2111,6 +2269,8 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2142,6 +2302,10 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return operationNotAllowedException(this);
@@ -2166,6 +2330,8 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return operationNotAllowedException?.call(this);
@@ -2190,6 +2356,8 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2255,6 +2423,8 @@ class _$WeakPasswordException extends WeakPasswordException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return weakPassword();
@@ -2275,6 +2445,8 @@ class _$WeakPasswordException extends WeakPasswordException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return weakPassword?.call();
@@ -2295,6 +2467,8 @@ class _$WeakPasswordException extends WeakPasswordException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2326,6 +2500,10 @@ class _$WeakPasswordException extends WeakPasswordException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return weakPassword(this);
@@ -2350,6 +2528,8 @@ class _$WeakPasswordException extends WeakPasswordException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return weakPassword?.call(this);
@@ -2374,6 +2554,8 @@ class _$WeakPasswordException extends WeakPasswordException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2387,6 +2569,408 @@ class _$WeakPasswordException extends WeakPasswordException {
 abstract class WeakPasswordException extends AppAuthException {
   const factory WeakPasswordException() = _$WeakPasswordException;
   const WeakPasswordException._() : super._();
+}
+
+/// @nodoc
+abstract class _$$ExpiredActionCodeExceptionCopyWith<$Res> {
+  factory _$$ExpiredActionCodeExceptionCopyWith(
+          _$ExpiredActionCodeException value,
+          $Res Function(_$ExpiredActionCodeException) then) =
+      __$$ExpiredActionCodeExceptionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ExpiredActionCodeExceptionCopyWithImpl<$Res>
+    extends _$AppAuthExceptionCopyWithImpl<$Res, _$ExpiredActionCodeException>
+    implements _$$ExpiredActionCodeExceptionCopyWith<$Res> {
+  __$$ExpiredActionCodeExceptionCopyWithImpl(
+      _$ExpiredActionCodeException _value,
+      $Res Function(_$ExpiredActionCodeException) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ExpiredActionCodeException extends ExpiredActionCodeException {
+  const _$ExpiredActionCodeException() : super._();
+
+  @override
+  String toString() {
+    return 'AppAuthException.expiredActionCode()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ExpiredActionCodeException);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidEmail,
+    required TResult Function() missingAndroidPkgName,
+    required TResult Function() missingContinueUri,
+    required TResult Function() missingIosBundleId,
+    required TResult Function() invalidContinueUri,
+    required TResult Function() unauthorizedContinueUri,
+    required TResult Function() userNotFound,
+    required TResult Function() userDisabled,
+    required TResult Function() wrongPassword,
+    required TResult Function() emailAlreadyInUseException,
+    required TResult Function() operationNotAllowedException,
+    required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
+    required TResult Function(String code) unknownAuthCode,
+  }) {
+    return expiredActionCode();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidEmail,
+    TResult? Function()? missingAndroidPkgName,
+    TResult? Function()? missingContinueUri,
+    TResult? Function()? missingIosBundleId,
+    TResult? Function()? invalidContinueUri,
+    TResult? Function()? unauthorizedContinueUri,
+    TResult? Function()? userNotFound,
+    TResult? Function()? userDisabled,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? emailAlreadyInUseException,
+    TResult? Function()? operationNotAllowedException,
+    TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
+    TResult? Function(String code)? unknownAuthCode,
+  }) {
+    return expiredActionCode?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidEmail,
+    TResult Function()? missingAndroidPkgName,
+    TResult Function()? missingContinueUri,
+    TResult Function()? missingIosBundleId,
+    TResult Function()? invalidContinueUri,
+    TResult Function()? unauthorizedContinueUri,
+    TResult Function()? userNotFound,
+    TResult Function()? userDisabled,
+    TResult Function()? wrongPassword,
+    TResult Function()? emailAlreadyInUseException,
+    TResult Function()? operationNotAllowedException,
+    TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
+    TResult Function(String code)? unknownAuthCode,
+    required TResult orElse(),
+  }) {
+    if (expiredActionCode != null) {
+      return expiredActionCode();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(MissingAndroidPkgNameException value)
+        missingAndroidPkgName,
+    required TResult Function(MissingContinueUriException value)
+        missingContinueUri,
+    required TResult Function(MissingIosBundleIdException value)
+        missingIosBundleId,
+    required TResult Function(InvalidContinueUriException value)
+        invalidContinueUri,
+    required TResult Function(UnauthorizedContinueUriException value)
+        unauthorizedContinueUri,
+    required TResult Function(UserNotFoundException value) userNotFound,
+    required TResult Function(UserDisabledException value) userDisabled,
+    required TResult Function(WrongPasswordException value) wrongPassword,
+    required TResult Function(EmailAlreadyInUseException value)
+        emailAlreadyInUseException,
+    required TResult Function(OperationNotAllowedException value)
+        operationNotAllowedException,
+    required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
+    required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
+  }) {
+    return expiredActionCode(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(MissingAndroidPkgNameException value)?
+        missingAndroidPkgName,
+    TResult? Function(MissingContinueUriException value)? missingContinueUri,
+    TResult? Function(MissingIosBundleIdException value)? missingIosBundleId,
+    TResult? Function(InvalidContinueUriException value)? invalidContinueUri,
+    TResult? Function(UnauthorizedContinueUriException value)?
+        unauthorizedContinueUri,
+    TResult? Function(UserNotFoundException value)? userNotFound,
+    TResult? Function(UserDisabledException value)? userDisabled,
+    TResult? Function(WrongPasswordException value)? wrongPassword,
+    TResult? Function(EmailAlreadyInUseException value)?
+        emailAlreadyInUseException,
+    TResult? Function(OperationNotAllowedException value)?
+        operationNotAllowedException,
+    TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
+  }) {
+    return expiredActionCode?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(MissingAndroidPkgNameException value)?
+        missingAndroidPkgName,
+    TResult Function(MissingContinueUriException value)? missingContinueUri,
+    TResult Function(MissingIosBundleIdException value)? missingIosBundleId,
+    TResult Function(InvalidContinueUriException value)? invalidContinueUri,
+    TResult Function(UnauthorizedContinueUriException value)?
+        unauthorizedContinueUri,
+    TResult Function(UserNotFoundException value)? userNotFound,
+    TResult Function(UserDisabledException value)? userDisabled,
+    TResult Function(WrongPasswordException value)? wrongPassword,
+    TResult Function(EmailAlreadyInUseException value)?
+        emailAlreadyInUseException,
+    TResult Function(OperationNotAllowedException value)?
+        operationNotAllowedException,
+    TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
+    required TResult orElse(),
+  }) {
+    if (expiredActionCode != null) {
+      return expiredActionCode(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ExpiredActionCodeException extends AppAuthException {
+  const factory ExpiredActionCodeException() = _$ExpiredActionCodeException;
+  const ExpiredActionCodeException._() : super._();
+}
+
+/// @nodoc
+abstract class _$$InvalidActionCodeExceptionCopyWith<$Res> {
+  factory _$$InvalidActionCodeExceptionCopyWith(
+          _$InvalidActionCodeException value,
+          $Res Function(_$InvalidActionCodeException) then) =
+      __$$InvalidActionCodeExceptionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvalidActionCodeExceptionCopyWithImpl<$Res>
+    extends _$AppAuthExceptionCopyWithImpl<$Res, _$InvalidActionCodeException>
+    implements _$$InvalidActionCodeExceptionCopyWith<$Res> {
+  __$$InvalidActionCodeExceptionCopyWithImpl(
+      _$InvalidActionCodeException _value,
+      $Res Function(_$InvalidActionCodeException) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$InvalidActionCodeException extends InvalidActionCodeException {
+  const _$InvalidActionCodeException() : super._();
+
+  @override
+  String toString() {
+    return 'AppAuthException.invalidActionCode()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InvalidActionCodeException);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidEmail,
+    required TResult Function() missingAndroidPkgName,
+    required TResult Function() missingContinueUri,
+    required TResult Function() missingIosBundleId,
+    required TResult Function() invalidContinueUri,
+    required TResult Function() unauthorizedContinueUri,
+    required TResult Function() userNotFound,
+    required TResult Function() userDisabled,
+    required TResult Function() wrongPassword,
+    required TResult Function() emailAlreadyInUseException,
+    required TResult Function() operationNotAllowedException,
+    required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
+    required TResult Function(String code) unknownAuthCode,
+  }) {
+    return invalidActionCode();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidEmail,
+    TResult? Function()? missingAndroidPkgName,
+    TResult? Function()? missingContinueUri,
+    TResult? Function()? missingIosBundleId,
+    TResult? Function()? invalidContinueUri,
+    TResult? Function()? unauthorizedContinueUri,
+    TResult? Function()? userNotFound,
+    TResult? Function()? userDisabled,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? emailAlreadyInUseException,
+    TResult? Function()? operationNotAllowedException,
+    TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
+    TResult? Function(String code)? unknownAuthCode,
+  }) {
+    return invalidActionCode?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidEmail,
+    TResult Function()? missingAndroidPkgName,
+    TResult Function()? missingContinueUri,
+    TResult Function()? missingIosBundleId,
+    TResult Function()? invalidContinueUri,
+    TResult Function()? unauthorizedContinueUri,
+    TResult Function()? userNotFound,
+    TResult Function()? userDisabled,
+    TResult Function()? wrongPassword,
+    TResult Function()? emailAlreadyInUseException,
+    TResult Function()? operationNotAllowedException,
+    TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
+    TResult Function(String code)? unknownAuthCode,
+    required TResult orElse(),
+  }) {
+    if (invalidActionCode != null) {
+      return invalidActionCode();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(MissingAndroidPkgNameException value)
+        missingAndroidPkgName,
+    required TResult Function(MissingContinueUriException value)
+        missingContinueUri,
+    required TResult Function(MissingIosBundleIdException value)
+        missingIosBundleId,
+    required TResult Function(InvalidContinueUriException value)
+        invalidContinueUri,
+    required TResult Function(UnauthorizedContinueUriException value)
+        unauthorizedContinueUri,
+    required TResult Function(UserNotFoundException value) userNotFound,
+    required TResult Function(UserDisabledException value) userDisabled,
+    required TResult Function(WrongPasswordException value) wrongPassword,
+    required TResult Function(EmailAlreadyInUseException value)
+        emailAlreadyInUseException,
+    required TResult Function(OperationNotAllowedException value)
+        operationNotAllowedException,
+    required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
+    required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
+  }) {
+    return invalidActionCode(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(MissingAndroidPkgNameException value)?
+        missingAndroidPkgName,
+    TResult? Function(MissingContinueUriException value)? missingContinueUri,
+    TResult? Function(MissingIosBundleIdException value)? missingIosBundleId,
+    TResult? Function(InvalidContinueUriException value)? invalidContinueUri,
+    TResult? Function(UnauthorizedContinueUriException value)?
+        unauthorizedContinueUri,
+    TResult? Function(UserNotFoundException value)? userNotFound,
+    TResult? Function(UserDisabledException value)? userDisabled,
+    TResult? Function(WrongPasswordException value)? wrongPassword,
+    TResult? Function(EmailAlreadyInUseException value)?
+        emailAlreadyInUseException,
+    TResult? Function(OperationNotAllowedException value)?
+        operationNotAllowedException,
+    TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
+  }) {
+    return invalidActionCode?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(MissingAndroidPkgNameException value)?
+        missingAndroidPkgName,
+    TResult Function(MissingContinueUriException value)? missingContinueUri,
+    TResult Function(MissingIosBundleIdException value)? missingIosBundleId,
+    TResult Function(InvalidContinueUriException value)? invalidContinueUri,
+    TResult Function(UnauthorizedContinueUriException value)?
+        unauthorizedContinueUri,
+    TResult Function(UserNotFoundException value)? userNotFound,
+    TResult Function(UserDisabledException value)? userDisabled,
+    TResult Function(WrongPasswordException value)? wrongPassword,
+    TResult Function(EmailAlreadyInUseException value)?
+        emailAlreadyInUseException,
+    TResult Function(OperationNotAllowedException value)?
+        operationNotAllowedException,
+    TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
+    required TResult orElse(),
+  }) {
+    if (invalidActionCode != null) {
+      return invalidActionCode(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidActionCodeException extends AppAuthException {
+  const factory InvalidActionCodeException() = _$InvalidActionCodeException;
+  const InvalidActionCodeException._() : super._();
 }
 
 /// @nodoc
@@ -2467,6 +3051,8 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
     required TResult Function() emailAlreadyInUseException,
     required TResult Function() operationNotAllowedException,
     required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return unknownAuthCode(code);
@@ -2487,6 +3073,8 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
     TResult? Function()? emailAlreadyInUseException,
     TResult? Function()? operationNotAllowedException,
     TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return unknownAuthCode?.call(code);
@@ -2507,6 +3095,8 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
     TResult Function()? emailAlreadyInUseException,
     TResult Function()? operationNotAllowedException,
     TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2538,6 +3128,10 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
     required TResult Function(OperationNotAllowedException value)
         operationNotAllowedException,
     required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return unknownAuthCode(this);
@@ -2562,6 +3156,8 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
     TResult? Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return unknownAuthCode?.call(this);
@@ -2586,6 +3182,8 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
     TResult Function(OperationNotAllowedException value)?
         operationNotAllowedException,
     TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {

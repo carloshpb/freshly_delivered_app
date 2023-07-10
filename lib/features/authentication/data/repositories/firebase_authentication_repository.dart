@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart';
-import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../exceptions/app_auth_exception.dart';
 import '../../domain/repositories/authentication_repository.dart';
@@ -55,36 +54,42 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   }
 
   @override
-  Future<Result<void, AppAuthException>> resetPassword(String email) async {
-    try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email);
-      return const Success(null);
-    } on FirebaseAuthException catch (e) {
-      return Error(e.convertToAppException());
-    }
-  }
-
-  @override
-  Future<Result<void, AppAuthException>> signInWithEmailAndPassword(
-      String email, String password) async {
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      return const Success(null);
     } on FirebaseAuthException catch (e) {
-      return Error(e.convertToAppException());
+      throw e.convertToAppException();
     }
   }
 
   @override
-  Future<Result<void, AppAuthException>> createUserWithEmailAndPassword(
+  Future<void> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      return const Success(null);
     } on FirebaseAuthException catch (e) {
-      return Error(e.convertToAppException());
+      throw e.convertToAppException();
+    }
+  }
+
+  @override
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw e.convertToAppException();
+    }
+  }
+
+  @override
+  Future<void> confirmPasswordReset(String code, String newPassword) async {
+    try {
+      await _firebaseAuth.confirmPasswordReset(
+          code: code, newPassword: newPassword);
+    } on FirebaseAuthException catch (e) {
+      throw e.convertToAppException();
     }
   }
 }

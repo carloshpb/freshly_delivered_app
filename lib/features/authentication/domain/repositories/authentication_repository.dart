@@ -5,5 +5,6 @@ abstract class AuthenticationRepository {
   AppUser? get currentUser;
   Future<void> signInWithEmailAndPassword(String email, String password);
   Future<void> createUserWithEmailAndPassword(String email, String password);
-  Future<void> resetPassword(String email);
+  Future<void> sendPasswordResetEmail(String email);
+  Future<void> confirmPasswordReset(String code, String newPassword);
 }
