@@ -28,6 +28,10 @@ sealed class AppAuthException with _$AppAuthException implements Exception {
   const factory AppAuthException.operationNotAllowedException() =
       OperationNotAllowedException;
   const factory AppAuthException.weakPassword() = WeakPasswordException;
+  const factory AppAuthException.expiredActionCode() =
+      ExpiredActionCodeException;
+  const factory AppAuthException.invalidActionCode() =
+      InvalidActionCodeException;
   const factory AppAuthException.unknownAuthCode(String code) =
       UnknownAuthCodeException;
 
@@ -57,6 +61,10 @@ sealed class AppAuthException with _$AppAuthException implements Exception {
         return Strings.operationNotAllowedException;
       case WeakPasswordException():
         return Strings.weakPassword;
+      case ExpiredActionCodeException():
+        return Strings.expiredActionCode;
+      case InvalidActionCodeException():
+        return Strings.invalidActionCode;
       case UnknownAuthCodeException(:final String code):
         return "${Strings.unknownErrorCode} : $code";
     }
@@ -90,6 +98,10 @@ extension FirebaseAuthCodeIdentifier on FirebaseAuthException {
         return const OperationNotAllowedException();
       case "auth/weak-password":
         return const WeakPasswordException();
+      case "auth/expired-action-code":
+        return const ExpiredActionCodeException();
+      case "auth/invalid-action-code":
+        return const InvalidActionCodeException();
       default:
         return UnknownAuthCodeException(code);
     }
