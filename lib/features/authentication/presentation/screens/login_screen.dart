@@ -49,12 +49,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       ),
     );
 
-    //final mediaQuerySize = MediaQuery.sizeOf(context);
+    final appBar = AppBar(
+      backgroundColor: CustomColors.mainGreen,
+    );
+
+    final mediaQuerySize = MediaQuery.sizeOf(context);
     final emailFocusNode = FocusNode();
     final passwordFocusNode = FocusNode();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: CustomColors.mainGreen,
+      appBar: appBar,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -67,14 +72,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   //mainAxisSize: MainAxisSize.max,
                   children: [
                     SizedBox(
-                      height: (constraints.maxHeight) * 0.21522,
+                      height: (mediaQuerySize.height * 0.28) -
+                          appBar.preferredSize.height,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         //mainAxisSize: MainAxisSize.min,
                         children: [
                           Image.asset(
                             Paths.logoPath,
-                            height: (constraints.maxHeight) * 0.1189,
+                            height: (mediaQuerySize.height) * 0.1185,
                           ),
                           Text(
                             Strings.login.toUpperCase(),
@@ -245,7 +251,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               TextButton(
                                 onPressed: () => ref
                                     .read(goRouterProvider)
-                                    .go(AppRouter.signUp.path),
+                                    .go(AppRouter.forgotPasswordLogin.path),
                                 style: TextButton.styleFrom(
                                   minimumSize: Size.zero,
                                   padding: const EdgeInsets.symmetric(

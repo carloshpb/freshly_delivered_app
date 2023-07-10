@@ -25,7 +25,7 @@ enum AppRouter {
   seller('/vendedor'),
   loginVerificationCode('/login/validation'),
   notFound('/not-found'),
-  signUp("sign-up"),
+  signUp("/sign-up"),
   forgotPasswordLogin('/login/forgot-password'),
   resetLinkSent('/login/reset-link-sent'),
   home("/home");

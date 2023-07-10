@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:stack_trace/stack_trace.dart' as stack_trace;
+
 import 'constants/custom_colors.dart';
 import 'exceptions/async_error_logger.dart';
 import 'features/authentication/data/repositories/fake_authentication_repository.dart';
@@ -48,6 +50,12 @@ Future<void> main() async {
       child: const App(),
     ),
   );
+
+  FlutterError.demangleStackTrace = (StackTrace stack) {
+    if (stack is stack_trace.Trace) return stack.vmTrace;
+    if (stack is stack_trace.Chain) return stack.toTrace().vmTrace;
+    return stack;
+  };
 }
 
 class App extends ConsumerWidget {
