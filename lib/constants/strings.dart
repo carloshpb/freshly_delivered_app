@@ -14,6 +14,8 @@ class Strings {
 
   /// Messages
   static const forgotPasword = "Forgot password?";
+  static const resetMyAccount = "Reset my Account";
+  static const sampleEmail = "johndoe@example.com";
   static const getStarted = "Get started";
   static const questionDontHaveAccount = "Don’t have an account?";
   static const questionNoResetPassSentLink = "Didn’t receive the reset link?";

@@ -31,9 +31,17 @@ class _ForgotPasswordLoginScreenState
   @override
   Widget build(BuildContext context) {
     final emailFocusNode = FocusNode();
+    final mediaQuerySize = MediaQuery.sizeOf(context);
+    final appBar = AppBar(
+      backgroundColor: CustomColors.mainGreen,
+      leading: BackButton(
+        onPressed: () => ref.read(goRouterProvider).go(AppRouter.login.path),
+      ),
+    );
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: CustomColors.mainGreen,
+      appBar: appBar,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -46,82 +54,55 @@ class _ForgotPasswordLoginScreenState
                   //mainAxisSize: MainAxisSize.max,
                   children: [
                     SizedBox(
-                      height: (constraints.maxHeight) * 0.21522,
+                      // height: (constraints.maxHeight) * 0.21522,
+                      height: (mediaQuerySize.height * 0.28) -
+                          appBar.preferredSize.height,
                       child: Center(
                         child: Image.asset(
-                          height: (constraints.maxHeight) * 0.1189,
+                          // height: (constraints.maxHeight) * 0.1189,
+                          height: (mediaQuerySize.height) * 0.1185,
                           Paths.logoPath,
                         ),
                       ),
                     ),
                     SizedBox(
+                      height: (mediaQuerySize.height * 0.1825),
                       width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: Text(
-                          Strings.recoverAccount.toUpperCase(),
-                          style: const TextStyle(
-                            color: Color.fromRGBO(245, 134, 52, 1.0),
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          Strings.recoverPassMessage.toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: EnsureVisibleWhenFocused(
-                        focusNode: emailFocusNode,
-                        child: TextField(
-                          autofillHints: const [AutofillHints.email],
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          focusNode: emailFocusNode,
-                          style: const TextStyle(
-                            color: CustomColors.buttonGreen,
-                            fontSize: 16.0,
-                          ),
-                          onChanged: (_) {
-                            if (ref
-                                    .watch(
-                                        forgotPasswordLoginControllerProvider)
-                                    .hasError &&
-                                (ref
-                                        .watch(
-                                            forgotPasswordLoginControllerProvider)
-                                        .error is UserNotFoundException ||
-                                    ref
-                                        .watch(
-                                            forgotPasswordLoginControllerProvider)
-                                        .error is InvalidEmailException)) {
-                              ref
-                                  .read(forgotPasswordLoginControllerProvider
-                                      .notifier)
-                                  .clearState();
-                            }
-                          },
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            prefixIcon: const Icon(
-                              Icons.mail,
-                              color: CustomColors.greenIcon,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            Strings.recoverAccount.toUpperCase(),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Color.fromRGBO(245, 134, 52, 1.0),
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.w600,
                             ),
-                            errorText: (ref
+                          ),
+                          Text(
+                            Strings.recoverPassMessage.toUpperCase(),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          EnsureVisibleWhenFocused(
+                            focusNode: emailFocusNode,
+                            child: TextField(
+                              autofillHints: const [AutofillHints.email],
+                              controller: _emailController,
+                              textAlign: TextAlign.center,
+                              keyboardType: TextInputType.emailAddress,
+                              focusNode: emailFocusNode,
+                              style: const TextStyle(
+                                color: CustomColors.buttonGreen,
+                                fontSize: 16.0,
+                              ),
+                              onChanged: (_) {
+                                if (ref
                                         .watch(
                                             forgotPasswordLoginControllerProvider)
                                         .hasError &&
@@ -132,25 +113,55 @@ class _ForgotPasswordLoginScreenState
                                         ref
                                             .watch(
                                                 forgotPasswordLoginControllerProvider)
-                                            .error is InvalidEmailException))
-                                ? (ref
-                                        .watch(
-                                            forgotPasswordLoginControllerProvider)
-                                        .error as AppAuthException)
-                                    .message
-                                : null,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                10.0,
+                                            .error is InvalidEmailException)) {
+                                  ref
+                                      .read(
+                                          forgotPasswordLoginControllerProvider
+                                              .notifier)
+                                      .clearState();
+                                }
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: Strings.sampleEmail,
+                                hintStyle: const TextStyle(
+                                  color: Colors.black45,
+                                ),
+                                errorText: (ref
+                                            .watch(
+                                                forgotPasswordLoginControllerProvider)
+                                            .hasError &&
+                                        (ref
+                                                    .watch(
+                                                        forgotPasswordLoginControllerProvider)
+                                                    .error
+                                                is UserNotFoundException ||
+                                            ref
+                                                    .watch(
+                                                        forgotPasswordLoginControllerProvider)
+                                                    .error
+                                                is InvalidEmailException))
+                                    ? (ref
+                                            .watch(
+                                                forgotPasswordLoginControllerProvider)
+                                            .error as AppAuthException)
+                                        .message
+                                    : null,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    10.0,
+                                  ),
+                                  borderSide: BorderSide.none,
+                                ),
                               ),
-                              borderSide: BorderSide.none,
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 11.0),
+                      padding: const EdgeInsets.only(top: 12.0),
                       child: ElevatedButton(
                         onPressed: (ref
                                     .watch(
@@ -169,8 +180,11 @@ class _ForgotPasswordLoginScreenState
                                 .read(forgotPasswordLoginControllerProvider
                                     .notifier)
                                 .sendPasswordResetEmail(_emailController.text),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                        ),
                         child: Text(
-                          Strings.login.toUpperCase(),
+                          Strings.resetMyAccount.toUpperCase(),
                           style: const TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w600,
