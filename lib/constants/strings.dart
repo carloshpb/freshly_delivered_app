@@ -11,6 +11,7 @@ class Strings {
   static const recoverAccount = "Recover Account";
   static const resetLinkSent = "Reset Link Sent";
   static const here = "Here";
+  static const resend = "Resend";
 
   /// Messages
   static const forgotPasword = "Forgot password?";

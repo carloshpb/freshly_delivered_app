@@ -24,6 +24,8 @@ _$FakeAppUser _$$FakeAppUserFromJson(Map<String, dynamic> json) =>
       uid: json['uid'] as String,
       email: json['email'] as String,
       password: json['password'] as String,
+      fullname: json['fullname'] as String,
+      phoneNumber: json['phoneNumber'] as String,
       $type: json['runtimeType'] as String?,
     );
 
@@ -32,5 +34,7 @@ Map<String, dynamic> _$$FakeAppUserToJson(_$FakeAppUser instance) =>
       'uid': instance.uid,
       'email': instance.email,
       'password': instance.password,
+      'fullname': instance.fullname,
+      'phoneNumber': instance.phoneNumber,
       'runtimeType': instance.$type,
     };

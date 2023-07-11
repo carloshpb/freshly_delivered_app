@@ -13,7 +13,15 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
   AppUser? get currentUser => _authState.value;
 
   // List to keep track of all user accounts
-  final List<FakeAppUser> _users = [];
+  final List<FakeAppUser> _users = [
+    const FakeAppUser(
+      uid: "moc.tset@eojnhoj",
+      email: "johndoe@test.com",
+      fullname: "John Doe",
+      password: "12345678",
+      phoneNumber: "+234 803 5124 789",
+    ),
+  ];
   final Map<String, String> _resetCode = {};
 
   @override
@@ -35,8 +43,8 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
   }
 
   @override
-  Future<void> createUserWithEmailAndPassword(
-      String email, String password) async {
+  Future<void> createUserWithEmailAndPassword(String email, String password,
+      String fullName, String phoneNumber) async {
     await delay(addDelay);
     // check if the email is already in use
     for (final u in _users) {
@@ -49,7 +57,7 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
       throw const WeakPasswordException();
     }
     // create new user
-    _createNewUser(email, password);
+    _createNewUser(email, password, fullName, phoneNumber);
   }
 
   Future<void> signOut() async {
@@ -58,12 +66,15 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
 
   void dispose() => _authState.close();
 
-  void _createNewUser(String email, String password) {
+  void _createNewUser(
+      String email, String password, String fullName, String phoneNumber) {
     // create new user
     final user = FakeAppUser(
       uid: email.split('').reversed.join(),
       email: email,
       password: password,
+      fullname: fullName,
+      phoneNumber: phoneNumber,
     );
     // register it
     _users.add(user);
