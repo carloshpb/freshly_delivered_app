@@ -1,3 +1,4 @@
+import '../../../../constants/strings.dart';
 import '../../../../exceptions/app_auth_exception.dart';
 import '../../../../utils/delay.dart';
 import '../../../../utils/in_memory_store.dart';
@@ -14,12 +15,12 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
 
   // List to keep track of all user accounts
   final List<FakeAppUser> _users = [
-    const FakeAppUser(
-      uid: "moc.tset@eojnhoj",
-      email: "johndoe@test.com",
-      fullname: "John Doe",
+    FakeAppUser(
+      uid: Strings.sampleEmail.split('').reversed.join(),
+      email: Strings.sampleEmail,
+      fullname: Strings.sampleFullname,
       password: "12345678",
-      phoneNumber: "+234 803 5124 789",
+      phoneNumber: Strings.samplePhoneNumber,
     ),
   ];
   final Map<String, String> _resetCode = {};

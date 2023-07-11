@@ -2,7 +2,10 @@ class Strings {
   /// Words
   static const login = "Login";
   static const email = "Email";
+  static const fullname = "Fullname";
+  static const phoneNumber = "Phone Number";
   static const password = "Password";
+  static const confirmPassword = "Confirm Password";
   static const recover = "Recover";
   static const next = "Next";
   static const back = "Back";
@@ -17,6 +20,9 @@ class Strings {
   static const forgotPasword = "Forgot password?";
   static const resetMyAccount = "Reset my Account";
   static const sampleEmail = "johndoe@example.com";
+  static const sampleFullname = "John Doe";
+  static const samplePhoneNumber = "+234 803 5124 789";
+  static const choosePassword = "Choose a Password";
   static const getStarted = "Get started";
   static const questionDontHaveAccount = "Don’t have an account?";
   static const questionNoResetPassSentLink = "Didn’t receive the reset link?";
@@ -26,6 +32,13 @@ class Strings {
   static const sentResetLinkMessage =
       "We have sent a link to the email provided. Please click on the link to reset your account. Please check your spam folder if you did not see it in your inbox";
   static const sentNewResetLinkMail = "New link sent to your email";
+  static const createAccountWarning =
+      "By creating an account, you agree to be bound by our Terms of Service and Privacy Policy";
+  static const insertValidEmail = "Invalid email. Please insert a valid one";
+  static const insertValidPhone =
+      "Invalid phone number. Please insert a valid one";
+  static const emailAlreadyUsed = "Email address already in use";
+  static const passwordsNotMatch = "Passwords don\'t match";
 
   /// Exceptions
   /// General
@@ -65,7 +78,7 @@ class Strings {
       "The provided email is already in use";
   static const operationNotAllowedException =
       "The account type corresponding to this credential is not yet activated";
-  static const weakPassword = "The password must be 6 characters long or more";
+  static const weakPassword = "The password must be 8 characters long or more";
   static const expiredActionCode = "The action code or link has expired";
   static const invalidActionCode =
       "The action code is invalid. This can happen if the code is malformed or has already been used";
