@@ -64,8 +64,9 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   }
 
   @override
-  Future<void> createUserWithEmailAndPassword(
-      String email, String password) async {
+  Future<void> createUserWithEmailAndPassword(String email, String password,
+      String fullName, String phoneNumber) async {
+    // TODO : Store fullname and phone
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);

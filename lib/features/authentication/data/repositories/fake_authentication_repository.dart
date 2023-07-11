@@ -1,3 +1,4 @@
+import '../../../../constants/strings.dart';
 import '../../../../exceptions/app_auth_exception.dart';
 import '../../../../utils/delay.dart';
 import '../../../../utils/in_memory_store.dart';
@@ -13,7 +14,15 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
   AppUser? get currentUser => _authState.value;
 
   // List to keep track of all user accounts
-  final List<FakeAppUser> _users = [];
+  final List<FakeAppUser> _users = [
+    FakeAppUser(
+      uid: Strings.sampleEmail.split('').reversed.join(),
+      email: Strings.sampleEmail,
+      fullname: Strings.sampleFullname,
+      password: "12345678",
+      phoneNumber: Strings.samplePhoneNumber,
+    ),
+  ];
   final Map<String, String> _resetCode = {};
 
   @override
@@ -35,8 +44,8 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
   }
 
   @override
-  Future<void> createUserWithEmailAndPassword(
-      String email, String password) async {
+  Future<void> createUserWithEmailAndPassword(String email, String password,
+      String fullName, String phoneNumber) async {
     await delay(addDelay);
     // check if the email is already in use
     for (final u in _users) {
@@ -49,7 +58,7 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
       throw const WeakPasswordException();
     }
     // create new user
-    _createNewUser(email, password);
+    _createNewUser(email, password, fullName, phoneNumber);
   }
 
   Future<void> signOut() async {
@@ -58,12 +67,15 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
 
   void dispose() => _authState.close();
 
-  void _createNewUser(String email, String password) {
+  void _createNewUser(
+      String email, String password, String fullName, String phoneNumber) {
     // create new user
     final user = FakeAppUser(
       uid: email.split('').reversed.join(),
       email: email,
       password: password,
+      fullname: fullName,
+      phoneNumber: phoneNumber,
     );
     // register it
     _users.add(user);
