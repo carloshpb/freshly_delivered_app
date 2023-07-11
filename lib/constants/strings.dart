@@ -25,6 +25,7 @@ class Strings {
       "Enter the email address connected to your account and we will send you a link to reset your password";
   static const sentResetLinkMessage =
       "We have sent a link to the email provided. Please click on the link to reset your account. Please check your spam folder if you did not see it in your inbox";
+  static const sentNewResetLinkMail = "New link sent to your email";
 
   /// Exceptions
   /// General

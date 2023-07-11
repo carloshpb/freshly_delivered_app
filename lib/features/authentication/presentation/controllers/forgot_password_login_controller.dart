@@ -10,6 +10,10 @@ final forgotPasswordLoginControllerProvider =
   name: r'forgotPasswordLoginControllerProvider',
 );
 
+final resendTimeMailLinkProvider = StateProvider.autoDispose<int>(
+  (ref) => 0,
+);
+
 class ForgotPasswordLoginController extends AutoDisposeAsyncNotifier<bool> {
   @override
   FutureOr<bool> build() {
@@ -17,7 +21,11 @@ class ForgotPasswordLoginController extends AutoDisposeAsyncNotifier<bool> {
   }
 
   Future<void> sendPasswordResetEmail(String email) async {
+    var isSent = state.value!;
     state = const AsyncValue.loading();
+    if (isSent && ref.read(resendTimeMailLinkProvider) == 0) {
+      await timer();
+    }
     state = await AsyncValue.guard(() async {
       await ref
           .read(sendPasswordResetEmailUseCaseProvider)
@@ -25,6 +33,19 @@ class ForgotPasswordLoginController extends AutoDisposeAsyncNotifier<bool> {
       return true;
       //ref.read(goRouterProvider).pushReplacement(AppRouter.home.path);
     });
+  }
+
+  Future<void> timer() async {
+    final completer = Completer();
+    ref.read(resendTimeMailLinkProvider.notifier).state = 20;
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      ref.read(resendTimeMailLinkProvider.notifier).state--;
+      if (ref.read(resendTimeMailLinkProvider) == 0) {
+        completer.complete();
+        timer.cancel();
+      }
+    });
+    await completer.future;
   }
 
   void clearState() {
