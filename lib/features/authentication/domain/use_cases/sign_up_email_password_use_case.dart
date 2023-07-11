@@ -3,7 +3,13 @@ import 'dart:async';
 import '../../../use_case.dart';
 
 abstract class SignUpEmailPasswordUseCase
-    implements UseCase<(String, String), void> {
+    implements UseCase<(String, String, String, String), void> {
   @override
-  FutureOr<void> execute({required (String email, String password) request});
+  FutureOr<void> execute(
+      {required (
+        String email,
+        String password,
+        String fullName,
+        String phoneNumber
+      ) request});
 }

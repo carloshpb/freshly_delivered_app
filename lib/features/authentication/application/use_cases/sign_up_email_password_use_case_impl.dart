@@ -24,8 +24,13 @@ class SignUpEmailPasswordUseCaseImpl implements SignUpEmailPasswordUseCase {
 
   @override
   Future<void> execute(
-      {required (String email, String password) request}) async {
+      {required (
+        String email,
+        String password,
+        String fullName,
+        String phoneNumber
+      ) request}) async {
     return _authRepository.createUserWithEmailAndPassword(
-        request.$1, request.$2);
+        request.$1, request.$2, request.$3, request.$4);
   }
 }

@@ -34,20 +34,25 @@ mixin _$AppUser {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(String uid, String email) $default, {
-    required TResult Function(String uid, String email, String password)
+    required TResult Function(String uid, String email, String password,
+            String fullname, String phoneNumber)
         fakeBack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(String uid, String email)? $default, {
-    TResult? Function(String uid, String email, String password)? fakeBack,
+    TResult? Function(String uid, String email, String password,
+            String fullname, String phoneNumber)?
+        fakeBack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String uid, String email)? $default, {
-    TResult Function(String uid, String email, String password)? fakeBack,
+    TResult Function(String uid, String email, String password, String fullname,
+            String phoneNumber)?
+        fakeBack,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -194,7 +199,8 @@ class _$_AppUser implements _AppUser {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(String uid, String email) $default, {
-    required TResult Function(String uid, String email, String password)
+    required TResult Function(String uid, String email, String password,
+            String fullname, String phoneNumber)
         fakeBack,
   }) {
     return $default(uid, email);
@@ -204,7 +210,9 @@ class _$_AppUser implements _AppUser {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(String uid, String email)? $default, {
-    TResult? Function(String uid, String email, String password)? fakeBack,
+    TResult? Function(String uid, String email, String password,
+            String fullname, String phoneNumber)?
+        fakeBack,
   }) {
     return $default?.call(uid, email);
   }
@@ -213,7 +221,9 @@ class _$_AppUser implements _AppUser {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String uid, String email)? $default, {
-    TResult Function(String uid, String email, String password)? fakeBack,
+    TResult Function(String uid, String email, String password, String fullname,
+            String phoneNumber)?
+        fakeBack,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -284,7 +294,12 @@ abstract class _$$FakeAppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       __$$FakeAppUserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uid, String email, String password});
+  $Res call(
+      {String uid,
+      String email,
+      String password,
+      String fullname,
+      String phoneNumber});
 }
 
 /// @nodoc
@@ -301,6 +316,8 @@ class __$$FakeAppUserCopyWithImpl<$Res>
     Object? uid = null,
     Object? email = null,
     Object? password = null,
+    Object? fullname = null,
+    Object? phoneNumber = null,
   }) {
     return _then(_$FakeAppUser(
       uid: null == uid
@@ -315,6 +332,14 @@ class __$$FakeAppUserCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      fullname: null == fullname
+          ? _value.fullname
+          : fullname // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -326,6 +351,8 @@ class _$FakeAppUser implements FakeAppUser {
       {required this.uid,
       required this.email,
       required this.password,
+      required this.fullname,
+      required this.phoneNumber,
       final String? $type})
       : $type = $type ?? 'fakeBack';
 
@@ -338,13 +365,17 @@ class _$FakeAppUser implements FakeAppUser {
   final String email;
   @override
   final String password;
+  @override
+  final String fullname;
+  @override
+  final String phoneNumber;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'AppUser.fakeBack(uid: $uid, email: $email, password: $password)';
+    return 'AppUser.fakeBack(uid: $uid, email: $email, password: $password, fullname: $fullname, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -355,12 +386,17 @@ class _$FakeAppUser implements FakeAppUser {
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
-                other.password == password));
+                other.password == password) &&
+            (identical(other.fullname, fullname) ||
+                other.fullname == fullname) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, email, password);
+  int get hashCode =>
+      Object.hash(runtimeType, uid, email, password, fullname, phoneNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -372,30 +408,35 @@ class _$FakeAppUser implements FakeAppUser {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(String uid, String email) $default, {
-    required TResult Function(String uid, String email, String password)
+    required TResult Function(String uid, String email, String password,
+            String fullname, String phoneNumber)
         fakeBack,
   }) {
-    return fakeBack(uid, email, password);
+    return fakeBack(uid, email, password, fullname, phoneNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(String uid, String email)? $default, {
-    TResult? Function(String uid, String email, String password)? fakeBack,
+    TResult? Function(String uid, String email, String password,
+            String fullname, String phoneNumber)?
+        fakeBack,
   }) {
-    return fakeBack?.call(uid, email, password);
+    return fakeBack?.call(uid, email, password, fullname, phoneNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String uid, String email)? $default, {
-    TResult Function(String uid, String email, String password)? fakeBack,
+    TResult Function(String uid, String email, String password, String fullname,
+            String phoneNumber)?
+        fakeBack,
     required TResult orElse(),
   }) {
     if (fakeBack != null) {
-      return fakeBack(uid, email, password);
+      return fakeBack(uid, email, password, fullname, phoneNumber);
     }
     return orElse();
   }
@@ -443,7 +484,9 @@ abstract class FakeAppUser implements AppUser {
   const factory FakeAppUser(
       {required final String uid,
       required final String email,
-      required final String password}) = _$FakeAppUser;
+      required final String password,
+      required final String fullname,
+      required final String phoneNumber}) = _$FakeAppUser;
 
   factory FakeAppUser.fromJson(Map<String, dynamic> json) =
       _$FakeAppUser.fromJson;
@@ -453,6 +496,8 @@ abstract class FakeAppUser implements AppUser {
   @override
   String get email;
   String get password;
+  String get fullname;
+  String get phoneNumber;
   @override
   @JsonKey(ignore: true)
   _$$FakeAppUserCopyWith<_$FakeAppUser> get copyWith =>

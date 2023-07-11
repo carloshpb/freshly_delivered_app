@@ -2,18 +2,19 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../routers/app_router.dart';
 import '../../application/use_cases/send_password_reset_email_use_case_impl.dart';
 
 final forgotPasswordLoginControllerProvider =
-    AsyncNotifierProvider.autoDispose<ForgotPasswordLoginController, void>(
+    AsyncNotifierProvider.autoDispose<ForgotPasswordLoginController, bool>(
   () => ForgotPasswordLoginController(),
   name: r'forgotPasswordLoginControllerProvider',
 );
 
-class ForgotPasswordLoginController extends AutoDisposeAsyncNotifier<void> {
+class ForgotPasswordLoginController extends AutoDisposeAsyncNotifier<bool> {
   @override
-  FutureOr<void> build() {}
+  FutureOr<bool> build() {
+    return false;
+  }
 
   Future<void> sendPasswordResetEmail(String email) async {
     state = const AsyncValue.loading();
@@ -21,11 +22,12 @@ class ForgotPasswordLoginController extends AutoDisposeAsyncNotifier<void> {
       await ref
           .read(sendPasswordResetEmailUseCaseProvider)
           .execute(request: email);
-      ref.read(goRouterProvider).pushReplacement(AppRouter.home.path);
+      return true;
+      //ref.read(goRouterProvider).pushReplacement(AppRouter.home.path);
     });
   }
 
   void clearState() {
-    state = const AsyncValue.data(null);
+    state = const AsyncValue.data(false);
   }
 }
