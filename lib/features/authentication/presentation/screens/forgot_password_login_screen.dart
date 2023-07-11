@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../common_widgets/custom_snackbar.dart';
 import '../../../../common_widgets/ensure_visible_when_focused.dart';
 import '../../../../constants/custom_colors.dart';
 import '../../../../constants/paths.dart';
@@ -39,6 +40,23 @@ class _ForgotPasswordLoginScreenState
       ),
     );
     final state = ref.watch(forgotPasswordLoginControllerProvider);
+
+    // error handling
+    ref.listen<AsyncValue<bool>>(
+      forgotPasswordLoginControllerProvider,
+      (previousState, nextState) => state.whenOrNull(
+        data: (isSent) {
+          if (isSent && (previousState!.value!)) {
+            CustomSnackbar.showSuccessToast(context,
+                Strings.sentNewResetLinkMail, Strings.sentResetLinkMessage);
+          }
+        },
+        error: (error, stackTrace) {
+          CustomSnackbar.showErrorToast(context, 'Erro', error.toString());
+        },
+      ),
+    );
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: CustomColors.mainGreen,
@@ -239,7 +257,11 @@ class _ForgotPasswordLoginScreenState
                             ),
                           ),
                           secondChild: Text(
-                            Strings.resend.toUpperCase(),
+                            ref.watch(resendTimeMailLinkProvider) == 0
+                                ? Strings.resend.toUpperCase()
+                                : ref
+                                    .read(resendTimeMailLinkProvider)
+                                    .toString(),
                             style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.w600,
