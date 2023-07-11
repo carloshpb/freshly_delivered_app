@@ -14,6 +14,8 @@ class AppUser with _$AppUser {
     required String uid,
     required String email,
     required String password,
+    required String fullname,
+    required String phoneNumber,
   }) = FakeAppUser;
 
   factory AppUser.fromJson(Map<String, Object?> json) =>

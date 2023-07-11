@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../features/authentication/presentation/screens/login_screen.dart';
 import '../features/authentication/presentation/screens/onboarding_screen.dart';
-import '../features/authentication/presentation/screens/reset_link_sent_screen.dart';
 import '../features/authentication/presentation/screens/sign_up_screen.dart';
+import '../features/authentication/presentation/screens/success_sign_up_screen.dart';
 import '../features/dashboard/presentation/screens/home_screen.dart';
 import '../features/authentication/presentation/screens/forgot_password_login_screen.dart';
 
@@ -26,6 +26,7 @@ enum AppRouter {
   loginVerificationCode('/login/validation'),
   notFound('/not-found'),
   signUp("/sign-up"),
+  successSignUp("/sign-up/success"),
   forgotPasswordLogin('/login/forgot-password'),
   resetLinkSent('/login/reset-link-sent'),
   home("/home");
@@ -63,14 +64,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const SignUpScreen(),
       ),
       GoRoute(
+        path: AppRouter.successSignUp.path,
+        name: AppRouter.successSignUp.name,
+        builder: (context, state) => const SuccessSignUpScreen(),
+      ),
+      GoRoute(
         path: AppRouter.forgotPasswordLogin.path,
         name: AppRouter.forgotPasswordLogin.name,
         builder: (context, state) => const ForgotPasswordLoginScreen(),
-      ),
-      GoRoute(
-        path: AppRouter.resetLinkSent.path,
-        name: AppRouter.resetLinkSent.name,
-        builder: (context, state) => const ResetLinkSentScreen(),
       ),
     ],
   );
