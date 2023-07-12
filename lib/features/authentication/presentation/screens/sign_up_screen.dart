@@ -101,7 +101,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuerySize = MediaQuery.sizeOf(context);
     final appBar = AppBar(
       backgroundColor: CustomColors.mainGreen,
       leading: BackButton(
@@ -191,12 +190,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                       fontSize: 16.0,
                                     ),
                                     onChanged: (email) {
-                                      if (ref
-                                              .watch(signUpControllerProvider)
-                                              .hasError &&
-                                          ref
-                                                  .watch(signUpControllerProvider)
-                                                  .error
+                                      if (state.hasError &&
+                                          state.error
                                               is EmailAlreadyInUseException) {
                                         ref
                                             .read(signUpControllerProvider
@@ -226,19 +221,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                       hintStyle: const TextStyle(
                                         color: Colors.black45,
                                       ),
-                                      errorText: (ref
-                                                  .watch(
-                                                      signUpControllerProvider)
-                                                  .hasError &&
-                                              ref
-                                                      .watch(
-                                                          signUpControllerProvider)
-                                                      .error
+                                      errorText: (state.hasError &&
+                                              state.error
                                                   is EmailAlreadyInUseException)
-                                          ? (ref
-                                                      .watch(
-                                                          signUpControllerProvider)
-                                                      .error
+                                          ? (state.error
                                                   as EmailAlreadyInUseException)
                                               .message
                                           : (ref.watch(_validEmailProvider))
@@ -561,6 +547,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                     obscureText: true,
                                     controller: _confirmPasswordController,
                                     keyboardType: TextInputType.visiblePassword,
+                                    textInputAction: TextInputAction.done,
                                     focusNode: confirmPasswordFocusNode,
                                     onChanged: (confirmPassword) {
                                       if (confirmPassword.isNotEmpty) {
@@ -585,6 +572,35 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                             .read(_validConfirmPasswordProvider
                                                 .notifier)
                                             .state = true;
+                                      }
+                                    },
+                                    onEditingComplete: () async {
+                                      if (!state.hasError &&
+                                          _emailController.text.isNotEmpty &&
+                                          _fullNameController.text.isNotEmpty &&
+                                          _phoneController.text.isNotEmpty &&
+                                          _passwordController.text.isNotEmpty &&
+                                          _confirmPasswordController
+                                              .text.isNotEmpty &&
+                                          ref.watch(
+                                                  _numberErrorFieldsProvider) ==
+                                              0) {
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
+                                        context.loaderOverlay.show();
+                                        await ref
+                                            .read(signUpControllerProvider
+                                                .notifier)
+                                            .register(
+                                              email: _emailController.text,
+                                              fullName:
+                                                  _fullNameController.text,
+                                              phoneNumber:
+                                                  _phoneController.text,
+                                              password:
+                                                  _passwordController.text,
+                                            );
+                                        context.loaderOverlay.hide();
                                       }
                                     },
                                     style: const TextStyle(
@@ -647,9 +663,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 9.0),
                                 child: ElevatedButton(
-                                  onPressed: (ref
-                                              .watch(signUpControllerProvider)
-                                              .hasError ||
+                                  onPressed: (state.hasError ||
                                           _emailController.text.isEmpty ||
                                           _fullNameController.text.isEmpty ||
                                           _phoneController.text.isEmpty ||

@@ -53,13 +53,13 @@ class EnsureVisibleWhenFocused extends StatefulWidget {
 
   @override
   State<EnsureVisibleWhenFocused> createState() =>
-      _EnsureVisibleWhenFocusedState();
+      EnsureVisibleWhenFocusedState();
 }
 
 ///
 /// We implement the WidgetsBindingObserver to be notified of any change to the window metrics
 ///
-class _EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused>
+class EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused>
     with WidgetsBindingObserver {
   @override
   void initState() {
@@ -97,10 +97,9 @@ class _EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused>
   /// This method was suggested by Peter Yuen (see discussion).
   ///
   Future<void> _keyboardToggled() async {
-    if (context.mounted) {
+    if (mounted) {
       final edgeInsets = MediaQuery.of(context).viewInsets;
-      while (
-          context.mounted && MediaQuery.of(context).viewInsets == edgeInsets) {
+      while (mounted && MediaQuery.of(context).viewInsets == edgeInsets) {
         await Future.delayed(const Duration(milliseconds: 10));
       }
     }
@@ -125,7 +124,7 @@ class _EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused>
     RenderObject object;
     ScrollableState scrollableState;
 
-    if (context.mounted) {
+    if (mounted) {
       object = context.findRenderObject()!;
 
       // Get the Scrollable state (in order to retrieve its offset)
