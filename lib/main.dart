@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
@@ -64,27 +65,36 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final goRouter = ref.watch(goRouterProvider);
-    return MaterialApp.router(
-      title: 'Freshly Delivered',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: CustomColors.mainGreen,
-        fontFamily: 'Poppins',
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            disabledBackgroundColor: CustomColors.buttonGreenDeactivated,
-            minimumSize: const Size.fromHeight(54.0),
-            backgroundColor: CustomColors.buttonGreen,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                10.0,
-              ),
-            ),
-            textStyle: const TextStyle(color: Colors.white),
-          ),
+    return GlobalLoaderOverlay(
+      useDefaultLoading: false,
+      overlayWidget: const Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.white,
+          color: Color.fromRGBO(23, 104, 46, 1.0),
         ),
       ),
-      routerConfig: goRouter,
+      child: MaterialApp.router(
+        title: 'Freshly Delivered',
+        theme: ThemeData(
+          useMaterial3: true,
+          colorSchemeSeed: CustomColors.mainGreen,
+          fontFamily: 'Poppins',
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              disabledBackgroundColor: CustomColors.buttonGreenDeactivated,
+              minimumSize: const Size.fromHeight(54.0),
+              backgroundColor: CustomColors.buttonGreen,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  10.0,
+                ),
+              ),
+              textStyle: const TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+        routerConfig: goRouter,
+      ),
     );
   }
 }
