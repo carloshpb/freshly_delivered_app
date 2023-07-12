@@ -187,6 +187,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     );
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
