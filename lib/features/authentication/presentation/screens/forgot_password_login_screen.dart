@@ -36,6 +36,7 @@ class _ForgotPasswordLoginScreenState
     final appBar = AppBar(
       backgroundColor: CustomColors.mainGreen,
       leading: BackButton(
+        color: Colors.white,
         onPressed: () => ref.read(goRouterProvider).go(AppRouter.login.path),
       ),
     );
@@ -44,7 +45,7 @@ class _ForgotPasswordLoginScreenState
     // error handling
     ref.listen<AsyncValue<bool>>(
       forgotPasswordLoginControllerProvider,
-      (previousState, nextState) => state.whenOrNull(
+      (previousState, nextState) => nextState.whenOrNull(
         data: (isSent) {
           if (isSent && (previousState!.value!)) {
             CustomSnackbar.showSuccessToast(context,
@@ -235,11 +236,16 @@ class _ForgotPasswordLoginScreenState
                                                 forgotPasswordLoginControllerProvider)
                                             .error is UserNotFoundException))
                                 ? null
-                                : () => ref
-                                    .read(forgotPasswordLoginControllerProvider
-                                        .notifier)
-                                    .sendPasswordResetEmail(
-                                        _emailController.text),
+                                : () {
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
+                                    ref
+                                        .read(
+                                            forgotPasswordLoginControllerProvider
+                                                .notifier)
+                                        .sendPasswordResetEmail(
+                                            _emailController.text);
+                                  },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                         ),

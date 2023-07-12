@@ -2,7 +2,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
+import '../../../../common_widgets/custom_snackbar.dart';
 import '../../../../common_widgets/ensure_visible_when_focused.dart';
 import '../../../../constants/custom_colors.dart';
 import '../../../../constants/strings.dart';
@@ -12,36 +14,38 @@ import '../controllers/sign_up_controller.dart';
 
 final _columnHeightProvider = StateProvider.autoDispose<double>(
   (ref) {
-    var validFields = ref.watch(_validFieldsProvider);
-    // if (validFields) {
-    //   return 707.0;
-    // }
-    // return 795.0;
-    // if (validFields) {
-    //   return 900.0;
-    // }
-    // return 1000.0;
-    // if (validFields) {
-    //   return 0.14;
-    // }
-    // return 0.10;
-    if (validFields) {
+    var numberErrorFields = ref.watch(_numberErrorFieldsProvider);
+    if (numberErrorFields == 0) {
       return 785.0;
+    } else if (numberErrorFields == 1) {
+      return 805.0;
+    } else if (numberErrorFields == 2) {
+      return 825.0;
+    } else if (numberErrorFields == 3) {
+      return 845.0;
+    } else {
+      return 860.0;
     }
-    return 860.0;
   },
 );
 
-final _validFieldsProvider = StateProvider.autoDispose<bool>(
+final _numberErrorFieldsProvider = StateProvider.autoDispose<int>(
   (ref) {
-    var validEmail = ref.watch(_validEmailProvider);
-    var validPhone = ref.watch(_validPhoneProvider);
-    var validPassword = ref.watch(_validPasswordProvider);
-    var validConfirmPassword = ref.watch(_validConfirmPasswordProvider);
-    if (validEmail && validPhone && validPassword && validConfirmPassword) {
-      return true;
+    var count = 0;
+    if (ref.watch(_validEmailProvider) == false) {
+      count++;
     }
-    return false;
+    if (ref.watch(_validPhoneProvider) == false) {
+      count++;
+    }
+    if (ref.watch(_validPasswordProvider) == false) {
+      count++;
+    }
+    if (ref.watch(_validConfirmPasswordProvider) == false) {
+      count++;
+    }
+
+    return count;
   },
 );
 
@@ -75,18 +79,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  final _phoneRegex = RegExp(r"^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$");
+  // final _phoneRegex = RegExp(r"^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$");
+  final _phoneRegex = RegExp(r"^\+[1-9]\d{1,14}$");
   final emailFocusNode = FocusNode();
   final fullnameFocusNode = FocusNode();
   final phoneFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
   final confirmPasswordFocusNode = FocusNode();
-
-  final _formEmailKey = GlobalKey<FormFieldState>();
-  final _formFullNameKey = GlobalKey<FormFieldState>();
-  final _formPhoneNumberKey = GlobalKey<FormFieldState>();
-  final _formPasswordKey = GlobalKey<FormFieldState>();
-  final _formConfirmPasswordKey = GlobalKey<FormFieldState>();
 
   // dispose it when the widget is unmounted
   @override
@@ -106,9 +105,25 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     final appBar = AppBar(
       backgroundColor: CustomColors.mainGreen,
       leading: BackButton(
+        color: Colors.white,
         onPressed: () => ref.read(goRouterProvider).go(AppRouter.login.path),
       ),
     );
+
+    // error handling
+    ref.listen<AsyncValue<void>>(
+      signUpControllerProvider,
+      (previousState, nextState) => nextState.whenOrNull(
+        error: (error, stackTrace) {
+          if (error is EmailAlreadyInUseException) {
+            ref.read(_validEmailProvider.notifier).state = false;
+          } else {
+            CustomSnackbar.showErrorToast(context, 'Erro', error.toString());
+          }
+        },
+      ),
+    );
+
     final state = ref.watch(signUpControllerProvider);
     return Scaffold(
       backgroundColor: CustomColors.mainGreen,
@@ -131,25 +146,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        // Consumer(
-                        //   builder: (context, boxRef, child) {
-                        //     return SizedBox(
-                        //       height: 0.10 * 850.0,
-                        //       child: child,
-                        //     );
-                        //   },
-                        //   child: Center(
-                        //     child: Text(
-                        //       Strings.register.toUpperCase(),
-                        //       textAlign: TextAlign.center,
-                        //       style: const TextStyle(
-                        //         color: Colors.white,
-                        //         fontSize: 40.0,
-                        //         fontWeight: FontWeight.w600,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                         Flexible(
                           child: Center(
                             child: Text(
@@ -186,9 +182,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 child: EnsureVisibleWhenFocused(
                                   focusNode: emailFocusNode,
                                   child: TextFormField(
-                                    key: _formEmailKey,
-                                    // autovalidateMode:
-                                    //     AutovalidateMode.onUserInteraction,
                                     autofillHints: const [AutofillHints.email],
                                     controller: _emailController,
                                     keyboardType: TextInputType.emailAddress,
@@ -198,6 +191,18 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                       fontSize: 16.0,
                                     ),
                                     onChanged: (email) {
+                                      if (ref
+                                              .watch(signUpControllerProvider)
+                                              .hasError &&
+                                          ref
+                                                  .watch(signUpControllerProvider)
+                                                  .error
+                                              is EmailAlreadyInUseException) {
+                                        ref
+                                            .read(signUpControllerProvider
+                                                .notifier)
+                                            .clearState();
+                                      }
                                       if (email.isEmpty ||
                                           EmailValidator.validate(email)) {
                                         if (!ref.read(_validEmailProvider)) {
@@ -214,24 +219,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                             .state = false;
                                       }
                                     },
-                                    // validator: (String? email) {
-                                    //   if (email == null ||
-                                    //       EmailValidator.validate(email)) {
-                                    //     if (!ref.read(_validEmailProvider)) {
-                                    //       ref
-                                    //           .read(
-                                    //               _validEmailProvider.notifier)
-                                    //           .state = true;
-                                    //     }
-                                    //     return null;
-                                    //   }
-                                    //   if (ref.read(_validEmailProvider)) {
-                                    //     ref
-                                    //         .read(_validEmailProvider.notifier)
-                                    //         .state = false;
-                                    //   }
-                                    //   return Strings.insertValidEmail;
-                                    // },
                                     decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white,
@@ -247,20 +234,52 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                                       .watch(
                                                           signUpControllerProvider)
                                                       .error
-                                                  is UserNotFoundException)
+                                                  is EmailAlreadyInUseException)
                                           ? (ref
-                                                  .watch(
-                                                      signUpControllerProvider)
-                                                  .error as UserNotFoundException)
+                                                      .watch(
+                                                          signUpControllerProvider)
+                                                      .error
+                                                  as EmailAlreadyInUseException)
                                               .message
                                           : (ref.watch(_validEmailProvider))
                                               ? null
                                               : Strings.insertValidEmail,
+                                      // border: OutlineInputBorder(
+                                      //   borderRadius: BorderRadius.circular(
+                                      //     10.0,
+                                      //   ),
+                                      //   borderSide:
+                                      //       (ref.watch(_validEmailProvider))
+                                      //           ? BorderSide.none
+                                      //           : const BorderSide(
+                                      //               color: Colors.red,
+                                      //               width: 2.0,
+                                      //               style: BorderStyle.solid,
+                                      //             ),
+                                      // ),
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(
                                           10.0,
                                         ),
                                         borderSide: BorderSide.none,
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -282,7 +301,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 child: EnsureVisibleWhenFocused(
                                   focusNode: fullnameFocusNode,
                                   child: TextFormField(
-                                    key: _formFullNameKey,
                                     autofillHints: const [AutofillHints.name],
                                     controller: _fullNameController,
                                     keyboardType: TextInputType.text,
@@ -327,7 +345,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 child: EnsureVisibleWhenFocused(
                                   focusNode: phoneFocusNode,
                                   child: TextFormField(
-                                    key: _formPhoneNumberKey,
                                     autofillHints: const [
                                       AutofillHints.telephoneNumber
                                     ],
@@ -355,24 +372,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                             .state = false;
                                       }
                                     },
-                                    // validator: (phone) {
-                                    //   if (phone == null ||
-                                    //       _phoneRegex.hasMatch(phone)) {
-                                    //     if (!ref.read(_validPhoneProvider)) {
-                                    //       ref
-                                    //           .read(
-                                    //               _validPhoneProvider.notifier)
-                                    //           .state = true;
-                                    //     }
-                                    //     return null;
-                                    //   }
-                                    //   if (ref.read(_validPhoneProvider)) {
-                                    //     ref
-                                    //         .read(_validPhoneProvider.notifier)
-                                    //         .state = false;
-                                    //   }
-                                    //   return Strings.insertValidPhone;
-                                    // },
                                     decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white,
@@ -384,11 +383,42 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                           (ref.watch(_validPhoneProvider))
                                               ? null
                                               : Strings.insertValidPhone,
+                                      // border: OutlineInputBorder(
+                                      //   borderRadius: BorderRadius.circular(
+                                      //     10.0,
+                                      //   ),
+                                      //   borderSide:
+                                      //       (ref.watch(_validPhoneProvider))
+                                      //           ? BorderSide.none
+                                      //           : const BorderSide(
+                                      //               color: Colors.red,
+                                      //               width: 2.0,
+                                      //               style: BorderStyle.solid,
+                                      //             ),
+                                      // ),
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(
                                           10.0,
                                         ),
                                         borderSide: BorderSide.none,
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -409,7 +439,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 child: EnsureVisibleWhenFocused(
                                   focusNode: passwordFocusNode,
                                   child: TextFormField(
-                                    key: _formPasswordKey,
                                     obscureText: true,
                                     // autovalidateMode:
                                     //     AutovalidateMode.onUserInteraction,
@@ -449,39 +478,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                             .state = true;
                                       }
                                     },
-                                    // validator: (password) {
-                                    //   if (password != null) {
-                                    //     if (password.length < 8) {
-                                    //       if (ref
-                                    //           .read(_validPasswordProvider)) {
-                                    //         ref
-                                    //             .read(_validPasswordProvider
-                                    //                 .notifier)
-                                    //             .state = false;
-                                    //       }
-                                    //       return Strings.weakPassword;
-                                    //     } else if (_confirmPasswordController
-                                    //             .text.isNotEmpty &&
-                                    //         _confirmPasswordController.text !=
-                                    //             password) {
-                                    //       if (ref
-                                    //           .read(_validPasswordProvider)) {
-                                    //         ref
-                                    //             .read(_validPasswordProvider
-                                    //                 .notifier)
-                                    //             .state = false;
-                                    //       }
-                                    //       return Strings.passwordsNotMatch;
-                                    //     }
-                                    //   }
-                                    //   if (!ref.read(_validPasswordProvider)) {
-                                    //     ref
-                                    //         .read(
-                                    //             _validPasswordProvider.notifier)
-                                    //         .state = true;
-                                    //   }
-                                    //   return null;
-                                    // },
                                     style: const TextStyle(
                                       color: CustomColors.buttonGreen,
                                       fontSize: 16.0,
@@ -505,11 +501,42 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                                       _validConfirmPasswordProvider))
                                               ? Strings.passwordsNotMatch
                                               : null,
+                                      // border: OutlineInputBorder(
+                                      //   borderRadius: BorderRadius.circular(
+                                      //     10.0,
+                                      //   ),
+                                      //   borderSide: (ref.watch(
+                                      //           _validPasswordProvider))
+                                      //       ? BorderSide.none
+                                      //       : const BorderSide(
+                                      //           color: Colors.red,
+                                      //           width: 2.0,
+                                      //           style: BorderStyle.solid,
+                                      //         ),
+                                      // ),
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(
                                           10.0,
                                         ),
                                         borderSide: BorderSide.none,
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -531,7 +558,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 child: EnsureVisibleWhenFocused(
                                   focusNode: confirmPasswordFocusNode,
                                   child: TextFormField(
-                                    key: _formConfirmPasswordKey,
                                     obscureText: true,
                                     controller: _confirmPasswordController,
                                     keyboardType: TextInputType.visiblePassword,
@@ -561,30 +587,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                             .state = true;
                                       }
                                     },
-                                    // validator: (confirmPassword) {
-                                    //   if (confirmPassword != null &&
-                                    //       _passwordController.text.isNotEmpty &&
-                                    //       _passwordController.text !=
-                                    //           confirmPassword) {
-                                    //     if (ref.read(
-                                    //         _validConfirmPasswordProvider)) {
-                                    //       ref
-                                    //           .read(
-                                    //               _validConfirmPasswordProvider
-                                    //                   .notifier)
-                                    //           .state = false;
-                                    //     }
-                                    //     return Strings.passwordsNotMatch;
-                                    //   }
-                                    //   if (!ref.read(
-                                    //       _validConfirmPasswordProvider)) {
-                                    //     ref
-                                    //         .read(_validConfirmPasswordProvider
-                                    //             .notifier)
-                                    //         .state = true;
-                                    //   }
-                                    //   return null;
-                                    // },
                                     style: const TextStyle(
                                       color: CustomColors.buttonGreen,
                                       fontSize: 16.0,
@@ -601,11 +603,42 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                               _validConfirmPasswordProvider))
                                           ? Strings.passwordsNotMatch
                                           : null,
+                                      // border: OutlineInputBorder(
+                                      //   borderRadius: BorderRadius.circular(
+                                      //     10.0,
+                                      //   ),
+                                      //   borderSide: (ref.watch(
+                                      //           _validConfirmPasswordProvider))
+                                      //       ? BorderSide.none
+                                      //       : const BorderSide(
+                                      //           color: Colors.red,
+                                      //           width: 2.0,
+                                      //           style: BorderStyle.solid,
+                                      //         ),
+                                      // ),
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(
                                           10.0,
                                         ),
                                         borderSide: BorderSide.none,
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -616,27 +649,33 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 child: ElevatedButton(
                                   onPressed: (ref
                                               .watch(signUpControllerProvider)
-                                              .hasError &&
-                                          (ref
-                                                      .watch(
-                                                          signUpControllerProvider)
-                                                      .error
-                                                  is WrongPasswordException ||
-                                              ref
-                                                      .watch(
-                                                          signUpControllerProvider)
-                                                      .error
-                                                  is UserNotFoundException))
+                                              .hasError ||
+                                          _emailController.text.isEmpty ||
+                                          _fullNameController.text.isEmpty ||
+                                          _phoneController.text.isEmpty ||
+                                          _passwordController.text.isEmpty ||
+                                          _confirmPasswordController
+                                              .text.isEmpty ||
+                                          ref.watch(
+                                                  _numberErrorFieldsProvider) !=
+                                              0)
                                       ? null
-                                      : () => ref
-                                          .read(
-                                              signUpControllerProvider.notifier)
-                                          .register(
-                                            email: _emailController.text,
-                                            fullName: _fullNameController.text,
-                                            phoneNumber: _phoneController.text,
-                                            password: _passwordController.text,
-                                          ),
+                                      : () async {
+                                          context.loaderOverlay.show();
+                                          await ref
+                                              .read(signUpControllerProvider
+                                                  .notifier)
+                                              .register(
+                                                email: _emailController.text,
+                                                fullName:
+                                                    _fullNameController.text,
+                                                phoneNumber:
+                                                    _phoneController.text,
+                                                password:
+                                                    _passwordController.text,
+                                              );
+                                          context.loaderOverlay.hide();
+                                        },
                                   child: Text(
                                     Strings.register.toUpperCase(),
                                     style: const TextStyle(
