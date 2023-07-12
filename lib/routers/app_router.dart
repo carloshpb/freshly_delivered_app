@@ -66,7 +66,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRouter.successSignUp.path,
         name: AppRouter.successSignUp.name,
-        builder: (context, state) => const SuccessSignUpScreen(),
+        builder: (context, state) => const SuccessSignUpScreen(email: , password: ,),
       ),
       GoRoute(
         path: AppRouter.forgotPasswordLogin.path,

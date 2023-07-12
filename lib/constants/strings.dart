@@ -15,6 +15,7 @@ class Strings {
   static const resetLinkSent = "Reset Link Sent";
   static const here = "Here";
   static const resend = "Resend";
+  static const success = "Success";
 
   /// Messages
   static const forgotPasword = "Forgot password?";
@@ -39,6 +40,8 @@ class Strings {
       "Invalid phone number. Please insert a valid one";
   static const emailAlreadyUsed = "Email address already in use";
   static const passwordsNotMatch = "Passwords don\'t match";
+  static const accountCreatedSuccess =
+      "Account created successfully. Please wait while we log you into your account.";
 
   /// Exceptions
   /// General
