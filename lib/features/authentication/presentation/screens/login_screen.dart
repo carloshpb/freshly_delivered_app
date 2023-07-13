@@ -15,7 +15,9 @@ final _passwordVisibleStateProvider = StateProvider.autoDispose<bool>(
 );
 
 class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({super.key});
+  final Exception? exception;
+
+  const LoginScreen({super.key, this.exception});
 
   @override
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
@@ -25,6 +27,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   // create a TextEditingController
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.exception != null) {
+        CustomSnackbar.showErrorToast(
+            context, 'Erro', widget.exception.toString());
+      }
+    });
+  }
 
   // dispose it when the widget is unmounted
   @override
