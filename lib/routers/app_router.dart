@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../features/authentication/application/use_cases/current_user_use_case_impl.dart';
 import '../features/authentication/presentation/screens/login_screen.dart';
 import '../features/authentication/presentation/screens/onboarding_screen.dart';
 import '../features/authentication/presentation/screens/sign_up_screen.dart';
-import '../features/authentication/presentation/screens/success_sign_up_screen.dart';
 import '../features/dashboard/presentation/screens/home_screen.dart';
 import '../features/authentication/presentation/screens/forgot_password_login_screen.dart';
 
@@ -26,7 +26,7 @@ enum AppRouter {
   loginVerificationCode('/login/validation'),
   notFound('/not-found'),
   signUp("/sign-up"),
-  successSignUp("/sign-up/success"),
+  // successSignUp("/sign-up/success"),
   forgotPasswordLogin('/login/forgot-password'),
   resetLinkSent('/login/reset-link-sent'),
   home("/home");
@@ -51,7 +51,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRouter.login.path,
         name: AppRouter.login.name,
-        builder: (context, state) => const LoginScreen(),
+        builder: (context, state) => LoginScreen(
+          exception: (state.extra as Exception?),
+        ),
       ),
       GoRoute(
         path: AppRouter.home.path,
@@ -63,17 +65,32 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: AppRouter.signUp.name,
         builder: (context, state) => const SignUpScreen(),
       ),
-      GoRoute(
-        path: AppRouter.successSignUp.path,
-        name: AppRouter.successSignUp.name,
-        builder: (context, state) => const SuccessSignUpScreen(email: , password: ,),
-      ),
+      // GoRoute(
+      //   path: AppRouter.successSignUp.path,
+      //   name: AppRouter.successSignUp.name,
+      //   builder: (context, state) => const SuccessSignUpScreen(email: , password: ,),
+      // ),
       GoRoute(
         path: AppRouter.forgotPasswordLogin.path,
         name: AppRouter.forgotPasswordLogin.name,
         builder: (context, state) => const ForgotPasswordLoginScreen(),
       ),
     ],
+    // redirect to the login page if the user is not logged in
+    // redirect: (context, state) {
+    //   // if the user is not logged in, they need to login
+    //   final loggedIn =
+    //       (ref.read(currentUserUseCaseProvider).execute(request: null) != null);
+    //   final loggingIn = state.fullPath == AppRouter.login.path;
+    //   if (!loggedIn) return loggingIn ? null : AppRouter.login.path;
+
+    //   // if the user is logged in but still on the login page, send them to
+    //   // the home page
+    //   if (loggingIn) return AppRouter.home.path;
+
+    //   // no need to redirect at all
+    //   return null;
+    // },
   );
 
   //final authService = ref.watch(authenticationService);
