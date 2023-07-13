@@ -35,6 +35,11 @@ sealed class AppAuthException with _$AppAuthException implements Exception {
   const factory AppAuthException.unknownAuthCode(String code) =
       UnknownAuthCodeException;
 
+  @override
+  String toString() {
+    return message;
+  }
+
   String get message {
     switch (this) {
       case InvalidEmailException():
