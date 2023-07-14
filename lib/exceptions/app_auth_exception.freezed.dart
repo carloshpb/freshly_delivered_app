@@ -191,11 +191,6 @@ class _$InvalidEmailException extends InvalidEmailException {
   const _$InvalidEmailException() : super._();
 
   @override
-  String toString() {
-    return 'AppAuthException.invalidEmail()';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$InvalidEmailException);
@@ -390,11 +385,6 @@ class __$$MissingAndroidPkgNameExceptionCopyWithImpl<$Res>
 
 class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
   const _$MissingAndroidPkgNameException() : super._();
-
-  @override
-  String toString() {
-    return 'AppAuthException.missingAndroidPkgName()';
-  }
 
   @override
   bool operator ==(dynamic other) {
@@ -594,11 +584,6 @@ class _$MissingContinueUriException extends MissingContinueUriException {
   const _$MissingContinueUriException() : super._();
 
   @override
-  String toString() {
-    return 'AppAuthException.missingContinueUri()';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
@@ -795,11 +780,6 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
   const _$MissingIosBundleIdException() : super._();
 
   @override
-  String toString() {
-    return 'AppAuthException.missingIosBundleId()';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
@@ -994,11 +974,6 @@ class __$$InvalidContinueUriExceptionCopyWithImpl<$Res>
 
 class _$InvalidContinueUriException extends InvalidContinueUriException {
   const _$InvalidContinueUriException() : super._();
-
-  @override
-  String toString() {
-    return 'AppAuthException.invalidContinueUri()';
-  }
 
   @override
   bool operator ==(dynamic other) {
@@ -1199,11 +1174,6 @@ class _$UnauthorizedContinueUriException
   const _$UnauthorizedContinueUriException() : super._();
 
   @override
-  String toString() {
-    return 'AppAuthException.unauthorizedContinueUri()';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
@@ -1399,11 +1369,6 @@ class _$UserNotFoundException extends UserNotFoundException {
   const _$UserNotFoundException() : super._();
 
   @override
-  String toString() {
-    return 'AppAuthException.userNotFound()';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$UserNotFoundException);
@@ -1595,11 +1560,6 @@ class __$$UserDisabledExceptionCopyWithImpl<$Res>
 
 class _$UserDisabledException extends UserDisabledException {
   const _$UserDisabledException() : super._();
-
-  @override
-  String toString() {
-    return 'AppAuthException.userDisabled()';
-  }
 
   @override
   bool operator ==(dynamic other) {
@@ -1795,11 +1755,6 @@ class _$WrongPasswordException extends WrongPasswordException {
   const _$WrongPasswordException() : super._();
 
   @override
-  String toString() {
-    return 'AppAuthException.wrongPassword()';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$WrongPasswordException);
@@ -1993,11 +1948,6 @@ class __$$EmailAlreadyInUseExceptionCopyWithImpl<$Res>
 
 class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
   const _$EmailAlreadyInUseException() : super._();
-
-  @override
-  String toString() {
-    return 'AppAuthException.emailAlreadyInUseException()';
-  }
 
   @override
   bool operator ==(dynamic other) {
@@ -2196,11 +2146,6 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
   const _$OperationNotAllowedException() : super._();
 
   @override
-  String toString() {
-    return 'AppAuthException.operationNotAllowedException()';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
@@ -2393,11 +2338,6 @@ class __$$WeakPasswordExceptionCopyWithImpl<$Res>
 
 class _$WeakPasswordException extends WeakPasswordException {
   const _$WeakPasswordException() : super._();
-
-  @override
-  String toString() {
-    return 'AppAuthException.weakPassword()';
-  }
 
   @override
   bool operator ==(dynamic other) {
@@ -2595,11 +2535,6 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
   const _$ExpiredActionCodeException() : super._();
 
   @override
-  String toString() {
-    return 'AppAuthException.expiredActionCode()';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
@@ -2794,11 +2729,6 @@ class __$$InvalidActionCodeExceptionCopyWithImpl<$Res>
 
 class _$InvalidActionCodeException extends InvalidActionCodeException {
   const _$InvalidActionCodeException() : super._();
-
-  @override
-  String toString() {
-    return 'AppAuthException.invalidActionCode()';
-  }
 
   @override
   bool operator ==(dynamic other) {
@@ -3011,11 +2941,6 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
 
   @override
   final String code;
-
-  @override
-  String toString() {
-    return 'AppAuthException.unknownAuthCode(code: $code)';
-  }
 
   @override
   bool operator ==(dynamic other) {

@@ -53,7 +53,7 @@ class _ForgotPasswordLoginScreenState
           }
         },
         error: (error, stackTrace) {
-          CustomSnackbar.showErrorToast(context, 'Erro', error.toString());
+          CustomSnackbar.showErrorToast(context, 'Error', error.toString());
         },
       ),
     );

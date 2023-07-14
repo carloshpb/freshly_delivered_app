@@ -34,7 +34,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.exception != null) {
         CustomSnackbar.showErrorToast(
-            context, 'Erro', widget.exception.toString());
+            context, 'Error', widget.exception.toString());
       }
     });
   }
@@ -56,7 +56,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         error: (error, stackTrace) {
           if (!(error is UserNotFoundException ||
               error is WrongPasswordException)) {
-            CustomSnackbar.showErrorToast(context, 'Erro', error.toString());
+            CustomSnackbar.showErrorToast(context, 'Error', error.toString());
           }
         },
       ),
