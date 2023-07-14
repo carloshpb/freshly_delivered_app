@@ -17,6 +17,14 @@ class LoginController extends AutoDisposeAsyncNotifier<(String, String)> {
     return ('', '');
   }
 
+  void updateEmail(String email) {
+    state = AsyncValue.data((email, state.value!.$2));
+  }
+
+  void updatePassword(String password) {
+    state = AsyncValue.data((state.value!.$1, password));
+  }
+
   Future<void> signIn() async {
     var email = state.value!.$1;
     var password = state.value!.$2;

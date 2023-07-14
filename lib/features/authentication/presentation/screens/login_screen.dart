@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../common_widgets/custom_snackbar.dart';
 import '../../../../common_widgets/ensure_visible_when_focused.dart';
@@ -50,19 +51,26 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(loginControllerProvider);
+    final loginController = ref.watch(loginControllerProvider.notifier);
 
     // error handling
     ref.listen<AsyncValue<void>>(
       loginControllerProvider,
-      (_, state) => state.whenOrNull(
-        error: (error, stackTrace) {
-          if (!(error is UserNotFoundException ||
-              error is WrongPasswordException)) {
-            CustomSnackbar.showErrorToast(context,
-                (error is AppAuthException) ? '' : 'Error', error.toString());
-          }
-        },
-      ),
+      (previousState, nextState) {
+        if (context.loaderOverlay.visible) {
+          context.loaderOverlay.hide();
+        }
+        nextState.whenOrNull(
+          loading: () => context.loaderOverlay.show(),
+          error: (error, stackTrace) {
+            if (!(error is UserNotFoundException ||
+                error is WrongPasswordException)) {
+              CustomSnackbar.showErrorToast(context,
+                  (error is AppAuthException) ? '' : 'Error', error.toString());
+            }
+          },
+        );
+      },
     );
 
     final appBar = AppBar(
@@ -152,16 +160,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         color: CustomColors.buttonGreen,
                                         fontSize: 16.0,
                                       ),
-                                      onChanged: (email) {
-                                        ref
-                                            .read(loginControllerProvider
-                                                .notifier)
-                                            .update(
-                                          (userData) {
-                                            return (email, userData.$2);
-                                          },
-                                        );
-                                      },
+                                      onChanged: (email) =>
+                                          loginController.updateEmail(email),
                                       decoration: InputDecoration(
                                         filled: true,
                                         fillColor: Colors.white,
@@ -169,19 +169,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                           Icons.mail,
                                           color: CustomColors.greenIcon,
                                         ),
-                                        errorText: (ref
-                                                    .watch(
-                                                        loginControllerProvider)
-                                                    .hasError &&
-                                                ref
-                                                        .watch(
-                                                            loginControllerProvider)
-                                                        .error
+                                        errorText: (state.hasError &&
+                                                state.error
                                                     is UserNotFoundException)
-                                            ? (ref
-                                                    .watch(
-                                                        loginControllerProvider)
-                                                    .error as UserNotFoundException)
+                                            ? (state.error
+                                                    as UserNotFoundException)
                                                 .message
                                             : null,
                                         border: OutlineInputBorder(
@@ -189,6 +181,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                             10.0,
                                           ),
                                           borderSide: BorderSide.none,
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            10.0,
+                                          ),
+                                          borderSide: const BorderSide(
+                                            color: Colors.red,
+                                            width: 2.0,
+                                          ),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            10.0,
+                                          ),
+                                          borderSide: const BorderSide(
+                                            color: Colors.red,
+                                            width: 2.0,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -206,99 +216,110 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 14.0),
-                                  child: EnsureVisibleWhenFocused(
-                                    focusNode: passwordFocusNode,
-                                    child: TextField(
-                                      autofillHints: const [
-                                        AutofillHints.password
-                                      ],
-                                      controller: _passwordController,
-                                      keyboardType: (ref.watch(
-                                              _passwordVisibleStateProvider))
-                                          ? TextInputType.text
-                                          : TextInputType.visiblePassword,
+                                  child:
+                                      Consumer(builder: (context, passRef, _) {
+                                    return EnsureVisibleWhenFocused(
                                       focusNode: passwordFocusNode,
-                                      obscureText: ref
-                                          .watch(_passwordVisibleStateProvider),
-                                      enableSuggestions: false,
-                                      style: const TextStyle(
-                                        color: CustomColors.buttonGreen,
-                                        fontSize: 16.0,
-                                      ),
-                                      onChanged: (password) {
-                                        ref
-                                            .read(loginControllerProvider
-                                                .notifier)
-                                            .update(
-                                          (userData) {
-                                            return (userData.$1, password);
-                                          },
-                                        );
-                                      },
-                                      onEditingComplete: () async {
-                                        if (!state.hasError &&
-                                            _emailController.text.isNotEmpty &&
-                                            _passwordController
-                                                .text.isNotEmpty) {
-                                          FocusManager.instance.primaryFocus
-                                              ?.unfocus();
-                                          ref
-                                              .read(loginControllerProvider
-                                                  .notifier)
-                                              .signIn(_emailController.text,
-                                                  _passwordController.text);
-                                        }
-                                      },
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        errorText: (ref
-                                                    .watch(
-                                                        loginControllerProvider)
-                                                    .hasError &&
-                                                ref
-                                                        .watch(
-                                                            loginControllerProvider)
-                                                        .error
-                                                    is WrongPasswordException)
-                                            ? (ref
-                                                        .watch(
-                                                            loginControllerProvider)
-                                                        .error
-                                                    as WrongPasswordException)
-                                                .message
-                                            : null,
-                                        prefixIcon: const Icon(
-                                          Icons.lock,
-                                          color: CustomColors.greenIcon,
+                                      child: TextField(
+                                        autofillHints: const [
+                                          AutofillHints.password
+                                        ],
+                                        controller: _passwordController,
+                                        keyboardType: (passRef.watch(
+                                                _passwordVisibleStateProvider))
+                                            ? TextInputType.text
+                                            : TextInputType.visiblePassword,
+                                        focusNode: passwordFocusNode,
+                                        obscureText: passRef.watch(
+                                            _passwordVisibleStateProvider),
+                                        enableSuggestions: false,
+                                        style: const TextStyle(
+                                          color: CustomColors.buttonGreen,
+                                          fontSize: 16.0,
                                         ),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            10.0,
-                                          ),
-                                          borderSide: BorderSide.none,
-                                        ),
-                                        suffixIcon: IconButton(
-                                          icon: Icon(
-                                            ref.watch(
-                                                    _passwordVisibleStateProvider)
-                                                ? Icons.visibility
-                                                : Icons.visibility_off,
+                                        onChanged: (password) => loginController
+                                            .updatePassword(password),
+                                        onEditingComplete: () async {
+                                          if (!state.hasError &&
+                                              _emailController
+                                                  .text.isNotEmpty &&
+                                              _passwordController
+                                                  .text.isNotEmpty) {
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                            loginController.signIn();
+                                          }
+                                        },
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          errorText: (ref
+                                                      .watch(
+                                                          loginControllerProvider)
+                                                      .hasError &&
+                                                  ref
+                                                          .watch(
+                                                              loginControllerProvider)
+                                                          .error
+                                                      is WrongPasswordException)
+                                              ? (ref
+                                                          .watch(
+                                                              loginControllerProvider)
+                                                          .error
+                                                      as WrongPasswordException)
+                                                  .message
+                                              : null,
+                                          prefixIcon: const Icon(
+                                            Icons.lock,
                                             color: CustomColors.greenIcon,
                                           ),
-                                          onPressed: () {
-                                            ref
-                                                    .read(
-                                                        _passwordVisibleStateProvider
-                                                            .notifier)
-                                                    .state =
-                                                !ref.read(
-                                                    _passwordVisibleStateProvider);
-                                          },
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              10.0,
+                                            ),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              10.0,
+                                            ),
+                                            borderSide: const BorderSide(
+                                              color: Colors.red,
+                                              width: 2.0,
+                                            ),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              10.0,
+                                            ),
+                                            borderSide: const BorderSide(
+                                              color: Colors.red,
+                                              width: 2.0,
+                                            ),
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              passRef.watch(
+                                                      _passwordVisibleStateProvider)
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off,
+                                              color: CustomColors.greenIcon,
+                                            ),
+                                            onPressed: () {
+                                              ref
+                                                      .watch(
+                                                          _passwordVisibleStateProvider
+                                                              .notifier)
+                                                      .state =
+                                                  !ref.watch(
+                                                      _passwordVisibleStateProvider);
+                                            },
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
+                                    );
+                                  }),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 14.0),
@@ -312,7 +333,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                       ),
                                       TextButton(
                                         onPressed: () => ref
-                                            .read(goRouterProvider)
+                                            .watch(goRouterProvider)
                                             .go(AppRouter
                                                 .forgotPasswordLogin.path),
                                         style: TextButton.styleFrom(
@@ -340,14 +361,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                                       is WrongPasswordException ||
                                                   state.error
                                                       is UserNotFoundException)) ||
-                                          _emailController.text.isEmpty ||
-                                          _passwordController.text.isEmpty)
+                                          state.value!.$1.isEmpty ||
+                                          state.value!.$2.isEmpty)
                                       ? null
-                                      : () => ref
-                                          .read(
-                                              loginControllerProvider.notifier)
-                                          .signIn(_emailController.text,
-                                              _passwordController.text),
+                                      : () => loginController.signIn(),
                                   child: Text(
                                     Strings.login.toUpperCase(),
                                     style: const TextStyle(
@@ -369,7 +386,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     ),
                                     TextButton(
                                       onPressed: () => ref
-                                          .read(goRouterProvider)
+                                          .watch(goRouterProvider)
                                           .go(AppRouter.signUp.path),
                                       child: Text(
                                         Strings.register.toUpperCase(),
