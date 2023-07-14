@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../common_widgets/custom_snackbar.dart';
-import '../../../../common_widgets/ensure_visible_when_focused.dart';
 import '../../../../constants/custom_colors.dart';
 import '../../../../constants/strings.dart';
 import '../../../../exceptions/app_auth_exception.dart';
@@ -24,7 +23,7 @@ final _columnHeightProvider = StateProvider.autoDispose<double>(
     } else if (numberErrorFields == 3) {
       return 845.0;
     } else {
-      return 860.0;
+      return 865.0;
     }
   },
 );
@@ -65,6 +64,26 @@ final _validConfirmPasswordProvider = StateProvider.autoDispose<bool>(
   (ref) => true,
 );
 
+final _textEmailFieldProvider = StateProvider.autoDispose<String>(
+  (ref) => '',
+);
+
+final _textFullnameFieldProvider = StateProvider.autoDispose<String>(
+  (ref) => '',
+);
+
+final _textPhoneFieldProvider = StateProvider.autoDispose<String>(
+  (ref) => '',
+);
+
+final _textPasswordFieldProvider = StateProvider.autoDispose<String>(
+  (ref) => '',
+);
+
+final _textConfirmPasswordFieldProvider = StateProvider.autoDispose<String>(
+  (ref) => '',
+);
+
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
 
@@ -74,11 +93,7 @@ class SignUpScreen extends ConsumerStatefulWidget {
 
 class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _fullNameController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+
   // final _phoneRegex = RegExp(r"^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$");
   final _phoneRegex = RegExp(r"^\+[1-9]\d{1,14}$");
 
@@ -100,7 +115,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       if (textFieldFocusNode.hasFocus) {
         Scrollable.ensureVisible(
           context,
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 600),
           curve: Curves.easeInOut,
         );
       }
@@ -111,27 +126,23 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   void initState() {
     super.initState();
 
-    addScrollableTextFieldListener(
-        _emailFocusNode, _emailFieldKey.currentContext!);
-    addScrollableTextFieldListener(
-        _fullnameFocusNode, _fullNameFieldKey.currentContext!);
-    addScrollableTextFieldListener(
-        _phoneFocusNode, _phoneFieldKey.currentContext!);
-    addScrollableTextFieldListener(
-        _passwordFocusNode, _passwordFieldKey.currentContext!);
-    addScrollableTextFieldListener(
-        _confirmPasswordFocusNode, _confirmPasswordFieldKey.currentContext!);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      addScrollableTextFieldListener(
+          _emailFocusNode, _emailFieldKey.currentContext!);
+      addScrollableTextFieldListener(
+          _fullnameFocusNode, _fullNameFieldKey.currentContext!);
+      addScrollableTextFieldListener(
+          _phoneFocusNode, _phoneFieldKey.currentContext!);
+      addScrollableTextFieldListener(
+          _passwordFocusNode, _passwordFieldKey.currentContext!);
+      addScrollableTextFieldListener(
+          _confirmPasswordFocusNode, _confirmPasswordFieldKey.currentContext!);
+    });
   }
 
   // dispose it when the widget is unmounted
   @override
   void dispose() {
-    _emailController.dispose();
-    _fullNameController.dispose();
-    _phoneController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-
     _emailFocusNode.dispose();
     _fullnameFocusNode.dispose();
     _phoneFocusNode.dispose();
@@ -151,12 +162,18 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           : BackButton(
               color: Colors.white,
               onPressed: () {
-                if (!ref.read(signUpControllerProvider).value!) {
-                  ref.read(goRouterProvider).go(AppRouter.login.path);
+                if (!ref.watch(signUpControllerProvider).value!) {
+                  ref.watch(goRouterProvider).go(AppRouter.login.path);
                 }
               },
             ),
     );
+
+    final textEmail = ref.watch(_textEmailFieldProvider);
+    final textFullname = ref.watch(_textFullnameFieldProvider);
+    final textPhone = ref.watch(_textPhoneFieldProvider);
+    final textPassword = ref.watch(_textPasswordFieldProvider);
+    final textConfirmPassword = ref.watch(_textConfirmPasswordFieldProvider);
 
     // error handling
     ref.listen<AsyncValue<bool>>(
@@ -169,14 +186,14 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           data: (isRegistered) {
             if (isRegistered) {
               ref
-                  .read(goRouterProvider)
+                  .watch(goRouterProvider)
                   .pushReplacement(AppRouter.successSignUp.path);
             }
           },
           loading: () => context.loaderOverlay.show(),
           error: (error, stackTrace) {
             if (error is EmailAlreadyInUseException) {
-              ref.read(_validEmailProvider.notifier).state = false;
+              ref.watch(_validEmailProvider.notifier).state = false;
             } else {
               CustomSnackbar.showErrorToast(context, 'Error', error.toString());
             }
@@ -243,8 +260,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 14.0),
                                   child: TextFormField(
+                                    key: _emailFieldKey,
                                     autofillHints: const [AutofillHints.email],
-                                    controller: _emailController,
                                     keyboardType: TextInputType.emailAddress,
                                     textInputAction: TextInputAction.next,
                                     focusNode: _emailFocusNode,
@@ -253,27 +270,31 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                       fontSize: 16.0,
                                     ),
                                     onChanged: (email) {
+                                      ref
+                                          .watch(
+                                              _textEmailFieldProvider.notifier)
+                                          .state = email;
                                       if (state.hasError &&
                                           state.error
                                               is EmailAlreadyInUseException) {
                                         ref
-                                            .read(signUpControllerProvider
+                                            .watch(signUpControllerProvider
                                                 .notifier)
                                             .clearState();
                                       }
                                       if (email.isEmpty ||
                                           EmailValidator.validate(email)) {
-                                        if (!ref.read(_validEmailProvider)) {
+                                        if (!ref.watch(_validEmailProvider)) {
                                           ref
-                                              .read(
+                                              .watch(
                                                   _validEmailProvider.notifier)
                                               .state = true;
                                         }
                                         return;
                                       }
-                                      if (ref.read(_validEmailProvider)) {
+                                      if (ref.watch(_validEmailProvider)) {
                                         ref
-                                            .read(_validEmailProvider.notifier)
+                                            .watch(_validEmailProvider.notifier)
                                             .state = false;
                                       }
                                     },
@@ -334,11 +355,17 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 14.0),
                                   child: TextFormField(
+                                    key: _fullNameFieldKey,
                                     autofillHints: const [AutofillHints.name],
-                                    controller: _fullNameController,
                                     keyboardType: TextInputType.text,
                                     textInputAction: TextInputAction.next,
                                     focusNode: _fullnameFocusNode,
+                                    onChanged: (fullname) {
+                                      ref
+                                          .watch(_textFullnameFieldProvider
+                                              .notifier)
+                                          .state = fullname;
+                                    },
                                     inputFormatters: [
                                       LengthLimitingTextInputFormatter(256),
                                     ],
@@ -376,10 +403,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 14.0),
                                   child: TextFormField(
+                                    key: _phoneFieldKey,
                                     autofillHints: const [
                                       AutofillHints.telephoneNumber
                                     ],
-                                    controller: _phoneController,
                                     keyboardType: TextInputType.phone,
                                     textInputAction: TextInputAction.next,
                                     focusNode: _phoneFocusNode,
@@ -388,19 +415,23 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                       fontSize: 16.0,
                                     ),
                                     onChanged: (phone) {
+                                      ref
+                                          .watch(
+                                              _textPhoneFieldProvider.notifier)
+                                          .state = phone;
                                       if (phone.isEmpty ||
                                           _phoneRegex.hasMatch(phone)) {
-                                        if (!ref.read(_validPhoneProvider)) {
+                                        if (!ref.watch(_validPhoneProvider)) {
                                           ref
-                                              .read(
+                                              .watch(
                                                   _validPhoneProvider.notifier)
                                               .state = true;
                                         }
                                         return;
                                       }
-                                      if (ref.read(_validPhoneProvider)) {
+                                      if (ref.watch(_validPhoneProvider)) {
                                         ref
-                                            .read(_validPhoneProvider.notifier)
+                                            .watch(_validPhoneProvider.notifier)
                                             .state = false;
                                       }
                                     },
@@ -455,32 +486,33 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 14.0),
                                   child: TextFormField(
+                                    key: _passwordFieldKey,
                                     obscureText: true,
-                                    // autovalidateMode:
-                                    //     AutovalidateMode.onUserInteraction,
-                                    controller: _passwordController,
                                     keyboardType: TextInputType.visiblePassword,
                                     textInputAction: TextInputAction.next,
                                     focusNode: _passwordFocusNode,
                                     onChanged: (password) {
+                                      ref
+                                          .watch(_textPasswordFieldProvider
+                                              .notifier)
+                                          .state = password;
                                       if (password.isNotEmpty) {
                                         if (password.length < 8) {
                                           if (ref
-                                              .read(_validPasswordProvider)) {
+                                              .watch(_validPasswordProvider)) {
                                             ref
-                                                .read(_validPasswordProvider
+                                                .watch(_validPasswordProvider
                                                     .notifier)
                                                 .state = false;
                                           }
                                           return;
-                                        } else if (_confirmPasswordController
-                                                .text.isNotEmpty &&
-                                            _confirmPasswordController.text !=
-                                                password) {
+                                        } else if (textConfirmPassword
+                                                .isNotEmpty &&
+                                            textConfirmPassword != password) {
                                           if (ref
-                                              .read(_validPasswordProvider)) {
+                                              .watch(_validPasswordProvider)) {
                                             ref
-                                                .read(_validPasswordProvider
+                                                .watch(_validPasswordProvider
                                                     .notifier)
                                                 .state = false;
                                             return;
@@ -488,9 +520,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                           return;
                                         }
                                       }
-                                      if (!ref.read(_validPasswordProvider)) {
+                                      if (!ref.watch(_validPasswordProvider)) {
                                         ref
-                                            .read(
+                                            .watch(
                                                 _validPasswordProvider.notifier)
                                             .state = true;
                                       }
@@ -509,8 +541,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                       ),
                                       errorText: (!ref.watch(
                                                   _validPasswordProvider) &&
-                                              _passwordController.text.length <
-                                                  8)
+                                              textPassword.length < 8)
                                           ? Strings.weakPassword
                                           : (!ref.watch(
                                                       _validPasswordProvider) &&
@@ -559,21 +590,24 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 14.0),
                                   child: TextFormField(
+                                    key: _confirmPasswordFieldKey,
                                     obscureText: true,
-                                    controller: _confirmPasswordController,
                                     keyboardType: TextInputType.visiblePassword,
                                     textInputAction: TextInputAction.done,
                                     focusNode: _confirmPasswordFocusNode,
                                     onChanged: (confirmPassword) {
+                                      ref
+                                          .watch(
+                                              _textConfirmPasswordFieldProvider
+                                                  .notifier)
+                                          .state = confirmPassword;
                                       if (confirmPassword.isNotEmpty) {
-                                        if (_passwordController
-                                                .text.isNotEmpty &&
-                                            _passwordController.text !=
-                                                confirmPassword) {
-                                          if (ref.read(
+                                        if (textPassword.isNotEmpty &&
+                                            textPassword != confirmPassword) {
+                                          if (ref.watch(
                                               _validConfirmPasswordProvider)) {
                                             ref
-                                                .read(
+                                                .watch(
                                                     _validConfirmPasswordProvider
                                                         .notifier)
                                                 .state = false;
@@ -581,38 +615,34 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                           return;
                                         }
                                       }
-                                      if (!ref.read(
+                                      if (!ref.watch(
                                           _validConfirmPasswordProvider)) {
                                         ref
-                                            .read(_validConfirmPasswordProvider
+                                            .watch(_validConfirmPasswordProvider
                                                 .notifier)
                                             .state = true;
                                       }
                                     },
                                     onEditingComplete: () async {
                                       if (!state.hasError &&
-                                          _emailController.text.isNotEmpty &&
-                                          _fullNameController.text.isNotEmpty &&
-                                          _phoneController.text.isNotEmpty &&
-                                          _passwordController.text.isNotEmpty &&
-                                          _confirmPasswordController
-                                              .text.isNotEmpty &&
+                                          textEmail.isNotEmpty &&
+                                          textFullname.isNotEmpty &&
+                                          textPhone.isNotEmpty &&
+                                          textPassword.isNotEmpty &&
+                                          textConfirmPassword.isNotEmpty &&
                                           ref.watch(
                                                   _numberErrorFieldsProvider) ==
                                               0) {
                                         FocusManager.instance.primaryFocus
                                             ?.unfocus();
                                         await ref
-                                            .read(signUpControllerProvider
+                                            .watch(signUpControllerProvider
                                                 .notifier)
                                             .register(
-                                              email: _emailController.text,
-                                              fullName:
-                                                  _fullNameController.text,
-                                              phoneNumber:
-                                                  _phoneController.text,
-                                              password:
-                                                  _passwordController.text,
+                                              email: textEmail,
+                                              fullName: textFullname,
+                                              phoneNumber: textPhone,
+                                              password: textPassword,
                                             );
                                       }
                                     },
@@ -663,28 +693,28 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                   padding: const EdgeInsets.only(bottom: 9.0),
                                   child: ElevatedButton(
                                     onPressed: (state.hasError ||
-                                            _emailController.text.isEmpty ||
-                                            _fullNameController.text.isEmpty ||
-                                            _phoneController.text.isEmpty ||
-                                            _passwordController.text.isEmpty ||
-                                            _confirmPasswordController
-                                                .text.isEmpty ||
+                                            textEmail.isEmpty ||
+                                            textFullname.isEmpty ||
+                                            textPhone.isEmpty ||
+                                            textPassword.isEmpty ||
+                                            textConfirmPassword.isEmpty ||
                                             ref.watch(
                                                     _numberErrorFieldsProvider) !=
                                                 0)
                                         ? null
-                                        : () => ref
-                                            .read(signUpControllerProvider
-                                                .notifier)
-                                            .register(
-                                              email: _emailController.text,
-                                              fullName:
-                                                  _fullNameController.text,
-                                              phoneNumber:
-                                                  _phoneController.text,
-                                              password:
-                                                  _passwordController.text,
-                                            ),
+                                        : () {
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                            ref
+                                                .watch(signUpControllerProvider
+                                                    .notifier)
+                                                .register(
+                                                  email: textEmail,
+                                                  fullName: textFullname,
+                                                  phoneNumber: textPhone,
+                                                  password: textPassword,
+                                                );
+                                          },
                                     child: Text(
                                       Strings.register.toUpperCase(),
                                       style: const TextStyle(
@@ -715,7 +745,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                     ),
                                     TextButton(
                                       onPressed: () => ref
-                                          .read(goRouterProvider)
+                                          .watch(goRouterProvider)
                                           .go(AppRouter.login.path),
                                       child: Text(
                                         "${Strings.login} ${Strings.here}"
