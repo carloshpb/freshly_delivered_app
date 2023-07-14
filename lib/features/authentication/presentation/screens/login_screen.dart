@@ -49,6 +49,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(loginControllerProvider);
+
     // error handling
     ref.listen<AsyncValue<void>>(
       loginControllerProvider,
@@ -87,7 +89,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   child: SizedBox(
                     height: mediaQuerySize.height -
-                        (MediaQuery.of(context).padding.top + kToolbarHeight),
+                        appBar.preferredSize.height -
+                        kToolbarHeight,
                     child: Column(
                       //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -143,23 +146,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                       ],
                                       controller: _emailController,
                                       keyboardType: TextInputType.emailAddress,
+                                      textInputAction: TextInputAction.next,
                                       focusNode: emailFocusNode,
                                       style: const TextStyle(
                                         color: CustomColors.buttonGreen,
                                         fontSize: 16.0,
                                       ),
-                                      onChanged: (_) {
-                                        if (ref
-                                                .read(loginControllerProvider)
-                                                .hasError &&
-                                            ref
-                                                .read(loginControllerProvider)
-                                                .error is UserNotFoundException) {
-                                          ref
-                                              .read(loginControllerProvider
-                                                  .notifier)
-                                              .clearState();
-                                        }
+                                      onChanged: (email) {
+                                        ref
+                                            .read(loginControllerProvider
+                                                .notifier)
+                                            .update(
+                                          (userData) {
+                                            return (email, userData.$2);
+                                          },
+                                        );
                                       },
                                       decoration: InputDecoration(
                                         filled: true,
@@ -224,18 +225,28 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         color: CustomColors.buttonGreen,
                                         fontSize: 16.0,
                                       ),
-                                      onChanged: (_) {
-                                        if (ref
-                                                .read(loginControllerProvider)
-                                                .hasError &&
-                                            ref
-                                                    .read(loginControllerProvider)
-                                                    .error
-                                                is WrongPasswordException) {
+                                      onChanged: (password) {
+                                        ref
+                                            .read(loginControllerProvider
+                                                .notifier)
+                                            .update(
+                                          (userData) {
+                                            return (userData.$1, password);
+                                          },
+                                        );
+                                      },
+                                      onEditingComplete: () async {
+                                        if (!state.hasError &&
+                                            _emailController.text.isNotEmpty &&
+                                            _passwordController
+                                                .text.isNotEmpty) {
+                                          FocusManager.instance.primaryFocus
+                                              ?.unfocus();
                                           ref
                                               .read(loginControllerProvider
                                                   .notifier)
-                                              .clearState();
+                                              .signIn(_emailController.text,
+                                                  _passwordController.text);
                                         }
                                       },
                                       decoration: InputDecoration(
@@ -324,19 +335,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   ),
                                 ),
                                 ElevatedButton(
-                                  onPressed: (ref
-                                              .watch(loginControllerProvider)
-                                              .hasError &&
-                                          (ref
-                                                      .watch(
-                                                          loginControllerProvider)
-                                                      .error
-                                                  is WrongPasswordException ||
-                                              ref
-                                                      .watch(
-                                                          loginControllerProvider)
-                                                      .error
-                                                  is UserNotFoundException))
+                                  onPressed: ((state.hasError &&
+                                              (state.error
+                                                      is WrongPasswordException ||
+                                                  state.error
+                                                      is UserNotFoundException)) ||
+                                          _emailController.text.isEmpty ||
+                                          _passwordController.text.isEmpty)
                                       ? null
                                       : () => ref
                                           .read(
