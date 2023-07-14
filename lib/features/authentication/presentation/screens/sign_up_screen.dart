@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../common_widgets/custom_snackbar.dart';
-import '../../../../common_widgets/ensure_visible_when_focused.dart';
 import '../../../../constants/custom_colors.dart';
 import '../../../../constants/strings.dart';
 import '../../../../exceptions/app_auth_exception.dart';
@@ -24,7 +23,7 @@ final _columnHeightProvider = StateProvider.autoDispose<double>(
     } else if (numberErrorFields == 3) {
       return 845.0;
     } else {
-      return 860.0;
+      return 865.0;
     }
   },
 );
@@ -65,6 +64,26 @@ final _validConfirmPasswordProvider = StateProvider.autoDispose<bool>(
   (ref) => true,
 );
 
+final _textEmailFieldProvider = StateProvider.autoDispose<String>(
+  (ref) => '',
+);
+
+final _textFullnameFieldProvider = StateProvider.autoDispose<String>(
+  (ref) => '',
+);
+
+final _textPhoneFieldProvider = StateProvider.autoDispose<String>(
+  (ref) => '',
+);
+
+final _textPasswordFieldProvider = StateProvider.autoDispose<String>(
+  (ref) => '',
+);
+
+final _textConfirmPasswordFieldProvider = StateProvider.autoDispose<String>(
+  (ref) => '',
+);
+
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
 
@@ -74,27 +93,61 @@ class SignUpScreen extends ConsumerStatefulWidget {
 
 class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _fullNameController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+
   // final _phoneRegex = RegExp(r"^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$");
   final _phoneRegex = RegExp(r"^\+[1-9]\d{1,14}$");
-  final emailFocusNode = FocusNode();
-  final fullnameFocusNode = FocusNode();
-  final phoneFocusNode = FocusNode();
-  final passwordFocusNode = FocusNode();
-  final confirmPasswordFocusNode = FocusNode();
+
+  final _emailFocusNode = FocusNode();
+  final _fullnameFocusNode = FocusNode();
+  final _phoneFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
+  final _confirmPasswordFocusNode = FocusNode();
+
+  final _emailFieldKey = GlobalKey();
+  final _fullNameFieldKey = GlobalKey();
+  final _phoneFieldKey = GlobalKey();
+  final _passwordFieldKey = GlobalKey();
+  final _confirmPasswordFieldKey = GlobalKey();
+
+  void addScrollableTextFieldListener(
+      FocusNode textFieldFocusNode, BuildContext context) {
+    textFieldFocusNode.addListener(() {
+      if (textFieldFocusNode.hasFocus) {
+        Scrollable.ensureVisible(
+          context,
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      addScrollableTextFieldListener(
+          _emailFocusNode, _emailFieldKey.currentContext!);
+      addScrollableTextFieldListener(
+          _fullnameFocusNode, _fullNameFieldKey.currentContext!);
+      addScrollableTextFieldListener(
+          _phoneFocusNode, _phoneFieldKey.currentContext!);
+      addScrollableTextFieldListener(
+          _passwordFocusNode, _passwordFieldKey.currentContext!);
+      addScrollableTextFieldListener(
+          _confirmPasswordFocusNode, _confirmPasswordFieldKey.currentContext!);
+    });
+  }
 
   // dispose it when the widget is unmounted
   @override
   void dispose() {
-    _emailController.dispose();
-    _fullNameController.dispose();
-    _phoneController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
+    _emailFocusNode.dispose();
+    _fullnameFocusNode.dispose();
+    _phoneFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    _confirmPasswordFocusNode.dispose();
 
     super.dispose();
   }
@@ -108,23 +161,45 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           ? null
           : BackButton(
               color: Colors.white,
-              onPressed: () =>
-                  ref.read(goRouterProvider).go(AppRouter.login.path),
+              onPressed: () {
+                if (!ref.watch(signUpControllerProvider).value!) {
+                  ref.watch(goRouterProvider).go(AppRouter.login.path);
+                }
+              },
             ),
     );
 
+    final textEmail = ref.watch(_textEmailFieldProvider);
+    final textFullname = ref.watch(_textFullnameFieldProvider);
+    final textPhone = ref.watch(_textPhoneFieldProvider);
+    final textPassword = ref.watch(_textPasswordFieldProvider);
+    final textConfirmPassword = ref.watch(_textConfirmPasswordFieldProvider);
+
     // error handling
-    ref.listen<AsyncValue<void>>(
+    ref.listen<AsyncValue<bool>>(
       signUpControllerProvider,
-      (previousState, nextState) => nextState.whenOrNull(
-        error: (error, stackTrace) {
-          if (error is EmailAlreadyInUseException) {
-            ref.read(_validEmailProvider.notifier).state = false;
-          } else {
-            CustomSnackbar.showErrorToast(context, 'Erro', error.toString());
-          }
-        },
-      ),
+      (previousState, nextState) {
+        if (context.loaderOverlay.visible) {
+          context.loaderOverlay.hide();
+        }
+        nextState.whenOrNull(
+          data: (isRegistered) {
+            if (isRegistered) {
+              ref
+                  .watch(goRouterProvider)
+                  .pushReplacement(AppRouter.successSignUp.path);
+            }
+          },
+          loading: () => context.loaderOverlay.show(),
+          error: (error, stackTrace) {
+            if (error is EmailAlreadyInUseException) {
+              ref.watch(_validEmailProvider.notifier).state = false;
+            } else {
+              CustomSnackbar.showErrorToast(context, 'Error', error.toString());
+            }
+          },
+        );
+      },
     );
 
     return WillPopScope(
@@ -133,666 +208,566 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         backgroundColor: CustomColors.mainGreen,
         appBar: appBar,
         body: SafeArea(
-          child: AnimatedCrossFade(
-            crossFadeState: !state.value!
-                ? CrossFadeState.showFirst
-                : CrossFadeState.showSecond,
-            duration: const Duration(seconds: 1),
-            secondChild: const SuccessSignUp(),
-            firstChild: Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: LayoutBuilder(builder: (context, constraints) {
-                  return SingleChildScrollView(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: constraints.maxHeight,
-                      ),
-                      child: SizedBox(
-                        height: ref.watch(_columnHeightProvider),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Flexible(
-                              child: Center(
-                                child: Text(
-                                  Strings.register.toUpperCase(),
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 40.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: LayoutBuilder(builder: (context, constraints) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                      //maxHeight: constraints.maxHeight,
+                    ),
+                    child: SizedBox(
+                      height: ref.watch(_columnHeightProvider),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Flexible(
+                            child: Center(
+                              child: Text(
+                                Strings.register.toUpperCase(),
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 40.0,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
-                            ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                maxWidth: 600.0,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 14.0),
-                                    child: Text(
-                                      "${Strings.email.toUpperCase()}:",
-                                      textAlign: TextAlign.start,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 14.0),
-                                    child: EnsureVisibleWhenFocused(
-                                      focusNode: emailFocusNode,
-                                      child: TextFormField(
-                                        autofillHints: const [
-                                          AutofillHints.email
-                                        ],
-                                        controller: _emailController,
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                        focusNode: emailFocusNode,
-                                        style: const TextStyle(
-                                          color: CustomColors.buttonGreen,
-                                          fontSize: 16.0,
-                                        ),
-                                        onChanged: (email) {
-                                          if (state.hasError &&
-                                              state.error
-                                                  is EmailAlreadyInUseException) {
-                                            ref
-                                                .read(signUpControllerProvider
-                                                    .notifier)
-                                                .clearState();
-                                          }
-                                          if (email.isEmpty ||
-                                              EmailValidator.validate(email)) {
-                                            if (!ref
-                                                .read(_validEmailProvider)) {
-                                              ref
-                                                  .read(_validEmailProvider
-                                                      .notifier)
-                                                  .state = true;
-                                            }
-                                            return;
-                                          }
-                                          if (ref.read(_validEmailProvider)) {
-                                            ref
-                                                .read(_validEmailProvider
-                                                    .notifier)
-                                                .state = false;
-                                          }
-                                        },
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          hintText: Strings.sampleEmail,
-                                          hintStyle: const TextStyle(
-                                            color: Colors.black45,
-                                          ),
-                                          errorText: (state.hasError &&
-                                                  state.error
-                                                      is EmailAlreadyInUseException)
-                                              ? (state.error
-                                                      as EmailAlreadyInUseException)
-                                                  .message
-                                              : (ref.watch(_validEmailProvider))
-                                                  ? null
-                                                  : Strings.insertValidEmail,
-                                          // border: OutlineInputBorder(
-                                          //   borderRadius: BorderRadius.circular(
-                                          //     10.0,
-                                          //   ),
-                                          //   borderSide:
-                                          //       (ref.watch(_validEmailProvider))
-                                          //           ? BorderSide.none
-                                          //           : const BorderSide(
-                                          //               color: Colors.red,
-                                          //               width: 2.0,
-                                          //               style: BorderStyle.solid,
-                                          //             ),
-                                          // ),
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 2.0,
-                                            ),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 2.0,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 14.0),
-                                    child: Text(
-                                      "${Strings.fullname.toUpperCase()}:",
-                                      textAlign: TextAlign.start,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 14.0),
-                                    child: EnsureVisibleWhenFocused(
-                                      focusNode: fullnameFocusNode,
-                                      child: TextFormField(
-                                        autofillHints: const [
-                                          AutofillHints.name
-                                        ],
-                                        controller: _fullNameController,
-                                        keyboardType: TextInputType.text,
-                                        focusNode: fullnameFocusNode,
-                                        inputFormatters: [
-                                          LengthLimitingTextInputFormatter(256),
-                                        ],
-                                        style: const TextStyle(
-                                          color: CustomColors.buttonGreen,
-                                          fontSize: 16.0,
-                                        ),
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          hintText: Strings.sampleFullname,
-                                          hintStyle: const TextStyle(
-                                            color: Colors.black45,
-                                          ),
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 14.0),
-                                    child: Text(
-                                      "${Strings.phoneNumber.toUpperCase()}:",
-                                      textAlign: TextAlign.start,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 14.0),
-                                    child: EnsureVisibleWhenFocused(
-                                      focusNode: phoneFocusNode,
-                                      child: TextFormField(
-                                        autofillHints: const [
-                                          AutofillHints.telephoneNumber
-                                        ],
-                                        controller: _phoneController,
-                                        keyboardType: TextInputType.phone,
-                                        focusNode: phoneFocusNode,
-                                        style: const TextStyle(
-                                          color: CustomColors.buttonGreen,
-                                          fontSize: 16.0,
-                                        ),
-                                        onChanged: (phone) {
-                                          if (phone.isEmpty ||
-                                              _phoneRegex.hasMatch(phone)) {
-                                            if (!ref
-                                                .read(_validPhoneProvider)) {
-                                              ref
-                                                  .read(_validPhoneProvider
-                                                      .notifier)
-                                                  .state = true;
-                                            }
-                                            return;
-                                          }
-                                          if (ref.read(_validPhoneProvider)) {
-                                            ref
-                                                .read(_validPhoneProvider
-                                                    .notifier)
-                                                .state = false;
-                                          }
-                                        },
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          hintText: Strings.samplePhoneNumber,
-                                          hintStyle: const TextStyle(
-                                            color: Colors.black45,
-                                          ),
-                                          errorText:
-                                              (ref.watch(_validPhoneProvider))
-                                                  ? null
-                                                  : Strings.insertValidPhone,
-                                          // border: OutlineInputBorder(
-                                          //   borderRadius: BorderRadius.circular(
-                                          //     10.0,
-                                          //   ),
-                                          //   borderSide:
-                                          //       (ref.watch(_validPhoneProvider))
-                                          //           ? BorderSide.none
-                                          //           : const BorderSide(
-                                          //               color: Colors.red,
-                                          //               width: 2.0,
-                                          //               style: BorderStyle.solid,
-                                          //             ),
-                                          // ),
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 2.0,
-                                            ),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 2.0,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 14.0),
-                                    child: Text(
-                                      "${Strings.password.toUpperCase()}:",
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 14.0),
-                                    child: EnsureVisibleWhenFocused(
-                                      focusNode: passwordFocusNode,
-                                      child: TextFormField(
-                                        obscureText: true,
-                                        // autovalidateMode:
-                                        //     AutovalidateMode.onUserInteraction,
-                                        controller: _passwordController,
-                                        keyboardType:
-                                            TextInputType.visiblePassword,
-                                        focusNode: passwordFocusNode,
-                                        onChanged: (password) {
-                                          if (password.isNotEmpty) {
-                                            if (password.length < 8) {
-                                              if (ref.read(
-                                                  _validPasswordProvider)) {
-                                                ref
-                                                    .read(_validPasswordProvider
-                                                        .notifier)
-                                                    .state = false;
-                                              }
-                                              return;
-                                            } else if (_confirmPasswordController
-                                                    .text.isNotEmpty &&
-                                                _confirmPasswordController
-                                                        .text !=
-                                                    password) {
-                                              if (ref.read(
-                                                  _validPasswordProvider)) {
-                                                ref
-                                                    .read(_validPasswordProvider
-                                                        .notifier)
-                                                    .state = false;
-                                                return;
-                                              }
-                                              return;
-                                            }
-                                          }
-                                          if (!ref
-                                              .read(_validPasswordProvider)) {
-                                            ref
-                                                .read(_validPasswordProvider
-                                                    .notifier)
-                                                .state = true;
-                                          }
-                                        },
-                                        style: const TextStyle(
-                                          color: CustomColors.buttonGreen,
-                                          fontSize: 16.0,
-                                        ),
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          hintText: Strings.choosePassword
-                                              .toLowerCase(),
-                                          hintStyle: const TextStyle(
-                                            color: Colors.black45,
-                                          ),
-                                          errorText: (!ref.watch(
-                                                      _validPasswordProvider) &&
-                                                  _passwordController
-                                                          .text.length <
-                                                      8)
-                                              ? Strings.weakPassword
-                                              : (!ref.watch(
-                                                          _validPasswordProvider) &&
-                                                      !ref.watch(
-                                                          _validConfirmPasswordProvider))
-                                                  ? Strings.passwordsNotMatch
-                                                  : null,
-                                          // border: OutlineInputBorder(
-                                          //   borderRadius: BorderRadius.circular(
-                                          //     10.0,
-                                          //   ),
-                                          //   borderSide: (ref.watch(
-                                          //           _validPasswordProvider))
-                                          //       ? BorderSide.none
-                                          //       : const BorderSide(
-                                          //           color: Colors.red,
-                                          //           width: 2.0,
-                                          //           style: BorderStyle.solid,
-                                          //         ),
-                                          // ),
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 2.0,
-                                            ),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 2.0,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 14.0),
-                                    child: Text(
-                                      "${Strings.confirmPassword.toUpperCase()}:",
-                                      textAlign: TextAlign.start,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 14.0),
-                                    child: EnsureVisibleWhenFocused(
-                                      focusNode: confirmPasswordFocusNode,
-                                      child: TextFormField(
-                                        obscureText: true,
-                                        controller: _confirmPasswordController,
-                                        keyboardType:
-                                            TextInputType.visiblePassword,
-                                        textInputAction: TextInputAction.done,
-                                        focusNode: confirmPasswordFocusNode,
-                                        onChanged: (confirmPassword) {
-                                          if (confirmPassword.isNotEmpty) {
-                                            if (_passwordController
-                                                    .text.isNotEmpty &&
-                                                _passwordController.text !=
-                                                    confirmPassword) {
-                                              if (ref.read(
-                                                  _validConfirmPasswordProvider)) {
-                                                ref
-                                                    .read(
-                                                        _validConfirmPasswordProvider
-                                                            .notifier)
-                                                    .state = false;
-                                              }
-                                              return;
-                                            }
-                                          }
-                                          if (!ref.read(
-                                              _validConfirmPasswordProvider)) {
-                                            ref
-                                                .read(
-                                                    _validConfirmPasswordProvider
-                                                        .notifier)
-                                                .state = true;
-                                          }
-                                        },
-                                        onEditingComplete: () async {
-                                          if (!state.hasError &&
-                                              _emailController
-                                                  .text.isNotEmpty &&
-                                              _fullNameController
-                                                  .text.isNotEmpty &&
-                                              _phoneController
-                                                  .text.isNotEmpty &&
-                                              _passwordController
-                                                  .text.isNotEmpty &&
-                                              _confirmPasswordController
-                                                  .text.isNotEmpty &&
-                                              ref.watch(
-                                                      _numberErrorFieldsProvider) ==
-                                                  0) {
-                                            FocusManager.instance.primaryFocus
-                                                ?.unfocus();
-                                            context.loaderOverlay.show();
-                                            await ref
-                                                .read(signUpControllerProvider
-                                                    .notifier)
-                                                .register(
-                                                  email: _emailController.text,
-                                                  fullName:
-                                                      _fullNameController.text,
-                                                  phoneNumber:
-                                                      _phoneController.text,
-                                                  password:
-                                                      _passwordController.text,
-                                                );
-                                            context.loaderOverlay.hide();
-                                          }
-                                        },
-                                        style: const TextStyle(
-                                          color: CustomColors.buttonGreen,
-                                          fontSize: 16.0,
-                                        ),
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          hintText: Strings.confirmPassword
-                                              .toLowerCase(),
-                                          hintStyle: const TextStyle(
-                                            color: Colors.black45,
-                                          ),
-                                          errorText: (!ref.watch(
-                                                  _validConfirmPasswordProvider))
-                                              ? Strings.passwordsNotMatch
-                                              : null,
-                                          // border: OutlineInputBorder(
-                                          //   borderRadius: BorderRadius.circular(
-                                          //     10.0,
-                                          //   ),
-                                          //   borderSide: (ref.watch(
-                                          //           _validConfirmPasswordProvider))
-                                          //       ? BorderSide.none
-                                          //       : const BorderSide(
-                                          //           color: Colors.red,
-                                          //           width: 2.0,
-                                          //           style: BorderStyle.solid,
-                                          //         ),
-                                          // ),
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 2.0,
-                                            ),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10.0,
-                                            ),
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 2.0,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 9.0),
-                                    child: ElevatedButton(
-                                      onPressed: (state.hasError ||
-                                              _emailController.text.isEmpty ||
-                                              _fullNameController
-                                                  .text.isEmpty ||
-                                              _phoneController.text.isEmpty ||
-                                              _passwordController
-                                                  .text.isEmpty ||
-                                              _confirmPasswordController
-                                                  .text.isEmpty ||
-                                              ref.watch(
-                                                      _numberErrorFieldsProvider) !=
-                                                  0)
-                                          ? null
-                                          : () async {
-                                              context.loaderOverlay.show();
-                                              await ref
-                                                  .read(signUpControllerProvider
-                                                      .notifier)
-                                                  .register(
-                                                    email:
-                                                        _emailController.text,
-                                                    fullName:
-                                                        _fullNameController
-                                                            .text,
-                                                    phoneNumber:
-                                                        _phoneController.text,
-                                                    password:
-                                                        _passwordController
-                                                            .text,
-                                                  );
-                                              context.loaderOverlay.hide();
-                                            },
-                                      child: Text(
-                                        Strings.register.toUpperCase(),
-                                        style: const TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    Strings.createAccountWarning.toUpperCase(),
-                                    textAlign: TextAlign.center,
+                          ),
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxWidth: 600.0,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14.0),
+                                  child: Text(
+                                    "${Strings.email.toUpperCase()}:",
+                                    textAlign: TextAlign.start,
                                     style: const TextStyle(
                                       color: Colors.white,
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14.0,
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        Strings.questionAlreadyHaveAccount,
-                                        style: TextStyle(
-                                          fontSize: 12.0,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14.0),
+                                  child: TextFormField(
+                                    key: _emailFieldKey,
+                                    autofillHints: const [AutofillHints.email],
+                                    keyboardType: TextInputType.emailAddress,
+                                    textInputAction: TextInputAction.next,
+                                    focusNode: _emailFocusNode,
+                                    style: const TextStyle(
+                                      color: CustomColors.buttonGreen,
+                                      fontSize: 16.0,
+                                    ),
+                                    onChanged: (email) {
+                                      ref
+                                          .watch(
+                                              _textEmailFieldProvider.notifier)
+                                          .state = email;
+                                      if (state.hasError &&
+                                          state.error
+                                              is EmailAlreadyInUseException) {
+                                        ref
+                                            .watch(signUpControllerProvider
+                                                .notifier)
+                                            .clearState();
+                                      }
+                                      if (email.isEmpty ||
+                                          EmailValidator.validate(email)) {
+                                        if (!ref.watch(_validEmailProvider)) {
+                                          ref
+                                              .watch(
+                                                  _validEmailProvider.notifier)
+                                              .state = true;
+                                        }
+                                        return;
+                                      }
+                                      if (ref.watch(_validEmailProvider)) {
+                                        ref
+                                            .watch(_validEmailProvider.notifier)
+                                            .state = false;
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText: Strings.sampleEmail,
+                                      hintStyle: const TextStyle(
+                                        color: Colors.black45,
+                                      ),
+                                      errorText: (state.hasError &&
+                                              state.error
+                                                  is EmailAlreadyInUseException)
+                                          ? (state.error
+                                                  as EmailAlreadyInUseException)
+                                              .message
+                                          : (ref.watch(_validEmailProvider))
+                                              ? null
+                                              : Strings.insertValidEmail,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
                                         ),
                                       ),
-                                      TextButton(
-                                        onPressed: () => ref
-                                            .read(goRouterProvider)
-                                            .go(AppRouter.login.path),
-                                        child: Text(
-                                          "${Strings.login} ${Strings.here}"
-                                              .toUpperCase(),
-                                          style: const TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
                                         ),
-                                      )
-                                    ],
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14.0),
+                                  child: Text(
+                                    "${Strings.fullname.toUpperCase()}:",
+                                    textAlign: TextAlign.start,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14.0),
+                                  child: TextFormField(
+                                    key: _fullNameFieldKey,
+                                    autofillHints: const [AutofillHints.name],
+                                    keyboardType: TextInputType.text,
+                                    textInputAction: TextInputAction.next,
+                                    focusNode: _fullnameFocusNode,
+                                    onChanged: (fullname) {
+                                      ref
+                                          .watch(_textFullnameFieldProvider
+                                              .notifier)
+                                          .state = fullname;
+                                    },
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(256),
+                                    ],
+                                    style: const TextStyle(
+                                      color: CustomColors.buttonGreen,
+                                      fontSize: 16.0,
+                                    ),
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText: Strings.sampleFullname,
+                                      hintStyle: const TextStyle(
+                                        color: Colors.black45,
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14.0),
+                                  child: Text(
+                                    "${Strings.phoneNumber.toUpperCase()}:",
+                                    textAlign: TextAlign.start,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14.0),
+                                  child: TextFormField(
+                                    key: _phoneFieldKey,
+                                    autofillHints: const [
+                                      AutofillHints.telephoneNumber
+                                    ],
+                                    keyboardType: TextInputType.phone,
+                                    textInputAction: TextInputAction.next,
+                                    focusNode: _phoneFocusNode,
+                                    style: const TextStyle(
+                                      color: CustomColors.buttonGreen,
+                                      fontSize: 16.0,
+                                    ),
+                                    onChanged: (phone) {
+                                      ref
+                                          .watch(
+                                              _textPhoneFieldProvider.notifier)
+                                          .state = phone;
+                                      if (phone.isEmpty ||
+                                          _phoneRegex.hasMatch(phone)) {
+                                        if (!ref.watch(_validPhoneProvider)) {
+                                          ref
+                                              .watch(
+                                                  _validPhoneProvider.notifier)
+                                              .state = true;
+                                        }
+                                        return;
+                                      }
+                                      if (ref.watch(_validPhoneProvider)) {
+                                        ref
+                                            .watch(_validPhoneProvider.notifier)
+                                            .state = false;
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText: Strings.samplePhoneNumber,
+                                      hintStyle: const TextStyle(
+                                        color: Colors.black45,
+                                      ),
+                                      errorText:
+                                          (ref.watch(_validPhoneProvider))
+                                              ? null
+                                              : Strings.insertValidPhone,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14.0),
+                                  child: Text(
+                                    "${Strings.password.toUpperCase()}:",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14.0),
+                                  child: TextFormField(
+                                    key: _passwordFieldKey,
+                                    obscureText: true,
+                                    keyboardType: TextInputType.visiblePassword,
+                                    textInputAction: TextInputAction.next,
+                                    focusNode: _passwordFocusNode,
+                                    onChanged: (password) {
+                                      ref
+                                          .watch(_textPasswordFieldProvider
+                                              .notifier)
+                                          .state = password;
+                                      if (password.isNotEmpty) {
+                                        if (password.length < 8) {
+                                          if (ref
+                                              .watch(_validPasswordProvider)) {
+                                            ref
+                                                .watch(_validPasswordProvider
+                                                    .notifier)
+                                                .state = false;
+                                          }
+                                          return;
+                                        } else if (textConfirmPassword
+                                                .isNotEmpty &&
+                                            textConfirmPassword != password) {
+                                          if (ref
+                                              .watch(_validPasswordProvider)) {
+                                            ref
+                                                .watch(_validPasswordProvider
+                                                    .notifier)
+                                                .state = false;
+                                            return;
+                                          }
+                                          return;
+                                        }
+                                      }
+                                      if (!ref.watch(_validPasswordProvider)) {
+                                        ref
+                                            .watch(
+                                                _validPasswordProvider.notifier)
+                                            .state = true;
+                                      }
+                                    },
+                                    style: const TextStyle(
+                                      color: CustomColors.buttonGreen,
+                                      fontSize: 16.0,
+                                    ),
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText:
+                                          Strings.choosePassword.toLowerCase(),
+                                      hintStyle: const TextStyle(
+                                        color: Colors.black45,
+                                      ),
+                                      errorText: (!ref.watch(
+                                                  _validPasswordProvider) &&
+                                              textPassword.length < 8)
+                                          ? Strings.weakPassword
+                                          : (!ref.watch(
+                                                      _validPasswordProvider) &&
+                                                  !ref.watch(
+                                                      _validConfirmPasswordProvider))
+                                              ? Strings.passwordsNotMatch
+                                              : null,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14.0),
+                                  child: Text(
+                                    "${Strings.confirmPassword.toUpperCase()}:",
+                                    textAlign: TextAlign.start,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14.0),
+                                  child: TextFormField(
+                                    key: _confirmPasswordFieldKey,
+                                    obscureText: true,
+                                    keyboardType: TextInputType.visiblePassword,
+                                    textInputAction: TextInputAction.done,
+                                    focusNode: _confirmPasswordFocusNode,
+                                    onChanged: (confirmPassword) {
+                                      ref
+                                          .watch(
+                                              _textConfirmPasswordFieldProvider
+                                                  .notifier)
+                                          .state = confirmPassword;
+                                      if (confirmPassword.isNotEmpty) {
+                                        if (textPassword.isNotEmpty &&
+                                            textPassword != confirmPassword) {
+                                          if (ref.watch(
+                                              _validConfirmPasswordProvider)) {
+                                            ref
+                                                .watch(
+                                                    _validConfirmPasswordProvider
+                                                        .notifier)
+                                                .state = false;
+                                          }
+                                          return;
+                                        }
+                                      }
+                                      if (!ref.watch(
+                                          _validConfirmPasswordProvider)) {
+                                        ref
+                                            .watch(_validConfirmPasswordProvider
+                                                .notifier)
+                                            .state = true;
+                                      }
+                                    },
+                                    onEditingComplete: () async {
+                                      if (!state.hasError &&
+                                          textEmail.isNotEmpty &&
+                                          textFullname.isNotEmpty &&
+                                          textPhone.isNotEmpty &&
+                                          textPassword.isNotEmpty &&
+                                          textConfirmPassword.isNotEmpty &&
+                                          ref.watch(
+                                                  _numberErrorFieldsProvider) ==
+                                              0) {
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
+                                        await ref
+                                            .watch(signUpControllerProvider
+                                                .notifier)
+                                            .register(
+                                              email: textEmail,
+                                              fullName: textFullname,
+                                              phoneNumber: textPhone,
+                                              password: textPassword,
+                                            );
+                                      }
+                                    },
+                                    style: const TextStyle(
+                                      color: CustomColors.buttonGreen,
+                                      fontSize: 16.0,
+                                    ),
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText:
+                                          Strings.confirmPassword.toLowerCase(),
+                                      hintStyle: const TextStyle(
+                                        color: Colors.black45,
+                                      ),
+                                      errorText: (!ref.watch(
+                                              _validConfirmPasswordProvider))
+                                          ? Strings.passwordsNotMatch
+                                          : null,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          10.0,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 9.0),
+                                  child: ElevatedButton(
+                                    onPressed: (state.hasError ||
+                                            textEmail.isEmpty ||
+                                            textFullname.isEmpty ||
+                                            textPhone.isEmpty ||
+                                            textPassword.isEmpty ||
+                                            textConfirmPassword.isEmpty ||
+                                            ref.watch(
+                                                    _numberErrorFieldsProvider) !=
+                                                0)
+                                        ? null
+                                        : () {
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                            ref
+                                                .watch(signUpControllerProvider
+                                                    .notifier)
+                                                .register(
+                                                  email: textEmail,
+                                                  fullName: textFullname,
+                                                  phoneNumber: textPhone,
+                                                  password: textPassword,
+                                                );
+                                          },
+                                    child: Text(
+                                      Strings.register.toUpperCase(),
+                                      style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  Strings.createAccountWarning.toUpperCase(),
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      Strings.questionAlreadyHaveAccount,
+                                      style: TextStyle(
+                                        fontSize: 12.0,
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () => ref
+                                          .watch(goRouterProvider)
+                                          .go(AppRouter.login.path),
+                                      child: Text(
+                                        "${Strings.login} ${Strings.here}"
+                                            .toUpperCase(),
+                                        style: const TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                }),
-              ),
+                  ),
+                );
+              }),
             ),
           ),
         ),
@@ -801,47 +776,47 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   }
 }
 
-class SuccessSignUp extends StatelessWidget {
-  const SuccessSignUp({super.key});
+// class SuccessSignUp extends StatelessWidget {
+//   const SuccessSignUp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const Text(
-          Strings.success,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 40.0,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        Image.asset('assets/images/confirm_ball.png'),
-        const Center(
-          child: SizedBox(
-            width: 302.0,
-            height: 72.0,
-            child: Text(
-              Strings.accountCreatedSuccess,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16.0,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-        ),
-        const Center(
-          child: CircularProgressIndicator(
-            backgroundColor: Colors.white,
-            color: Color.fromRGBO(23, 104, 46, 1.0),
-          ),
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.stretch,
+//       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//       children: [
+//         const Text(
+//           Strings.success,
+//           textAlign: TextAlign.center,
+//           style: TextStyle(
+//             color: Colors.white,
+//             fontSize: 40.0,
+//             fontWeight: FontWeight.w600,
+//           ),
+//         ),
+//         Image.asset('assets/images/confirm_ball.png'),
+//         const Center(
+//           child: SizedBox(
+//             width: 302.0,
+//             height: 72.0,
+//             child: Text(
+//               Strings.accountCreatedSuccess,
+//               textAlign: TextAlign.center,
+//               style: TextStyle(
+//                 color: Colors.white,
+//                 fontSize: 16.0,
+//                 fontWeight: FontWeight.w700,
+//               ),
+//             ),
+//           ),
+//         ),
+//         const Center(
+//           child: CircularProgressIndicator(
+//             backgroundColor: Colors.white,
+//             color: Color.fromRGBO(23, 104, 46, 1.0),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }

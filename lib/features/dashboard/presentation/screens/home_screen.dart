@@ -6,8 +6,12 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Center(
-      child: Text("HOME"),
+    return const Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Text("HOME"),
+        ),
+      ),
     );
   }
 }
