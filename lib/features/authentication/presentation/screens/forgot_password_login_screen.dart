@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common_widgets/custom_snackbar.dart';
-import '../../../../common_widgets/ensure_visible_when_focused.dart';
 import '../../../../constants/custom_colors.dart';
 import '../../../../constants/paths.dart';
 import '../../../../constants/strings.dart';
