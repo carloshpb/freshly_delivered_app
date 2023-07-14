@@ -31,7 +31,6 @@ class _ForgotPasswordLoginScreenState
 
   @override
   Widget build(BuildContext context) {
-    final emailFocusNode = FocusNode();
     final mediaQuerySize = MediaQuery.sizeOf(context);
     final appBar = AppBar(
       backgroundColor: CustomColors.mainGreen,
@@ -114,71 +113,68 @@ class _ForgotPasswordLoginScreenState
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            EnsureVisibleWhenFocused(
-                              focusNode: emailFocusNode,
-                              child: TextField(
-                                autofillHints: const [AutofillHints.email],
-                                controller: _emailController,
-                                textAlign: TextAlign.center,
-                                keyboardType: TextInputType.emailAddress,
-                                focusNode: emailFocusNode,
-                                style: const TextStyle(
-                                  color: CustomColors.buttonGreen,
-                                  fontSize: 16.0,
+                            TextField(
+                              autofillHints: const [AutofillHints.email],
+                              controller: _emailController,
+                              textAlign: TextAlign.center,
+                              keyboardType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.done,
+                              style: const TextStyle(
+                                color: CustomColors.buttonGreen,
+                                fontSize: 16.0,
+                              ),
+                              onChanged: (_) {
+                                if (ref
+                                        .watch(
+                                            forgotPasswordLoginControllerProvider)
+                                        .hasError &&
+                                    (ref
+                                            .watch(
+                                                forgotPasswordLoginControllerProvider)
+                                            .error is UserNotFoundException ||
+                                        ref
+                                            .watch(
+                                                forgotPasswordLoginControllerProvider)
+                                            .error is InvalidEmailException)) {
+                                  ref
+                                      .read(
+                                          forgotPasswordLoginControllerProvider
+                                              .notifier)
+                                      .clearState();
+                                }
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: Strings.sampleEmail,
+                                hintStyle: const TextStyle(
+                                  color: Colors.black45,
                                 ),
-                                onChanged: (_) {
-                                  if (ref
-                                          .watch(
-                                              forgotPasswordLoginControllerProvider)
-                                          .hasError &&
-                                      (ref
-                                              .watch(
-                                                  forgotPasswordLoginControllerProvider)
-                                              .error is UserNotFoundException ||
-                                          ref
-                                              .watch(
-                                                  forgotPasswordLoginControllerProvider)
-                                              .error is InvalidEmailException)) {
-                                    ref
-                                        .read(
-                                            forgotPasswordLoginControllerProvider
-                                                .notifier)
-                                        .clearState();
-                                  }
-                                },
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintText: Strings.sampleEmail,
-                                  hintStyle: const TextStyle(
-                                    color: Colors.black45,
+                                errorText: (ref
+                                            .watch(
+                                                forgotPasswordLoginControllerProvider)
+                                            .hasError &&
+                                        (ref
+                                                    .watch(
+                                                        forgotPasswordLoginControllerProvider)
+                                                    .error
+                                                is UserNotFoundException ||
+                                            ref
+                                                    .watch(
+                                                        forgotPasswordLoginControllerProvider)
+                                                    .error
+                                                is InvalidEmailException))
+                                    ? (ref
+                                            .watch(
+                                                forgotPasswordLoginControllerProvider)
+                                            .error as AppAuthException)
+                                        .message
+                                    : null,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    10.0,
                                   ),
-                                  errorText: (ref
-                                              .watch(
-                                                  forgotPasswordLoginControllerProvider)
-                                              .hasError &&
-                                          (ref
-                                                      .watch(
-                                                          forgotPasswordLoginControllerProvider)
-                                                      .error
-                                                  is UserNotFoundException ||
-                                              ref
-                                                      .watch(
-                                                          forgotPasswordLoginControllerProvider)
-                                                      .error
-                                                  is InvalidEmailException))
-                                      ? (ref
-                                              .watch(
-                                                  forgotPasswordLoginControllerProvider)
-                                              .error as AppAuthException)
-                                          .message
-                                      : null,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10.0,
-                                    ),
-                                    borderSide: BorderSide.none,
-                                  ),
+                                  borderSide: BorderSide.none,
                                 ),
                               ),
                             ),

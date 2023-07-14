@@ -6,23 +6,23 @@ import '../../../../routers/app_router.dart';
 import '../../application/use_cases/sign_in_email_password_use_case_impl.dart';
 
 final loginControllerProvider =
-    AsyncNotifierProvider.autoDispose<LoginController, (String, String)>(
+    AsyncNotifierProvider.autoDispose<LoginController, (String, String, bool)>(
   () => LoginController(),
   name: r'loginControllerProvider',
 );
 
-class LoginController extends AutoDisposeAsyncNotifier<(String, String)> {
+class LoginController extends AutoDisposeAsyncNotifier<(String, String, bool)> {
   @override
-  FutureOr<(String, String)> build() {
-    return ('', '');
+  FutureOr<(String, String, bool)> build() {
+    return ('', '', false);
   }
 
   void updateEmail(String email) {
-    state = AsyncValue.data((email, state.value!.$2));
+    state = AsyncValue.data((email, state.value!.$2, state.value!.$3));
   }
 
   void updatePassword(String password) {
-    state = AsyncValue.data((state.value!.$1, password));
+    state = AsyncValue.data((state.value!.$1, password, state.value!.$3));
   }
 
   Future<void> signIn() async {
@@ -32,7 +32,7 @@ class LoginController extends AutoDisposeAsyncNotifier<(String, String)> {
     state = await AsyncValue.guard(() async {
       await ref.read(signInUseCaseProvider).execute(request: (email, password));
       ref.read(goRouterProvider).pushReplacement(AppRouter.home.path);
-      return (email, password);
+      return (email, password, true);
     });
   }
 }
