@@ -109,8 +109,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           : BackButton(
               color: Colors.white,
               onPressed: () {
-                if (!ref.read(
-                    signUpControllerProvider as ProviderListenable<bool>)) {
+                if (!ref.read(signUpControllerProvider).value!) {
                   ref.read(goRouterProvider).go(AppRouter.login.path);
                 }
               },
@@ -159,6 +158,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
                       minHeight: constraints.maxHeight,
+                      //maxHeight: constraints.maxHeight,
                     ),
                     child: SizedBox(
                       height: ref.watch(_columnHeightProvider),
@@ -256,19 +256,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                             : (ref.watch(_validEmailProvider))
                                                 ? null
                                                 : Strings.insertValidEmail,
-                                        // border: OutlineInputBorder(
-                                        //   borderRadius: BorderRadius.circular(
-                                        //     10.0,
-                                        //   ),
-                                        //   borderSide:
-                                        //       (ref.watch(_validEmailProvider))
-                                        //           ? BorderSide.none
-                                        //           : const BorderSide(
-                                        //               color: Colors.red,
-                                        //               width: 2.0,
-                                        //               style: BorderStyle.solid,
-                                        //             ),
-                                        // ),
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(
                                             10.0,
@@ -398,19 +385,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                             (ref.watch(_validPhoneProvider))
                                                 ? null
                                                 : Strings.insertValidPhone,
-                                        // border: OutlineInputBorder(
-                                        //   borderRadius: BorderRadius.circular(
-                                        //     10.0,
-                                        //   ),
-                                        //   borderSide:
-                                        //       (ref.watch(_validPhoneProvider))
-                                        //           ? BorderSide.none
-                                        //           : const BorderSide(
-                                        //               color: Colors.red,
-                                        //               width: 2.0,
-                                        //               style: BorderStyle.solid,
-                                        //             ),
-                                        // ),
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(
                                             10.0,
@@ -519,19 +493,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                                         _validConfirmPasswordProvider))
                                                 ? Strings.passwordsNotMatch
                                                 : null,
-                                        // border: OutlineInputBorder(
-                                        //   borderRadius: BorderRadius.circular(
-                                        //     10.0,
-                                        //   ),
-                                        //   borderSide: (ref.watch(
-                                        //           _validPasswordProvider))
-                                        //       ? BorderSide.none
-                                        //       : const BorderSide(
-                                        //           color: Colors.red,
-                                        //           width: 2.0,
-                                        //           style: BorderStyle.solid,
-                                        //         ),
-                                        // ),
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(
                                             10.0,
@@ -654,19 +615,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                                 _validConfirmPasswordProvider))
                                             ? Strings.passwordsNotMatch
                                             : null,
-                                        // border: OutlineInputBorder(
-                                        //   borderRadius: BorderRadius.circular(
-                                        //     10.0,
-                                        //   ),
-                                        //   borderSide: (ref.watch(
-                                        //           _validConfirmPasswordProvider))
-                                        //       ? BorderSide.none
-                                        //       : const BorderSide(
-                                        //           color: Colors.red,
-                                        //           width: 2.0,
-                                        //           style: BorderStyle.solid,
-                                        //         ),
-                                        // ),
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(
                                             10.0,
