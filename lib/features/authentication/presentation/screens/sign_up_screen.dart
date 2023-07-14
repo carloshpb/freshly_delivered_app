@@ -584,7 +584,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                                 0) {
                                           FocusManager.instance.primaryFocus
                                               ?.unfocus();
-                                          context.loaderOverlay.show();
                                           await ref
                                               .read(signUpControllerProvider
                                                   .notifier)
