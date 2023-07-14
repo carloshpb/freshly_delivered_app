@@ -36,6 +36,6 @@ extension AsyncValueUI on AsyncValue {
 
   void showSnackbarOnError(BuildContext context) => whenOrNull(
         error: (error, stackTrace) =>
-            CustomSnackbar.showErrorToast(context, 'Erro', error.toString()),
+            CustomSnackbar.showErrorToast(context, 'Error', error.toString()),
       );
 }
