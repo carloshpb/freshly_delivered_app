@@ -42,11 +42,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       }
     });
     _emailFocusNode.addListener(() {
+      print("was it called ? has focus : ${_emailFocusNode.hasFocus}");
       if (_emailFocusNode.hasFocus) {
         Scrollable.ensureVisible(
           _emailFieldKey.currentContext!,
           duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
+          curve: Curves.decelerate,
         );
       }
     });
@@ -71,6 +72,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     super.dispose();
   }
 
+  // Future<void> ensureVisibleOnTextArea(
+  //     {required GlobalKey textfieldKey}) async {
+  //   final keyContext = textfieldKey.currentContext;
+  //   if (keyContext != null) {
+  //     await Future.delayed(const Duration(milliseconds: 500)).then(
+  //       (value) => Scrollable.ensureVisible(
+  //         keyContext,
+  //         duration: const Duration(milliseconds: 200),
+  //         curve: Curves.decelerate,
+  //       ),
+  //     );
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(loginControllerProvider);
@@ -93,7 +108,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         nextState.whenOrNull(
           loading: () => context.loaderOverlay.show(),
           error: (error, stackTrace) {
-            if (error is UserNotFoundException) {
+            if (error is UserNotFoundException ||
+                error is InvalidEmailException) {
               _emailFocusNode.requestFocus();
             } else if (error is WrongPasswordException) {
               _passwordFocusNode.requestFocus();
@@ -191,11 +207,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         color: CustomColors.greenIcon,
                                       ),
                                       errorText: (state.hasError &&
-                                              state.error
-                                                  is UserNotFoundException)
-                                          ? (state.error
-                                                  as UserNotFoundException)
-                                              .message
+                                              (state.error
+                                                      is UserNotFoundException ||
+                                                  state.error
+                                                      is InvalidEmailException))
+                                          ? (state.error as Exception)
+                                              .toString()
                                           : null,
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(
@@ -400,11 +417,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                               (state.error
                                                       is WrongPasswordException ||
                                                   state.error
-                                                      is UserNotFoundException)) ||
+                                                      is UserNotFoundException ||
+                                                  state.error
+                                                      is InvalidEmailException)) ||
                                           state.value!.$1.isEmpty ||
                                           state.value!.$2.isEmpty)
                                       ? null
-                                      : () => loginController.signIn(),
+                                      : () {
+                                          FocusManager.instance.primaryFocus
+                                              ?.unfocus();
+                                          loginController.signIn();
+                                        },
                                   child: Text(
                                     Strings.login.toUpperCase(),
                                     style: const TextStyle(
