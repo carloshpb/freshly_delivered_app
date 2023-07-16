@@ -22,20 +22,25 @@ class ForgotPasswordLoginController extends AutoDisposeAsyncNotifier<bool> {
 
   Future<void> sendPasswordResetEmail(String email) async {
     var isSent = state.value!;
-    state = const AsyncValue.loading();
-    if (isSent && ref.read(resendTimeMailLinkProvider) == 0) {
-      await timer();
+    if (!isSent) {
+      state = const AsyncValue.loading();
     }
+
     state = await AsyncValue.guard(() async {
-      await ref
-          .read(sendPasswordResetEmailUseCaseProvider)
-          .execute(request: email);
+      if (isSent) {
+        ref.read(sendPasswordResetEmailUseCaseProvider).execute(request: email);
+      } else {
+        await ref
+            .read(sendPasswordResetEmailUseCaseProvider)
+            .execute(request: email);
+      }
+      setTimer();
       return true;
       //ref.read(goRouterProvider).pushReplacement(AppRouter.home.path);
     });
   }
 
-  Future<void> timer() async {
+  Future<void> setTimer() async {
     final completer = Completer();
     ref.read(resendTimeMailLinkProvider.notifier).state = 20;
     Timer.periodic(const Duration(seconds: 1), (timer) {

@@ -192,7 +192,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           },
           loading: () => context.loaderOverlay.show(),
           error: (error, stackTrace) {
-            if (error is EmailAlreadyInUseException) {
+            if (error is EmailAlreadyInUseException ||
+                error is InvalidEmailException) {
+              _emailFocusNode.requestFocus();
               ref.watch(_validEmailProvider.notifier).state = false;
             } else {
               CustomSnackbar.showErrorToast(context, 'Error', error.toString());
@@ -275,8 +277,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                               _textEmailFieldProvider.notifier)
                                           .state = email;
                                       if (state.hasError &&
-                                          state.error
-                                              is EmailAlreadyInUseException) {
+                                          (state.error
+                                                  is EmailAlreadyInUseException ||
+                                              state.error
+                                                  is InvalidEmailException)) {
                                         ref
                                             .watch(signUpControllerProvider
                                                 .notifier)
@@ -306,11 +310,12 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                         color: Colors.black45,
                                       ),
                                       errorText: (state.hasError &&
-                                              state.error
-                                                  is EmailAlreadyInUseException)
-                                          ? (state.error
-                                                  as EmailAlreadyInUseException)
-                                              .message
+                                              (state.error
+                                                      is EmailAlreadyInUseException ||
+                                                  state.error
+                                                      is InvalidEmailException))
+                                          ? (state.error as Exception)
+                                              .toString()
                                           : (ref.watch(_validEmailProvider))
                                               ? null
                                               : Strings.insertValidEmail,
