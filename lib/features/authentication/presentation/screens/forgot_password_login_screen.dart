@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../common_widgets/custom_snackbar.dart';
 import '../../../../constants/custom_colors.dart';
@@ -30,30 +31,42 @@ class _ForgotPasswordLoginScreenState
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(forgotPasswordLoginControllerProvider);
+    final resendTimeMailLinkState = ref.watch(resendTimeMailLinkProvider);
+    final goRouterState = ref.watch(goRouterProvider);
+    final forgotPasswordScreenController =
+        ref.read(forgotPasswordLoginControllerProvider.notifier);
+
     final mediaQuerySize = MediaQuery.sizeOf(context);
     final appBar = AppBar(
       backgroundColor: CustomColors.mainGreen,
       leading: BackButton(
         color: Colors.white,
-        onPressed: () => ref.read(goRouterProvider).go(AppRouter.login.path),
+        onPressed: () => goRouterState.go(AppRouter.login.path),
       ),
     );
-    final state = ref.watch(forgotPasswordLoginControllerProvider);
 
     // error handling
     ref.listen<AsyncValue<bool>>(
       forgotPasswordLoginControllerProvider,
-      (previousState, nextState) => nextState.whenOrNull(
-        data: (isSent) {
-          if (isSent && (previousState!.value!)) {
-            CustomSnackbar.showSuccessToast(context,
-                Strings.sentNewResetLinkMail, Strings.sentResetLinkMessage);
-          }
-        },
-        error: (error, stackTrace) {
-          CustomSnackbar.showErrorToast(context, 'Error', error.toString());
-        },
-      ),
+      (previousState, nextState) {
+        if (previousState!.isLoading) {
+          context.loaderOverlay.hide();
+        }
+
+        nextState.whenOrNull(
+          data: (isSent) {
+            if (isSent && (previousState.value!)) {
+              CustomSnackbar.showSuccessToast(context,
+                  Strings.sentNewResetLinkMail, Strings.sentResetLinkMessage);
+            }
+          },
+          loading: () => context.loaderOverlay.show(),
+          error: (error, stackTrace) {
+            CustomSnackbar.showErrorToast(context, 'Error', error.toString());
+          },
+        );
+      },
     );
 
     return Scaffold(
@@ -123,23 +136,22 @@ class _ForgotPasswordLoginScreenState
                                 fontSize: 16.0,
                               ),
                               onChanged: (_) {
-                                if (ref
-                                        .watch(
-                                            forgotPasswordLoginControllerProvider)
-                                        .hasError &&
-                                    (ref
-                                            .watch(
-                                                forgotPasswordLoginControllerProvider)
-                                            .error is UserNotFoundException ||
-                                        ref
-                                            .watch(
-                                                forgotPasswordLoginControllerProvider)
-                                            .error is InvalidEmailException)) {
-                                  ref
-                                      .read(
-                                          forgotPasswordLoginControllerProvider
-                                              .notifier)
-                                      .clearState();
+                                if (state.hasError &&
+                                    (state.error is UserNotFoundException ||
+                                        state.error is InvalidEmailException)) {
+                                  forgotPasswordScreenController.clearState();
+                                }
+                              },
+                              onEditingComplete: () {
+                                if (!((state.hasError &&
+                                        (state.error is InvalidEmailException ||
+                                            state.error
+                                                is UserNotFoundException)) ||
+                                    state.isLoading)) {
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                  forgotPasswordScreenController
+                                      .sendPasswordResetEmail(
+                                          _emailController.text);
                                 }
                               },
                               decoration: InputDecoration(
@@ -149,25 +161,11 @@ class _ForgotPasswordLoginScreenState
                                 hintStyle: const TextStyle(
                                   color: Colors.black45,
                                 ),
-                                errorText: (ref
-                                            .watch(
-                                                forgotPasswordLoginControllerProvider)
-                                            .hasError &&
-                                        (ref
-                                                    .watch(
-                                                        forgotPasswordLoginControllerProvider)
-                                                    .error
-                                                is UserNotFoundException ||
-                                            ref
-                                                    .watch(
-                                                        forgotPasswordLoginControllerProvider)
-                                                    .error
+                                errorText: (state.hasError &&
+                                        (state.error is UserNotFoundException ||
+                                            state.error
                                                 is InvalidEmailException))
-                                    ? (ref
-                                            .watch(
-                                                forgotPasswordLoginControllerProvider)
-                                            .error as AppAuthException)
-                                        .message
+                                    ? (state.error as AppAuthException).message
                                     : null,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(
@@ -218,26 +216,16 @@ class _ForgotPasswordLoginScreenState
                       child: ElevatedButton(
                         onPressed: state.isLoading
                             ? null
-                            : (ref
-                                        .watch(
-                                            forgotPasswordLoginControllerProvider)
-                                        .hasError &&
-                                    (ref
-                                            .watch(
-                                                forgotPasswordLoginControllerProvider)
-                                            .error is InvalidEmailException ||
-                                        ref
-                                            .watch(
-                                                forgotPasswordLoginControllerProvider)
-                                            .error is UserNotFoundException))
+                            : (resendTimeMailLinkState != 0 ||
+                                    state.hasError &&
+                                        (state.error is InvalidEmailException ||
+                                            state.error
+                                                is UserNotFoundException))
                                 ? null
                                 : () {
                                     FocusManager.instance.primaryFocus
                                         ?.unfocus();
-                                    ref
-                                        .read(
-                                            forgotPasswordLoginControllerProvider
-                                                .notifier)
+                                    forgotPasswordScreenController
                                         .sendPasswordResetEmail(
                                             _emailController.text);
                                   },
@@ -258,11 +246,9 @@ class _ForgotPasswordLoginScreenState
                             ),
                           ),
                           secondChild: Text(
-                            ref.watch(resendTimeMailLinkProvider) == 0
+                            resendTimeMailLinkState == 0
                                 ? Strings.resend.toUpperCase()
-                                : ref
-                                    .read(resendTimeMailLinkProvider)
-                                    .toString(),
+                                : resendTimeMailLinkState.toString(),
                             style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.w600,
@@ -288,9 +274,8 @@ class _ForgotPasswordLoginScreenState
                               ),
                             ),
                             TextButton(
-                              onPressed: () => ref
-                                  .read(goRouterProvider)
-                                  .go(AppRouter.login.path),
+                              onPressed: () =>
+                                  goRouterState.go(AppRouter.login.path),
                               child: Text(
                                 "${Strings.login} ${Strings.here}"
                                     .toUpperCase(),
@@ -316,9 +301,8 @@ class _ForgotPasswordLoginScreenState
                           ),
                         ),
                         TextButton(
-                          onPressed: () => ref
-                              .read(goRouterProvider)
-                              .go(AppRouter.signUp.path),
+                          onPressed: () =>
+                              goRouterState.go(AppRouter.signUp.path),
                           child: Text(
                             Strings.register.toUpperCase(),
                             style: const TextStyle(
