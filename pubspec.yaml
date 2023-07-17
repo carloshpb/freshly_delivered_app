@@ -28,6 +28,7 @@ dependencies:
   json_annotation: ^4.8.1
   loader_overlay: ^2.3.0
   multiple_result: ^5.0.0
+  mockito: ^5.4.2
   rxdart: ^0.27.7
   smooth_page_indicator: ^1.1.0
   vector_graphics: ^1.1.7
