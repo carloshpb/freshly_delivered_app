@@ -10,6 +10,8 @@ sealed class AppAuthException with _$AppAuthException implements Exception {
   const AppAuthException._();
 
   const factory AppAuthException.invalidEmail() = InvalidEmailException;
+  const factory AppAuthException.invalidPhoneNumber() =
+      InvalidPhoneNumberException;
   const factory AppAuthException.missingAndroidPkgName() =
       MissingAndroidPkgNameException;
   const factory AppAuthException.missingContinueUri() =
@@ -44,6 +46,8 @@ sealed class AppAuthException with _$AppAuthException implements Exception {
     switch (this) {
       case InvalidEmailException():
         return Strings.invalidEmail;
+      case InvalidPhoneNumberException():
+        return Strings.invalidPhoneNumber;
       case MissingAndroidPkgNameException():
         return Strings.missingAndroidPkgName;
       case MissingContinueUriException():
@@ -81,6 +85,8 @@ extension FirebaseAuthCodeIdentifier on FirebaseAuthException {
     switch (code) {
       case "auth/invalid-email":
         return const InvalidEmailException();
+      case "auth/invalid-phone-number":
+        return const InvalidPhoneNumberException();
       case "auth/missing-android-pkg-name":
         return const MissingAndroidPkgNameException();
       case "auth/missing-continue-uri":

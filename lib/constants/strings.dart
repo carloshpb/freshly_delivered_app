@@ -61,6 +61,7 @@ class Strings {
 
   // Firebase Auth
   static const invalidEmail = "The email address is not valid";
+  static const invalidPhoneNumber = "The phone number is not valid";
   static const missingAndroidPkgName =
       "A package name must be provided to install the Android app";
   static const missingContinueUri =
