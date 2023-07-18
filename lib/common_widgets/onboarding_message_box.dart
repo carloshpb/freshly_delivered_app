@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-import '../features/authentication/domain/models/onboarding_message.dart';
-
 class OnboardingMessageBox extends StatelessWidget {
-  final OnboardingMessage _onboardingMessage;
+  final String _imageSvgPath;
+  final String _title;
+  final String _message;
 
   const OnboardingMessageBox({
     super.key,
-    required OnboardingMessage onboardingMessage,
-  }) : _onboardingMessage = onboardingMessage;
+    required String imageSvgPath,
+    required String title,
+    required String message,
+  })  : _imageSvgPath = imageSvgPath,
+        _title = title,
+        _message = message;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,7 @@ class OnboardingMessageBox extends StatelessWidget {
                 flex: 4,
                 child: SvgPicture(
                   AssetBytesLoader(
-                    _onboardingMessage.imageSvgPath,
+                    _imageSvgPath,
                   ),
                   fit: BoxFit.fitHeight,
                 ),
@@ -33,7 +37,7 @@ class OnboardingMessageBox extends StatelessWidget {
               const Spacer(),
               Flexible(
                 child: Text(
-                  _onboardingMessage.title,
+                  _title,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Color.fromRGBO(37, 197, 115, 1.0),
@@ -48,7 +52,7 @@ class OnboardingMessageBox extends StatelessWidget {
               ),
               Flexible(
                 child: Text(
-                  _onboardingMessage.message,
+                  _message,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.black,

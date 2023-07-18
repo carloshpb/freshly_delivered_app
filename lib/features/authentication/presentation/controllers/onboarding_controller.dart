@@ -1,8 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utils/throttler.dart';
-import '../../domain/models/onboarding_message.dart';
-import '../../domain/services/impl/onboarding_service_impl.dart';
+import '../../application/use_cases/get_onboarding_messages_use_case.dart';
 
 final onboardingControllerProvider =
     NotifierProvider.autoDispose<OnboardingController, int>(
@@ -11,18 +10,20 @@ final onboardingControllerProvider =
 );
 
 class OnboardingController extends AutoDisposeNotifier<int> with Throttler {
-  late final List<OnboardingMessage> _onboardingMessages;
+  late final List<({String imageSvgPath, String title, String message})>
+      _onboardingMessages;
 
   @override
   int build() {
     print("BUILDING CONTROLLER ...");
     _onboardingMessages =
-        ref.read(onboardingServiceRepository).onboardingMessages;
+        ref.read(getOnboardingMessagesUseCaseProvider).execute(request: null);
 
     return 0;
   }
 
-  List<OnboardingMessage> get onboardingMessages => _onboardingMessages;
+  List<({String imageSvgPath, String title, String message})>
+      get onboardingMessages => _onboardingMessages;
 
   void onPageChanged(int next) {
     if (next >= 0 && next < _onboardingMessages.length) {
