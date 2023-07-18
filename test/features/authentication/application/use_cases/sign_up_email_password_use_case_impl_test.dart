@@ -43,7 +43,7 @@ void main() {
 
       when(mockAuthenticationRepository.createUserWithEmailAndPassword(
               mockEmail, mockCorrectPassword, mockName, mockCorrectPhone))
-          .thenReturn(voidFuture);
+          .thenAnswer((_) => voidFuture);
 
       final container = makeProviderContainer(mockAuthenticationRepository);
 
