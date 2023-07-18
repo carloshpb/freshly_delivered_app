@@ -36,7 +36,9 @@ void main() {
       var voidFuture = Future(() => null);
 
       when(mockAuthenticationRepository.sendPasswordResetEmail(mockEmail))
-          .thenReturn(voidFuture);
+          .thenAnswer(
+        (_) => voidFuture,
+      );
 
       final container = makeProviderContainer(mockAuthenticationRepository);
 
