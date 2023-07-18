@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
@@ -11,6 +12,7 @@ import 'constants/custom_colors.dart';
 import 'exceptions/async_error_logger.dart';
 import 'features/authentication/data/repositories/fake_authentication_repository.dart';
 import 'features/authentication/data/repositories/firebase_authentication_repository.dart';
+import 'features/top_level_providers.dart';
 import 'firebase_options.dart';
 import 'routers/app_router.dart';
 
@@ -19,6 +21,8 @@ Future<void> main() async {
 
   //Splash Screen
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  final prefs = await SharedPreferences.getInstance();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -41,6 +45,7 @@ Future<void> main() async {
         ref.keepAlive();
         return auth;
       }),
+      sharedPreferencesProvider.overrideWithValue(prefs),
     ],
     observers: [AsyncErrorLogger()],
   );
