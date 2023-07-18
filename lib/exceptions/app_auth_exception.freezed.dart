@@ -19,6 +19,7 @@ mixin _$AppAuthException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -38,6 +39,7 @@ mixin _$AppAuthException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -57,6 +59,7 @@ mixin _$AppAuthException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -77,6 +80,8 @@ mixin _$AppAuthException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -105,6 +110,7 @@ mixin _$AppAuthException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -128,6 +134,7 @@ mixin _$AppAuthException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -203,6 +210,7 @@ class _$InvalidEmailException extends InvalidEmailException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -225,6 +233,7 @@ class _$InvalidEmailException extends InvalidEmailException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -247,6 +256,7 @@ class _$InvalidEmailException extends InvalidEmailException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -273,6 +283,8 @@ class _$InvalidEmailException extends InvalidEmailException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -304,6 +316,7 @@ class _$InvalidEmailException extends InvalidEmailException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -330,6 +343,7 @@ class _$InvalidEmailException extends InvalidEmailException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -360,6 +374,209 @@ class _$InvalidEmailException extends InvalidEmailException {
 abstract class InvalidEmailException extends AppAuthException {
   const factory InvalidEmailException() = _$InvalidEmailException;
   const InvalidEmailException._() : super._();
+}
+
+/// @nodoc
+abstract class _$$InvalidPhoneNumberExceptionCopyWith<$Res> {
+  factory _$$InvalidPhoneNumberExceptionCopyWith(
+          _$InvalidPhoneNumberException value,
+          $Res Function(_$InvalidPhoneNumberException) then) =
+      __$$InvalidPhoneNumberExceptionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvalidPhoneNumberExceptionCopyWithImpl<$Res>
+    extends _$AppAuthExceptionCopyWithImpl<$Res, _$InvalidPhoneNumberException>
+    implements _$$InvalidPhoneNumberExceptionCopyWith<$Res> {
+  __$$InvalidPhoneNumberExceptionCopyWithImpl(
+      _$InvalidPhoneNumberException _value,
+      $Res Function(_$InvalidPhoneNumberException) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$InvalidPhoneNumberException extends InvalidPhoneNumberException {
+  const _$InvalidPhoneNumberException() : super._();
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InvalidPhoneNumberException);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
+    required TResult Function() missingAndroidPkgName,
+    required TResult Function() missingContinueUri,
+    required TResult Function() missingIosBundleId,
+    required TResult Function() invalidContinueUri,
+    required TResult Function() unauthorizedContinueUri,
+    required TResult Function() userNotFound,
+    required TResult Function() userDisabled,
+    required TResult Function() wrongPassword,
+    required TResult Function() emailAlreadyInUseException,
+    required TResult Function() operationNotAllowedException,
+    required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
+    required TResult Function(String code) unknownAuthCode,
+  }) {
+    return invalidPhoneNumber();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
+    TResult? Function()? missingAndroidPkgName,
+    TResult? Function()? missingContinueUri,
+    TResult? Function()? missingIosBundleId,
+    TResult? Function()? invalidContinueUri,
+    TResult? Function()? unauthorizedContinueUri,
+    TResult? Function()? userNotFound,
+    TResult? Function()? userDisabled,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? emailAlreadyInUseException,
+    TResult? Function()? operationNotAllowedException,
+    TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
+    TResult? Function(String code)? unknownAuthCode,
+  }) {
+    return invalidPhoneNumber?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
+    TResult Function()? missingAndroidPkgName,
+    TResult Function()? missingContinueUri,
+    TResult Function()? missingIosBundleId,
+    TResult Function()? invalidContinueUri,
+    TResult Function()? unauthorizedContinueUri,
+    TResult Function()? userNotFound,
+    TResult Function()? userDisabled,
+    TResult Function()? wrongPassword,
+    TResult Function()? emailAlreadyInUseException,
+    TResult Function()? operationNotAllowedException,
+    TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
+    TResult Function(String code)? unknownAuthCode,
+    required TResult orElse(),
+  }) {
+    if (invalidPhoneNumber != null) {
+      return invalidPhoneNumber();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
+    required TResult Function(MissingAndroidPkgNameException value)
+        missingAndroidPkgName,
+    required TResult Function(MissingContinueUriException value)
+        missingContinueUri,
+    required TResult Function(MissingIosBundleIdException value)
+        missingIosBundleId,
+    required TResult Function(InvalidContinueUriException value)
+        invalidContinueUri,
+    required TResult Function(UnauthorizedContinueUriException value)
+        unauthorizedContinueUri,
+    required TResult Function(UserNotFoundException value) userNotFound,
+    required TResult Function(UserDisabledException value) userDisabled,
+    required TResult Function(WrongPasswordException value) wrongPassword,
+    required TResult Function(EmailAlreadyInUseException value)
+        emailAlreadyInUseException,
+    required TResult Function(OperationNotAllowedException value)
+        operationNotAllowedException,
+    required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
+    required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
+  }) {
+    return invalidPhoneNumber(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
+    TResult? Function(MissingAndroidPkgNameException value)?
+        missingAndroidPkgName,
+    TResult? Function(MissingContinueUriException value)? missingContinueUri,
+    TResult? Function(MissingIosBundleIdException value)? missingIosBundleId,
+    TResult? Function(InvalidContinueUriException value)? invalidContinueUri,
+    TResult? Function(UnauthorizedContinueUriException value)?
+        unauthorizedContinueUri,
+    TResult? Function(UserNotFoundException value)? userNotFound,
+    TResult? Function(UserDisabledException value)? userDisabled,
+    TResult? Function(WrongPasswordException value)? wrongPassword,
+    TResult? Function(EmailAlreadyInUseException value)?
+        emailAlreadyInUseException,
+    TResult? Function(OperationNotAllowedException value)?
+        operationNotAllowedException,
+    TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
+  }) {
+    return invalidPhoneNumber?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
+    TResult Function(MissingAndroidPkgNameException value)?
+        missingAndroidPkgName,
+    TResult Function(MissingContinueUriException value)? missingContinueUri,
+    TResult Function(MissingIosBundleIdException value)? missingIosBundleId,
+    TResult Function(InvalidContinueUriException value)? invalidContinueUri,
+    TResult Function(UnauthorizedContinueUriException value)?
+        unauthorizedContinueUri,
+    TResult Function(UserNotFoundException value)? userNotFound,
+    TResult Function(UserDisabledException value)? userDisabled,
+    TResult Function(WrongPasswordException value)? wrongPassword,
+    TResult Function(EmailAlreadyInUseException value)?
+        emailAlreadyInUseException,
+    TResult Function(OperationNotAllowedException value)?
+        operationNotAllowedException,
+    TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
+    required TResult orElse(),
+  }) {
+    if (invalidPhoneNumber != null) {
+      return invalidPhoneNumber(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidPhoneNumberException extends AppAuthException {
+  const factory InvalidPhoneNumberException() = _$InvalidPhoneNumberException;
+  const InvalidPhoneNumberException._() : super._();
 }
 
 /// @nodoc
@@ -400,6 +617,7 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -422,6 +640,7 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -444,6 +663,7 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -470,6 +690,8 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -501,6 +723,7 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -527,6 +750,7 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -597,6 +821,7 @@ class _$MissingContinueUriException extends MissingContinueUriException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -619,6 +844,7 @@ class _$MissingContinueUriException extends MissingContinueUriException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -641,6 +867,7 @@ class _$MissingContinueUriException extends MissingContinueUriException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -667,6 +894,8 @@ class _$MissingContinueUriException extends MissingContinueUriException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -698,6 +927,7 @@ class _$MissingContinueUriException extends MissingContinueUriException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -724,6 +954,7 @@ class _$MissingContinueUriException extends MissingContinueUriException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -793,6 +1024,7 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -815,6 +1047,7 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -837,6 +1070,7 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -863,6 +1097,8 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -894,6 +1130,7 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -920,6 +1157,7 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -989,6 +1227,7 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -1011,6 +1250,7 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -1033,6 +1273,7 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -1059,6 +1300,8 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -1090,6 +1333,7 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -1116,6 +1360,7 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -1187,6 +1432,7 @@ class _$UnauthorizedContinueUriException
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -1209,6 +1455,7 @@ class _$UnauthorizedContinueUriException
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -1231,6 +1478,7 @@ class _$UnauthorizedContinueUriException
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -1257,6 +1505,8 @@ class _$UnauthorizedContinueUriException
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -1288,6 +1538,7 @@ class _$UnauthorizedContinueUriException
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -1314,6 +1565,7 @@ class _$UnauthorizedContinueUriException
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -1381,6 +1633,7 @@ class _$UserNotFoundException extends UserNotFoundException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -1403,6 +1656,7 @@ class _$UserNotFoundException extends UserNotFoundException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -1425,6 +1679,7 @@ class _$UserNotFoundException extends UserNotFoundException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -1451,6 +1706,8 @@ class _$UserNotFoundException extends UserNotFoundException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -1482,6 +1739,7 @@ class _$UserNotFoundException extends UserNotFoundException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -1508,6 +1766,7 @@ class _$UserNotFoundException extends UserNotFoundException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -1574,6 +1833,7 @@ class _$UserDisabledException extends UserDisabledException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -1596,6 +1856,7 @@ class _$UserDisabledException extends UserDisabledException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -1618,6 +1879,7 @@ class _$UserDisabledException extends UserDisabledException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -1644,6 +1906,8 @@ class _$UserDisabledException extends UserDisabledException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -1675,6 +1939,7 @@ class _$UserDisabledException extends UserDisabledException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -1701,6 +1966,7 @@ class _$UserDisabledException extends UserDisabledException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -1767,6 +2033,7 @@ class _$WrongPasswordException extends WrongPasswordException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -1789,6 +2056,7 @@ class _$WrongPasswordException extends WrongPasswordException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -1811,6 +2079,7 @@ class _$WrongPasswordException extends WrongPasswordException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -1837,6 +2106,8 @@ class _$WrongPasswordException extends WrongPasswordException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -1868,6 +2139,7 @@ class _$WrongPasswordException extends WrongPasswordException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -1894,6 +2166,7 @@ class _$WrongPasswordException extends WrongPasswordException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -1963,6 +2236,7 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -1985,6 +2259,7 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -2007,6 +2282,7 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -2033,6 +2309,8 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -2064,6 +2342,7 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -2090,6 +2369,7 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -2159,6 +2439,7 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -2181,6 +2462,7 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -2203,6 +2485,7 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -2229,6 +2512,8 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -2260,6 +2545,7 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -2286,6 +2572,7 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -2352,6 +2639,7 @@ class _$WeakPasswordException extends WeakPasswordException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -2374,6 +2662,7 @@ class _$WeakPasswordException extends WeakPasswordException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -2396,6 +2685,7 @@ class _$WeakPasswordException extends WeakPasswordException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -2422,6 +2712,8 @@ class _$WeakPasswordException extends WeakPasswordException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -2453,6 +2745,7 @@ class _$WeakPasswordException extends WeakPasswordException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -2479,6 +2772,7 @@ class _$WeakPasswordException extends WeakPasswordException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -2548,6 +2842,7 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -2570,6 +2865,7 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -2592,6 +2888,7 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -2618,6 +2915,8 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -2649,6 +2948,7 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -2675,6 +2975,7 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -2744,6 +3045,7 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -2766,6 +3068,7 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -2788,6 +3091,7 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -2814,6 +3118,8 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -2845,6 +3151,7 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -2871,6 +3178,7 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
@@ -2965,6 +3273,7 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
     required TResult Function() missingAndroidPkgName,
     required TResult Function() missingContinueUri,
     required TResult Function() missingIosBundleId,
@@ -2987,6 +3296,7 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
     TResult? Function()? missingAndroidPkgName,
     TResult? Function()? missingContinueUri,
     TResult? Function()? missingIosBundleId,
@@ -3009,6 +3319,7 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
     TResult Function()? missingAndroidPkgName,
     TResult Function()? missingContinueUri,
     TResult Function()? missingIosBundleId,
@@ -3035,6 +3346,8 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
     required TResult Function(MissingAndroidPkgNameException value)
         missingAndroidPkgName,
     required TResult Function(MissingContinueUriException value)
@@ -3066,6 +3379,7 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult? Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult? Function(MissingContinueUriException value)? missingContinueUri,
@@ -3092,6 +3406,7 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
     TResult Function(MissingAndroidPkgNameException value)?
         missingAndroidPkgName,
     TResult Function(MissingContinueUriException value)? missingContinueUri,
