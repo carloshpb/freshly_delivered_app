@@ -21,61 +21,45 @@ final onboardingMessagesRepositoryProvider =
 // Use this repo to update messages from serverside
 class OnboardingMessagesRepositoryImpl implements OnboardingMessagesRepository {
   final SharedPreferences _sharedPreferences;
-  static const _defaultOnboardingMessages = [
-    {
-      'imageSvgPath': 'assets/images/onboarding1.svg.vec',
-      'title': 'SHOP CONVENIENTLY',
-      'message':
-          'Shop from an unlimited stock of groceries from the convenience of your homes',
-    },
-    {
-      'imageSvgPath': 'assets/images/onboarding2.svg.vec',
-      'title': 'EXPERTLY CURATED RECIPES',
-      'message':
-          'Our recipes are prepared in the finest of conditions by experts in their fields',
-    },
-    {
-      'imageSvgPath': 'assets/images/onboarding3.svg.vec',
-      'title': 'BRING OUT THE CHEF IN YOU',
-      'message':
-          'Our recipes are specially picked so you can get cooking in no time',
-    },
-  ];
 
-  OnboardingMessagesRepositoryImpl(this._sharedPreferences) {
-    var messageList = _sharedPreferences.getStringList("onboardingMessages");
-    if (messageList == null || messageList.isEmpty) {
-      _sharedPreferences.setStringList("onboardingMessages",
-          _defaultOnboardingMessages.map((msg) => json.encode(msg)).toList());
-    }
-  }
+  OnboardingMessagesRepositoryImpl(this._sharedPreferences);
 
   @override
   List<OnboardingMessage> get onboardingMessages {
+    List<OnboardingMessage> decodedList;
     var messageList = _sharedPreferences.getStringList("onboardingMessages");
 
     if (messageList == null || messageList.isEmpty) {
-      messageList =
-          _defaultOnboardingMessages.map((msg) => json.encode(msg)).toList();
-      _sharedPreferences.setStringList("onboardingMessages", messageList);
-    }
-
-    List<OnboardingMessage> decodedList;
-
-    // Handle any invalid JSON data saved on shared_pref, by using default messages
-    try {
-      decodedList = messageList
-          .map((msg) => OnboardingMessage.fromJson(json.decode(msg)))
-          .toList();
-    } on TypeError {
-      messageList =
-          _defaultOnboardingMessages.map((msg) => json.encode(msg)).toList();
-      _sharedPreferences.setStringList("onboardingMessages", messageList);
+      decodedList = [];
+    } else {
+      // may throw TypeError
       decodedList = messageList
           .map((msg) => OnboardingMessage.fromJson(json.decode(msg)))
           .toList();
     }
 
     return decodedList;
+  }
+
+  @override
+  set onboardingMessages(List<OnboardingMessage> messages) {
+    var encodedList = messages.map((e) => jsonEncode(e.toJson())).toList();
+
+    _sharedPreferences.setStringList("onboardingMessages", encodedList);
+  }
+
+  @override
+  void addOnboardingMessage(OnboardingMessage message) {
+    var encodedMessage = jsonEncode(message.toJson());
+
+    var messageList = _sharedPreferences.getStringList("onboardingMessages");
+
+    if (messageList == null || messageList.isEmpty) {
+      messageList = [];
+    }
+
+    messageList.add(encodedMessage);
+
+    _sharedPreferences.setStringList("onboardingMessages", messageList);
   }
 }

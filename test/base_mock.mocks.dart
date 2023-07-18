@@ -7,14 +7,18 @@ import 'dart:async' as _i6;
 
 import 'package:firebase_auth/firebase_auth.dart' as _i3;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart'
-    as _i8;
+    as _i10;
 import 'package:firebase_core/firebase_core.dart' as _i2;
 import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart'
     as _i7;
+import 'package:freshly_delivered_app/features/authentication/domain/models/onboarding_message.dart'
+    as _i9;
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/authentication_repository.dart'
     as _i5;
+import 'package:freshly_delivered_app/features/authentication/domain/repositories/onboarding_messages_repository.dart'
+    as _i8;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:shared_preferences/shared_preferences.dart' as _i9;
+import 'package:shared_preferences/shared_preferences.dart' as _i11;
 
 import 'base_mock.dart' as _i4;
 
@@ -201,6 +205,37 @@ class MockAuthenticationRepository extends _i1.Mock
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
+}
+
+/// A class which mocks [OnboardingMessagesRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockOnboardingMessagesRepository extends _i1.Mock
+    implements _i8.OnboardingMessagesRepository {
+  @override
+  List<_i9.OnboardingMessage> get onboardingMessages => (super.noSuchMethod(
+        Invocation.getter(#onboardingMessages),
+        returnValue: <_i9.OnboardingMessage>[],
+        returnValueForMissingStub: <_i9.OnboardingMessage>[],
+      ) as List<_i9.OnboardingMessage>);
+  @override
+  set onboardingMessages(List<_i9.OnboardingMessage>? messages) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #onboardingMessages,
+          messages,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void addOnboardingMessage(_i9.OnboardingMessage? message) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #addOnboardingMessage,
+          [message],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [UserCredential].
@@ -650,7 +685,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i3.FirebaseAuth {
       ) as _i6.Future<_i3.UserCredential>);
   @override
   _i6.Future<_i3.UserCredential> signInWithAuthProvider(
-          _i8.AuthProvider? provider) =>
+          _i10.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithAuthProvider,
@@ -674,7 +709,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i3.FirebaseAuth {
       ) as _i6.Future<_i3.UserCredential>);
   @override
   _i6.Future<_i3.UserCredential> signInWithProvider(
-          _i8.AuthProvider? provider) =>
+          _i10.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithProvider,
@@ -733,7 +768,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i3.FirebaseAuth {
         )),
       ) as _i6.Future<_i3.ConfirmationResult>);
   @override
-  _i6.Future<_i3.UserCredential> signInWithPopup(_i8.AuthProvider? provider) =>
+  _i6.Future<_i3.UserCredential> signInWithPopup(_i10.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithPopup,
@@ -756,7 +791,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i3.FirebaseAuth {
         )),
       ) as _i6.Future<_i3.UserCredential>);
   @override
-  _i6.Future<void> signInWithRedirect(_i8.AuthProvider? provider) =>
+  _i6.Future<void> signInWithRedirect(_i10.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithRedirect,
@@ -939,7 +974,8 @@ class MockUser extends _i1.Mock implements _i3.User {
         )),
       ) as _i6.Future<_i3.UserCredential>);
   @override
-  _i6.Future<_i3.UserCredential> linkWithProvider(_i8.AuthProvider? provider) =>
+  _i6.Future<_i3.UserCredential> linkWithProvider(
+          _i10.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #linkWithProvider,
@@ -963,7 +999,7 @@ class MockUser extends _i1.Mock implements _i3.User {
       ) as _i6.Future<_i3.UserCredential>);
   @override
   _i6.Future<_i3.UserCredential> reauthenticateWithProvider(
-          _i8.AuthProvider? provider) =>
+          _i10.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #reauthenticateWithProvider,
@@ -987,7 +1023,7 @@ class MockUser extends _i1.Mock implements _i3.User {
       ) as _i6.Future<_i3.UserCredential>);
   @override
   _i6.Future<_i3.UserCredential> reauthenticateWithPopup(
-          _i8.AuthProvider? provider) =>
+          _i10.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #reauthenticateWithPopup,
@@ -1010,7 +1046,7 @@ class MockUser extends _i1.Mock implements _i3.User {
         )),
       ) as _i6.Future<_i3.UserCredential>);
   @override
-  _i6.Future<void> reauthenticateWithRedirect(_i8.AuthProvider? provider) =>
+  _i6.Future<void> reauthenticateWithRedirect(_i10.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #reauthenticateWithRedirect,
@@ -1020,7 +1056,7 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<_i3.UserCredential> linkWithPopup(_i8.AuthProvider? provider) =>
+  _i6.Future<_i3.UserCredential> linkWithPopup(_i10.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #linkWithPopup,
@@ -1043,7 +1079,7 @@ class MockUser extends _i1.Mock implements _i3.User {
         )),
       ) as _i6.Future<_i3.UserCredential>);
   @override
-  _i6.Future<void> linkWithRedirect(_i8.AuthProvider? provider) =>
+  _i6.Future<void> linkWithRedirect(_i10.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #linkWithRedirect,
@@ -1239,7 +1275,7 @@ class MockUser extends _i1.Mock implements _i3.User {
 /// A class which mocks [SharedPreferences].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSharedPreferences extends _i1.Mock implements _i9.SharedPreferences {
+class MockSharedPreferences extends _i1.Mock implements _i11.SharedPreferences {
   @override
   Set<String> getKeys() => (super.noSuchMethod(
         Invocation.method(
