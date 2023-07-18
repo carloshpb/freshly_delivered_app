@@ -16,7 +16,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   easy_debounce: ^2.0.3
   email_validator: ^2.1.17
-  firebase_auth: ^4.7.0
+  firebase_auth: ^4.7.1
   firebase_core: ^2.15.0
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.1
@@ -27,7 +27,7 @@ dependencies:
   go_router: ^9.0.3
   json_annotation: ^4.8.1
   loader_overlay: ^2.3.0
-  multiple_result: ^5.0.0
+  multiple_result: ^5.1.0
   mockito: ^5.4.2
   rxdart: ^0.27.7
   smooth_page_indicator: ^1.1.0
