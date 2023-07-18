@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/authentication_repository.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/repositories/onboarding_messages_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 @GenerateNiceMocks([
   MockSpec<Listener>(),
   MockSpec<AuthenticationRepository>(),
+  MockSpec<OnboardingMessagesRepository>(),
   MockSpec<UserCredential>(),
   MockSpec<FirebaseAuth>(),
   MockSpec<User>(),

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utils/throttler.dart';
-import '../../application/use_cases/get_onboarding_messages_use_case.dart';
+import '../../application/use_cases/get_onboarding_messages_use_case_impl.dart';
 
 final onboardingControllerProvider =
     NotifierProvider.autoDispose<OnboardingController, int>(
