@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -5,6 +6,9 @@ import 'package:mockito/mockito.dart';
 @GenerateNiceMocks([
   MockSpec<Listener>(),
   MockSpec<AuthenticationRepository>(),
+  MockSpec<UserCredential>(),
+  MockSpec<FirebaseAuth>(),
+  MockSpec<User>(),
   // MockSpec<CountryManager>(),
   // MockSpec<CountryWithPhoneCode>(),
   // MockSpec<FormatPhoneResult>(),
@@ -34,6 +38,12 @@ import 'base_mock.mocks.dart';
 // class FakeFlutterLibphonenumber extends Mock implements FlutterLibphonenumber {}
 
 // class FakeCountryManager extends Mock implements CountryManager {}
+
+// class MockUserCredential extends Mock implements UserCredential {}
+
+// class MockFirebaseAuth extends Mock implements FirebaseAuth {}
+
+// class MockUser extends Mock implements User {}
 
 abstract class Listener<T> {
   void call(T? previous, T next);
