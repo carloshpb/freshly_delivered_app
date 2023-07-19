@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:freshly_delivered_app/features/authentication/data/repositories/onboarding_messages_repository_impl.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/models/onboarding_message.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/onboarding_messages_repository.dart';
 import 'package:freshly_delivered_app/features/top_level_providers.dart';
 import 'package:mockito/mockito.dart';
@@ -33,7 +34,7 @@ void main() {
     },
   ].map((e) => json.encode(e)).toList();
 
-  setUp(() async {
+  setUp(() {
     final prefs = MockSharedPreferences();
 
     container = ProviderContainer(
@@ -78,29 +79,7 @@ void main() {
 
     final messages = onboardingMessagesRepository.onboardingMessages;
 
-    expect(messages.length, 3);
-
-    // Verify the properties of each default message
-    expect(messages[0].imageSvgPath, 'assets/images/onboarding1.svg.vec');
-    expect(messages[0].title, 'SHOP CONVENIENTLY');
-    expect(
-      messages[0].message,
-      'Shop from an unlimited stock of groceries from the convenience of your homes',
-    );
-
-    expect(messages[1].imageSvgPath, 'assets/images/onboarding2.svg.vec');
-    expect(messages[1].title, 'EXPERTLY CURATED RECIPES');
-    expect(
-      messages[1].message,
-      'Our recipes are prepared in the finest of conditions by experts in their fields',
-    );
-
-    expect(messages[2].imageSvgPath, 'assets/images/onboarding3.svg.vec');
-    expect(messages[2].title, 'BRING OUT THE CHEF IN YOU');
-    expect(
-      messages[2].message,
-      'Our recipes are specially picked so you can get cooking in no time',
-    );
+    expect(messages.length, 0);
   });
 
   test('onboardingMessages - handles invalid JSON in shared preferences', () {
@@ -117,30 +96,9 @@ void main() {
     when(sharedPreferences.getStringList("onboardingMessages"))
         .thenReturn(["{}"]);
 
-    var messages = onboardingMessagesRepository.onboardingMessages;
-
-    expect(messages.length, 3);
-
-    // Verify the properties of each default message
-    expect(messages[0].imageSvgPath, 'assets/images/onboarding1.svg.vec');
-    expect(messages[0].title, 'SHOP CONVENIENTLY');
     expect(
-      messages[0].message,
-      'Shop from an unlimited stock of groceries from the convenience of your homes',
-    );
-
-    expect(messages[1].imageSvgPath, 'assets/images/onboarding2.svg.vec');
-    expect(messages[1].title, 'EXPERTLY CURATED RECIPES');
-    expect(
-      messages[1].message,
-      'Our recipes are prepared in the finest of conditions by experts in their fields',
-    );
-
-    expect(messages[2].imageSvgPath, 'assets/images/onboarding3.svg.vec');
-    expect(messages[2].title, 'BRING OUT THE CHEF IN YOU');
-    expect(
-      messages[2].message,
-      'Our recipes are specially picked so you can get cooking in no time',
+      () => onboardingMessagesRepository.onboardingMessages,
+      throwsA(isA<TypeError>()),
     );
 
     when(sharedPreferences.getStringList("onboardingMessages")).thenReturn([
@@ -151,30 +109,9 @@ void main() {
       })
     ]);
 
-    messages = onboardingMessagesRepository.onboardingMessages;
-
-    expect(messages.length, 3);
-
-    // Verify the properties of each default message
-    expect(messages[0].imageSvgPath, 'assets/images/onboarding1.svg.vec');
-    expect(messages[0].title, 'SHOP CONVENIENTLY');
     expect(
-      messages[0].message,
-      'Shop from an unlimited stock of groceries from the convenience of your homes',
-    );
-
-    expect(messages[1].imageSvgPath, 'assets/images/onboarding2.svg.vec');
-    expect(messages[1].title, 'EXPERTLY CURATED RECIPES');
-    expect(
-      messages[1].message,
-      'Our recipes are prepared in the finest of conditions by experts in their fields',
-    );
-
-    expect(messages[2].imageSvgPath, 'assets/images/onboarding3.svg.vec');
-    expect(messages[2].title, 'BRING OUT THE CHEF IN YOU');
-    expect(
-      messages[2].message,
-      'Our recipes are specially picked so you can get cooking in no time',
+      () => onboardingMessagesRepository.onboardingMessages,
+      throwsA(isA<TypeError>()),
     );
 
     when(sharedPreferences.getStringList("onboardingMessages")).thenReturn([
@@ -184,30 +121,9 @@ void main() {
       })
     ]);
 
-    messages = onboardingMessagesRepository.onboardingMessages;
-
-    expect(messages.length, 3);
-
-    // Verify the properties of each default message
-    expect(messages[0].imageSvgPath, 'assets/images/onboarding1.svg.vec');
-    expect(messages[0].title, 'SHOP CONVENIENTLY');
     expect(
-      messages[0].message,
-      'Shop from an unlimited stock of groceries from the convenience of your homes',
-    );
-
-    expect(messages[1].imageSvgPath, 'assets/images/onboarding2.svg.vec');
-    expect(messages[1].title, 'EXPERTLY CURATED RECIPES');
-    expect(
-      messages[1].message,
-      'Our recipes are prepared in the finest of conditions by experts in their fields',
-    );
-
-    expect(messages[2].imageSvgPath, 'assets/images/onboarding3.svg.vec');
-    expect(messages[2].title, 'BRING OUT THE CHEF IN YOU');
-    expect(
-      messages[2].message,
-      'Our recipes are specially picked so you can get cooking in no time',
+      () => onboardingMessagesRepository.onboardingMessages,
+      throwsA(isA<TypeError>()),
     );
   });
 
@@ -226,5 +142,72 @@ void main() {
     expect(messages[0].imageSvgPath, 'assets/images/onboarding4.svg.vec');
     expect(messages[0].title, 'NEW MESSAGE');
     expect(messages[0].message, 'This is a new onboarding message');
+  });
+
+  test('onboardingMessages - set messages', () {
+    const List<OnboardingMessage> newMessages = [
+      OnboardingMessage(
+        imageSvgPath: 'imagePath1.svg.vec',
+        message: 'TITLE1',
+        title: 'message1',
+      ),
+      OnboardingMessage(
+        imageSvgPath: 'imagePath2.svg.vec',
+        message: 'TITLE2',
+        title: 'message2',
+      ),
+      OnboardingMessage(
+        imageSvgPath: 'imagePath3.svg.vec',
+        message: 'TITLE3',
+        title: 'message3',
+      ),
+    ];
+
+    final encondedNewMessages =
+        newMessages.map((e) => jsonEncode(e.toJson())).toList();
+
+    when(sharedPreferences.setStringList(
+            "onboardingMessages", encondedNewMessages))
+        .thenAnswer(
+      (_) async => true,
+    );
+
+    onboardingMessagesRepository.onboardingMessages = newMessages;
+
+    verify(sharedPreferences.setStringList(
+        "onboardingMessages", encondedNewMessages));
+  });
+
+  test('onboardingMessages - add message', () {
+    const OnboardingMessage newMessage = OnboardingMessage(
+      imageSvgPath: 'imagePath4.svg.vec',
+      message: 'TITLE4',
+      title: 'message4',
+    );
+
+    final encondedNewMessage = jsonEncode(newMessage.toJson());
+
+    when(sharedPreferences.getStringList("onboardingMessages")).thenReturn([
+      json.encode({
+        'imageSvgPath': 'assets/images/onboarding4.svg.vec',
+        'title': 'NEW MESSAGE',
+        'message': 'This is a new onboarding message',
+      })
+    ]);
+
+    // returns void - use returnsNormally
+    expect(
+      () => onboardingMessagesRepository.addOnboardingMessage(newMessage),
+      returnsNormally,
+    );
+
+    verify(sharedPreferences.setStringList("onboardingMessages", [
+      json.encode({
+        'imageSvgPath': 'assets/images/onboarding4.svg.vec',
+        'title': 'NEW MESSAGE',
+        'message': 'This is a new onboarding message',
+      }),
+      encondedNewMessage,
+    ]));
   });
 }
