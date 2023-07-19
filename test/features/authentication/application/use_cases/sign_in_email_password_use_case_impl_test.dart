@@ -2,27 +2,36 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:freshly_delivered_app/exceptions/app_auth_exception.dart';
 import 'package:freshly_delivered_app/features/authentication/application/use_cases/sign_in_email_password_use_case_impl.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/repositories/authentication_repository.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/sign_in_email_password_use_case.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../base_mock.mocks.dart';
 
 void main() {
-  // a helper method to create a ProviderContainer that overrides the authRepositoryProvider
-  ProviderContainer makeProviderContainer(
-    MockAuthenticationRepository mockAuthenticationRepository,
-  ) {
-    final container = ProviderContainer(
+  late ProviderContainer container;
+  late AuthenticationRepository authRepository;
+  late SignInEmailPasswordUseCase signInUseCase;
+
+  setUp(() {
+    authRepository = MockAuthenticationRepository();
+
+    container = ProviderContainer(
       overrides: [
         signInUseCaseProvider.overrideWithValue(
           SignInEmailPasswordUseCaseImpl(
-            authRepository: mockAuthenticationRepository,
+            authRepository: authRepository,
           ),
         ),
       ],
     );
-    addTearDown(container.dispose);
-    return container;
-  }
+
+    signInUseCase = container.read(signInUseCaseProvider);
+  });
+
+  tearDown(() {
+    container.dispose();
+  });
 
   group("SignInEmailPasswordUseCaseImpl", () {
     const mockEmail = 'mockemail@example.com';
@@ -32,15 +41,9 @@ void main() {
       \n      When asked to sign with a valid email and password
       Then return void/null if successful
       ''', () async {
-      var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      when(mockAuthenticationRepository.signInWithEmailAndPassword(
+      when(authRepository.signInWithEmailAndPassword(
               mockEmail, mockCorrectPassword))
           .thenAnswer((_) async {});
-
-      final container = makeProviderContainer(mockAuthenticationRepository);
-
-      var signInUseCase = container.read(signInUseCaseProvider);
 
       await expectLater(
         signInUseCase.execute(request: (mockEmail, mockCorrectPassword)),
@@ -52,15 +55,9 @@ void main() {
       \n      When asked to sign with a valid email and wrong password
       Then return exception that password is incorrect
       ''', () async {
-      var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      when(mockAuthenticationRepository.signInWithEmailAndPassword(
+      when(authRepository.signInWithEmailAndPassword(
               mockEmail, mockInvalidPassword))
           .thenThrow(const WrongPasswordException());
-
-      final container = makeProviderContainer(mockAuthenticationRepository);
-
-      var signInUseCase = container.read(signInUseCaseProvider);
 
       await expectLater(
         signInUseCase.execute(request: (mockEmail, mockInvalidPassword)),
@@ -75,15 +72,9 @@ void main() {
       \n      When asked to sign with a non registered email and password
       Then return exception that email is not registered
       ''', () async {
-      var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      when(mockAuthenticationRepository.signInWithEmailAndPassword(
+      when(authRepository.signInWithEmailAndPassword(
               mockEmail, mockCorrectPassword))
           .thenThrow(const UserNotFoundException());
-
-      final container = makeProviderContainer(mockAuthenticationRepository);
-
-      var signInUseCase = container.read(signInUseCaseProvider);
 
       await expectLater(
         signInUseCase.execute(request: (mockEmail, mockCorrectPassword)),
@@ -99,15 +90,9 @@ void main() {
       \n      When asked to sign with a blocked email and password
       Then return exception that email is blocked
       ''', () async {
-      var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      when(mockAuthenticationRepository.signInWithEmailAndPassword(
+      when(authRepository.signInWithEmailAndPassword(
               mockEmail, mockCorrectPassword))
           .thenThrow(const InvalidEmailException());
-
-      final container = makeProviderContainer(mockAuthenticationRepository);
-
-      var signInUseCase = container.read(signInUseCaseProvider);
 
       await expectLater(
         signInUseCase.execute(request: (mockEmail, mockCorrectPassword)),
