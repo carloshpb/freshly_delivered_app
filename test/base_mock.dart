@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/onboarding_messages_repository.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/set_onboarding_messages_use_case.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
   MockSpec<Listener>(),
   MockSpec<AuthenticationRepository>(),
   MockSpec<OnboardingMessagesRepository>(),
+  MockSpec<SetOnboardingMessagesUseCase>(),
   MockSpec<UserCredential>(),
   MockSpec<FirebaseAuth>(),
   MockSpec<User>(),

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/repositories/onboarding_messages_repository_impl.dart';
@@ -29,20 +27,20 @@ class GetOnboardingMessagesUseCaseImpl implements GetOnboardingMessagesUseCase {
   static const _defaultOnboardingMessages = [
     OnboardingMessage(
       imageSvgPath: 'assets/images/onboarding1.svg.vec',
-      message: 'SHOP CONVENIENTLY',
-      title:
+      title: 'SHOP CONVENIENTLY',
+      message:
           'Shop from an unlimited stock of groceries from the convenience of your homes',
     ),
     OnboardingMessage(
       imageSvgPath: 'assets/images/onboarding2.svg.vec',
-      message: 'EXPERTLY CURATED RECIPES',
-      title:
+      title: 'EXPERTLY CURATED RECIPES',
+      message:
           'Our recipes are prepared in the finest of conditions by experts in their fields',
     ),
     OnboardingMessage(
       imageSvgPath: 'assets/images/onboarding3.svg.vec',
-      message: 'BRING OUT THE CHEF IN YOU',
-      title:
+      title: 'BRING OUT THE CHEF IN YOU',
+      message:
           'Our recipes are specially picked so you can get cooking in no time',
     ),
   ];
@@ -59,8 +57,7 @@ class GetOnboardingMessagesUseCaseImpl implements GetOnboardingMessagesUseCase {
     late List<OnboardingMessage> resultMessagesFromRepo;
 
     try {
-      var resultMessagesFromRepo =
-          _onboardingMessagesRepository.onboardingMessages;
+      resultMessagesFromRepo = _onboardingMessagesRepository.onboardingMessages;
 
       if (resultMessagesFromRepo.isEmpty) {
         resultMessagesFromRepo = _defaultOnboardingMessages;
