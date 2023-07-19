@@ -17,7 +17,7 @@ class OnboardingController extends AutoDisposeNotifier<int> with Throttler {
   int build() {
     print("BUILDING CONTROLLER ...");
     _onboardingMessages =
-        ref.read(getOnboardingMessagesUseCaseProvider).execute(request: null);
+        ref.watch(getOnboardingMessagesUseCaseProvider).execute(request: null);
 
     return 0;
   }

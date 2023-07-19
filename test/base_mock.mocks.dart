@@ -7,7 +7,7 @@ import 'dart:async' as _i6;
 
 import 'package:firebase_auth/firebase_auth.dart' as _i3;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart'
-    as _i11;
+    as _i17;
 import 'package:firebase_core/firebase_core.dart' as _i2;
 import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart'
     as _i7;
@@ -17,10 +17,22 @@ import 'package:freshly_delivered_app/features/authentication/domain/repositorie
     as _i5;
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/onboarding_messages_repository.dart'
     as _i8;
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/add_onboarding_message_use_case.dart'
+    as _i16;
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/current_user_use_case.dart'
+    as _i15;
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/get_onboarding_messages_use_case.dart'
+    as _i14;
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/send_password_reset_email_use_case.dart'
+    as _i11;
 import 'package:freshly_delivered_app/features/authentication/domain/use_cases/set_onboarding_messages_use_case.dart'
     as _i10;
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/sign_in_email_password_use_case.dart'
+    as _i12;
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/sign_up_email_password_use_case.dart'
+    as _i13;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:shared_preferences/shared_preferences.dart' as _i12;
+import 'package:shared_preferences/shared_preferences.dart' as _i18;
 
 import 'base_mock.dart' as _i4;
 
@@ -249,6 +261,109 @@ class MockSetOnboardingMessagesUseCase extends _i1.Mock
   void execute(
           {required List<({String imageSvgPath, String message, String title})>?
               request}) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+          {#request: request},
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [SendPasswordResetEmailUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSendPasswordResetEmailUseCase extends _i1.Mock
+    implements _i11.SendPasswordResetEmailUseCase {
+  @override
+  _i6.Future<void> execute({required String? request}) => (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+          {#request: request},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+}
+
+/// A class which mocks [SignInEmailPasswordUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSignInEmailPasswordUseCase extends _i1.Mock
+    implements _i12.SignInEmailPasswordUseCase {
+  @override
+  _i6.FutureOr<void> execute({required (String, String)? request}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+          {#request: request},
+        ),
+        returnValueForMissingStub: null,
+      ) as _i6.FutureOr<void>);
+}
+
+/// A class which mocks [SignUpEmailPasswordUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSignUpEmailPasswordUseCase extends _i1.Mock
+    implements _i13.SignUpEmailPasswordUseCase {
+  @override
+  _i6.FutureOr<void> execute(
+          {required (String, String, String, String)? request}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+          {#request: request},
+        ),
+        returnValueForMissingStub: null,
+      ) as _i6.FutureOr<void>);
+}
+
+/// A class which mocks [GetOnboardingMessagesUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetOnboardingMessagesUseCase extends _i1.Mock
+    implements _i14.GetOnboardingMessagesUseCase {
+  @override
+  List<({String imageSvgPath, String message, String title})> execute(
+          {required dynamic request}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+          {#request: request},
+        ),
+        returnValue: <({String imageSvgPath, String message, String title})>[],
+        returnValueForMissingStub: <({
+          String imageSvgPath,
+          String message,
+          String title
+        })>[],
+      ) as List<({String imageSvgPath, String message, String title})>);
+}
+
+/// A class which mocks [CurrentUserUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCurrentUserUseCase extends _i1.Mock
+    implements _i15.CurrentUserUseCase {}
+
+/// A class which mocks [AddOnboardingMessageUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAddOnboardingMessageUseCase extends _i1.Mock
+    implements _i16.AddOnboardingMessageUseCase {
+  @override
+  void execute(
+          {required ({
+            String imageSvgPath,
+            String message,
+            String title
+          })? request}) =>
       super.noSuchMethod(
         Invocation.method(
           #execute,
@@ -706,7 +821,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i3.FirebaseAuth {
       ) as _i6.Future<_i3.UserCredential>);
   @override
   _i6.Future<_i3.UserCredential> signInWithAuthProvider(
-          _i11.AuthProvider? provider) =>
+          _i17.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithAuthProvider,
@@ -730,7 +845,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i3.FirebaseAuth {
       ) as _i6.Future<_i3.UserCredential>);
   @override
   _i6.Future<_i3.UserCredential> signInWithProvider(
-          _i11.AuthProvider? provider) =>
+          _i17.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithProvider,
@@ -789,7 +904,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i3.FirebaseAuth {
         )),
       ) as _i6.Future<_i3.ConfirmationResult>);
   @override
-  _i6.Future<_i3.UserCredential> signInWithPopup(_i11.AuthProvider? provider) =>
+  _i6.Future<_i3.UserCredential> signInWithPopup(_i17.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithPopup,
@@ -812,7 +927,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i3.FirebaseAuth {
         )),
       ) as _i6.Future<_i3.UserCredential>);
   @override
-  _i6.Future<void> signInWithRedirect(_i11.AuthProvider? provider) =>
+  _i6.Future<void> signInWithRedirect(_i17.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithRedirect,
@@ -996,7 +1111,7 @@ class MockUser extends _i1.Mock implements _i3.User {
       ) as _i6.Future<_i3.UserCredential>);
   @override
   _i6.Future<_i3.UserCredential> linkWithProvider(
-          _i11.AuthProvider? provider) =>
+          _i17.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #linkWithProvider,
@@ -1020,7 +1135,7 @@ class MockUser extends _i1.Mock implements _i3.User {
       ) as _i6.Future<_i3.UserCredential>);
   @override
   _i6.Future<_i3.UserCredential> reauthenticateWithProvider(
-          _i11.AuthProvider? provider) =>
+          _i17.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #reauthenticateWithProvider,
@@ -1044,7 +1159,7 @@ class MockUser extends _i1.Mock implements _i3.User {
       ) as _i6.Future<_i3.UserCredential>);
   @override
   _i6.Future<_i3.UserCredential> reauthenticateWithPopup(
-          _i11.AuthProvider? provider) =>
+          _i17.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #reauthenticateWithPopup,
@@ -1067,7 +1182,7 @@ class MockUser extends _i1.Mock implements _i3.User {
         )),
       ) as _i6.Future<_i3.UserCredential>);
   @override
-  _i6.Future<void> reauthenticateWithRedirect(_i11.AuthProvider? provider) =>
+  _i6.Future<void> reauthenticateWithRedirect(_i17.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #reauthenticateWithRedirect,
@@ -1077,7 +1192,7 @@ class MockUser extends _i1.Mock implements _i3.User {
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<_i3.UserCredential> linkWithPopup(_i11.AuthProvider? provider) =>
+  _i6.Future<_i3.UserCredential> linkWithPopup(_i17.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #linkWithPopup,
@@ -1100,7 +1215,7 @@ class MockUser extends _i1.Mock implements _i3.User {
         )),
       ) as _i6.Future<_i3.UserCredential>);
   @override
-  _i6.Future<void> linkWithRedirect(_i11.AuthProvider? provider) =>
+  _i6.Future<void> linkWithRedirect(_i17.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #linkWithRedirect,
@@ -1296,7 +1411,7 @@ class MockUser extends _i1.Mock implements _i3.User {
 /// A class which mocks [SharedPreferences].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSharedPreferences extends _i1.Mock implements _i12.SharedPreferences {
+class MockSharedPreferences extends _i1.Mock implements _i18.SharedPreferences {
   @override
   Set<String> getKeys() => (super.noSuchMethod(
         Invocation.method(

@@ -28,24 +28,26 @@ class ForgotPasswordLoginController extends AutoDisposeAsyncNotifier<bool> {
 
     state = await AsyncValue.guard(() async {
       if (isSent) {
-        ref.read(sendPasswordResetEmailUseCaseProvider).execute(request: email);
+        ref
+            .watch(sendPasswordResetEmailUseCaseProvider)
+            .execute(request: email);
       } else {
         await ref
-            .read(sendPasswordResetEmailUseCaseProvider)
+            .watch(sendPasswordResetEmailUseCaseProvider)
             .execute(request: email);
       }
       setTimer();
       return true;
-      //ref.read(goRouterProvider).pushReplacement(AppRouter.home.path);
+      //ref.watch(goRouterProvider).pushReplacement(AppRouter.home.path);
     });
   }
 
   Future<void> setTimer() async {
     final completer = Completer();
-    ref.read(resendTimeMailLinkProvider.notifier).state = 20;
+    ref.watch(resendTimeMailLinkProvider.notifier).state = 20;
     Timer.periodic(const Duration(seconds: 1), (timer) {
-      ref.read(resendTimeMailLinkProvider.notifier).state--;
-      if (ref.read(resendTimeMailLinkProvider) == 0) {
+      ref.watch(resendTimeMailLinkProvider.notifier).state--;
+      if (ref.watch(resendTimeMailLinkProvider) == 0) {
         completer.complete();
         timer.cancel();
       }
