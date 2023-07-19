@@ -30,14 +30,12 @@ void main() {
     test('''
       \n      When asked to reset the email's password
       Then return void/null if successful
-      ''', () {
+      ''', () async {
       var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      var voidFuture = Future(() => null);
 
       when(mockAuthenticationRepository.sendPasswordResetEmail(mockEmail))
           .thenAnswer(
-        (_) => voidFuture,
+        (_) async {},
       );
 
       final container = makeProviderContainer(mockAuthenticationRepository);
@@ -45,15 +43,16 @@ void main() {
       var sendPasswordResetEmailUseCase =
           container.read(sendPasswordResetEmailUseCaseProvider);
 
-      var result = sendPasswordResetEmailUseCase.execute(request: mockEmail);
+      //expect(result, isA<Future<void>>());
 
-      expect(result, isA<Future<void>>());
+      await expectLater(
+          sendPasswordResetEmailUseCase.execute(request: mockEmail), completes);
     });
 
     test('''
       \n      When asked to reset the email's password
       Then return exception if email is not registered
-      ''', () {
+      ''', () async {
       var mockAuthenticationRepository = MockAuthenticationRepository();
 
       when(mockAuthenticationRepository.sendPasswordResetEmail(mockEmail))
@@ -64,10 +63,10 @@ void main() {
       var sendPasswordResetEmailUseCase =
           container.read(sendPasswordResetEmailUseCaseProvider);
 
-      var result = sendPasswordResetEmailUseCase.execute(request: mockEmail);
+      // var result = sendPasswordResetEmailUseCase.execute(request: mockEmail);
 
-      expect(
-          result,
+      await expectLater(
+          sendPasswordResetEmailUseCase.execute(request: mockEmail),
           throwsA(predicate((e) =>
               e is UserNotFoundException &&
               e.message == "The user does not match any credentials")));
@@ -76,7 +75,7 @@ void main() {
     test('''
       \n      When asked to reset the email's password
       Then return exception if email is blocked
-      ''', () {
+      ''', () async {
       var mockAuthenticationRepository = MockAuthenticationRepository();
 
       when(mockAuthenticationRepository.sendPasswordResetEmail(mockEmail))
@@ -87,10 +86,10 @@ void main() {
       var sendPasswordResetEmailUseCase =
           container.read(sendPasswordResetEmailUseCaseProvider);
 
-      var result = sendPasswordResetEmailUseCase.execute(request: mockEmail);
+      // var result = sendPasswordResetEmailUseCase.execute(request: mockEmail);
 
-      expect(
-          result,
+      await expectLater(
+          sendPasswordResetEmailUseCase.execute(request: mockEmail),
           throwsA(predicate((e) =>
               e is InvalidEmailException &&
               e.message == "The email address is not valid")));

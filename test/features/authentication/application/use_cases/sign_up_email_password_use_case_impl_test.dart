@@ -36,33 +36,32 @@ void main() {
     test('''
       \n      When asked to sign up with a valid email, password, name and phone
       Then return void/null if successful
-      ''', () {
+      ''', () async {
       var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      var voidFuture = Future(() => null);
 
       when(mockAuthenticationRepository.createUserWithEmailAndPassword(
               mockEmail, mockCorrectPassword, mockName, mockCorrectPhone))
-          .thenAnswer((_) => voidFuture);
+          .thenAnswer((_) async {});
 
       final container = makeProviderContainer(mockAuthenticationRepository);
 
       var signUpUseCase = container.read(signUpUseCaseProvider);
 
-      var result = signUpUseCase.execute(request: (
-        mockEmail,
-        mockCorrectPassword,
-        mockName,
-        mockCorrectPhone
-      ));
-
-      expect(result, isA<Future<void>>());
+      await expectLater(
+        signUpUseCase.execute(request: (
+          mockEmail,
+          mockCorrectPassword,
+          mockName,
+          mockCorrectPhone
+        )),
+        isA<Future<void>>(),
+      );
     });
 
     test('''
       \n      When asked to sign up with an invalid email
       Then return exception that email is invalid
-      ''', () {
+      ''', () async {
       var mockAuthenticationRepository = MockAuthenticationRepository();
 
       when(mockAuthenticationRepository.createUserWithEmailAndPassword(
@@ -76,22 +75,25 @@ void main() {
 
       var signUpUseCase = container.read(signUpUseCaseProvider);
 
-      expect(
-          signUpUseCase.execute(request: (
-            mockInvalidEmail,
-            mockCorrectPassword,
-            mockName,
-            mockCorrectPhone
-          )),
-          throwsA(predicate((e) =>
+      await expectLater(
+        signUpUseCase.execute(request: (
+          mockInvalidEmail,
+          mockCorrectPassword,
+          mockName,
+          mockCorrectPhone
+        )),
+        throwsA(
+          predicate((e) =>
               e is InvalidEmailException &&
-              e.message == "The email address is not valid")));
+              e.message == "The email address is not valid"),
+        ),
+      );
     });
 
     test('''
       \n      When asked to sign up with an invalid phone
       Then return exception that phone is invalid
-      ''', () {
+      ''', () async {
       var mockAuthenticationRepository = MockAuthenticationRepository();
 
       when(mockAuthenticationRepository.createUserWithEmailAndPassword(
@@ -102,22 +104,25 @@ void main() {
 
       var signUpUseCase = container.read(signUpUseCaseProvider);
 
-      expect(
-          signUpUseCase.execute(request: (
-            mockEmail,
-            mockCorrectPassword,
-            mockName,
-            mockInvalidPhone
-          )),
-          throwsA(predicate((e) =>
+      await expectLater(
+        signUpUseCase.execute(request: (
+          mockEmail,
+          mockCorrectPassword,
+          mockName,
+          mockInvalidPhone
+        )),
+        throwsA(
+          predicate((e) =>
               e is InvalidPhoneNumberException &&
-              e.message == "The phone number is not valid")));
+              e.message == "The phone number is not valid"),
+        ),
+      );
     });
 
     test('''
       \n      When asked to sign up with a weak password
       Then return exception that password is invalid
-      ''', () {
+      ''', () async {
       var mockAuthenticationRepository = MockAuthenticationRepository();
 
       when(mockAuthenticationRepository.createUserWithEmailAndPassword(
@@ -128,16 +133,15 @@ void main() {
 
       var signUpUseCase = container.read(signUpUseCaseProvider);
 
-      expect(
-          signUpUseCase.execute(request: (
-            mockEmail,
-            mockWeakPassword,
-            mockName,
-            mockCorrectPhone
-          )),
-          throwsA(predicate((e) =>
+      await expectLater(
+        signUpUseCase.execute(
+            request: (mockEmail, mockWeakPassword, mockName, mockCorrectPhone)),
+        throwsA(
+          predicate((e) =>
               e is WeakPasswordException &&
-              e.message == "The password must be 8 characters long or more")));
+              e.message == "The password must be 8 characters long or more"),
+        ),
+      );
     });
   });
 }
