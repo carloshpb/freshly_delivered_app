@@ -29,7 +29,10 @@ void main() {
     const email = 'johndoe@example.com';
     const password = '12345678';
 
-    await authenticationRepository.signInWithEmailAndPassword(email, password);
+    await expectLater(
+      authenticationRepository.signInWithEmailAndPassword(email, password),
+      isA<Future<void>>(),
+    );
 
     final currentUser = authenticationRepository.currentUser;
     expect(currentUser, isNotNull);
@@ -40,7 +43,7 @@ void main() {
     const email = 'johndoe@example.com';
     const password = 'wrongPassword';
 
-    expect(
+    await expectLater(
       () =>
           authenticationRepository.signInWithEmailAndPassword(email, password),
       throwsA(isA<WrongPasswordException>()),
@@ -51,7 +54,7 @@ void main() {
     const email = 'nonexistent@example.com';
     const password = '12345678';
 
-    expect(
+    await expectLater(
       () =>
           authenticationRepository.signInWithEmailAndPassword(email, password),
       throwsA(isA<UserNotFoundException>()),
@@ -64,11 +67,14 @@ void main() {
     const fullName = 'John Doe';
     const phoneNumber = '1234567890';
 
-    await authenticationRepository.createUserWithEmailAndPassword(
-      email,
-      password,
-      fullName,
-      phoneNumber,
+    await expectLater(
+      authenticationRepository.createUserWithEmailAndPassword(
+        email,
+        password,
+        fullName,
+        phoneNumber,
+      ),
+      isA<Future<void>>(),
     );
 
     final currentUser = authenticationRepository.currentUser;
@@ -82,7 +88,7 @@ void main() {
     const fullName = 'John Doe';
     const phoneNumber = '1234567890';
 
-    expect(
+    await expectLater(
       () => authenticationRepository.createUserWithEmailAndPassword(
         existingUserEmail,
         password,
@@ -96,21 +102,18 @@ void main() {
   test('sendPasswordResetEmail - existing user email', () async {
     const existingUserEmail = 'johndoe@example.com';
 
-    var result = await authenticationRepository
-        .sendPasswordResetEmail(existingUserEmail);
-
-    expect(
-      () => result,
-      isA<void>(),
+    await expectLater(
+      authenticationRepository.sendPasswordResetEmail(existingUserEmail),
+      //isA<void>(),
+      isA<Future<void>>(),
     );
   });
 
   test('sendPasswordResetEmail - non-existent user email', () async {
     const nonExistentUserEmail = 'nonexistent@example.com';
 
-    expect(
-      () async => await authenticationRepository
-          .sendPasswordResetEmail(nonExistentUserEmail),
+    await expectLater(
+      authenticationRepository.sendPasswordResetEmail(nonExistentUserEmail),
       throwsA(isA<UserNotFoundException>()),
     );
   });
@@ -121,11 +124,9 @@ void main() {
 
     await authenticationRepository.signInWithEmailAndPassword(email, password);
 
-    var result = await authenticationRepository.signOut();
-
-    expect(
-      () => result,
-      isA<void>(),
+    await expectLater(
+      authenticationRepository.signOut(),
+      isA<Future<void>>(),
     );
     expect(authenticationRepository.currentUser, isNull);
   });

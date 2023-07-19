@@ -2,27 +2,36 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:freshly_delivered_app/exceptions/app_auth_exception.dart';
 import 'package:freshly_delivered_app/features/authentication/application/use_cases/sign_up_email_password_use_case_impl.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/repositories/authentication_repository.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/sign_up_email_password_use_case.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../base_mock.mocks.dart';
 
 void main() {
-  // a helper method to create a ProviderContainer that overrides the authRepositoryProvider
-  ProviderContainer makeProviderContainer(
-    MockAuthenticationRepository mockAuthenticationRepository,
-  ) {
-    final container = ProviderContainer(
+  late ProviderContainer container;
+  late AuthenticationRepository authRepository;
+  late SignUpEmailPasswordUseCase signUpUseCase;
+
+  setUp(() {
+    authRepository = MockAuthenticationRepository();
+
+    container = ProviderContainer(
       overrides: [
         signUpUseCaseProvider.overrideWithValue(
           SignUpEmailPasswordUseCaseImpl(
-            authRepository: mockAuthenticationRepository,
+            authRepository: authRepository,
           ),
         ),
       ],
     );
-    addTearDown(container.dispose);
-    return container;
-  }
+
+    signUpUseCase = container.read(signUpUseCaseProvider);
+  });
+
+  tearDown(() {
+    container.dispose();
+  });
 
   group("SignUpEmailPasswordUseCaseImpl", () {
     const mockEmail = 'mockemail@example.com';
@@ -37,15 +46,9 @@ void main() {
       \n      When asked to sign up with a valid email, password, name and phone
       Then return void/null if successful
       ''', () async {
-      var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      when(mockAuthenticationRepository.createUserWithEmailAndPassword(
+      when(authRepository.createUserWithEmailAndPassword(
               mockEmail, mockCorrectPassword, mockName, mockCorrectPhone))
           .thenAnswer((_) async {});
-
-      final container = makeProviderContainer(mockAuthenticationRepository);
-
-      var signUpUseCase = container.read(signUpUseCaseProvider);
 
       await expectLater(
         signUpUseCase.execute(request: (
@@ -62,18 +65,9 @@ void main() {
       \n      When asked to sign up with an invalid email
       Then return exception that email is invalid
       ''', () async {
-      var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      when(mockAuthenticationRepository.createUserWithEmailAndPassword(
-              mockInvalidEmail,
-              mockCorrectPassword,
-              mockName,
-              mockCorrectPhone))
+      when(authRepository.createUserWithEmailAndPassword(mockInvalidEmail,
+              mockCorrectPassword, mockName, mockCorrectPhone))
           .thenThrow(const InvalidEmailException());
-
-      final container = makeProviderContainer(mockAuthenticationRepository);
-
-      var signUpUseCase = container.read(signUpUseCaseProvider);
 
       await expectLater(
         signUpUseCase.execute(request: (
@@ -94,15 +88,9 @@ void main() {
       \n      When asked to sign up with an invalid phone
       Then return exception that phone is invalid
       ''', () async {
-      var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      when(mockAuthenticationRepository.createUserWithEmailAndPassword(
+      when(authRepository.createUserWithEmailAndPassword(
               mockEmail, mockCorrectPassword, mockName, mockInvalidPhone))
           .thenThrow(const InvalidPhoneNumberException());
-
-      final container = makeProviderContainer(mockAuthenticationRepository);
-
-      var signUpUseCase = container.read(signUpUseCaseProvider);
 
       await expectLater(
         signUpUseCase.execute(request: (
@@ -123,15 +111,9 @@ void main() {
       \n      When asked to sign up with a weak password
       Then return exception that password is invalid
       ''', () async {
-      var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      when(mockAuthenticationRepository.createUserWithEmailAndPassword(
+      when(authRepository.createUserWithEmailAndPassword(
               mockEmail, mockWeakPassword, mockName, mockCorrectPhone))
           .thenThrow(const WeakPasswordException());
-
-      final container = makeProviderContainer(mockAuthenticationRepository);
-
-      var signUpUseCase = container.read(signUpUseCaseProvider);
 
       await expectLater(
         signUpUseCase.execute(
