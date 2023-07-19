@@ -8,7 +8,7 @@ import '../../domain/repositories/authentication_repository.dart';
 final authenticationRepositoryProvider =
     Provider.autoDispose<AuthenticationRepository>(
   (ref) {
-    final auth = FirebaseAuthenticationRepository();
+    final auth = FirebaseAuthenticationRepository(FirebaseAuth.instance);
     ref.keepAlive();
     return auth;
   },
@@ -25,7 +25,9 @@ final authStateChangesProvider = Provider.autoDispose<Stream<AppUser?>>(
 );
 
 class FirebaseAuthenticationRepository implements AuthenticationRepository {
-  final _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth;
+
+  FirebaseAuthenticationRepository(this._firebaseAuth);
 
   @override
   Stream<AppUser?> authStateChanges() {
@@ -85,10 +87,9 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   }
 
   @override
-  Future<void> confirmPasswordReset(String code, String newPassword) async {
+  Future<void> signOut() async {
     try {
-      await _firebaseAuth.confirmPasswordReset(
-          code: code, newPassword: newPassword);
+      await _firebaseAuth.signOut();
     } on FirebaseAuthException catch (e) {
       throw e.convertToAppException();
     }

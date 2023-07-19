@@ -2,27 +2,37 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:freshly_delivered_app/exceptions/app_auth_exception.dart';
 import 'package:freshly_delivered_app/features/authentication/application/use_cases/send_password_reset_email_use_case_impl.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/repositories/authentication_repository.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/send_password_reset_email_use_case.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../base_mock.mocks.dart';
 
 void main() {
-  // a helper method to create a ProviderContainer that overrides the authRepositoryProvider
-  ProviderContainer makeProviderContainer(
-    MockAuthenticationRepository mockAuthenticationRepository,
-  ) {
-    final container = ProviderContainer(
+  late ProviderContainer container;
+  late AuthenticationRepository authRepository;
+  late SendPasswordResetEmailUseCase sendPasswordResetEmailUseCase;
+
+  setUp(() {
+    authRepository = MockAuthenticationRepository();
+
+    container = ProviderContainer(
       overrides: [
         sendPasswordResetEmailUseCaseProvider.overrideWithValue(
           SendPasswordResetEmailUseCaseImpl(
-            authRepository: mockAuthenticationRepository,
+            authRepository: authRepository,
           ),
         ),
       ],
     );
-    addTearDown(container.dispose);
-    return container;
-  }
+
+    sendPasswordResetEmailUseCase =
+        container.read(sendPasswordResetEmailUseCaseProvider);
+  });
+
+  tearDown(() {
+    container.dispose();
+  });
 
   group("SendPasswordResetEmailUseCaseImpl", () {
     const mockEmail = 'mockemail@example.com';
@@ -30,44 +40,26 @@ void main() {
     test('''
       \n      When asked to reset the email's password
       Then return void/null if successful
-      ''', () {
-      var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      var voidFuture = Future(() => null);
-
-      when(mockAuthenticationRepository.sendPasswordResetEmail(mockEmail))
-          .thenAnswer(
-        (_) => voidFuture,
+      ''', () async {
+      when(authRepository.sendPasswordResetEmail(mockEmail)).thenAnswer(
+        (_) async {},
       );
 
-      final container = makeProviderContainer(mockAuthenticationRepository);
+      //expect(result, isA<Future<void>>());
 
-      var sendPasswordResetEmailUseCase =
-          container.read(sendPasswordResetEmailUseCaseProvider);
-
-      var result = sendPasswordResetEmailUseCase.execute(request: mockEmail);
-
-      expect(result, isA<Future<void>>());
+      await expectLater(
+          sendPasswordResetEmailUseCase.execute(request: mockEmail), completes);
     });
 
     test('''
       \n      When asked to reset the email's password
       Then return exception if email is not registered
-      ''', () {
-      var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      when(mockAuthenticationRepository.sendPasswordResetEmail(mockEmail))
+      ''', () async {
+      when(authRepository.sendPasswordResetEmail(mockEmail))
           .thenThrow(const UserNotFoundException());
 
-      final container = makeProviderContainer(mockAuthenticationRepository);
-
-      var sendPasswordResetEmailUseCase =
-          container.read(sendPasswordResetEmailUseCaseProvider);
-
-      var result = sendPasswordResetEmailUseCase.execute(request: mockEmail);
-
-      expect(
-          result,
+      await expectLater(
+          sendPasswordResetEmailUseCase.execute(request: mockEmail),
           throwsA(predicate((e) =>
               e is UserNotFoundException &&
               e.message == "The user does not match any credentials")));
@@ -76,21 +68,12 @@ void main() {
     test('''
       \n      When asked to reset the email's password
       Then return exception if email is blocked
-      ''', () {
-      var mockAuthenticationRepository = MockAuthenticationRepository();
-
-      when(mockAuthenticationRepository.sendPasswordResetEmail(mockEmail))
+      ''', () async {
+      when(authRepository.sendPasswordResetEmail(mockEmail))
           .thenThrow(const InvalidEmailException());
 
-      final container = makeProviderContainer(mockAuthenticationRepository);
-
-      var sendPasswordResetEmailUseCase =
-          container.read(sendPasswordResetEmailUseCaseProvider);
-
-      var result = sendPasswordResetEmailUseCase.execute(request: mockEmail);
-
-      expect(
-          result,
+      await expectLater(
+          sendPasswordResetEmailUseCase.execute(request: mockEmail),
           throwsA(predicate((e) =>
               e is InvalidEmailException &&
               e.message == "The email address is not valid")));

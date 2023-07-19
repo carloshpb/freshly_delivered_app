@@ -217,9 +217,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                     }
                   },
                   itemCount: onboardingMessages.length,
-                  itemBuilder: (_, index) => OnboardingMessageBox(
-                      onboardingMessage: onboardingMessages[
-                          index % onboardingMessages.length]),
+                  itemBuilder: (_, index) {
+                    var currentMessage =
+                        onboardingMessages[index % onboardingMessages.length];
+                    return OnboardingMessageBox(
+                      imageSvgPath: currentMessage.imageSvgPath,
+                      title: currentMessage.title,
+                      message: currentMessage.message,
+                    );
+                  },
                 ),
               ),
               SmoothPageIndicator(

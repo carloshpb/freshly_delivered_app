@@ -86,4 +86,20 @@ class Strings {
   static const expiredActionCode = "The action code or link has expired";
   static const invalidActionCode =
       "The action code is invalid. This can happen if the code is malformed or has already been used";
+
+  // Onboarding Messages
+  static const imageSvgPathOnboarding1 = 'assets/images/onboarding1.svg.vec';
+  static const titleOnboarding1 = 'SHOP CONVENIENTLY';
+  static const messageOnboarding1 =
+      'Shop from an unlimited stock of groceries from the convenience of your homes';
+
+  static const imageSvgPathOnboarding2 = 'assets/images/onboarding2.svg.vec';
+  static const titleOnboarding2 = 'EXPERTLY CURATED RECIPES';
+  static const messageOnboarding2 =
+      'Our recipes are prepared in the finest of conditions by experts in their fields';
+
+  static const imageSvgPathOnboarding3 = 'assets/images/onboarding3.svg.vec';
+  static const titleOnboarding3 = 'BRING OUT THE CHEF IN YOU';
+  static const messageOnboarding3 =
+      'Our recipes are specially picked so you can get cooking in no time';
 }

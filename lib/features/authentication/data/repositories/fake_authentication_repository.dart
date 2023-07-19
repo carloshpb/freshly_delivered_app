@@ -10,7 +10,10 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
   final bool addDelay;
   final _authState = InMemoryStore<AppUser?>(null);
 
+  @override
   Stream<AppUser?> authStateChanges() => _authState.stream;
+
+  @override
   AppUser? get currentUser => _authState.value;
 
   // List to keep track of all user accounts
@@ -61,6 +64,7 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
     _createNewUser(email, password, fullName, phoneNumber);
   }
 
+  @override
   Future<void> signOut() async {
     _authState.value = null;
   }
@@ -90,31 +94,6 @@ class FakeAuthenticationRepository implements AuthenticationRepository {
     for (final u in _users) {
       if (u.email == email) {
         _resetCode[email] = "123456";
-        return;
-      }
-    }
-
-    throw const UserNotFoundException();
-  }
-
-  @override
-  Future<void> confirmPasswordReset(String code, String newPassword) async {
-    await delay(addDelay);
-
-    if (!_resetCode.containsValue(code)) {
-      throw const InvalidActionCodeException();
-    }
-
-    if (newPassword.length < 8) {
-      throw const WeakPasswordException();
-    }
-
-    var email = _resetCode.keys.firstWhere((mapCode) => mapCode == code);
-
-    for (var index = 0; index < _users.length; index++) {
-      if (_users[index].email == email) {
-        _users[index] = _users[index].copyWith(password: newPassword);
-        _resetCode.clear();
         return;
       }
     }
