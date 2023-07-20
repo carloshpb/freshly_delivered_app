@@ -61,6 +61,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
+      // invalid-email , user-disabled , user-not-found , wrong-password
       throw e.convertToAppException();
     }
   }
