@@ -1,10 +1,8 @@
 import '../../../use_case.dart';
+import '../../application/dtos/onboarding_message_dto.dart';
 
 abstract class GetOnboardingMessagesUseCase
-    implements
-        UseCase<void,
-            List<({String imageSvgPath, String title, String message})>> {
+    implements UseCase<void, List<OnboardingMessageDTO>> {
   @override
-  List<({String imageSvgPath, String title, String message})> execute(
-      {required void request});
+  List<OnboardingMessageDTO> execute({required dynamic request});
 }

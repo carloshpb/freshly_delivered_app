@@ -5,6 +5,7 @@ import '../../domain/models/onboarding_message.dart';
 import '../../domain/repositories/onboarding_messages_repository.dart';
 import '../../domain/use_cases/get_onboarding_messages_use_case.dart';
 import '../../domain/use_cases/set_onboarding_messages_use_case.dart';
+import '../dtos/onboarding_message_dto.dart';
 import 'set_onboarding_messages_use_case_impl.dart';
 
 final getOnboardingMessagesUseCaseProvider =
@@ -52,8 +53,7 @@ class GetOnboardingMessagesUseCaseImpl implements GetOnboardingMessagesUseCase {
         _setOnboardingMessagesUseCase = setOnboardingMessagesUseCase;
 
   @override
-  List<({String imageSvgPath, String title, String message})> execute(
-      {required void request}) {
+  List<OnboardingMessageDTO> execute({required dynamic request}) {
     late List<OnboardingMessage> resultMessagesFromRepo;
 
     try {
@@ -79,7 +79,7 @@ class GetOnboardingMessagesUseCaseImpl implements GetOnboardingMessagesUseCase {
 
     return resultMessagesFromRepo
         .map(
-          (onbMsg) => (
+          (onbMsg) => OnboardingMessageDTO(
             imageSvgPath: onbMsg.imageSvgPath,
             message: onbMsg.message,
             title: onbMsg.title,
