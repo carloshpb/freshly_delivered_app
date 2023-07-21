@@ -9,6 +9,7 @@ import '../../../../constants/strings.dart';
 import '../../../../routers/app_router.dart';
 import '../../../../utils/throttler.dart';
 import '../controllers/onboarding_controller.dart';
+import '../controllers/states/onboarding_screen_state.dart';
 
 // State providers for NEXT button, to be able to throttle it
 final nextTextStateProvider = StateProvider.autoDispose<String>(
@@ -17,8 +18,8 @@ final nextTextStateProvider = StateProvider.autoDispose<String>(
 
 final nextFunctionStateProvider = StateProvider.autoDispose<void Function()>(
   (ref) => () => ref
-      .read(onboardingControllerProvider.notifier)
-      .onPageChanged(ref.read(onboardingControllerProvider) + 1),
+      .watch(onboardingControllerProvider.notifier)
+      .onPageChanged(ref.watch(onboardingControllerProvider).pagePosition + 1),
 );
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -49,34 +50,36 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
   }
 
   void _goToLoginScreen() =>
-      ref.read(goRouterProvider).pushReplacement(AppRouter.login.path);
+      ref.watch(goRouterProvider).pushReplacement(AppRouter.login.path);
 
   @override
   Widget build(BuildContext context) {
     final mediaQuerySize = MediaQuery.sizeOf(context);
-    final onboardingMessages =
-        ref.read(onboardingControllerProvider.notifier).onboardingMessages;
+    final onboardingMessages = ref.watch(onboardingControllerProvider).messages;
 
-    ref.listen<int>(onboardingControllerProvider, (previous, next) {
+    ref.listen<OnboardingScreenState>(onboardingControllerProvider,
+        (previous, next) {
       print("TA ESCUTANDO?");
       if (previous == null) {
         return;
       }
 
       _onboardingMessagePageController.animateToPage(
-        next,
+        next.pagePosition,
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOut,
       );
 
       // swiping right - add BACK button
-      if (next > previous && previous == 0) {
+      if (next.pagePosition > previous.pagePosition &&
+          previous.pagePosition == 0) {
         _lowerButtons.insert(1, _backButton);
         _listKey.currentState!.insertItem(1);
       }
 
       // swiping left - remove BACK button
-      else if (next < previous && previous == 1) {
+      else if (next.pagePosition < previous.pagePosition &&
+          previous.pagePosition == 1) {
         _lowerButtons.removeAt(1);
         _listKey.currentState?.removeItem(
           1,
@@ -87,16 +90,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
         );
       }
       // Solution for throttling current NEXT button with condition, without using ref.watch in the button
-      else if (next > previous && next == onboardingMessages.length - 1) {
-        ref.read(nextTextStateProvider.notifier).state =
+      else if (next.pagePosition > previous.pagePosition &&
+          next.pagePosition == onboardingMessages.length - 1) {
+        ref.watch(nextTextStateProvider.notifier).state =
             Strings.getStarted.toUpperCase();
-        ref.read(nextFunctionStateProvider.notifier).state = _goToLoginScreen;
-      } else if (next < previous && previous == onboardingMessages.length - 1) {
-        ref.read(nextTextStateProvider.notifier).state =
+        ref.watch(nextFunctionStateProvider.notifier).state = _goToLoginScreen;
+      } else if (next.pagePosition < previous.pagePosition &&
+          previous.pagePosition == onboardingMessages.length - 1) {
+        ref.watch(nextTextStateProvider.notifier).state =
             Strings.next.toUpperCase();
-        ref.read(nextFunctionStateProvider.notifier).state = () => ref
-            .read(onboardingControllerProvider.notifier)
-            .onPageChanged(ref.read(onboardingControllerProvider) + 1);
+        ref.watch(nextFunctionStateProvider.notifier).state = () => ref
+            .watch(onboardingControllerProvider.notifier)
+            .onPageChanged(
+                ref.watch(onboardingControllerProvider).pagePosition + 1);
       }
     });
 
@@ -127,9 +133,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           //       : () => throttle(
           //             300,
           //             () => ref
-          //                 .read(onboardingControllerProvider.notifier)
+          //                 .watch(onboardingControllerProvider.notifier)
           //                 .onPageChanged(
-          //                     ref.read(onboardingControllerProvider) + 1),
+          //                     ref.watch(onboardingControllerProvider) + 1),
           //           ),
           //   text: (ref.watch(onboardingControllerProvider) ==
           //           onboardingMessages.length - 1)
@@ -167,8 +173,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
             onPressed: throttle(
               250,
               () => ref
-                  .read(onboardingControllerProvider.notifier)
-                  .onPageChanged(ref.read(onboardingControllerProvider) - 1),
+                  .watch(onboardingControllerProvider.notifier)
+                  .onPageChanged(
+                      ref.watch(onboardingControllerProvider).pagePosition - 1),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: CustomColors.buttonGreyDeactivated,
@@ -209,10 +216,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                 child: PageView.builder(
                   controller: _onboardingMessagePageController,
                   onPageChanged: (nextPageIndex) {
-                    var currentIndex = ref.read(onboardingControllerProvider);
+                    var currentIndex =
+                        ref.watch(onboardingControllerProvider).pagePosition;
                     if (currentIndex != nextPageIndex) {
                       ref
-                          .read(onboardingControllerProvider.notifier)
+                          .watch(onboardingControllerProvider.notifier)
                           .onPageChanged(nextPageIndex);
                     }
                   },
