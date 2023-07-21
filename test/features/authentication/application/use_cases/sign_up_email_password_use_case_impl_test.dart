@@ -51,12 +51,8 @@ void main() {
           .thenAnswer((_) async {});
 
       await expectLater(
-        signUpUseCase.execute(request: (
-          mockEmail,
-          mockCorrectPassword,
-          mockName,
-          mockCorrectPhone
-        )),
+        signUpUseCase.execute(
+            (mockEmail, mockCorrectPassword, mockName, mockCorrectPhone)),
         isA<Future<void>>(),
       );
     });
@@ -70,7 +66,7 @@ void main() {
           .thenThrow(const InvalidEmailException());
 
       await expectLater(
-        signUpUseCase.execute(request: (
+        signUpUseCase.execute((
           mockInvalidEmail,
           mockCorrectPassword,
           mockName,
@@ -93,12 +89,8 @@ void main() {
           .thenThrow(const InvalidPhoneNumberException());
 
       await expectLater(
-        signUpUseCase.execute(request: (
-          mockEmail,
-          mockCorrectPassword,
-          mockName,
-          mockInvalidPhone
-        )),
+        signUpUseCase.execute(
+            (mockEmail, mockCorrectPassword, mockName, mockInvalidPhone)),
         throwsA(
           predicate((e) =>
               e is InvalidPhoneNumberException &&
@@ -116,8 +108,8 @@ void main() {
           .thenThrow(const WeakPasswordException());
 
       await expectLater(
-        signUpUseCase.execute(
-            request: (mockEmail, mockWeakPassword, mockName, mockCorrectPhone)),
+        signUpUseCase
+            .execute((mockEmail, mockWeakPassword, mockName, mockCorrectPhone)),
         throwsA(
           predicate((e) =>
               e is WeakPasswordException &&

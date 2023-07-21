@@ -28,13 +28,9 @@ class ForgotPasswordLoginController extends AutoDisposeAsyncNotifier<bool> {
 
     state = await AsyncValue.guard(() async {
       if (isSent) {
-        ref
-            .watch(sendPasswordResetEmailUseCaseProvider)
-            .execute(request: email);
+        ref.watch(sendPasswordResetEmailUseCaseProvider).execute(email);
       } else {
-        await ref
-            .watch(sendPasswordResetEmailUseCaseProvider)
-            .execute(request: email);
+        await ref.watch(sendPasswordResetEmailUseCaseProvider).execute(email);
       }
       setTimer();
       return true;

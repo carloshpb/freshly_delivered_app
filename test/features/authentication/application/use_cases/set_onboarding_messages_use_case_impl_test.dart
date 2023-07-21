@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:freshly_delivered_app/features/authentication/application/dtos/onboarding_message_dto.dart';
 import 'package:freshly_delivered_app/features/authentication/application/use_cases/set_onboarding_messages_use_case_impl.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/models/onboarding_message.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/onboarding_messages_repository.dart';
@@ -31,19 +32,18 @@ void main() {
     ),
   ];
 
-  const List<({String imageSvgPath, String message, String title})>
-      messagesRecords = [
-    (
+  const List<OnboardingMessageDTO> messagesDTO = [
+    OnboardingMessageDTO(
       imageSvgPath: 'imagePath1.svg.vec',
       message: 'TITLE1',
       title: 'message1',
     ),
-    (
+    OnboardingMessageDTO(
       imageSvgPath: 'imagePath2.svg.vec',
       message: 'TITLE2',
       title: 'message2',
     ),
-    (
+    OnboardingMessageDTO(
       imageSvgPath: 'imagePath3.svg.vec',
       message: 'TITLE3',
       title: 'message3',
@@ -77,7 +77,7 @@ void main() {
       () {
         expect(
           () => setOnboardingMessagesUseCase.execute(
-            request: messagesRecords,
+            messagesDTO,
           ),
           returnsNormally,
         );
@@ -91,54 +91,54 @@ void main() {
     test(
       "execute - Adding message with empty values",
       () {
-        var wrongMessagesRecords1 = [
-          (
+        var wrongMessages1 = [
+          const OnboardingMessageDTO(
             imageSvgPath: 'imagePath1.svg.vec',
             message: '',
             title: 'message1',
           ),
-          (
+          const OnboardingMessageDTO(
             imageSvgPath: 'imagePath2.svg.vec',
             message: 'TITLE2',
             title: 'message3',
           ),
-          (
+          const OnboardingMessageDTO(
             imageSvgPath: 'imagePath3.svg.vec',
             message: 'TITLE3',
             title: 'message3',
           ),
         ];
 
-        var wrongMessagesRecords2 = [
-          (
+        var wrongMessages2 = [
+          const OnboardingMessageDTO(
             imageSvgPath: 'imagePath1.svg.vec',
             message: 'TITLE1',
             title: 'message1',
           ),
-          (
+          const OnboardingMessageDTO(
             imageSvgPath: 'imagePath2.svg.vec',
             message: '',
             title: 'message2',
           ),
-          (
+          const OnboardingMessageDTO(
             imageSvgPath: 'imagePath3.svg.vec',
             message: 'TITLE3',
             title: 'message3',
           ),
         ];
 
-        var wrongMessagesRecords3 = [
-          (
+        var wrongMessages3 = [
+          const OnboardingMessageDTO(
             imageSvgPath: 'imagePath1.svg.vec',
             message: 'TITLE1',
             title: 'message1',
           ),
-          (
+          const OnboardingMessageDTO(
             imageSvgPath: 'imagePath2.svg.vec',
             message: 'TITLE2',
             title: 'message2',
           ),
-          (
+          const OnboardingMessageDTO(
             imageSvgPath: 'imagePath3.svg.vec',
             message: 'TITLE3',
             title: '',
@@ -147,21 +147,21 @@ void main() {
 
         expect(
           () => setOnboardingMessagesUseCase.execute(
-            request: wrongMessagesRecords1,
+            wrongMessages1,
           ),
           throwsFormatException,
         );
 
         expect(
           () => setOnboardingMessagesUseCase.execute(
-            request: wrongMessagesRecords2,
+            wrongMessages2,
           ),
           throwsFormatException,
         );
 
         expect(
           () => setOnboardingMessagesUseCase.execute(
-            request: wrongMessagesRecords3,
+            wrongMessages3,
           ),
           throwsFormatException,
         );

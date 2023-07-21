@@ -24,9 +24,9 @@ class SignUpController extends AutoDisposeAsyncNotifier<bool> {
   }) async {
     state = const AsyncValue<bool>.loading();
     state = await AsyncValue.guard(() async {
-      await ref.watch(signUpUseCaseProvider).execute(
-        request: (email, password, fullName, phoneNumber),
-      );
+      await ref
+          .watch(signUpUseCaseProvider)
+          .execute((email, password, fullName, phoneNumber));
 
       return true;
     });

@@ -46,7 +46,7 @@ void main() {
           .thenAnswer((_) async {});
 
       await expectLater(
-        signInUseCase.execute(request: (mockEmail, mockCorrectPassword)),
+        signInUseCase.execute((mockEmail, mockCorrectPassword)),
         isA<Future<void>>(),
       );
     });
@@ -60,7 +60,7 @@ void main() {
           .thenThrow(const WrongPasswordException());
 
       await expectLater(
-        signInUseCase.execute(request: (mockEmail, mockInvalidPassword)),
+        signInUseCase.execute((mockEmail, mockInvalidPassword)),
         throwsA(
           predicate((e) =>
               e is WrongPasswordException && e.message == "Wrong password"),
@@ -77,7 +77,7 @@ void main() {
           .thenThrow(const UserNotFoundException());
 
       await expectLater(
-        signInUseCase.execute(request: (mockEmail, mockCorrectPassword)),
+        signInUseCase.execute((mockEmail, mockCorrectPassword)),
         throwsA(
           predicate((e) =>
               e is UserNotFoundException &&
@@ -95,7 +95,7 @@ void main() {
           .thenThrow(const InvalidEmailException());
 
       await expectLater(
-        signInUseCase.execute(request: (mockEmail, mockCorrectPassword)),
+        signInUseCase.execute((mockEmail, mockCorrectPassword)),
         throwsA(
           predicate((e) =>
               e is InvalidEmailException &&

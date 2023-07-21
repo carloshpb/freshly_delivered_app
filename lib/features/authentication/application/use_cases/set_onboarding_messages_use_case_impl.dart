@@ -4,6 +4,7 @@ import '../../data/repositories/onboarding_messages_repository_impl.dart';
 import '../../domain/models/onboarding_message.dart';
 import '../../domain/repositories/onboarding_messages_repository.dart';
 import '../../domain/use_cases/set_onboarding_messages_use_case.dart';
+import '../dtos/onboarding_message_dto.dart';
 
 final setOnboardingMessagesUseCaseProvider =
     Provider.autoDispose<SetOnboardingMessagesUseCase>(
@@ -24,9 +25,7 @@ class SetOnboardingMessagesUseCaseImpl implements SetOnboardingMessagesUseCase {
       : _onboardingMessagesRepository = onboardingMessagesRepository;
 
   @override
-  void execute(
-      {required List<({String imageSvgPath, String message, String title})>
-          request}) {
+  void execute(List<OnboardingMessageDTO> request) {
     var count = 0;
     List<OnboardingMessage> newList = [];
     while (count < request.length) {

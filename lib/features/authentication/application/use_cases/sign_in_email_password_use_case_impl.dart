@@ -23,8 +23,7 @@ class SignInEmailPasswordUseCaseImpl implements SignInEmailPasswordUseCase {
       : _authRepository = authRepository;
 
   @override
-  Future<void> execute(
-      {required (String email, String password) request}) async {
+  Future<void> execute((String email, String password) request) async {
     return _authRepository.signInWithEmailAndPassword(request.$1, request.$2);
   }
 }

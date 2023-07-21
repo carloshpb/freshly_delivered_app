@@ -58,15 +58,14 @@ void main() {
     // verify that the listener is no longer called
     verifyNoMoreInteractions(listener);
     // verify that [sendPasswordResetEmailUseCase.execute] was not called during initialization
-    verifyNever(
-        signInEmailPasswordUseCase.execute(request: anyNamed("request")));
+    verifyNever(signInEmailPasswordUseCase.execute(anyNamed("request")));
     verifyNever(goRouter.pushReplacement(any));
   });
 
   test('signIn - success', () async {
     // stub method to return success
-    when(signInEmailPasswordUseCase.execute(
-        request: ('johndoe@example.com', '12345678'))).thenAnswer((_) async {});
+    when(signInEmailPasswordUseCase
+        .execute(('johndoe@example.com', '12345678'))).thenAnswer((_) async {});
     // listen to the provider and call [listener] whenever its value changes
     container.listen(
       loginControllerProvider,
@@ -95,15 +94,14 @@ void main() {
       listener.call(argThat(isA<AsyncLoading>()), successData),
     ]);
     verifyNoMoreInteractions(listener);
-    verify(signInEmailPasswordUseCase.execute(request: anyNamed("request")))
-        .called(1);
+    verify(signInEmailPasswordUseCase.execute(anyNamed("request"))).called(1);
     verify(goRouter.pushReplacement(any)).called(1);
   });
 
   test('signIn - failure - any Exception', () async {
     // stub method to return success
-    when(signInEmailPasswordUseCase.execute(
-        request: ('johndoe@example.com', '12345678'))).thenThrow(Exception());
+    when(signInEmailPasswordUseCase
+        .execute(('johndoe@example.com', '12345678'))).thenThrow(Exception());
     // listen to the provider and call [listener] whenever its value changes
     container.listen(
       loginControllerProvider,
@@ -136,8 +134,7 @@ void main() {
     expect(actualState.asError!.error, isA<Exception>());
 
     verifyNoMoreInteractions(listener);
-    verify(signInEmailPasswordUseCase.execute(request: anyNamed("request")))
-        .called(1);
+    verify(signInEmailPasswordUseCase.execute(anyNamed("request"))).called(1);
     verifyNever(goRouter.pushReplacement(any));
   });
 
@@ -159,8 +156,7 @@ void main() {
         const AsyncData<(String, String, bool)>(('', '12345678', false))));
 
     verifyNoMoreInteractions(listener);
-    verifyNever(
-        signInEmailPasswordUseCase.execute(request: anyNamed("request")));
+    verifyNever(signInEmailPasswordUseCase.execute(anyNamed("request")));
     verifyNever(goRouter.pushReplacement(any));
   });
 
@@ -184,8 +180,7 @@ void main() {
             ('johndoe@example.com', '', false))));
 
     verifyNoMoreInteractions(listener);
-    verifyNever(
-        signInEmailPasswordUseCase.execute(request: anyNamed("request")));
+    verifyNever(signInEmailPasswordUseCase.execute(anyNamed("request")));
     verifyNever(goRouter.pushReplacement(any));
   });
 }
