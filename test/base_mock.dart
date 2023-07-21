@@ -8,6 +8,7 @@ import 'package:freshly_delivered_app/features/authentication/domain/use_cases/s
 import 'package:freshly_delivered_app/features/authentication/domain/use_cases/set_onboarding_messages_use_case.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/use_cases/sign_in_email_password_use_case.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/use_cases/sign_up_email_password_use_case.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mockito/annotations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,6 +27,7 @@ import 'package:shared_preferences/shared_preferences.dart';
   MockSpec<FirebaseAuth>(),
   MockSpec<User>(),
   MockSpec<SharedPreferences>(),
+  MockSpec<GoRouter>(),
   // MockSpec<CountryManager>(),
   // MockSpec<CountryWithPhoneCode>(),
   // MockSpec<FormatPhoneResult>(),

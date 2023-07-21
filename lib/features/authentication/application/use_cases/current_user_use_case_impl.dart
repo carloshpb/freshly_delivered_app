@@ -21,7 +21,7 @@ class CurrentUserUseCaseImpl implements CurrentUserUseCase {
       : _authRepository = authRepository;
 
   @override
-  AppUser? execute({required void request}) {
+  AppUser? execute({required dynamic request}) {
     return _authRepository.currentUser;
   }
 }

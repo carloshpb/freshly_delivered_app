@@ -166,6 +166,7 @@ void main() {
     // verify initial value from the build method
     verify(listener.call(null, initialData));
     // set manually new state
+    // ignore: invalid_use_of_protected_member
     container.read(forgotPasswordLoginControllerProvider.notifier).state =
         const AsyncData<bool>(true);
     // clear state
