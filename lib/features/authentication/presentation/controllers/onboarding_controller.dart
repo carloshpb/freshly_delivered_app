@@ -1,7 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../application/dtos/onboarding_message_dto.dart';
-import '../../application/use_cases/current_user_use_case_impl.dart';
 import '../../application/use_cases/get_onboarding_messages_use_case_impl.dart';
 import 'states/onboarding_screen_state.dart';
 
@@ -20,10 +18,8 @@ class OnboardingController extends AutoDisposeNotifier<OnboardingScreenState> {
     print("BUILDING CONTROLLER ...");
     var initialMessages =
         ref.watch(getOnboardingMessagesUseCaseProvider).execute(request: null);
-    var testUser = ref.watch(currentUserUseCaseProvider).execute(request: null);
 
     print("GOT INITIAL MESSAGES : $initialMessages");
-    print("TEST USER : $testUser");
 
     return OnboardingScreenState(pagePosition: 0, messages: initialMessages);
   }
