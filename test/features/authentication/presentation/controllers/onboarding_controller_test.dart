@@ -1,7 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:freshly_delivered_app/features/authentication/application/dtos/onboarding_message_dto.dart';
+import 'package:freshly_delivered_app/features/authentication/application/use_cases/current_user_use_case_impl.dart';
 import 'package:freshly_delivered_app/features/authentication/application/use_cases/get_onboarding_messages_use_case_impl.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/current_user_use_case.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/get_onboarding_messages_use_case.dart';
 import 'package:freshly_delivered_app/features/authentication/presentation/controllers/onboarding_controller.dart';
 import 'package:freshly_delivered_app/features/authentication/presentation/controllers/states/onboarding_screen_state.dart';
 import 'package:mockito/mockito.dart';
@@ -10,7 +14,8 @@ import '../../../../base_mock.mocks.dart';
 
 void main() {
   late ProviderContainer container;
-  late MockGetOnboardingMessagesUseCase getOnboardingMessagesUseCase;
+  late GetOnboardingMessagesUseCase getOnboardingMessagesUseCase;
+  late CurrentUserUseCase currentUserUseCase;
   late MockListener<OnboardingScreenState> listener;
   late OnboardingController controller;
 
@@ -40,12 +45,16 @@ void main() {
 
   setUp(() {
     getOnboardingMessagesUseCase = MockGetOnboardingMessagesUseCase();
+    currentUserUseCase = MockCurrentUserUseCase();
 
     // create the ProviderContainer with the mock use case
     container = ProviderContainer(
       overrides: [
         getOnboardingMessagesUseCaseProvider.overrideWithValue(
           getOnboardingMessagesUseCase,
+        ),
+        currentUserUseCaseProvider.overrideWithValue(
+          currentUserUseCase,
         ),
       ],
     );
@@ -61,9 +70,11 @@ void main() {
   });
 
   test('initial state is 0', () {
+    var user = const AppUser(uid: "1234", email: "caca");
     // stub method to return success - no error is ever thrown
     when(getOnboardingMessagesUseCase.execute(request: null))
-        .thenAnswer((_) => defaultOnboardMessages);
+        .thenReturn(defaultOnboardMessages);
+    when(currentUserUseCase.execute(request: null)).thenReturn(user);
     // listen to the provider and call [listener] whenever its value changes
     container.listen(
       onboardingControllerProvider,
@@ -85,6 +96,7 @@ void main() {
     // stub method to return success - no error is ever thrown
     when(getOnboardingMessagesUseCase.execute(request: null))
         .thenReturn(defaultOnboardMessages);
+
     // listen to the provider and call [listener] whenever its value changes
     container.listen(
       onboardingControllerProvider,
