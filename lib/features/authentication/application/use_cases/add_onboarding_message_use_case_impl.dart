@@ -4,6 +4,7 @@ import '../../data/repositories/onboarding_messages_repository_impl.dart';
 import '../../domain/models/onboarding_message.dart';
 import '../../domain/repositories/onboarding_messages_repository.dart';
 import '../../domain/use_cases/add_onboarding_message_use_case.dart';
+import '../dtos/onboarding_message_dto.dart';
 
 final addOnboardingMessageUseCaseProvider =
     Provider.autoDispose<AddOnboardingMessageUseCase>(
@@ -24,12 +25,7 @@ class AddOnboardingMessageUseCaseImpl implements AddOnboardingMessageUseCase {
       : _onboardingMessagesRepository = onboardingMessagesRepository;
 
   @override
-  void execute(
-      {required ({
-        String imageSvgPath,
-        String message,
-        String title
-      }) request}) {
+  void execute(OnboardingMessageDTO request) {
     if (request.imageSvgPath.isEmpty ||
         request.message.isEmpty ||
         request.title.isEmpty) {

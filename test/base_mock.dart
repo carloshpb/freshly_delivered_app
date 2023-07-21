@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:freshly_delivered_app/features/authentication/application/dtos/onboarding_message_dto.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/onboarding_messages_repository.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/use_cases/add_onboarding_message_use_case.dart';
@@ -14,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @GenerateNiceMocks([
   MockSpec<Listener>(),
+  MockSpec<OnboardingMessageDTO>(),
   MockSpec<AuthenticationRepository>(),
   MockSpec<OnboardingMessagesRepository>(),
   MockSpec<SetOnboardingMessagesUseCase>(),

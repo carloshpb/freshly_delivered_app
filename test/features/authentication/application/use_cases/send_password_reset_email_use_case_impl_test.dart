@@ -48,7 +48,7 @@ void main() {
       //expect(result, isA<Future<void>>());
 
       await expectLater(
-          sendPasswordResetEmailUseCase.execute(request: mockEmail), completes);
+          sendPasswordResetEmailUseCase.execute(mockEmail), completes);
     });
 
     test('''
@@ -59,7 +59,7 @@ void main() {
           .thenThrow(const UserNotFoundException());
 
       await expectLater(
-          sendPasswordResetEmailUseCase.execute(request: mockEmail),
+          sendPasswordResetEmailUseCase.execute(mockEmail),
           throwsA(predicate((e) =>
               e is UserNotFoundException &&
               e.message == "The user does not match any credentials")));
@@ -73,7 +73,7 @@ void main() {
           .thenThrow(const InvalidEmailException());
 
       await expectLater(
-          sendPasswordResetEmailUseCase.execute(request: mockEmail),
+          sendPasswordResetEmailUseCase.execute(mockEmail),
           throwsA(predicate((e) =>
               e is InvalidEmailException &&
               e.message == "The email address is not valid")));
