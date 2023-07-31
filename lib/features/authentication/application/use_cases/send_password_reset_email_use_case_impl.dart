@@ -25,7 +25,7 @@ class SendPasswordResetEmailUseCaseImpl
       : _authRepository = authRepository;
 
   @override
-  Future<void> execute({required String request}) async {
+  Future<void> execute(String request) async {
     return _authRepository.sendPasswordResetEmail(request);
   }
 }

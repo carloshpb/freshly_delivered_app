@@ -1,22 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:freshly_delivered_app/features/authentication/application/dtos/onboarding_message_dto.dart';
-import 'package:freshly_delivered_app/features/authentication/application/use_cases/current_user_use_case_impl.dart';
 import 'package:freshly_delivered_app/features/authentication/application/use_cases/get_onboarding_messages_use_case_impl.dart';
-import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart';
-import 'package:freshly_delivered_app/features/authentication/domain/use_cases/current_user_use_case.dart';
-import 'package:freshly_delivered_app/features/authentication/domain/use_cases/get_onboarding_messages_use_case.dart';
 import 'package:freshly_delivered_app/features/authentication/presentation/controllers/onboarding_controller.dart';
-import 'package:freshly_delivered_app/features/authentication/presentation/controllers/states/onboarding_screen_state.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../base_mock.mocks.dart';
 
 void main() {
   late ProviderContainer container;
-  late GetOnboardingMessagesUseCase getOnboardingMessagesUseCase;
-  late CurrentUserUseCase currentUserUseCase;
-  late MockListener<OnboardingScreenState> listener;
+  late MockGetOnboardingMessagesUseCase getOnboardingMessagesUseCase;
+  //late MockCurrentUserUseCase currentUserUseCase;
+  late MockListener<int> listener;
   late OnboardingController controller;
 
   const defaultOnboardMessages = [
@@ -40,12 +35,12 @@ void main() {
     ),
   ];
 
-  const initialState =
-      OnboardingScreenState(pagePosition: 0, messages: defaultOnboardMessages);
+  // const initialState =
+  //     OnboardingScreenState(pagePosition: 0, messages: defaultOnboardMessages);
 
   setUp(() {
     getOnboardingMessagesUseCase = MockGetOnboardingMessagesUseCase();
-    currentUserUseCase = MockCurrentUserUseCase();
+    //currentUserUseCase = MockCurrentUserUseCase();
 
     // create the ProviderContainer with the mock use case
     container = ProviderContainer(
@@ -53,16 +48,16 @@ void main() {
         getOnboardingMessagesUseCaseProvider.overrideWithValue(
           getOnboardingMessagesUseCase,
         ),
-        currentUserUseCaseProvider.overrideWithValue(
-          currentUserUseCase,
-        ),
+        // currentUserUseCaseProvider.overrideWithValue(
+        //   currentUserUseCase,
+        // ),
       ],
     );
 
     controller = container.read(onboardingControllerProvider.notifier);
 
     // create a mock listener
-    listener = MockListener<OnboardingScreenState>();
+    listener = MockListener<int>();
   });
 
   tearDown(() {
@@ -70,11 +65,9 @@ void main() {
   });
 
   test('initial state is 0', () {
-    var user = const AppUser(uid: "1234", email: "caca");
     // stub method to return success - no error is ever thrown
-    when(getOnboardingMessagesUseCase.execute(request: null))
+    when(getOnboardingMessagesUseCase.execute())
         .thenReturn(defaultOnboardMessages);
-    when(currentUserUseCase.execute(request: null)).thenReturn(user);
     // listen to the provider and call [listener] whenever its value changes
     container.listen(
       onboardingControllerProvider,
@@ -82,10 +75,13 @@ void main() {
       fireImmediately: true,
     );
 
-    verify(getOnboardingMessagesUseCase.execute(request: null)).called(1);
+    verify(getOnboardingMessagesUseCase.execute()).called(1);
 
     // verify
-    verify(listener.call(null, initialState)).called(1);
+    //verify(listener.call(null, initialState)).called(1);
+    verifyInOrder([
+      listener.call(argThat(isNull), argThat(isZero)),
+    ]);
     // verify that the listener is no longer called
     verifyNoMoreInteractions(listener);
     // verify that [sendPasswordResetEmailUseCase.execute] was not called during initialization
@@ -94,7 +90,7 @@ void main() {
 
   test('onPageChanged - valid index page', () async {
     // stub method to return success - no error is ever thrown
-    when(getOnboardingMessagesUseCase.execute(request: null))
+    when(getOnboardingMessagesUseCase.execute())
         .thenReturn(defaultOnboardMessages);
 
     // listen to the provider and call [listener] whenever its value changes
@@ -104,29 +100,33 @@ void main() {
       fireImmediately: true,
     );
     // verify
-    print("onPageChanged - valid index page - verify 1");
-    verify(
-      listener.call(null, initialState),
-    ).called(1);
+    // print("onPageChanged - valid index page - verify 1");
+    // verify(
+    //   listener.call(null, initialState),
+    // ).called(1);
     // run
     controller.onPageChanged(1);
     // verify
     print("onPageChanged - valid index page - verify 2");
-    verify(
-      listener.call(
-          initialState,
-          const OnboardingScreenState(
-              pagePosition: 1, messages: defaultOnboardMessages)),
-    ).called(1);
+    // verify(
+    //   listener.call(
+    //       initialState,
+    //       const OnboardingScreenState(
+    //           pagePosition: 1, messages: defaultOnboardMessages)),
+    // ).called(1);
+    verifyInOrder([
+      listener.call(argThat(isNull), 0),
+      listener.call(0, 2),
+    ]);
     // verify that the listener is no longer called
     verifyNoMoreInteractions(listener);
     // verify that [sendPasswordResetEmailUseCase.execute] was not called during initialization
-    verify(getOnboardingMessagesUseCase.execute(request: null)).called(1);
+    verify(getOnboardingMessagesUseCase.execute()).called(1);
   });
 
   test('onPageChanged - invalid index page', () async {
     // stub method to return success - no error is ever thrown
-    when(getOnboardingMessagesUseCase.execute(request: null))
+    when(getOnboardingMessagesUseCase.execute())
         .thenReturn(defaultOnboardMessages);
     // listen to the provider and call [listener] whenever its value changes
     container.listen(
@@ -135,22 +135,19 @@ void main() {
       fireImmediately: true,
     );
     // verify
-    verify(
-      listener.call(null, initialState),
-    ).called(1);
+    verifyInOrder([
+      listener.call(argThat(isNull), argThat(isZero)),
+    ]);
     // run
     controller.onPageChanged(5);
     // verify
     verifyNever(
-      listener.call(
-          initialState,
-          const OnboardingScreenState(
-              pagePosition: 5, messages: defaultOnboardMessages)),
+      listener.call(argThat(isZero), argThat(isNonZero)),
     ).called(1);
     // verify that the listener is no longer called
     verifyNoMoreInteractions(listener);
     // verify that [sendPasswordResetEmailUseCase.execute] was not called during initialization
-    verify(getOnboardingMessagesUseCase.execute(request: null)).called(1);
+    verify(getOnboardingMessagesUseCase.execute()).called(1);
   });
 
   // test('get onboardingMessages', () async {

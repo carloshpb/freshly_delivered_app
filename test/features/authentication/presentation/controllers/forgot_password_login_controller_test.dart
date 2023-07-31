@@ -50,13 +50,12 @@ void main() {
     // verify that the listener is no longer called
     verifyNoMoreInteractions(listener);
     // verify that [sendPasswordResetEmailUseCase.execute] was not called during initialization
-    verifyNever(
-        sendPasswordResetEmailUseCase.execute(request: anyNamed("request")));
+    verifyNever(sendPasswordResetEmailUseCase.execute(anyNamed("request")));
   });
 
   test('sendPasswordResetEmail - success', () async {
     // stub method to return success
-    when(sendPasswordResetEmailUseCase.execute(request: anyNamed("request")))
+    when(sendPasswordResetEmailUseCase.execute(anyNamed("request")))
         .thenAnswer((_) async {});
     // listen to the provider and call [listener] whenever its value changes
     container.listen(
@@ -79,13 +78,13 @@ void main() {
       listener.call(argThat(isA<AsyncLoading>()), successData),
     ]);
     verifyNoMoreInteractions(listener);
-    verify(sendPasswordResetEmailUseCase.execute(request: anyNamed("request")))
+    verify(sendPasswordResetEmailUseCase.execute(anyNamed("request")))
         .called(1);
   });
 
   test('sendPasswordResetEmail - failure - UserNotFoundException', () async {
     // stub method to return success
-    when(sendPasswordResetEmailUseCase.execute(request: anyNamed("request")))
+    when(sendPasswordResetEmailUseCase.execute(anyNamed("request")))
         .thenThrow(const UserNotFoundException());
     // listen to the provider and call [listener] whenever its value changes
     container.listen(
@@ -113,7 +112,7 @@ void main() {
     expect(actualState.asError!.error, isA<UserNotFoundException>());
 
     verifyNoMoreInteractions(listener);
-    verify(sendPasswordResetEmailUseCase.execute(request: anyNamed("request")))
+    verify(sendPasswordResetEmailUseCase.execute(anyNamed("request")))
         .called(1);
   });
 
@@ -121,7 +120,7 @@ void main() {
       'sendPasswordResetEmail - failure - email blocked - InvalidEmailException',
       () async {
     // stub method to return success
-    when(sendPasswordResetEmailUseCase.execute(request: anyNamed("request")))
+    when(sendPasswordResetEmailUseCase.execute(anyNamed("request")))
         .thenThrow(const InvalidEmailException());
     // listen to the provider and call [listener] whenever its value changes
     container.listen(
@@ -149,7 +148,7 @@ void main() {
     expect(actualState.asError!.error, isA<InvalidEmailException>());
 
     verifyNoMoreInteractions(listener);
-    verify(sendPasswordResetEmailUseCase.execute(request: anyNamed("request")))
+    verify(sendPasswordResetEmailUseCase.execute(anyNamed("request")))
         .called(1);
   });
 
@@ -180,7 +179,6 @@ void main() {
     ]);
 
     verifyNoMoreInteractions(listener);
-    verifyNever(
-        sendPasswordResetEmailUseCase.execute(request: anyNamed("request")));
+    verifyNever(sendPasswordResetEmailUseCase.execute(anyNamed("request")));
   });
 }

@@ -53,7 +53,7 @@ class GetOnboardingMessagesUseCaseImpl implements GetOnboardingMessagesUseCase {
         _setOnboardingMessagesUseCase = setOnboardingMessagesUseCase;
 
   @override
-  List<OnboardingMessageDTO> execute({required dynamic request}) {
+  List<OnboardingMessageDTO> execute([void request]) {
     late List<OnboardingMessage> resultMessagesFromRepo;
 
     try {
@@ -64,9 +64,9 @@ class GetOnboardingMessagesUseCaseImpl implements GetOnboardingMessagesUseCase {
       }
     } on TypeError {
       _setOnboardingMessagesUseCase.execute(
-        request: _defaultOnboardingMessages
+        _defaultOnboardingMessages
             .map(
-              (onbMsg) => (
+              (onbMsg) => OnboardingMessageDTO(
                 imageSvgPath: onbMsg.imageSvgPath,
                 message: onbMsg.message,
                 title: onbMsg.title,

@@ -6,10 +6,10 @@ abstract class SignUpEmailPasswordUseCase
     implements UseCase<(String, String, String, String), void> {
   @override
   FutureOr<void> execute(
-      {required (
+      (
         String email,
         String password,
         String fullName,
         String phoneNumber
-      ) request});
+      ) request);
 }

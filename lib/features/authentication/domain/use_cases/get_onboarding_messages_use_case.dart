@@ -4,5 +4,5 @@ import '../../application/dtos/onboarding_message_dto.dart';
 abstract class GetOnboardingMessagesUseCase
     implements UseCase<void, List<OnboardingMessageDTO>> {
   @override
-  List<OnboardingMessageDTO> execute({required dynamic request});
+  List<OnboardingMessageDTO> execute([void request]);
 }
