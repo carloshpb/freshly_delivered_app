@@ -1,36 +1,26 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../application/dtos/onboarding_message_dto.dart';
 import '../../application/use_cases/get_onboarding_messages_use_case_impl.dart';
+import 'states/onboarding_screen_state.dart';
 
 final onboardingControllerProvider =
-    NotifierProvider.autoDispose<OnboardingController, int>(
+    NotifierProvider.autoDispose<OnboardingController, OnboardingScreenState>(
   () => OnboardingController(),
   name: r'onboardingControllerProvider',
 );
 
-class OnboardingController extends AutoDisposeNotifier<int> {
-  late final List<OnboardingMessageDTO> _onboardingMessages;
-
+class OnboardingController extends AutoDisposeNotifier<OnboardingScreenState> {
   @override
-  int build() {
-    print("BUILDING CONTROLLER ...");
-    _onboardingMessages =
+  OnboardingScreenState build() {
+    var initialMessages =
         ref.watch(getOnboardingMessagesUseCaseProvider).execute();
 
-    print("GOT INITIAL MESSAGES : $_onboardingMessages");
-
-    //return OnboardingScreenState(pagePosition: 0, messages: initialMessages);
-    return 0;
+    return OnboardingScreenState(pagePosition: 0, messages: initialMessages);
   }
 
-  List<OnboardingMessageDTO> getMessages() => _onboardingMessages;
-
   void onPageChanged(int next) {
-    if (next >= 0 && next < _onboardingMessages.length) {
-      print("OK, CHANGING PAGE TO THE NEXT PAGE: $next");
-      state = next;
-      print("--- CURRENT STATE : $state");
+    if (next >= 0 && next < state.messages.length) {
+      state = state.copyWith(pagePosition: next);
     }
   }
 }
