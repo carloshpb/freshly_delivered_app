@@ -8,8 +8,11 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return const Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Text("HOME"),
+        child: Padding(
+          padding: EdgeInsets.all(12.0),
+          child: Center(
+            child: Text("HOME"),
+          ),
         ),
       ),
     );
