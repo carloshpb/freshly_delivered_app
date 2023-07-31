@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:freshly_delivered_app/features/authentication/application/dtos/onboarding_message_dto.dart';
 import 'package:freshly_delivered_app/features/authentication/application/use_cases/get_onboarding_messages_use_case_impl.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/models/onboarding_message.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/onboarding_messages_repository.dart';
@@ -33,38 +34,38 @@ void main() {
     ),
   ];
 
-  const messagesRecords = [
-    (
+  const List<OnboardingMessageDTO> messagesDTO = [
+    OnboardingMessageDTO(
       imageSvgPath: 'imagePath1.svg.vec',
       message: 'TITLE1',
       title: 'message1',
     ),
-    (
+    OnboardingMessageDTO(
       imageSvgPath: 'imagePath2.svg.vec',
       message: 'TITLE2',
       title: 'message2',
     ),
-    (
+    OnboardingMessageDTO(
       imageSvgPath: 'imagePath3.svg.vec',
       message: 'TITLE3',
       title: 'message3',
     ),
   ];
 
-  const defaultMessagesRecords = [
-    (
+  const defaultMessages = [
+    OnboardingMessageDTO(
       imageSvgPath: 'assets/images/onboarding1.svg.vec',
       title: 'SHOP CONVENIENTLY',
       message:
           'Shop from an unlimited stock of groceries from the convenience of your homes',
     ),
-    (
+    OnboardingMessageDTO(
       imageSvgPath: 'assets/images/onboarding2.svg.vec',
       title: 'EXPERTLY CURATED RECIPES',
       message:
           'Our recipes are prepared in the finest of conditions by experts in their fields',
     ),
-    (
+    OnboardingMessageDTO(
       imageSvgPath: 'assets/images/onboarding3.svg.vec',
       title: 'BRING OUT THE CHEF IN YOU',
       message:
@@ -103,17 +104,14 @@ void main() {
       when(onboardingMessagesRepository.onboardingMessages)
           .thenReturn(messages);
 
-      var result = getOnboardingMessagesUseCase.execute(request: null);
+      var result = getOnboardingMessagesUseCase.execute();
 
-      expect(
-        result,
-        equals(messagesRecords),
-      );
+      expect(result, equals(messagesDTO));
 
       expect(
         result[0],
         equals(
-          const (
+          const OnboardingMessageDTO(
             imageSvgPath: 'imagePath1.svg.vec',
             message: 'TITLE1',
             title: 'message1',
@@ -123,7 +121,7 @@ void main() {
       expect(
         result[1],
         equals(
-          const (
+          const OnboardingMessageDTO(
             imageSvgPath: 'imagePath2.svg.vec',
             message: 'TITLE2',
             title: 'message2',
@@ -133,7 +131,7 @@ void main() {
       expect(
         result[2],
         equals(
-          const (
+          const OnboardingMessageDTO(
             imageSvgPath: 'imagePath3.svg.vec',
             message: 'TITLE3',
             title: 'message3',
@@ -145,7 +143,7 @@ void main() {
     test('onboardingMessages - handles empty list', () {
       when(onboardingMessagesRepository.onboardingMessages).thenReturn([]);
 
-      var result = getOnboardingMessagesUseCase.execute(request: null);
+      var result = getOnboardingMessagesUseCase.execute();
 
       expect(result.length, 3);
 
@@ -153,7 +151,7 @@ void main() {
       expect(
         result[0],
         equals(
-          (
+          const OnboardingMessageDTO(
             imageSvgPath: 'assets/images/onboarding1.svg.vec',
             title: 'SHOP CONVENIENTLY',
             message:
@@ -164,7 +162,7 @@ void main() {
       expect(
         result[1],
         equals(
-          (
+          const OnboardingMessageDTO(
             imageSvgPath: 'assets/images/onboarding2.svg.vec',
             title: 'EXPERTLY CURATED RECIPES',
             message:
@@ -175,7 +173,7 @@ void main() {
       expect(
         result[2],
         equals(
-          (
+          const OnboardingMessageDTO(
             imageSvgPath: 'assets/images/onboarding3.svg.vec',
             title: 'BRING OUT THE CHEF IN YOU',
             message:
@@ -189,14 +187,13 @@ void main() {
       when(onboardingMessagesRepository.onboardingMessages)
           .thenThrow(TypeError());
 
-      when(setOnboardingMessagesUseCase.execute(
-              request: defaultMessagesRecords))
-          .thenReturn(null);
+      when(setOnboardingMessagesUseCase.execute(defaultMessages))
+          .thenReturn(argThat(isNull));
 
-      var result = getOnboardingMessagesUseCase.execute(request: null);
+      var result = getOnboardingMessagesUseCase.execute();
 
       verify(
-        setOnboardingMessagesUseCase.execute(request: defaultMessagesRecords),
+        setOnboardingMessagesUseCase.execute(defaultMessages),
       );
 
       expect(result.length, equals(3));
@@ -205,7 +202,7 @@ void main() {
       expect(
         result[0],
         equals(
-          (
+          const OnboardingMessageDTO(
             imageSvgPath: 'assets/images/onboarding1.svg.vec',
             title: 'SHOP CONVENIENTLY',
             message:
@@ -216,7 +213,7 @@ void main() {
       expect(
         result[1],
         equals(
-          (
+          const OnboardingMessageDTO(
             imageSvgPath: 'assets/images/onboarding2.svg.vec',
             title: 'EXPERTLY CURATED RECIPES',
             message:
@@ -227,7 +224,7 @@ void main() {
       expect(
         result[2],
         equals(
-          (
+          const OnboardingMessageDTO(
             imageSvgPath: 'assets/images/onboarding3.svg.vec',
             title: 'BRING OUT THE CHEF IN YOU',
             message:

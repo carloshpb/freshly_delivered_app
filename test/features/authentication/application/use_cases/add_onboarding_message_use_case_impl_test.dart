@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:freshly_delivered_app/features/authentication/application/dtos/onboarding_message_dto.dart';
 import 'package:freshly_delivered_app/features/authentication/application/use_cases/add_onboarding_message_use_case_impl.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/models/onboarding_message.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/onboarding_messages_repository.dart';
@@ -50,7 +51,7 @@ void main() {
 
         expect(
           () => addOnboardingMessageUseCase.execute(
-            request: (
+            const OnboardingMessageDTO(
               imageSvgPath: 'imagePath4.svg.vec',
               message: 'TITLE4',
               title: 'message4',
@@ -76,7 +77,7 @@ void main() {
       () {
         expect(
           () => addOnboardingMessageUseCase.execute(
-            request: (
+            const OnboardingMessageDTO(
               imageSvgPath: '',
               message: 'TITLE4',
               title: 'message4',
@@ -87,7 +88,7 @@ void main() {
 
         expect(
           () => addOnboardingMessageUseCase.execute(
-            request: (
+            const OnboardingMessageDTO(
               imageSvgPath: 'imagePath4.svg.vec',
               message: '',
               title: 'message4',
@@ -98,7 +99,7 @@ void main() {
 
         expect(
           () => addOnboardingMessageUseCase.execute(
-            request: (
+            const OnboardingMessageDTO(
               imageSvgPath: 'imagePath4.svg.vec',
               message: 'TITLE4',
               title: '',

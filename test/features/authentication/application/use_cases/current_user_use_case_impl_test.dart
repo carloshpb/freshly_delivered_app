@@ -45,7 +45,7 @@ void main() {
       ''', () {
       when(authRepository.currentUser).thenReturn(mockAppUser);
 
-      var appUser = currentUserUseCase.execute(request: null);
+      var appUser = currentUserUseCase.execute();
 
       expect(appUser, isNotNull);
       expect(appUser?.uid, equals('mockUid'));
@@ -59,7 +59,7 @@ void main() {
       ''', () {
       when(authRepository.currentUser).thenReturn(null);
 
-      var appUser = currentUserUseCase.execute(request: null);
+      var appUser = currentUserUseCase.execute();
 
       expect(appUser, isNull);
     });

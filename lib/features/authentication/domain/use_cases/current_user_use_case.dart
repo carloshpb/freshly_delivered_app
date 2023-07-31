@@ -3,5 +3,5 @@ import '../models/app_user.dart';
 
 abstract class CurrentUserUseCase implements UseCase<void, AppUser?> {
   @override
-  AppUser? execute({required dynamic request});
+  AppUser? execute([void request]);
 }
