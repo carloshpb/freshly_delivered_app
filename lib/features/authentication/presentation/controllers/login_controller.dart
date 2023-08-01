@@ -31,7 +31,7 @@ class LoginController extends AutoDisposeAsyncNotifier<(String, String, bool)> {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       await ref.watch(signInUseCaseProvider).execute((email, password));
-      ref.watch(goRouterProvider).pushReplacement(AppRouter.home.path);
+      ref.watch(goRouterProvider).go(AppRouter.home.path);
       return (email, password, true);
     });
   }

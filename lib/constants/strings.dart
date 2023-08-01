@@ -16,6 +16,10 @@ class Strings {
   static const here = "Here";
   static const resend = "Resend";
   static const success = "Success";
+  static const home = "Home";
+  static const wishlist = "Wishlist";
+  static const cart = "Cart";
+  static const settings = "Settings";
 
   /// Messages
   static const forgotPasword = "Forgot password?";

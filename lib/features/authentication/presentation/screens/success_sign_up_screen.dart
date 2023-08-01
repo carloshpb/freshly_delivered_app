@@ -27,7 +27,7 @@ class _SuccessSignUpScreenState extends ConsumerState<SuccessSignUpScreen> {
           seconds: 3,
         ),
       );
-      ref.read(goRouterProvider).pushReplacement(AppRouter.home.path);
+      ref.read(goRouterProvider).go(AppRouter.home.path);
     });
   }
 

@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/strings.dart';
 
-class HomeScreen extends ConsumerWidget {
-  const HomeScreen({super.key});
+class WishlistScreen extends ConsumerWidget {
+  const WishlistScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -13,7 +13,7 @@ class HomeScreen extends ConsumerWidget {
         child: Padding(
           padding: EdgeInsets.all(12.0),
           child: Center(
-            child: Text(Strings.home),
+            child: Text(Strings.wishlist),
           ),
         ),
       ),

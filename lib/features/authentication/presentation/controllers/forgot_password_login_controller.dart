@@ -34,7 +34,7 @@ class ForgotPasswordLoginController extends AutoDisposeAsyncNotifier<bool> {
       }
       setTimer();
       return true;
-      //ref.watch(goRouterProvider).pushReplacement(AppRouter.home.path);
+      //ref.watch(goRouterProvider).go(AppRouter.home.path);
     });
   }
 
