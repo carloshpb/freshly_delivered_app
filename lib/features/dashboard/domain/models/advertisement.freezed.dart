@@ -114,15 +114,17 @@ class __$$_AdvertisementCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Advertisement extends _Advertisement {
-  _$_Advertisement(
-      {required this.id, required this.description, required this.image})
+  _$_Advertisement({this.id = -1, this.description = '', this.image = ''})
       : super._();
 
   @override
+  @JsonKey()
   final int id;
   @override
+  @JsonKey()
   final String description;
   @override
+  @JsonKey()
   final String image;
 
   @override
@@ -153,9 +155,9 @@ class _$_Advertisement extends _Advertisement {
 
 abstract class _Advertisement extends Advertisement {
   factory _Advertisement(
-      {required final int id,
-      required final String description,
-      required final String image}) = _$_Advertisement;
+      {final int id,
+      final String description,
+      final String image}) = _$_Advertisement;
   _Advertisement._() : super._();
 
   @override

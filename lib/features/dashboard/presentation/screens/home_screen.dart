@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../common_widgets/animated/on_sale_card_carousel.dart';
 import '../../../../constants/custom_colors.dart';
 import '../../../../constants/strings.dart';
 import '../controllers/home_controller.dart';
@@ -63,30 +65,54 @@ class HomeScreen extends ConsumerWidget {
                 children: [
                   SizedBox(
                     height: mediaQuerySize.height * 0.1954976,
+                    child: OnSaleCardCarousel(
+                      advertisements: ,
+                    ),
                   ),
                   const SizedBox(
                     height: 15.0,
                   ),
                   SizedBox(
                     height: mediaQuerySize.height * 0.0390995,
+                    child: ListView.builder(scrollDirection: Axis.horizontal,itemBuilder: (context, index) {},),
                   ),
                   const SizedBox(
                     height: 13.0,
                   ),
                   SizedBox(
                     height: mediaQuerySize.height * 0.1789099526,
+                    child: ListView.builder(scrollDirection: Axis.horizontal,itemBuilder: (context, index) {},),
                   ),
                   const SizedBox(
                     height: 16.0,
                   ),
                   SizedBox(
                     height: mediaQuerySize.height * 0.10663507,
+                    child: Card(
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: CachedNetworkImage(
+                          imageUrl: currentAdvertisement.image,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                            value: downloadProgress.progress,
+                          ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        ),
+                      ),
+                    ),
+                  ),
                   ),
                   const SizedBox(
                     height: 16.0,
                   ),
                   SizedBox(
                     height: mediaQuerySize.height * 0.1789099526,
+                    child: ListView.builder(scrollDirection: Axis.horizontal,itemBuilder: (context, index) {},),
                   ),
                 ],
               ),

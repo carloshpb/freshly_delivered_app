@@ -9,9 +9,9 @@ class AdvertisementDto with _$AdvertisementDto {
   const AdvertisementDto._();
 
   const factory AdvertisementDto({
-    required int id,
-    required String description,
-    required String image,
+    @Default(-1) int id,
+    @Default('') String description,
+    @Default('') String image,
   }) = _AdvertisementDto;
 
   Advertisement toModel() {

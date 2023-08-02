@@ -11,9 +11,9 @@ class Advertisement with _$Advertisement {
   const Advertisement._();
 
   factory Advertisement({
-    required int id,
-    required String description,
-    required String image,
+    @Default(-1) int id,
+    @Default('') String description,
+    @Default('') String image,
   }) = _Advertisement;
 
   factory Advertisement.fromJson(Map<String, Object?> json) =>

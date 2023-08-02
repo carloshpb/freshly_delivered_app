@@ -115,14 +115,17 @@ class __$$_AdvertisementDtoCopyWithImpl<$Res>
 
 class _$_AdvertisementDto extends _AdvertisementDto {
   const _$_AdvertisementDto(
-      {required this.id, required this.description, required this.image})
+      {this.id = -1, this.description = '', this.image = ''})
       : super._();
 
   @override
+  @JsonKey()
   final int id;
   @override
+  @JsonKey()
   final String description;
   @override
+  @JsonKey()
   final String image;
 
   @override
@@ -153,9 +156,9 @@ class _$_AdvertisementDto extends _AdvertisementDto {
 
 abstract class _AdvertisementDto extends AdvertisementDto {
   const factory _AdvertisementDto(
-      {required final int id,
-      required final String description,
-      required final String image}) = _$_AdvertisementDto;
+      {final int id,
+      final String description,
+      final String image}) = _$_AdvertisementDto;
   const _AdvertisementDto._() : super._();
 
   @override
