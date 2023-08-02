@@ -47,6 +47,7 @@ class Strings {
   static const accountCreatedSuccess =
       "Account created successfully. Please wait while we log you into your account.";
   static const searchProductsHint = "Search recipes, groceries and more";
+  static const moreAdvertisementsSoon = "More advertisements soon!";
 
   /// Exceptions
   /// General
