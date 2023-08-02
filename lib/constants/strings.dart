@@ -46,6 +46,7 @@ class Strings {
   static const passwordsNotMatch = "Passwords don\'t match";
   static const accountCreatedSuccess =
       "Account created successfully. Please wait while we log you into your account.";
+  static const searchProductsHint = "Search recipes, groceries and more";
 
   /// Exceptions
   /// General
