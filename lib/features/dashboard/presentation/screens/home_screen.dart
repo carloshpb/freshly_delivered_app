@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -66,7 +67,7 @@ class HomeScreen extends ConsumerWidget {
                   SizedBox(
                     height: mediaQuerySize.height * 0.1954976,
                     child: OnSaleCardCarousel(
-                      advertisements: ,
+                      advertisements: [],
                     ),
                   ),
                   const SizedBox(
@@ -74,14 +75,34 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   SizedBox(
                     height: mediaQuerySize.height * 0.0390995,
-                    child: ListView.builder(scrollDirection: Axis.horizontal,itemBuilder: (context, index) {},),
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.only(left: 22.0),
+                      decoration: BoxDecoration(
+                        color: CustomColors.buttonGreen,
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: AutoSizeText(
+                        Strings.popular.toUpperCase(),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          height: 15.0,
+                          fontSize: 14.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     height: 13.0,
                   ),
                   SizedBox(
                     height: mediaQuerySize.height * 0.1789099526,
-                    child: ListView.builder(scrollDirection: Axis.horizontal,itemBuilder: (context, index) {},),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {},
+                    ),
                   ),
                   const SizedBox(
                     height: 16.0,
@@ -89,30 +110,33 @@ class HomeScreen extends ConsumerWidget {
                   SizedBox(
                     height: mediaQuerySize.height * 0.10663507,
                     child: Card(
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: FittedBox(
-                        fit: BoxFit.contain,
-                        child: CachedNetworkImage(
-                          imageUrl: currentAdvertisement.image,
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) =>
-                                  CircularProgressIndicator(
-                            value: downloadProgress.progress,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: CachedNetworkImage(
+                            imageUrl: currentAdvertisement.image,
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) =>
+                                    CircularProgressIndicator(
+                              value: downloadProgress.progress,
+                            ),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
                           ),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
                         ),
                       ),
                     ),
-                  ),
                   ),
                   const SizedBox(
                     height: 16.0,
                   ),
                   SizedBox(
                     height: mediaQuerySize.height * 0.1789099526,
-                    child: ListView.builder(scrollDirection: Axis.horizontal,itemBuilder: (context, index) {},),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {},
+                    ),
                   ),
                 ],
               ),

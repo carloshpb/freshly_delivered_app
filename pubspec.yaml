@@ -36,6 +36,10 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   vector_graphics: ^1.1.7
   cached_network_image: ^3.2.3
+  auto_size_text: ^3.0.0
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   integration_test:

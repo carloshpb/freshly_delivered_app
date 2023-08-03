@@ -20,6 +20,7 @@ class Strings {
   static const wishlist = "Wishlist";
   static const cart = "Cart";
   static const settings = "Settings";
+  static const popular = "Popular";
 
   /// Messages
   static const forgotPasword = "Forgot password?";
@@ -48,6 +49,7 @@ class Strings {
       "Account created successfully. Please wait while we log you into your account.";
   static const searchProductsHint = "Search recipes, groceries and more";
   static const moreAdvertisementsSoon = "More advertisements soon!";
+  static const addToCard = "Add to card";
 
   /// Exceptions
   /// General

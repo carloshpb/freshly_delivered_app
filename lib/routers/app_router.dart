@@ -6,12 +6,15 @@ import '../features/authentication/presentation/screens/login_screen.dart';
 import '../features/authentication/presentation/screens/onboarding_screen.dart';
 import '../features/authentication/presentation/screens/sign_up_screen.dart';
 import '../features/authentication/presentation/screens/success_sign_up_screen.dart';
+import '../features/dashboard/application/dtos/product_dto.dart';
 import '../features/dashboard/presentation/screens/cart_screen.dart';
 import '../features/dashboard/presentation/screens/home_screen.dart';
 import '../features/authentication/presentation/screens/forgot_password_login_screen.dart';
+import '../features/dashboard/presentation/screens/item_details_screen.dart';
 import '../features/dashboard/presentation/screens/scaffold_with_nested_navigation.dart';
 import '../features/dashboard/presentation/screens/settings_screen.dart';
 import '../features/dashboard/presentation/screens/wishlist_screen.dart';
+import 'not_found_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -42,7 +45,8 @@ enum AppRouter {
   home("/home"),
   wishlist("/wishlist"),
   cart("/cart"),
-  settings("/settings");
+  settings("/settings"),
+  itemDetails("item-details");
 
   /// constructor with the path for the page
   const AppRouter(this.path);
@@ -77,11 +81,18 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 ),
                 routes: [
                   // child route
-                  // GoRoute(
-                  //   path: 'details',
-                  //   builder: (context, state) =>
-                  //       const DetailsScreen(label: 'A'),
-                  // ),
+                  GoRoute(
+                    path: AppRouter.itemDetails.path,
+                    name: AppRouter.itemDetails.name,
+                    builder: (context, state) {
+                      var product = state.extra as ProductDto?;
+                      return (product == null)
+                          ? const NotFoundScreen()
+                          : ItemDetailsScreen(
+                              product: product,
+                            );
+                    },
+                  ),
                 ],
               ),
             ],
