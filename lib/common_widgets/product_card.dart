@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:freshly_delivered_app/constants/custom_colors.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../constants/strings.dart';
 import '../features/dashboard/application/dtos/product_dto.dart';
@@ -13,9 +14,9 @@ class ProductCard extends StatelessWidget {
   final double? _width;
   final ProductDto _product;
 
-  final NumberFormat _priceFormat;
+  final NumberFormat _priceFormat = NumberFormat.simpleCurrency();
 
-  const ProductCard(
+  ProductCard(
       {super.key, double? height, double? width, required ProductDto product})
       : _height = height,
         _width = width,
@@ -87,7 +88,7 @@ class ProductCard extends StatelessWidget {
               SizedBox(
                 height: constraints.maxHeight * 0.09933774834,
                 child: AutoSizeText(
-                  "",
+                  _priceFormat.format(_product.price),
                   textAlign: TextAlign.center,
                   maxLines: 1,
                   style: const TextStyle(

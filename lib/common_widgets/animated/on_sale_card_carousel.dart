@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../constants/custom_colors.dart';
 import '../../constants/strings.dart';
 import '../../features/dashboard/application/dtos/advertisement_dto.dart';
+import '../../routers/app_router.dart';
 
 class OnSaleCardCarousel extends StatelessWidget {
   final List<AdvertisementDto> _advertisements;
@@ -40,7 +42,10 @@ class OnSaleCardCarousel extends StatelessWidget {
                       _advertisements[index % _advertisements.length];
                   return Card(
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () => context.go(
+                        AppRouter.onSales.path,
+                        extra: currentAdvertisement,
+                      ),
                       child: FittedBox(
                         fit: BoxFit.contain,
                         child: CachedNetworkImage(

@@ -12,6 +12,7 @@ import '../features/dashboard/presentation/screens/home_screen.dart';
 import '../features/authentication/presentation/screens/forgot_password_login_screen.dart';
 import '../features/dashboard/presentation/screens/item_details_screen.dart';
 import '../features/dashboard/presentation/screens/scaffold_with_nested_navigation.dart';
+import '../features/dashboard/presentation/screens/search_results_screen.dart';
 import '../features/dashboard/presentation/screens/settings_screen.dart';
 import '../features/dashboard/presentation/screens/wishlist_screen.dart';
 import 'not_found_screen.dart';
@@ -46,7 +47,9 @@ enum AppRouter {
   wishlist("/wishlist"),
   cart("/cart"),
   settings("/settings"),
-  itemDetails("item-details");
+  itemDetails("item-details"),
+  searchResults("search-results"),
+  onSales("on-sales");
 
   /// constructor with the path for the page
   const AppRouter(this.path);
@@ -91,6 +94,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                           : ItemDetailsScreen(
                               product: product,
                             );
+                    },
+                  ),
+                  GoRoute(
+                    path: AppRouter.itemDetails.path,
+                    name: AppRouter.itemDetails.name,
+                    builder: (context, state) {
+                      return SearchResultsScreen(
+                        searchText: state.pathParameters['product-name']!,
+                      );
                     },
                   ),
                 ],

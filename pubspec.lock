@@ -623,6 +623,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.17"
+  input_history_text_field:
+    dependency: "direct main"
+    description:
+      name: input_history_text_field
+      sha256: "136e6bce8bbf13afb09a00e86c243b3db6038f29797237e3179b5e6f87e4389e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   integration_test:
     dependency: "direct dev"
     description: flutter
