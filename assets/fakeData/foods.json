@@ -1,0 +1,182 @@
+[
+    {
+      "id": 1,
+      "title": "Pizza Margherita",
+      "price": 12.99,
+      "offer": 0,
+      "description": "Classic Italian pizza with tomato sauce, mozzarella, and basil.",
+      "imagePath": "path/to/pizza_margherita.jpg",
+      "category": "Pizza"
+    },
+    {
+      "id": 2,
+      "title": "Cheeseburger",
+      "price": 9.49,
+      "offer": 20,
+      "description": "Delicious cheeseburger with beef patty, cheese, lettuce, and pickles.",
+      "imagePath": "path/to/cheeseburger.jpg",
+      "category": "Burger"
+    },
+    {
+      "id": 3,
+      "title": "Pasta Carbonara",
+      "price": 11.79,
+      "offer": 10,
+      "description": "Classic Italian pasta with eggs, cheese, bacon, and black pepper.",
+      "imagePath": "path/to/pasta_carbonara.jpg",
+      "category": "Pasta"
+    },
+    {
+      "id": 4,
+      "title": "Sushi Platter",
+      "price": 23.99,
+      "offer": 5,
+      "description": "Assorted sushi platter with tuna, salmon, shrimp, and avocado rolls.",
+      "imagePath": "path/to/sushi_platter.jpg",
+      "category": "Sushi"
+    },
+    {
+      "id": 5,
+      "title": "Caesar Salad",
+      "price": 8.99,
+      "offer": 0,
+      "description": "Fresh and crisp Caesar salad with romaine lettuce and Caesar dressing.",
+      "imagePath": "path/to/caesar_salad.jpg",
+      "category": "Salad"
+    },
+    {
+      "id": 6,
+      "title": "Chicken Alfredo",
+      "price": 14.49,
+      "offer": 15,
+      "description": "Creamy chicken Alfredo pasta with garlic and parmesan cheese.",
+      "imagePath": "path/to/chicken_alfredo.jpg",
+      "category": "Pasta"
+    },
+    {
+      "id": 7,
+      "title": "Steak",
+      "price": 18.99,
+      "offer": 0,
+      "description": "Juicy and tender steak served with mashed potatoes and vegetables.",
+      "imagePath": "path/to/steak.jpg",
+      "category": "Meat"
+    },
+    {
+      "id": 8,
+      "title": "Mushroom Risotto",
+      "price": 10.99,
+      "offer": 0,
+      "description": "Creamy mushroom risotto made with Arborio rice and parmesan.",
+      "imagePath": "path/to/mushroom_risotto.jpg",
+      "category": "Risotto"
+    },
+    {
+      "id": 9,
+      "title": "Fish and Chips",
+      "price": 11.49,
+      "offer": 0,
+      "description": "Classic British dish with battered fish and crispy fries.",
+      "imagePath": "path/to/fish_and_chips.jpg",
+      "category": "Fish"
+    },
+    {
+      "id": 10,
+      "title": "Ice Cream Sundae",
+      "price": 6.99,
+      "offer": 0,
+      "description": "Delicious ice cream sundae with chocolate sauce and sprinkles.",
+      "imagePath": "path/to/ice_cream_sundae.jpg",
+      "category": "Dessert"
+    },
+    {
+      "id": 11,
+      "title": "Chicken Shawarma",
+      "price": 9.99,
+      "offer": 0,
+      "description": "Tender and flavorful chicken shawarma wrapped in pita bread.",
+      "imagePath": "path/to/chicken_shawarma.jpg",
+      "category": "Sandwich"
+    },
+    {
+      "id": 12,
+      "title": "Vegetable Stir-Fry",
+      "price": 10.99,
+      "offer": 0,
+      "description": "Healthy vegetable stir-fry with a mix of colorful vegetables and tofu.",
+      "imagePath": "path/to/vegetable_stir_fry.jpg",
+      "category": "Vegetarian"
+    },
+    {
+      "id": 13,
+      "title": "Pancakes",
+      "price": 7.49,
+      "offer": 0,
+      "description": "Fluffy pancakes served with maple syrup and fresh berries.",
+      "imagePath": "path/to/pancakes.jpg",
+      "category": "Breakfast"
+    },
+    {
+      "id": 14,
+      "title": "Falafel Wrap",
+      "price": 8.99,
+      "offer": 0,
+      "description": "Delicious falafel wrap with hummus and tahini sauce.",
+      "imagePath": "path/to/falafel_wrap.jpg",
+      "category": "Wrap"
+    },
+    {
+      "id": 15,
+      "title": "Sushi Burrito",
+      "price": 12.99,
+      "offer": 0,
+      "description": "Sushi roll wrapped in seaweed and rice, perfect for on-the-go.",
+      "imagePath": "path/to/sushi_burrito.jpg",
+      "category": "Sushi"
+    },
+    {
+      "id": 16,
+      "title": "Spaghetti Bolognese",
+      "price": 11.29,
+      "offer": 0,
+      "description": "Classic Italian spaghetti with Bolognese meat sauce.",
+      "imagePath": "path/to/spaghetti_bolognese.jpg",
+      "category": "Pasta"
+    },
+    {
+      "id": 17,
+      "title": "Mango Lassi",
+      "price": 4.99,
+      "offer": 0,
+      "description": "Refreshing Indian drink made with mango and yogurt.",
+      "imagePath": "path/to/mango_lassi.jpg",
+      "category": "Beverage"
+    },
+    {
+      "id": 18,
+      "title": "Avocado Toast",
+      "price": 8.49,
+      "offer": 0,
+      "description": "Healthy avocado toast topped with cherry tomatoes and feta cheese.",
+      "imagePath": "path/to/avocado_toast.jpg",
+      "category": "Vegetarian"
+    },
+    {
+      "id": 19,
+      "title": "Chicken Noodle Soup",
+      "price": 9.99,
+      "offer": 0,
+      "description": "Comforting chicken noodle soup, perfect for a cold day.",
+      "imagePath": "path/to/chicken_noodle_soup.jpg",
+      "category": "Soup"
+    },
+    {
+        "id": 20,
+        "title": "Tiramisu",
+        "price": 6.99,
+        "offer": 0,
+        "description": "Classic Italian dessert made with layers of coffee-soaked ladyfingers and mascarpone cheese.",
+        "imagePath": "path/to/tiramisu.jpg",
+        "category": "Dessert"
+      }
+]
