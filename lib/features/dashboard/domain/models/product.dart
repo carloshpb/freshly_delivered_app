@@ -11,12 +11,12 @@ class Product with _$Product {
   const Product._();
 
   factory Product({
-    required int id,
+    required String id,
     required String title,
     required double price,
     required int offer,
     required String description,
-    required String image,
+    required String imagePath,
     required String category,
   }) = _Product;
 
@@ -32,7 +32,7 @@ class Product with _$Product {
       price: price,
       offer: offer,
       description: description,
-      image: image,
+      imagePath: imagePath,
       category: category,
     );
   }

@@ -16,12 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Product {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   int get offer => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get image => throw _privateConstructorUsedError;
+  String get imagePath => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -34,12 +34,12 @@ abstract class $ProductCopyWith<$Res> {
       _$ProductCopyWithImpl<$Res, Product>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String title,
       double price,
       int offer,
       String description,
-      String image,
+      String imagePath,
       String category});
 }
 
@@ -61,14 +61,14 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? price = null,
     Object? offer = null,
     Object? description = null,
-    Object? image = null,
+    Object? imagePath = null,
     Object? category = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -85,9 +85,9 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      imagePath: null == imagePath
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
       category: null == category
           ? _value.category
@@ -105,12 +105,12 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String title,
       double price,
       int offer,
       String description,
-      String image,
+      String imagePath,
       String category});
 }
 
@@ -129,14 +129,14 @@ class __$$_ProductCopyWithImpl<$Res>
     Object? price = null,
     Object? offer = null,
     Object? description = null,
-    Object? image = null,
+    Object? imagePath = null,
     Object? category = null,
   }) {
     return _then(_$_Product(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -153,9 +153,9 @@ class __$$_ProductCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      imagePath: null == imagePath
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
       category: null == category
           ? _value.category
@@ -174,12 +174,12 @@ class _$_Product extends _Product {
       required this.price,
       required this.offer,
       required this.description,
-      required this.image,
+      required this.imagePath,
       required this.category})
       : super._();
 
   @override
-  final int id;
+  final String id;
   @override
   final String title;
   @override
@@ -189,13 +189,13 @@ class _$_Product extends _Product {
   @override
   final String description;
   @override
-  final String image;
+  final String imagePath;
   @override
   final String category;
 
   @override
   String toString() {
-    return 'Product(id: $id, title: $title, price: $price, offer: $offer, description: $description, image: $image, category: $category)';
+    return 'Product(id: $id, title: $title, price: $price, offer: $offer, description: $description, imagePath: $imagePath, category: $category)';
   }
 
   @override
@@ -209,14 +209,15 @@ class _$_Product extends _Product {
             (identical(other.offer, offer) || other.offer == offer) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.image, image) || other.image == image) &&
+            (identical(other.imagePath, imagePath) ||
+                other.imagePath == imagePath) &&
             (identical(other.category, category) ||
                 other.category == category));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, title, price, offer, description, image, category);
+      runtimeType, id, title, price, offer, description, imagePath, category);
 
   @JsonKey(ignore: true)
   @override
@@ -227,17 +228,17 @@ class _$_Product extends _Product {
 
 abstract class _Product extends Product {
   factory _Product(
-      {required final int id,
+      {required final String id,
       required final String title,
       required final double price,
       required final int offer,
       required final String description,
-      required final String image,
+      required final String imagePath,
       required final String category}) = _$_Product;
   _Product._() : super._();
 
   @override
-  int get id;
+  String get id;
   @override
   String get title;
   @override
@@ -247,7 +248,7 @@ abstract class _Product extends Product {
   @override
   String get description;
   @override
-  String get image;
+  String get imagePath;
   @override
   String get category;
   @override

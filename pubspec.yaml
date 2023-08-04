@@ -41,6 +41,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  cloud_firestore: ^4.8.4
+  sqflite: ^2.3.0
 
 dev_dependencies:
   integration_test:
