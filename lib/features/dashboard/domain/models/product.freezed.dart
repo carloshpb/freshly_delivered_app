@@ -23,6 +23,8 @@ mixin _$Product {
   String get description => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get modifiedAt => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductCopyWith<Product> get copyWith => throw _privateConstructorUsedError;
@@ -40,7 +42,9 @@ abstract class $ProductCopyWith<$Res> {
       int offer,
       String description,
       String imagePath,
-      String category});
+      String category,
+      DateTime createdAt,
+      DateTime modifiedAt});
 }
 
 /// @nodoc
@@ -63,6 +67,8 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? description = null,
     Object? imagePath = null,
     Object? category = null,
+    Object? createdAt = null,
+    Object? modifiedAt = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -93,6 +99,14 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      modifiedAt: null == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -111,7 +125,9 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       int offer,
       String description,
       String imagePath,
-      String category});
+      String category,
+      DateTime createdAt,
+      DateTime modifiedAt});
 }
 
 /// @nodoc
@@ -131,6 +147,8 @@ class __$$_ProductCopyWithImpl<$Res>
     Object? description = null,
     Object? imagePath = null,
     Object? category = null,
+    Object? createdAt = null,
+    Object? modifiedAt = null,
   }) {
     return _then(_$_Product(
       id: null == id
@@ -161,6 +179,14 @@ class __$$_ProductCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      modifiedAt: null == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -175,7 +201,9 @@ class _$_Product extends _Product {
       required this.offer,
       required this.description,
       required this.imagePath,
-      required this.category})
+      required this.category,
+      required this.createdAt,
+      required this.modifiedAt})
       : super._();
 
   @override
@@ -192,10 +220,14 @@ class _$_Product extends _Product {
   final String imagePath;
   @override
   final String category;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime modifiedAt;
 
   @override
   String toString() {
-    return 'Product(id: $id, title: $title, price: $price, offer: $offer, description: $description, imagePath: $imagePath, category: $category)';
+    return 'Product(id: $id, title: $title, price: $price, offer: $offer, description: $description, imagePath: $imagePath, category: $category, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
@@ -212,12 +244,16 @@ class _$_Product extends _Product {
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath) &&
             (identical(other.category, category) ||
-                other.category == category));
+                other.category == category) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.modifiedAt, modifiedAt) ||
+                other.modifiedAt == modifiedAt));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, title, price, offer, description, imagePath, category);
+  int get hashCode => Object.hash(runtimeType, id, title, price, offer,
+      description, imagePath, category, createdAt, modifiedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -234,7 +270,9 @@ abstract class _Product extends Product {
       required final int offer,
       required final String description,
       required final String imagePath,
-      required final String category}) = _$_Product;
+      required final String category,
+      required final DateTime createdAt,
+      required final DateTime modifiedAt}) = _$_Product;
   _Product._() : super._();
 
   @override
@@ -251,6 +289,10 @@ abstract class _Product extends Product {
   String get imagePath;
   @override
   String get category;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime get modifiedAt;
   @override
   @JsonKey(ignore: true)
   _$$_ProductCopyWith<_$_Product> get copyWith =>

@@ -9,12 +9,12 @@ class ProductDto with _$ProductDto {
   const ProductDto._();
 
   const factory ProductDto({
-    required int id,
+    required String id,
     required String title,
     required double price,
     required int offer,
     required String description,
-    required String image,
+    required String imagePath,
     required String category,
   }) = _ProductDto;
 
@@ -25,8 +25,10 @@ class ProductDto with _$ProductDto {
       price: price,
       offer: offer,
       description: description,
-      image: image,
+      imagePath: imagePath,
       category: category,
+      createdAt: DateTime.parse('0000-00-00'),
+      modifiedAt: DateTime.parse('0000-00-00'),
     );
   }
 }

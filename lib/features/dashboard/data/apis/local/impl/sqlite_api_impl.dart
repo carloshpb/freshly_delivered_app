@@ -5,7 +5,7 @@ import '../sqlite_api.dart';
 
 final sqliteApiProvider = FutureProvider<SQLiteApi>(
   (_) {
-    // override main
+    // Always override in main to dispose the DB
     throw UnimplementedError();
   },
 );
@@ -42,7 +42,8 @@ class SQLiteApiImpl implements SQLiteApi {
   Future<Map<String, Object?>> findById(String table, String id) async {
     var result = await _database.rawQuery(
       '''
-      SELECT * FROM ? WHERE id = ?
+      SELECT * FROM ?
+      WHERE id = ?
       ''',
       [table, id],
     );
