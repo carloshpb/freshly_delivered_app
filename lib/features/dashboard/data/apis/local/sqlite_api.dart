@@ -1,5 +1,5 @@
 abstract class SQLiteApi {
-  Future<List<dynamic>> findAllWithLimit(int limit);
-  Future<List<dynamic>> findAll();
-  Future<dynamic> findById(int id);
+  Future<List<Map<String, Object?>>> findAllWithLimit(String table, int limit);
+  Future<List<Map<String, Object?>>> findAll(String table);
+  Future<Map<String, Object?>> findById(String table, String id);
 }

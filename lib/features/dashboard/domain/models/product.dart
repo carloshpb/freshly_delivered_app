@@ -18,6 +18,8 @@ class Product with _$Product {
     required String description,
     required String imagePath,
     required String category,
+    required DateTime createdAt,
+    required DateTime modifiedAt,
   }) = _Product;
 
   factory Product.fromJson(Map<String, Object?> json) =>

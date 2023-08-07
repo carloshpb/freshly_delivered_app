@@ -73,7 +73,17 @@ class FirestoreApiImpl implements FirestoreApi {
     var collectionRef = _firestore.collection(collection);
     try {
       for (int index = 0; index < products.length; index++) {
-        var docSnapshot = await collectionRef.add(products[index]);
+        var docSnapshot = await collectionRef.add(
+          products[index]
+            ..putIfAbsent(
+              "created_at",
+              () => FieldValue.serverTimestamp(),
+            )
+            ..putIfAbsent(
+              "modified_at",
+              () => products[index]["created_at"],
+            ),
+        );
         products[index]["id"] = docSnapshot.id;
       }
       return products;
