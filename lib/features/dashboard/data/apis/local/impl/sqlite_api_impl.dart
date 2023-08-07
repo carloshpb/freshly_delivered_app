@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../sqlite_api.dart';
 
-final sqliteApiProvider = FutureProvider<SQLiteApi>(
+final sqliteApiProvider = Provider<SQLiteApi>(
   (_) {
     // Always override in main to dispose the DB
     throw UnimplementedError();

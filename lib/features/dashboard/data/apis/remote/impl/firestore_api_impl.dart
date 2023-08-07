@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../firestore_api.dart';
 
-final firestoreApiProvider = FutureProvider<FirestoreApi>(
+final firestoreApiProvider = Provider<FirestoreApi>(
   (_) => FirestoreApiImpl(
     FirebaseFirestore.instance,
   ),
