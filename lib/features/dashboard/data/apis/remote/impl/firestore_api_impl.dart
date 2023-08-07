@@ -68,25 +68,40 @@ class FirestoreApiImpl implements FirestoreApi {
   }
 
   @override
-  Future<List<dynamic>> addProducts(
-      String collection, List<Map<String, dynamic>> products) async {
+  Future<dynamic> save(String collection, dynamic entity) async {
     var collectionRef = _firestore.collection(collection);
     try {
-      for (int index = 0; index < products.length; index++) {
+      if (entity is List) {
+        for (int index = 0; index < entity.length; index++) {
+          var docSnapshot = await collectionRef.add(
+            entity[index]
+              ..putIfAbsent(
+                "created_at",
+                () => FieldValue.serverTimestamp(),
+              )
+              ..putIfAbsent(
+                "modified_at",
+                () => entity[index]["created_at"],
+              ),
+          );
+          entity[index]["id"] = docSnapshot.id;
+        }
+        return entity;
+      } else {
         var docSnapshot = await collectionRef.add(
-          products[index]
+          (entity as Map<String, Object?>)
             ..putIfAbsent(
               "created_at",
               () => FieldValue.serverTimestamp(),
             )
             ..putIfAbsent(
               "modified_at",
-              () => products[index]["created_at"],
+              () => entity["created_at"],
             ),
         );
-        products[index]["id"] = docSnapshot.id;
+        entity["id"] = docSnapshot.id;
+        return entity;
       }
-      return products;
     } on Exception {
       rethrow;
     }

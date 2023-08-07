@@ -50,4 +50,25 @@ class SQLiteApiImpl implements SQLiteApi {
 
     return result[0];
   }
+
+  /// May throw TypeError
+  @override
+  Future<int> save(String table, dynamic entity, List<String> columns) async {
+    var entityToString = (entity is List)
+        ? entity.map(
+            (map) {
+              "(${(map as Map<String, Object?>).entries.join(",")})";
+            },
+          ).join(",")
+        : "(${(entity as Map<String, Object?>).entries.join(",")})";
+
+    var result = await _database.rawInsert(
+      '''
+      INSERT INTO $table(${columns.join(", ")})
+      VALUES $entityToString
+      ''',
+    );
+
+    return result;
+  }
 }
