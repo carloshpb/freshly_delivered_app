@@ -6,4 +6,5 @@ class CustomColors {
   static const buttonGreenDeactivated = Color.fromRGBO(23, 104, 46, 0.5);
   static const buttonGreyDeactivated = Color.fromRGBO(168, 174, 170, 0.5);
   static const greenIcon = Color.fromRGBO(72, 116, 44, 1.0);
+  static const specialOrange = Color(0xFFF58634);
 }

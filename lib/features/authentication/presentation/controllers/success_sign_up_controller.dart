@@ -20,7 +20,7 @@ class SuccessSignUpController extends AutoDisposeAsyncNotifier<void> {
   //     await ref.watch(signInUseCaseProvider).execute(
   //       request: (email, password),
   //     );
-  //     ref.watch(goRouterProvider).pushReplacement(AppRouter.successSignUp.path);
+  //     ref.watch(goRouterProvider).go(AppRouter.successSignUp.path);
   //   });
   // }
 }

@@ -6,13 +6,27 @@ import '../features/authentication/presentation/screens/login_screen.dart';
 import '../features/authentication/presentation/screens/onboarding_screen.dart';
 import '../features/authentication/presentation/screens/sign_up_screen.dart';
 import '../features/authentication/presentation/screens/success_sign_up_screen.dart';
+import '../features/dashboard/application/dtos/product_dto.dart';
+import '../features/dashboard/presentation/screens/cart_screen.dart';
 import '../features/dashboard/presentation/screens/home_screen.dart';
 import '../features/authentication/presentation/screens/forgot_password_login_screen.dart';
+import '../features/dashboard/presentation/screens/item_details_screen.dart';
+import '../features/dashboard/presentation/screens/scaffold_with_nested_navigation.dart';
+import '../features/dashboard/presentation/screens/search_results_screen.dart';
+import '../features/dashboard/presentation/screens/settings_screen.dart';
+import '../features/dashboard/presentation/screens/wishlist_screen.dart';
+import 'not_found_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
+final _shellNavigatorHomeKey = GlobalKey<NavigatorState>(debugLabel: 'home');
+final _shellNavigatorWishlistKey =
+    GlobalKey<NavigatorState>(debugLabel: 'wishlist');
+final _shellNavigatorCartKey = GlobalKey<NavigatorState>(debugLabel: 'cart');
+final _shellNavigatorSettingsKey =
+    GlobalKey<NavigatorState>(debugLabel: 'settings');
 
 /// Enum for Router
 enum AppRouter {
@@ -25,11 +39,17 @@ enum AppRouter {
   seller('/vendedor'),
   loginVerificationCode('/login/validation'),
   notFound('/not-found'),
-  signUp("/sign-up"),
-  successSignUp("/sign-up/success"),
-  forgotPasswordLogin('/login/forgot-password'),
+  signUp("sign-up"),
+  successSignUp("success"),
+  forgotPasswordLogin('forgot-password'),
   resetLinkSent('/login/reset-link-sent'),
-  home("/home");
+  home("/home"),
+  wishlist("/wishlist"),
+  cart("/cart"),
+  settings("/settings"),
+  itemDetails("item-details"),
+  searchResults("search-results"),
+  onSales("on-sales");
 
   /// constructor with the path for the page
   const AppRouter(this.path);
@@ -43,6 +63,120 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     navigatorKey: _rootNavigatorKey,
     initialLocation: AppRouter.intro.path,
     routes: [
+      // Stateful nested navigation based on:
+      // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          // the UI shell
+          return ScaffoldWithNestedNavigation(navigationShell: navigationShell);
+        },
+        branches: [
+          // first branch (Home)
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorHomeKey,
+            routes: [
+              // top route inside branch
+              GoRoute(
+                path: AppRouter.home.path,
+                name: AppRouter.home.name,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: HomeScreen(),
+                ),
+                routes: [
+                  // child route
+                  GoRoute(
+                    path: AppRouter.itemDetails.path,
+                    name: AppRouter.itemDetails.name,
+                    builder: (context, state) {
+                      var product = state.extra as ProductDto?;
+                      return (product == null)
+                          ? const NotFoundScreen()
+                          : ItemDetailsScreen(
+                              product: product,
+                            );
+                    },
+                  ),
+                  GoRoute(
+                    path: AppRouter.itemDetails.path,
+                    name: AppRouter.itemDetails.name,
+                    builder: (context, state) {
+                      return SearchResultsScreen(
+                        searchText: state.pathParameters['product-name']!,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          // second branch (Wishlist)
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorWishlistKey,
+            routes: [
+              // top route inside branch
+              GoRoute(
+                path: AppRouter.wishlist.path,
+                name: AppRouter.wishlist.name,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: WishlistScreen(),
+                ),
+                routes: [
+                  // child route
+                  // GoRoute(
+                  //   path: 'details',
+                  //   builder: (context, state) =>
+                  //       const DetailsScreen(label: 'B'),
+                  // ),
+                ],
+              ),
+            ],
+          ),
+          // second branch (Cart)
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorCartKey,
+            routes: [
+              // top route inside branch
+              GoRoute(
+                path: AppRouter.cart.path,
+                name: AppRouter.cart.name,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: CartScreen(),
+                ),
+                routes: [
+                  // child route
+                  // GoRoute(
+                  //   path: 'details',
+                  //   builder: (context, state) =>
+                  //       const DetailsScreen(label: 'B'),
+                  // ),
+                ],
+              ),
+            ],
+          ),
+          // third branch (Settings)
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorSettingsKey,
+            routes: [
+              // top route inside branch
+              GoRoute(
+                path: AppRouter.settings.path,
+                name: AppRouter.settings.name,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: SettingsScreen(),
+                ),
+                routes: [
+                  // child route
+                  // GoRoute(
+                  //   path: 'details',
+                  //   builder: (context, state) =>
+                  //       const DetailsScreen(label: 'B'),
+                  // ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
       GoRoute(
         path: AppRouter.intro.path,
         name: AppRouter.intro.name,
@@ -54,31 +188,31 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => LoginScreen(
           exception: (state.extra as Exception?),
         ),
-      ),
-      GoRoute(
-        path: AppRouter.home.path,
-        name: AppRouter.home.name,
-        builder: (context, state) => const HomeScreen(),
-      ),
-      GoRoute(
-        path: AppRouter.signUp.path,
-        name: AppRouter.signUp.name,
-        builder: (context, state) => const SignUpScreen(),
-      ),
-      GoRoute(
-        path: AppRouter.successSignUp.path,
-        name: AppRouter.successSignUp.name,
-        pageBuilder: (context, state) => CustomTransitionPage(
-          key: state.pageKey,
-          child: const SuccessSignUpScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              FadeTransition(opacity: animation, child: child),
-        ),
-      ),
-      GoRoute(
-        path: AppRouter.forgotPasswordLogin.path,
-        name: AppRouter.forgotPasswordLogin.name,
-        builder: (context, state) => const ForgotPasswordLoginScreen(),
+        routes: [
+          GoRoute(
+            path: AppRouter.signUp.path,
+            name: AppRouter.signUp.name,
+            builder: (context, state) => const SignUpScreen(),
+            routes: [
+              GoRoute(
+                path: AppRouter.successSignUp.path,
+                name: AppRouter.successSignUp.name,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  key: state.pageKey,
+                  child: const SuccessSignUpScreen(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) =>
+                          FadeTransition(opacity: animation, child: child),
+                ),
+              ),
+            ],
+          ),
+          GoRoute(
+            path: AppRouter.forgotPasswordLogin.path,
+            name: AppRouter.forgotPasswordLogin.name,
+            builder: (context, state) => const ForgotPasswordLoginScreen(),
+          ),
+        ],
       ),
     ],
     // redirect to the login page if the user is not logged in

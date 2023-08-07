@@ -185,9 +185,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         nextState.whenOrNull(
           data: (isRegistered) {
             if (isRegistered) {
-              ref
-                  .watch(goRouterProvider)
-                  .pushReplacement(AppRouter.successSignUp.path);
+              ref.watch(goRouterProvider).go(AppRouter.successSignUp.path);
             }
           },
           loading: () => context.loaderOverlay.show(),

@@ -60,7 +60,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                               .messages
                               .length -
                           1)
-                  ? () => context.pushReplacement(AppRouter.login.path)
+                  ? () => context.go(AppRouter.login.path)
                   : () => nextRef
                       .read(onboardingControllerProvider.notifier)
                       .onPageChanged(
@@ -89,7 +89,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           TextButton(
-            onPressed: () => context.pushReplacement(AppRouter.login.path),
+            onPressed: () => context.go(AppRouter.login.path),
             style: TextButton.styleFrom(
               splashFactory: NoSplash.splashFactory,
             ),

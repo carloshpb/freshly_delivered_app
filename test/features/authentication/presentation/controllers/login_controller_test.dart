@@ -59,7 +59,7 @@ void main() {
     verifyNoMoreInteractions(listener);
     // verify that [sendPasswordResetEmailUseCase.execute] was not called during initialization
     verifyNever(signInEmailPasswordUseCase.execute(anyNamed("request")));
-    verifyNever(goRouter.pushReplacement(any));
+    verifyNever(goRouter.go(any));
   });
 
   test('signIn - success', () async {
@@ -95,7 +95,7 @@ void main() {
     ]);
     verifyNoMoreInteractions(listener);
     verify(signInEmailPasswordUseCase.execute(anyNamed("request"))).called(1);
-    verify(goRouter.pushReplacement(any)).called(1);
+    verify(goRouter.go(any)).called(1);
   });
 
   test('signIn - failure - any Exception', () async {
@@ -135,7 +135,7 @@ void main() {
 
     verifyNoMoreInteractions(listener);
     verify(signInEmailPasswordUseCase.execute(anyNamed("request"))).called(1);
-    verifyNever(goRouter.pushReplacement(any));
+    verifyNever(goRouter.go(any));
   });
 
   test('updatePassword', () async {
@@ -157,7 +157,7 @@ void main() {
 
     verifyNoMoreInteractions(listener);
     verifyNever(signInEmailPasswordUseCase.execute(anyNamed("request")));
-    verifyNever(goRouter.pushReplacement(any));
+    verifyNever(goRouter.go(any));
   });
 
   test('updateEmail', () async {
@@ -181,6 +181,6 @@ void main() {
 
     verifyNoMoreInteractions(listener);
     verifyNever(signInEmailPasswordUseCase.execute(anyNamed("request")));
-    verifyNever(goRouter.pushReplacement(any));
+    verifyNever(goRouter.go(any));
   });
 }
