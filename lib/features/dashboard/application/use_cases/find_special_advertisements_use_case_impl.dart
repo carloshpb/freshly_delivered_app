@@ -1,38 +1,40 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:async';
 
-import '../../application/dtos/advertisement_dto.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freshly_delivered_app/features/dashboard/application/dtos/advertisement_dto.dart';
+
 import '../../data/repositories/advertisements_local_repository_impl.dart';
 import '../../data/repositories/advertisements_remote_repository_impl.dart';
 import '../../domain/repositories/advertisements_repository.dart';
-import '../../domain/use_cases/get_last_advertisements_use_case.dart';
+import '../../domain/use_cases/find_special_advertisements_use_case.dart';
 
-final getLastAdvertisementsUseCaseProvider =
-    Provider<GetLastAdvertisementsUseCase>(
-  (ref) => GetLastAdvertisementsUseCaseImpl(
+final findSpecialAdvertisementsUseCaseProvider =
+    Provider<FindSpecialAdvertisementsUseCase>(
+  (ref) => FindSpecialAdvertisementsUseCaseImpl(
     ref.watch(advertisementsLocalRepositoryProvider),
     ref.watch(advertisementsRemoteRepositoryProvider),
   ),
 );
 
-class GetLastAdvertisementsUseCaseImpl implements GetLastAdvertisementsUseCase {
+class FindSpecialAdvertisementsUseCaseImpl
+    implements FindSpecialAdvertisementsUseCase {
   final AdvertisementsRepository _localAdvertisementsRepository;
   final AdvertisementsRepository _remoteAdvertisementsRepository;
 
-  GetLastAdvertisementsUseCaseImpl(
+  FindSpecialAdvertisementsUseCaseImpl(
     AdvertisementsRepository localAdvertisementsRepository,
     AdvertisementsRepository remoteAdvertisementsRepository,
   )   : _localAdvertisementsRepository = localAdvertisementsRepository,
         _remoteAdvertisementsRepository = remoteAdvertisementsRepository;
 
   @override
-  Future<List<AdvertisementDto>> execute([void request]) async {
+  FutureOr<List<AdvertisementDto>> execute([void request]) async {
     var advertisements =
-        await _localAdvertisementsRepository.findAdvertisementsWithLimit(10);
+        await _localAdvertisementsRepository.findSpecialAdvertisements();
 
     if (advertisements.isEmpty) {
       advertisements =
-          await _remoteAdvertisementsRepository.findAdvertisementsWithLimit(10);
-
+          await _remoteAdvertisementsRepository.findSpecialAdvertisements();
       if (advertisements.isNotEmpty) {
         // TODO : Treat when couldnt be saved locally
         _localAdvertisementsRepository.saveAdvertisements(advertisements);

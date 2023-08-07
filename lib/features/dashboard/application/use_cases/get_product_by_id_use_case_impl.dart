@@ -30,9 +30,12 @@ class GetProductByIdUseCaseImpl implements GetProductByIdUseCase {
     if (product.id.isEmpty) {
       product = await _remoteProductsRepository.findProductById(request);
 
-      _localProductsRepository.saveProducts([product]);
+      if (product.id.isNotEmpty) {
+        // TODO : Treat when couldnt be saved locally
+        _localProductsRepository.saveProducts([product]);
+      }
     }
 
-    return product.toDto();
+    return (product.id.isNotEmpty) ? product.toDto() : const ProductDto();
   }
 }

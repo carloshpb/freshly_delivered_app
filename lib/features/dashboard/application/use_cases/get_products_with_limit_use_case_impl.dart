@@ -31,9 +31,14 @@ class GetProductsWithLimitUseCaseImpl implements GetProductsWithLimitUseCase {
     if (products.isEmpty) {
       products = await _remoteProductsRepository.findProductsWithLimit(10);
 
-      _localProductsRepository.saveProducts(products);
+      if (products.isNotEmpty) {
+        // TODO : Treat when couldnt be saved locally
+        _localProductsRepository.saveProducts(products);
+      }
     }
 
-    return products.map((adv) => adv.toDto()).toList();
+    return (products.isNotEmpty)
+        ? products.map((adv) => adv.toDto()).toList()
+        : [];
   }
 }
