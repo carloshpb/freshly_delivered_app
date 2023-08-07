@@ -16,9 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AdvertisementDto {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get image => throw _privateConstructorUsedError;
+  String get imagePath => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AdvertisementDtoCopyWith<AdvertisementDto> get copyWith =>
@@ -31,7 +31,7 @@ abstract class $AdvertisementDtoCopyWith<$Res> {
           AdvertisementDto value, $Res Function(AdvertisementDto) then) =
       _$AdvertisementDtoCopyWithImpl<$Res, AdvertisementDto>;
   @useResult
-  $Res call({int id, String description, String image});
+  $Res call({String id, String description, String imagePath});
 }
 
 /// @nodoc
@@ -49,20 +49,20 @@ class _$AdvertisementDtoCopyWithImpl<$Res, $Val extends AdvertisementDto>
   $Res call({
     Object? id = null,
     Object? description = null,
-    Object? image = null,
+    Object? imagePath = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      imagePath: null == imagePath
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -76,7 +76,7 @@ abstract class _$$_AdvertisementDtoCopyWith<$Res>
       __$$_AdvertisementDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String description, String image});
+  $Res call({String id, String description, String imagePath});
 }
 
 /// @nodoc
@@ -92,20 +92,20 @@ class __$$_AdvertisementDtoCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? description = null,
-    Object? image = null,
+    Object? imagePath = null,
   }) {
     return _then(_$_AdvertisementDto(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      imagePath: null == imagePath
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -115,22 +115,22 @@ class __$$_AdvertisementDtoCopyWithImpl<$Res>
 
 class _$_AdvertisementDto extends _AdvertisementDto {
   const _$_AdvertisementDto(
-      {this.id = -1, this.description = '', this.image = ''})
+      {this.id = '', this.description = '', this.imagePath = ''})
       : super._();
 
   @override
   @JsonKey()
-  final int id;
+  final String id;
   @override
   @JsonKey()
   final String description;
   @override
   @JsonKey()
-  final String image;
+  final String imagePath;
 
   @override
   String toString() {
-    return 'AdvertisementDto(id: $id, description: $description, image: $image)';
+    return 'AdvertisementDto(id: $id, description: $description, imagePath: $imagePath)';
   }
 
   @override
@@ -141,11 +141,12 @@ class _$_AdvertisementDto extends _AdvertisementDto {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.imagePath, imagePath) ||
+                other.imagePath == imagePath));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, description, image);
+  int get hashCode => Object.hash(runtimeType, id, description, imagePath);
 
   @JsonKey(ignore: true)
   @override
@@ -156,17 +157,17 @@ class _$_AdvertisementDto extends _AdvertisementDto {
 
 abstract class _AdvertisementDto extends AdvertisementDto {
   const factory _AdvertisementDto(
-      {final int id,
+      {final String id,
       final String description,
-      final String image}) = _$_AdvertisementDto;
+      final String imagePath}) = _$_AdvertisementDto;
   const _AdvertisementDto._() : super._();
 
   @override
-  int get id;
+  String get id;
   @override
   String get description;
   @override
-  String get image;
+  String get imagePath;
   @override
   @JsonKey(ignore: true)
   _$$_AdvertisementDtoCopyWith<_$_AdvertisementDto> get copyWith =>

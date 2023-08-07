@@ -13,18 +13,58 @@ final advertisementsLocalRepositoryProvider =
 );
 
 class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
+  final _advertisementStringProperties = [
+    'id',
+    'description',
+    'imagePath',
+    'createdAt',
+    'modifiedAt',
+  ];
+
   final SQLiteApi _sqliteApi;
 
   AdvertisementsLocalRepositoryImpl(SQLiteApi sqliteApi)
       : _sqliteApi = sqliteApi;
 
   @override
-  FutureOr<List<Advertisement>> getLastAdvertisements() async {
-    var resultListMap = await _sqliteApi.findAllWithLimit("advertisements", 10);
+  FutureOr<Advertisement> findAdvertisementById(String id) async {
+    var resultMap = await _sqliteApi.findById("advertisements", id);
+    return (resultMap.isEmpty)
+        ? Advertisement(
+            createdAt: DateTime.parse('0000-00-00'),
+            modifiedAt: DateTime.parse('0000-00-00'),
+          )
+        : Advertisement.fromJson(resultMap);
+  }
+
+  @override
+  FutureOr<List<Advertisement>> findAdvertisementsWithLimit(int limit) async {
+    var resultListMap =
+        await _sqliteApi.findAllWithLimit("advertisements", limit);
     return resultListMap
         .map(
           (advMap) => Advertisement.fromJson(advMap),
         )
         .toList();
+  }
+
+  @override
+  FutureOr<List<Advertisement>> findAllAdvertisements() async {
+    var resultListMap = await _sqliteApi.findAll("advertisements");
+    return resultListMap
+        .map(
+          (prodMap) => Advertisement.fromJson(prodMap),
+        )
+        .toList();
+  }
+
+  @override
+  Future<void> saveAdvertisements(List<Advertisement> advertisements) async {
+    var mapAdvertisements = advertisements.map((prod) => prod.toJson());
+    await _sqliteApi.save(
+      "advertisements",
+      mapAdvertisements,
+      _advertisementStringProperties,
+    );
   }
 }

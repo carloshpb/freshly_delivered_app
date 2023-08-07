@@ -9,13 +9,13 @@ class ProductDto with _$ProductDto {
   const ProductDto._();
 
   const factory ProductDto({
-    required String id,
-    required String title,
-    required double price,
-    required int offer,
-    required String description,
-    required String imagePath,
-    required String category,
+    @Default('') String id,
+    @Default('') String title,
+    @Default(-1.0) double price,
+    @Default(-1) int offer,
+    @Default('') String description,
+    @Default('') String imagePath,
+    @Default('') String category,
   }) = _ProductDto;
 
   Product toModel() {

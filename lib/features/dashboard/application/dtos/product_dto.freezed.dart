@@ -173,28 +173,35 @@ class __$$_ProductDtoCopyWithImpl<$Res>
 
 class _$_ProductDto extends _ProductDto {
   const _$_ProductDto(
-      {required this.id,
-      required this.title,
-      required this.price,
-      required this.offer,
-      required this.description,
-      required this.imagePath,
-      required this.category})
+      {this.id = '',
+      this.title = '',
+      this.price = -1.0,
+      this.offer = -1,
+      this.description = '',
+      this.imagePath = '',
+      this.category = ''})
       : super._();
 
   @override
+  @JsonKey()
   final String id;
   @override
+  @JsonKey()
   final String title;
   @override
+  @JsonKey()
   final double price;
   @override
+  @JsonKey()
   final int offer;
   @override
+  @JsonKey()
   final String description;
   @override
+  @JsonKey()
   final String imagePath;
   @override
+  @JsonKey()
   final String category;
 
   @override
@@ -232,13 +239,13 @@ class _$_ProductDto extends _ProductDto {
 
 abstract class _ProductDto extends ProductDto {
   const factory _ProductDto(
-      {required final String id,
-      required final String title,
-      required final double price,
-      required final int offer,
-      required final String description,
-      required final String imagePath,
-      required final String category}) = _$_ProductDto;
+      {final String id,
+      final String title,
+      final double price,
+      final int offer,
+      final String description,
+      final String imagePath,
+      final String category}) = _$_ProductDto;
   const _ProductDto._() : super._();
 
   @override

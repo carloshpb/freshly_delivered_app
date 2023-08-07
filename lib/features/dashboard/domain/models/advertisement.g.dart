@@ -8,14 +8,18 @@ part of 'advertisement.dart';
 
 Advertisement _$AdvertisementFromJson(Map<String, dynamic> json) =>
     Advertisement(
-      id: json['id'] as int,
+      id: json['id'] as String,
       description: json['description'] as String,
-      image: json['image'] as String,
+      imagePath: json['imagePath'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      modifiedAt: DateTime.parse(json['modifiedAt'] as String),
     );
 
 Map<String, dynamic> _$AdvertisementToJson(Advertisement instance) =>
     <String, dynamic>{
       'id': instance.id,
       'description': instance.description,
-      'image': instance.image,
+      'imagePath': instance.imagePath,
+      'createdAt': instance.createdAt.toIso8601String(),
+      'modifiedAt': instance.modifiedAt.toIso8601String(),
     };

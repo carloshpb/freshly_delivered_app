@@ -16,9 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Advertisement {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get image => throw _privateConstructorUsedError;
+  String get imagePath => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get modifiedAt => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AdvertisementCopyWith<Advertisement> get copyWith =>
@@ -31,7 +33,12 @@ abstract class $AdvertisementCopyWith<$Res> {
           Advertisement value, $Res Function(Advertisement) then) =
       _$AdvertisementCopyWithImpl<$Res, Advertisement>;
   @useResult
-  $Res call({int id, String description, String image});
+  $Res call(
+      {String id,
+      String description,
+      String imagePath,
+      DateTime createdAt,
+      DateTime modifiedAt});
 }
 
 /// @nodoc
@@ -49,21 +56,31 @@ class _$AdvertisementCopyWithImpl<$Res, $Val extends Advertisement>
   $Res call({
     Object? id = null,
     Object? description = null,
-    Object? image = null,
+    Object? imagePath = null,
+    Object? createdAt = null,
+    Object? modifiedAt = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      imagePath: null == imagePath
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      modifiedAt: null == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -76,7 +93,12 @@ abstract class _$$_AdvertisementCopyWith<$Res>
       __$$_AdvertisementCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String description, String image});
+  $Res call(
+      {String id,
+      String description,
+      String imagePath,
+      DateTime createdAt,
+      DateTime modifiedAt});
 }
 
 /// @nodoc
@@ -92,21 +114,31 @@ class __$$_AdvertisementCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? description = null,
-    Object? image = null,
+    Object? imagePath = null,
+    Object? createdAt = null,
+    Object? modifiedAt = null,
   }) {
     return _then(_$_Advertisement(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      imagePath: null == imagePath
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      modifiedAt: null == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -114,22 +146,31 @@ class __$$_AdvertisementCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Advertisement extends _Advertisement {
-  _$_Advertisement({this.id = -1, this.description = '', this.image = ''})
+  _$_Advertisement(
+      {this.id = '',
+      this.description = '',
+      this.imagePath = '',
+      required this.createdAt,
+      required this.modifiedAt})
       : super._();
 
   @override
   @JsonKey()
-  final int id;
+  final String id;
   @override
   @JsonKey()
   final String description;
   @override
   @JsonKey()
-  final String image;
+  final String imagePath;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime modifiedAt;
 
   @override
   String toString() {
-    return 'Advertisement(id: $id, description: $description, image: $image)';
+    return 'Advertisement(id: $id, description: $description, imagePath: $imagePath, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
@@ -140,11 +181,17 @@ class _$_Advertisement extends _Advertisement {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.imagePath, imagePath) ||
+                other.imagePath == imagePath) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.modifiedAt, modifiedAt) ||
+                other.modifiedAt == modifiedAt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, description, image);
+  int get hashCode => Object.hash(
+      runtimeType, id, description, imagePath, createdAt, modifiedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -155,17 +202,23 @@ class _$_Advertisement extends _Advertisement {
 
 abstract class _Advertisement extends Advertisement {
   factory _Advertisement(
-      {final int id,
+      {final String id,
       final String description,
-      final String image}) = _$_Advertisement;
+      final String imagePath,
+      required final DateTime createdAt,
+      required final DateTime modifiedAt}) = _$_Advertisement;
   _Advertisement._() : super._();
 
   @override
-  int get id;
+  String get id;
   @override
   String get description;
   @override
-  String get image;
+  String get imagePath;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime get modifiedAt;
   @override
   @JsonKey(ignore: true)
   _$$_AdvertisementCopyWith<_$_Advertisement> get copyWith =>

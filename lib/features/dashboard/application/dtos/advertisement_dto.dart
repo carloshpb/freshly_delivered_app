@@ -9,16 +9,18 @@ class AdvertisementDto with _$AdvertisementDto {
   const AdvertisementDto._();
 
   const factory AdvertisementDto({
-    @Default(-1) int id,
+    @Default('') String id,
     @Default('') String description,
-    @Default('') String image,
+    @Default('') String imagePath,
   }) = _AdvertisementDto;
 
   Advertisement toModel() {
     return Advertisement(
       id: id,
       description: description,
-      image: image,
+      imagePath: imagePath,
+      createdAt: DateTime.parse('0000-00-00'),
+      modifiedAt: DateTime.parse('0000-00-00'),
     );
   }
 }

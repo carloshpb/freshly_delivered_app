@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import '../../../use_case.dart';
 import '../../application/dtos/product_dto.dart';
 
-abstract class GetProductByIdUseCase implements UseCase<int, ProductDto> {
+abstract class GetProductByIdUseCase implements UseCase<String, ProductDto> {
   @override
-  ProductDto execute(int request);
+  FutureOr<ProductDto> execute(String request);
 }

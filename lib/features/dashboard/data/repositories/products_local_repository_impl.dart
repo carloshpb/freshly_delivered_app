@@ -30,8 +30,13 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
 
   @override
   FutureOr<Product> findProductById(String id) async {
-    var resultListMap = await _sqliteApi.findById("products", id);
-    return Product.fromJson(resultListMap);
+    var resultMap = await _sqliteApi.findById("products", id);
+    return (resultMap.isEmpty)
+        ? Product(
+            createdAt: DateTime.parse('0000-00-00'),
+            modifiedAt: DateTime.parse('0000-00-00'),
+          )
+        : Product.fromJson(resultMap);
   }
 
   @override

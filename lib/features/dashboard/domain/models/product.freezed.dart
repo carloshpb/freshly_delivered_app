@@ -195,30 +195,37 @@ class __$$_ProductCopyWithImpl<$Res>
 
 class _$_Product extends _Product {
   _$_Product(
-      {required this.id,
-      required this.title,
-      required this.price,
-      required this.offer,
-      required this.description,
-      required this.imagePath,
-      required this.category,
+      {this.id = '',
+      this.title = '',
+      this.price = -1.0,
+      this.offer = -1,
+      this.description = '',
+      this.imagePath = '',
+      this.category = '',
       required this.createdAt,
       required this.modifiedAt})
       : super._();
 
   @override
+  @JsonKey()
   final String id;
   @override
+  @JsonKey()
   final String title;
   @override
+  @JsonKey()
   final double price;
   @override
+  @JsonKey()
   final int offer;
   @override
+  @JsonKey()
   final String description;
   @override
+  @JsonKey()
   final String imagePath;
   @override
+  @JsonKey()
   final String category;
   @override
   final DateTime createdAt;
@@ -264,13 +271,13 @@ class _$_Product extends _Product {
 
 abstract class _Product extends Product {
   factory _Product(
-      {required final String id,
-      required final String title,
-      required final double price,
-      required final int offer,
-      required final String description,
-      required final String imagePath,
-      required final String category,
+      {final String id,
+      final String title,
+      final double price,
+      final int offer,
+      final String description,
+      final String imagePath,
+      final String category,
       required final DateTime createdAt,
       required final DateTime modifiedAt}) = _$_Product;
   _Product._() : super._();

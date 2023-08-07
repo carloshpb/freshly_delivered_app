@@ -19,13 +19,35 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
       : _firestoreApi = firestoreApi;
 
   @override
-  FutureOr<List<Advertisement>> getLastAdvertisements() async {
+  FutureOr<Advertisement> findAdvertisementById(String id) async {
+    var resultListMap = await _firestoreApi.findById("advertisements", id);
+    return Advertisement.fromJson(resultListMap);
+  }
+
+  @override
+  FutureOr<List<Advertisement>> findAdvertisementsWithLimit(int limit) async {
     var resultListMap =
-        await _firestoreApi.findAllWithLimit("advertisements", 10);
+        await _firestoreApi.findAllWithLimit("advertisements", limit);
     return resultListMap
         .map(
           (advMap) => Advertisement.fromJson(advMap),
         )
         .toList();
+  }
+
+  @override
+  FutureOr<List<Advertisement>> findAllAdvertisements() async {
+    var resultListMap = await _firestoreApi.findAll("advertisements");
+    return resultListMap
+        .map(
+          (prodMap) => Advertisement.fromJson(prodMap),
+        )
+        .toList();
+  }
+
+  @override
+  Future<void> saveAdvertisements(List<Advertisement> advertisements) async {
+    var mapAdvertisements = advertisements.map((prod) => prod.toJson());
+    await _firestoreApi.save("advertisements", mapAdvertisements);
   }
 }

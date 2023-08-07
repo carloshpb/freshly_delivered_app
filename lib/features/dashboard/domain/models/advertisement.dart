@@ -11,9 +11,11 @@ class Advertisement with _$Advertisement {
   const Advertisement._();
 
   factory Advertisement({
-    @Default(-1) int id,
+    @Default('') String id,
     @Default('') String description,
-    @Default('') String image,
+    @Default('') String imagePath,
+    required DateTime createdAt,
+    required DateTime modifiedAt,
   }) = _Advertisement;
 
   factory Advertisement.fromJson(Map<String, Object?> json) =>
@@ -25,7 +27,7 @@ class Advertisement with _$Advertisement {
     return AdvertisementDto(
       id: id,
       description: description,
-      image: image,
+      imagePath: imagePath,
     );
   }
 }
