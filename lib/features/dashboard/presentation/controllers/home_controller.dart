@@ -1,8 +1,12 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../application/dtos/product_dto.dart';
+import '../../application/use_cases/find_special_advertisements_use_case_impl.dart';
+import '../../application/use_cases/get_last_advertisements_use_case_impl.dart';
+import '../../application/use_cases/get_products_with_limit_use_case_impl.dart';
 import 'states/home_state.dart';
 
 // final searchProductTextFieldHomeProvider = StateProvider<String>((ref) => '');
@@ -46,8 +50,22 @@ final homeControllerProvider = AsyncNotifierProvider<HomeController, HomeState>(
 
 class HomeController extends AsyncNotifier<HomeState> {
   @override
-  FutureOr<HomeState> build() {
-    return;
+  FutureOr<HomeState> build() async {
+    var advertisements =
+        await ref.watch(getLastAdvertisementsUseCaseProvider).execute();
+    var products =
+        await ref.watch(getProductsWithLimitUseCaseProvider).execute(20);
+    var specialAdvertisement =
+        await ref.watch(findSpecialAdvertisementsUseCaseProvider).execute();
+    var firstSublistProducts =
+        products.sublist(0, (products.length / 2).round());
+    var secondSublistProducts = products.sublist((products.length / 2).round());
+    return HomeState(
+      advertisements: advertisements,
+      firstPopularProducts: firstSublistProducts,
+      secondPopularProducts: secondSublistProducts,
+      specialOffer: specialAdvertisement[0],
+    );
   }
 
   // void updateEmail(String email) {
