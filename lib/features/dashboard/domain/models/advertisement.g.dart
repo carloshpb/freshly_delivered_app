@@ -11,6 +11,7 @@ Advertisement _$AdvertisementFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       description: json['description'] as String,
       imagePath: json['imagePath'] as String,
+      isSpecial: json['isSpecial'] as bool,
       createdAt: DateTime.parse(json['createdAt'] as String),
       modifiedAt: DateTime.parse(json['modifiedAt'] as String),
     );
@@ -20,6 +21,7 @@ Map<String, dynamic> _$AdvertisementToJson(Advertisement instance) =>
       'id': instance.id,
       'description': instance.description,
       'imagePath': instance.imagePath,
+      'isSpecial': instance.isSpecial,
       'createdAt': instance.createdAt.toIso8601String(),
       'modifiedAt': instance.modifiedAt.toIso8601String(),
     };

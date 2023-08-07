@@ -14,6 +14,7 @@ class Advertisement with _$Advertisement {
     @Default('') String id,
     @Default('') String description,
     @Default('') String imagePath,
+    @Default(false) bool isSpecial,
     required DateTime createdAt,
     required DateTime modifiedAt,
   }) = _Advertisement;
@@ -28,6 +29,7 @@ class Advertisement with _$Advertisement {
       id: id,
       description: description,
       imagePath: imagePath,
+      isSpecial: isSpecial,
     );
   }
 }

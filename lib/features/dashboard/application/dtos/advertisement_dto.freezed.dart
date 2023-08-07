@@ -19,6 +19,7 @@ mixin _$AdvertisementDto {
   String get id => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
+  bool get isSpecial => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AdvertisementDtoCopyWith<AdvertisementDto> get copyWith =>
@@ -31,7 +32,7 @@ abstract class $AdvertisementDtoCopyWith<$Res> {
           AdvertisementDto value, $Res Function(AdvertisementDto) then) =
       _$AdvertisementDtoCopyWithImpl<$Res, AdvertisementDto>;
   @useResult
-  $Res call({String id, String description, String imagePath});
+  $Res call({String id, String description, String imagePath, bool isSpecial});
 }
 
 /// @nodoc
@@ -50,6 +51,7 @@ class _$AdvertisementDtoCopyWithImpl<$Res, $Val extends AdvertisementDto>
     Object? id = null,
     Object? description = null,
     Object? imagePath = null,
+    Object? isSpecial = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -64,6 +66,10 @@ class _$AdvertisementDtoCopyWithImpl<$Res, $Val extends AdvertisementDto>
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
+      isSpecial: null == isSpecial
+          ? _value.isSpecial
+          : isSpecial // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -76,7 +82,7 @@ abstract class _$$_AdvertisementDtoCopyWith<$Res>
       __$$_AdvertisementDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String description, String imagePath});
+  $Res call({String id, String description, String imagePath, bool isSpecial});
 }
 
 /// @nodoc
@@ -93,6 +99,7 @@ class __$$_AdvertisementDtoCopyWithImpl<$Res>
     Object? id = null,
     Object? description = null,
     Object? imagePath = null,
+    Object? isSpecial = null,
   }) {
     return _then(_$_AdvertisementDto(
       id: null == id
@@ -107,6 +114,10 @@ class __$$_AdvertisementDtoCopyWithImpl<$Res>
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
+      isSpecial: null == isSpecial
+          ? _value.isSpecial
+          : isSpecial // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -115,7 +126,10 @@ class __$$_AdvertisementDtoCopyWithImpl<$Res>
 
 class _$_AdvertisementDto extends _AdvertisementDto {
   const _$_AdvertisementDto(
-      {this.id = '', this.description = '', this.imagePath = ''})
+      {this.id = '',
+      this.description = '',
+      this.imagePath = '',
+      this.isSpecial = false})
       : super._();
 
   @override
@@ -127,10 +141,13 @@ class _$_AdvertisementDto extends _AdvertisementDto {
   @override
   @JsonKey()
   final String imagePath;
+  @override
+  @JsonKey()
+  final bool isSpecial;
 
   @override
   String toString() {
-    return 'AdvertisementDto(id: $id, description: $description, imagePath: $imagePath)';
+    return 'AdvertisementDto(id: $id, description: $description, imagePath: $imagePath, isSpecial: $isSpecial)';
   }
 
   @override
@@ -142,11 +159,14 @@ class _$_AdvertisementDto extends _AdvertisementDto {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.imagePath, imagePath) ||
-                other.imagePath == imagePath));
+                other.imagePath == imagePath) &&
+            (identical(other.isSpecial, isSpecial) ||
+                other.isSpecial == isSpecial));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, description, imagePath);
+  int get hashCode =>
+      Object.hash(runtimeType, id, description, imagePath, isSpecial);
 
   @JsonKey(ignore: true)
   @override
@@ -159,7 +179,8 @@ abstract class _AdvertisementDto extends AdvertisementDto {
   const factory _AdvertisementDto(
       {final String id,
       final String description,
-      final String imagePath}) = _$_AdvertisementDto;
+      final String imagePath,
+      final bool isSpecial}) = _$_AdvertisementDto;
   const _AdvertisementDto._() : super._();
 
   @override
@@ -168,6 +189,8 @@ abstract class _AdvertisementDto extends AdvertisementDto {
   String get description;
   @override
   String get imagePath;
+  @override
+  bool get isSpecial;
   @override
   @JsonKey(ignore: true)
   _$$_AdvertisementDtoCopyWith<_$_AdvertisementDto> get copyWith =>

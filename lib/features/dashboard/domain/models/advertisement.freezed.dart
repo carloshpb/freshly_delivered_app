@@ -19,6 +19,7 @@ mixin _$Advertisement {
   String get id => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
+  bool get isSpecial => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get modifiedAt => throw _privateConstructorUsedError;
 
@@ -37,6 +38,7 @@ abstract class $AdvertisementCopyWith<$Res> {
       {String id,
       String description,
       String imagePath,
+      bool isSpecial,
       DateTime createdAt,
       DateTime modifiedAt});
 }
@@ -57,6 +59,7 @@ class _$AdvertisementCopyWithImpl<$Res, $Val extends Advertisement>
     Object? id = null,
     Object? description = null,
     Object? imagePath = null,
+    Object? isSpecial = null,
     Object? createdAt = null,
     Object? modifiedAt = null,
   }) {
@@ -73,6 +76,10 @@ class _$AdvertisementCopyWithImpl<$Res, $Val extends Advertisement>
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
+      isSpecial: null == isSpecial
+          ? _value.isSpecial
+          : isSpecial // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -97,6 +104,7 @@ abstract class _$$_AdvertisementCopyWith<$Res>
       {String id,
       String description,
       String imagePath,
+      bool isSpecial,
       DateTime createdAt,
       DateTime modifiedAt});
 }
@@ -115,6 +123,7 @@ class __$$_AdvertisementCopyWithImpl<$Res>
     Object? id = null,
     Object? description = null,
     Object? imagePath = null,
+    Object? isSpecial = null,
     Object? createdAt = null,
     Object? modifiedAt = null,
   }) {
@@ -131,6 +140,10 @@ class __$$_AdvertisementCopyWithImpl<$Res>
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
+      isSpecial: null == isSpecial
+          ? _value.isSpecial
+          : isSpecial // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -150,6 +163,7 @@ class _$_Advertisement extends _Advertisement {
       {this.id = '',
       this.description = '',
       this.imagePath = '',
+      this.isSpecial = false,
       required this.createdAt,
       required this.modifiedAt})
       : super._();
@@ -164,13 +178,16 @@ class _$_Advertisement extends _Advertisement {
   @JsonKey()
   final String imagePath;
   @override
+  @JsonKey()
+  final bool isSpecial;
+  @override
   final DateTime createdAt;
   @override
   final DateTime modifiedAt;
 
   @override
   String toString() {
-    return 'Advertisement(id: $id, description: $description, imagePath: $imagePath, createdAt: $createdAt, modifiedAt: $modifiedAt)';
+    return 'Advertisement(id: $id, description: $description, imagePath: $imagePath, isSpecial: $isSpecial, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
@@ -183,6 +200,8 @@ class _$_Advertisement extends _Advertisement {
                 other.description == description) &&
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath) &&
+            (identical(other.isSpecial, isSpecial) ||
+                other.isSpecial == isSpecial) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.modifiedAt, modifiedAt) ||
@@ -190,8 +209,8 @@ class _$_Advertisement extends _Advertisement {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, description, imagePath, createdAt, modifiedAt);
+  int get hashCode => Object.hash(runtimeType, id, description, imagePath,
+      isSpecial, createdAt, modifiedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -205,6 +224,7 @@ abstract class _Advertisement extends Advertisement {
       {final String id,
       final String description,
       final String imagePath,
+      final bool isSpecial,
       required final DateTime createdAt,
       required final DateTime modifiedAt}) = _$_Advertisement;
   _Advertisement._() : super._();
@@ -215,6 +235,8 @@ abstract class _Advertisement extends Advertisement {
   String get description;
   @override
   String get imagePath;
+  @override
+  bool get isSpecial;
   @override
   DateTime get createdAt;
   @override

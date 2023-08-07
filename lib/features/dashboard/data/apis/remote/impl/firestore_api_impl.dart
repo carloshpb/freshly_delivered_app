@@ -106,4 +106,29 @@ class FirestoreApiImpl implements FirestoreApi {
       rethrow;
     }
   }
+
+  @override
+  Future<List<Map<String, Object?>>> findByAttributeDesc(
+    String collection,
+    attribute,
+    String attributeName,
+    int limit,
+  ) async {
+    var collectionRef = _firestore.collection(collection);
+    try {
+      var querySnapshot = await collectionRef
+          .where(attributeName, isEqualTo: attribute)
+          .limit(limit)
+          .get();
+      var mapList = <Map<String, Object?>>[];
+      for (var docSnapshot in querySnapshot.docs) {
+        var map = docSnapshot.data();
+        map["id"] = docSnapshot.id;
+        mapList.add(map);
+      }
+      return mapList;
+    } on Exception {
+      rethrow;
+    }
+  }
 }

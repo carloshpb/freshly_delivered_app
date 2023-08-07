@@ -71,4 +71,22 @@ class SQLiteApiImpl implements SQLiteApi {
 
     return result;
   }
+
+  @override
+  Future<List<Map<String, Object?>>> findByAttributeDesc(
+    String table,
+    attribute,
+    String attributeName,
+    int limit,
+  ) {
+    return _database.rawQuery(
+      '''
+      SELECT * FROM ?
+      WHERE ? = ?
+      ORDER BY modified_at DESC
+      LIMIT ?
+      ''',
+      [table, attributeName, attribute, limit],
+    );
+  }
 }

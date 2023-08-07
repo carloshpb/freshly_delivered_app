@@ -159,7 +159,7 @@ class HomeScreen extends ConsumerWidget {
                             .watch(homeControllerProvider)
                             .value!
                             .specialOffer
-                            .image,
+                            .imagePath,
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) =>
                                 CircularProgressIndicator(

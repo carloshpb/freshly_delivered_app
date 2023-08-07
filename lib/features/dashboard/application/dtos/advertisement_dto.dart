@@ -12,6 +12,7 @@ class AdvertisementDto with _$AdvertisementDto {
     @Default('') String id,
     @Default('') String description,
     @Default('') String imagePath,
+    @Default(false) bool isSpecial,
   }) = _AdvertisementDto;
 
   Advertisement toModel() {
@@ -19,6 +20,7 @@ class AdvertisementDto with _$AdvertisementDto {
       id: id,
       description: description,
       imagePath: imagePath,
+      isSpecial: isSpecial,
       createdAt: DateTime.parse('0000-00-00'),
       modifiedAt: DateTime.parse('0000-00-00'),
     );

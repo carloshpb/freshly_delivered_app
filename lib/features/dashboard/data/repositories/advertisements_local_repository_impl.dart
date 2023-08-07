@@ -67,4 +67,19 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
       _advertisementStringProperties,
     );
   }
+
+  @override
+  FutureOr<List<Advertisement>> findSpecialAdvertisements() async {
+    var resultListMap = await _sqliteApi.findByAttributeDesc(
+      "advertisements",
+      true,
+      "isSpecial",
+      10,
+    );
+    return resultListMap
+        .map(
+          (advMap) => Advertisement.fromJson(advMap),
+        )
+        .toList();
+  }
 }

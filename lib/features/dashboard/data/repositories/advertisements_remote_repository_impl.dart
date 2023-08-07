@@ -50,4 +50,19 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
     var mapAdvertisements = advertisements.map((prod) => prod.toJson());
     await _firestoreApi.save("advertisements", mapAdvertisements);
   }
+
+  @override
+  FutureOr<List<Advertisement>> findSpecialAdvertisements() async {
+    var resultListMap = await _firestoreApi.findByAttributeDesc(
+      "advertisements",
+      true,
+      "isSpecial",
+      10,
+    );
+    return resultListMap
+        .map(
+          (advMap) => Advertisement.fromJson(advMap),
+        )
+        .toList();
+  }
 }

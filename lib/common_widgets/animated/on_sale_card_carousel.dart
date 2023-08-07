@@ -49,7 +49,7 @@ class OnSaleCardCarousel extends StatelessWidget {
                       child: FittedBox(
                         fit: BoxFit.contain,
                         child: CachedNetworkImage(
-                          imageUrl: currentAdvertisement.image,
+                          imageUrl: currentAdvertisement.imagePath,
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) =>
                                   CircularProgressIndicator(
