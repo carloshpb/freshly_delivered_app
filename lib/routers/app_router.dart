@@ -97,8 +97,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     },
                   ),
                   GoRoute(
-                    path: AppRouter.itemDetails.path,
-                    name: AppRouter.itemDetails.name,
+                    path: AppRouter.searchResults.path,
+                    name: AppRouter.searchResults.name,
                     builder: (context, state) {
                       return SearchResultsScreen(
                         searchText: state.pathParameters['product-name']!,

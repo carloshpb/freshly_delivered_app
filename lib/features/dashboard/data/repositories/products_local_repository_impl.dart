@@ -18,10 +18,10 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
     "price",
     "offer",
     "description",
-    "imagePath",
+    "image_path",
     "category",
-    "createdAt",
-    "modifiedAt",
+    "created_at",
+    "modified_at",
   ];
 
   final SQLiteApi _sqliteApi;

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,8 +39,21 @@ Future<void> main() async {
           price REAL NOT NULL, 
           offer INTEGER NOT NULL, 
           description TEXT NOT NULL, 
-          imagePath TEXT NOT NULL, 
-          category TEXT NOT NULL
+          image_path TEXT NOT NULL, 
+          category TEXT NOT NULL,
+          created_at TEXT NOT NULL,
+          modified_at TEXT NOT NULL
+        )
+        ''');
+
+      await db.execute('''
+        CREATE TABLE advertisements (
+          id TEXT PRIMARY KEY,
+          description TEXT NOT NULL, 
+          image_path TEXT NOT NULL, 
+          is_special INTEGER NOT NULL,
+          created_at TEXT NOT NULL,
+          modified_at TEXT NOT NULL
         )
         ''');
     },

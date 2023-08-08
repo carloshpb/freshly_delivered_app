@@ -18,9 +18,13 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Advertisement {
   String get id => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_path')
   String get imagePath => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_special')
   bool get isSpecial => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'modified_at')
   DateTime get modifiedAt => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -37,10 +41,10 @@ abstract class $AdvertisementCopyWith<$Res> {
   $Res call(
       {String id,
       String description,
-      String imagePath,
-      bool isSpecial,
-      DateTime createdAt,
-      DateTime modifiedAt});
+      @JsonKey(name: 'image_path') String imagePath,
+      @JsonKey(name: 'is_special') bool isSpecial,
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'modified_at') DateTime modifiedAt});
 }
 
 /// @nodoc
@@ -103,10 +107,10 @@ abstract class _$$_AdvertisementCopyWith<$Res>
   $Res call(
       {String id,
       String description,
-      String imagePath,
-      bool isSpecial,
-      DateTime createdAt,
-      DateTime modifiedAt});
+      @JsonKey(name: 'image_path') String imagePath,
+      @JsonKey(name: 'is_special') bool isSpecial,
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'modified_at') DateTime modifiedAt});
 }
 
 /// @nodoc
@@ -162,10 +166,10 @@ class _$_Advertisement extends _Advertisement {
   _$_Advertisement(
       {this.id = '',
       this.description = '',
-      this.imagePath = '',
-      this.isSpecial = false,
-      required this.createdAt,
-      required this.modifiedAt})
+      @JsonKey(name: 'image_path') this.imagePath = '',
+      @JsonKey(name: 'is_special') this.isSpecial = false,
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'modified_at') required this.modifiedAt})
       : super._();
 
   @override
@@ -175,14 +179,16 @@ class _$_Advertisement extends _Advertisement {
   @JsonKey()
   final String description;
   @override
-  @JsonKey()
+  @JsonKey(name: 'image_path')
   final String imagePath;
   @override
-  @JsonKey()
+  @JsonKey(name: 'is_special')
   final bool isSpecial;
   @override
+  @JsonKey(name: 'created_at')
   final DateTime createdAt;
   @override
+  @JsonKey(name: 'modified_at')
   final DateTime modifiedAt;
 
   @override
@@ -221,12 +227,13 @@ class _$_Advertisement extends _Advertisement {
 
 abstract class _Advertisement extends Advertisement {
   factory _Advertisement(
-      {final String id,
-      final String description,
-      final String imagePath,
-      final bool isSpecial,
-      required final DateTime createdAt,
-      required final DateTime modifiedAt}) = _$_Advertisement;
+          {final String id,
+          final String description,
+          @JsonKey(name: 'image_path') final String imagePath,
+          @JsonKey(name: 'is_special') final bool isSpecial,
+          @JsonKey(name: 'created_at') required final DateTime createdAt,
+          @JsonKey(name: 'modified_at') required final DateTime modifiedAt}) =
+      _$_Advertisement;
   _Advertisement._() : super._();
 
   @override
@@ -234,12 +241,16 @@ abstract class _Advertisement extends Advertisement {
   @override
   String get description;
   @override
+  @JsonKey(name: 'image_path')
   String get imagePath;
   @override
+  @JsonKey(name: 'is_special')
   bool get isSpecial;
   @override
+  @JsonKey(name: 'created_at')
   DateTime get createdAt;
   @override
+  @JsonKey(name: 'modified_at')
   DateTime get modifiedAt;
   @override
   @JsonKey(ignore: true)

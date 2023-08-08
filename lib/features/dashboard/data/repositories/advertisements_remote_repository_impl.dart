@@ -56,7 +56,7 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
     var resultListMap = await _firestoreApi.findByAttributeDesc(
       "advertisements",
       true,
-      "isSpecial",
+      "is_special",
       10,
     );
     return resultListMap

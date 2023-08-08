@@ -16,9 +16,9 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   final _advertisementStringProperties = [
     'id',
     'description',
-    'imagePath',
-    'createdAt',
-    'modifiedAt',
+    'image_path',
+    'created_at',
+    'modified_at',
   ];
 
   final SQLiteApi _sqliteApi;
@@ -73,7 +73,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
     var resultListMap = await _sqliteApi.findByAttributeDesc(
       "advertisements",
       true,
-      "isSpecial",
+      "is_special",
       10,
     );
     return resultListMap

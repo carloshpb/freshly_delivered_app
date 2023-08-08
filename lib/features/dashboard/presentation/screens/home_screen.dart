@@ -106,6 +106,7 @@ class HomeScreen extends ConsumerWidget {
                 height: 13.0,
               ),
               // On Sales Carousel cards
+              ref.watch(homeControllerProvider).maybeWhen(orElse: orElse)
               SizedBox(
                 height: mediaQuerySize.height * 0.1954976,
                 child: OnSaleCardCarousel(

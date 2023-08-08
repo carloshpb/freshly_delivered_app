@@ -16,10 +16,10 @@ class Product with _$Product {
     @Default(-1.0) double price,
     @Default(-1) int offer,
     @Default('') String description,
-    @Default('') String imagePath,
+    @JsonKey(name: 'image_path') @Default('') String imagePath,
     @Default('') String category,
-    required DateTime createdAt,
-    required DateTime modifiedAt,
+    @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'modified_at') required DateTime modifiedAt,
   }) = _Product;
 
   factory Product.fromJson(Map<String, Object?> json) =>
