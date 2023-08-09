@@ -25,13 +25,28 @@ class GetLastAdvertisementsUseCaseImpl implements GetLastAdvertisementsUseCase {
         _remoteAdvertisementsRepository = remoteAdvertisementsRepository;
 
   @override
-  Future<List<AdvertisementDto>> execute([void request]) async {
+  Future<List<AdvertisementDto>> execute(
+      ({AdvertisementDto? object, int position}) request) async {
     var advertisements =
-        await _localAdvertisementsRepository.findAdvertisementsWithLimit(10);
+        await _localAdvertisementsRepository.findAdvertisementsWithLimit(
+      10,
+      (
+        advertisementObject:
+            (request.object != null) ? request.object!.toModel() : null,
+        position: request.position,
+      ),
+    );
 
     if (advertisements.isEmpty) {
       advertisements =
-          await _remoteAdvertisementsRepository.findAdvertisementsWithLimit(10);
+          await _remoteAdvertisementsRepository.findAdvertisementsWithLimit(
+        10,
+        (
+          advertisementObject:
+              (request.object != null) ? request.object!.toModel() : null,
+          position: request.position,
+        ),
+      );
 
       if (advertisements.isNotEmpty) {
         // TODO : Treat when couldnt be saved locally

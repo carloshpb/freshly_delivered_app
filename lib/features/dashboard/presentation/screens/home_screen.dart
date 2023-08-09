@@ -66,7 +66,9 @@ class HomeScreen extends ConsumerWidget {
           child: Shimmer.fromColors(
             baseColor: Colors.green.shade400,
             highlightColor: Colors.grey.shade100,
-            enabled: ref.watch(homeControllerProvider).isLoading,
+            enabled: ref.watch(homeControllerProvider).isLoading &&
+                !ref.watch(homeControllerProvider).isRefreshing &&
+                !ref.watch(homeControllerProvider).isReloading,
             child: Column(
               children: [
                 // Search product field
@@ -113,10 +115,9 @@ class HomeScreen extends ConsumerWidget {
                 // On Sales Carousel cards
                 SizedBox(
                   height: mediaQuerySize.height * 0.1954976,
-                  child: ref
-                      .watch(homeControllerProvider
-                          .select((homeState) => homeState.advertisements))
-                      .(
+                  child: ref.watch(
+                    homeControllerProvider.select(
+                      (asyncHomeState) => asyncHomeState.when(
                         data: (state) {
                           return OnSaleCardCarousel(
                             advertisements: state.advertisements,
@@ -142,6 +143,8 @@ class HomeScreen extends ConsumerWidget {
                         skipLoadingOnReload: true,
                         skipError: true,
                       ),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 13.0,

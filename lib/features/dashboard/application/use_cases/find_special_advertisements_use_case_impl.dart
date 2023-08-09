@@ -28,13 +28,28 @@ class FindSpecialAdvertisementsUseCaseImpl
         _remoteAdvertisementsRepository = remoteAdvertisementsRepository;
 
   @override
-  FutureOr<List<AdvertisementDto>> execute([void request]) async {
+  FutureOr<List<AdvertisementDto>> execute(
+      ({AdvertisementDto? object, int position}) request) async {
     var advertisements =
-        await _localAdvertisementsRepository.findSpecialAdvertisements();
+        await _localAdvertisementsRepository.findSpecialAdvertisements(
+      10,
+      (
+        advertisementObject:
+            (request.object != null) ? request.object!.toModel() : null,
+        position: request.position,
+      ),
+    );
 
     if (advertisements.isEmpty) {
       advertisements =
-          await _remoteAdvertisementsRepository.findSpecialAdvertisements();
+          await _remoteAdvertisementsRepository.findSpecialAdvertisements(
+        10,
+        (
+          advertisementObject:
+              (request.object != null) ? request.object!.toModel() : null,
+          position: request.position,
+        ),
+      );
       if (advertisements.isNotEmpty) {
         // TODO : Treat when couldnt be saved locally
         _localAdvertisementsRepository.saveAdvertisements(advertisements);

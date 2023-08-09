@@ -4,7 +4,8 @@ import '../models/product.dart';
 
 abstract class ProductsRepository {
   FutureOr<Product> findProductById(String id);
-  FutureOr<List<Product>> findProductsWithLimit(int limit);
+  FutureOr<List<Product>> findProductsWithLimit(
+      int limit, ({Product? productObject, int position}) lastProduct);
   FutureOr<List<Product>> findAllProducts();
   Future<void> saveProducts(List<Product> products);
 }

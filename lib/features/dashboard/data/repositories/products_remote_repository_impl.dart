@@ -24,8 +24,15 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  FutureOr<List<Product>> findProductsWithLimit(int limit) async {
-    var resultListMap = await _firestoreApi.findAllWithLimit("products", 10);
+  FutureOr<List<Product>> findProductsWithLimit(
+    int limit,
+    ({Product? productObject, int position}) lastProduct,
+  ) async {
+    var resultListMap = await _firestoreApi.findAllWithLimit(
+      "products",
+      limit,
+      lastProduct.productObject,
+    );
     return resultListMap
         .map(
           (prodMap) => Product.fromJson(prodMap),
@@ -35,7 +42,7 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
 
   @override
   FutureOr<List<Product>> findAllProducts() async {
-    var resultListMap = await _firestoreApi.findAllWithLimit("products", 10);
+    var resultListMap = await _firestoreApi.findAll("products");
     return resultListMap
         .map(
           (prodMap) => Product.fromJson(prodMap),
