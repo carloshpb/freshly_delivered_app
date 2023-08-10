@@ -55,4 +55,22 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
     var mapProducts = products.map((prod) => prod.toJson());
     await _firestoreApi.save("products", mapProducts);
   }
+
+  @override
+  FutureOr<List<Product>> findProductsByNameWithLimit(String name, int limit,
+      ({int position, Product? productObject}) lastProduct) async {
+    var result = await _firestoreApi.findByAttributeDesc(
+      "products",
+      name,
+      "title",
+      limit,
+      lastProduct.productObject,
+    );
+
+    return result
+        .map(
+          (prodMap) => Product.fromJson(prodMap),
+        )
+        .toList();
+  }
 }
