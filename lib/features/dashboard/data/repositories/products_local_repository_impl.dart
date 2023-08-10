@@ -73,4 +73,22 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
     var mapProducts = products.map((prod) => prod.toJson());
     await _sqliteApi.save("products", mapProducts, _productStringProperties);
   }
+
+  @override
+  FutureOr<List<Product>> findProductsByNameWithLimit(String name, int limit,
+      ({int position, Product? productObject}) lastProduct) async {
+    var result = await _sqliteApi.findByAttributeDesc(
+      "products",
+      name,
+      "title",
+      limit,
+      lastProduct.position,
+    );
+
+    return result
+        .map(
+          (prodMap) => Product.fromJson(prodMap),
+        )
+        .toList();
+  }
 }
