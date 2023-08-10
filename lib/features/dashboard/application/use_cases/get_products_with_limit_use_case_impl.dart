@@ -25,11 +25,26 @@ class GetProductsWithLimitUseCaseImpl implements GetProductsWithLimitUseCase {
         _remoteProductsRepository = remoteProductsRepository;
 
   @override
-  Future<List<ProductDto>> execute(int request) async {
-    var products = await _localProductsRepository.findProductsWithLimit(10);
+  Future<List<ProductDto>> execute(
+      ({ProductDto? object, int position}) request) async {
+    var products = await _localProductsRepository.findProductsWithLimit(
+      10,
+      (
+        position: request.position,
+        productObject:
+            (request.object != null) ? request.object!.toModel() : null,
+      ),
+    );
 
     if (products.isEmpty) {
-      products = await _remoteProductsRepository.findProductsWithLimit(10);
+      products = await _remoteProductsRepository.findProductsWithLimit(
+        10,
+        (
+          position: request.position,
+          productObject:
+              (request.object != null) ? request.object!.toModel() : null,
+        ),
+      );
 
       if (products.isNotEmpty) {
         // TODO : Treat when couldnt be saved locally
