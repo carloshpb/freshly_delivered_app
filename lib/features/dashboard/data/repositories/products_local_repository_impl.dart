@@ -18,10 +18,10 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
     "price",
     "offer",
     "description",
-    "imagePath",
+    "image_path",
     "category",
-    "createdAt",
-    "modifiedAt",
+    "created_at",
+    "modified_at",
   ];
 
   final SQLiteApi _sqliteApi;
@@ -40,8 +40,15 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  FutureOr<List<Product>> findProductsWithLimit(int limit) async {
-    var resultListMap = await _sqliteApi.findAllWithLimit("products", 10);
+  FutureOr<List<Product>> findProductsWithLimit(
+    int limit,
+    ({Product? productObject, int position}) lastProduct,
+  ) async {
+    var resultListMap = await _sqliteApi.findAllWithLimit(
+      "products",
+      limit,
+      lastProduct.position,
+    );
     return resultListMap
         .map(
           (prodMap) => Product.fromJson(prodMap),
@@ -51,7 +58,9 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
 
   @override
   FutureOr<List<Product>> findAllProducts() async {
-    var resultListMap = await _sqliteApi.findAllWithLimit("products", 10);
+    var resultListMap = await _sqliteApi.findAll(
+      "products",
+    );
     return resultListMap
         .map(
           (prodMap) => Product.fromJson(prodMap),

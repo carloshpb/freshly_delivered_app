@@ -1,5 +1,9 @@
 abstract class FirestoreApi {
-  Future<List<dynamic>> findAllWithLimit(String collection, int limit);
+  Future<List<dynamic>> findAllWithLimit(
+    String collection,
+    int limit,
+    Object? lastObject,
+  );
   Future<List<dynamic>> findAll(String collection);
   Future<dynamic> findById(String collection, String id);
   Future<List<Map<String, Object?>>> findByAttributeDesc(
@@ -7,6 +11,7 @@ abstract class FirestoreApi {
     dynamic attribute,
     String attributeName,
     int limit,
+    Object? lastObject,
   );
   Future<void> save(String collection, dynamic entity);
 }

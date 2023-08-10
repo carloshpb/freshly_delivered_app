@@ -19,22 +19,21 @@ class SQLiteApiImpl implements SQLiteApi {
   Future<List<Map<String, Object?>>> findAll(String table) {
     return _database.rawQuery(
       '''
-      SELECT * FROM ?
+      SELECT * FROM $table
       ''',
-      [table],
     );
   }
 
   @override
-  Future<List<Map<String, Object?>>> findAllWithLimit(String table, int limit) {
+  Future<List<Map<String, Object?>>> findAllWithLimit(
+      String table, int limit, int offset) {
     return _database.rawQuery(
       '''
-      SELECT * FROM ?
+      SELECT * FROM $table
       ORDER BY modified_at DESC
-      LIMIT ?
-      OFFSET 0
+      LIMIT $limit
+      OFFSET $offset
       ''',
-      [table, limit],
     );
   }
 
@@ -42,10 +41,9 @@ class SQLiteApiImpl implements SQLiteApi {
   Future<Map<String, Object?>> findById(String table, String id) async {
     var result = await _database.rawQuery(
       '''
-      SELECT * FROM ?
-      WHERE id = ?
+      SELECT * FROM $table
+      WHERE id = $id
       ''',
-      [table, id],
     );
 
     return result[0];
@@ -78,15 +76,16 @@ class SQLiteApiImpl implements SQLiteApi {
     attribute,
     String attributeName,
     int limit,
+    int offset,
   ) {
     return _database.rawQuery(
       '''
-      SELECT * FROM ?
-      WHERE ? = ?
+      SELECT * FROM $table
+      WHERE $attributeName = $attribute
       ORDER BY modified_at DESC
-      LIMIT ?
+      LIMIT $limit
+      OFFSET $offset
       ''',
-      [table, attributeName, attribute, limit],
     );
   }
 }

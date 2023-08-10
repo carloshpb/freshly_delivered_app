@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../firestore_api.dart';
@@ -34,11 +37,18 @@ class FirestoreApiImpl implements FirestoreApi {
   }
 
   @override
-  Future<List<dynamic>> findAllWithLimit(String collection, int limit) async {
+  Future<List<dynamic>> findAllWithLimit(
+    String collection,
+    int limit,
+    Object? lastObject,
+  ) async {
     var collectionRef = _firestore.collection(collection);
     try {
       var productsJsonList = [];
-      var querySnapshot = await collectionRef.limit(limit).get();
+      var querySnapshot = await collectionRef
+          .startAfter((lastObject == null) ? [] : [lastObject])
+          .limit(limit)
+          .get();
       for (var docSnapshot in querySnapshot.docs) {
         var map = docSnapshot.data();
         map["id"] = docSnapshot.id;
@@ -107,17 +117,27 @@ class FirestoreApiImpl implements FirestoreApi {
     }
   }
 
+  // TEMP
+  @override
+  Future<void> addMockDataToFirestore() async {
+    var fakeFoodsJson =
+        await rootBundle.loadString("assets/fakeData/foods.json");
+    var decodedFoods = json.decode(fakeFoodsJson);
+  }
+
   @override
   Future<List<Map<String, Object?>>> findByAttributeDesc(
     String collection,
     attribute,
     String attributeName,
     int limit,
+    Object? lastObject,
   ) async {
     var collectionRef = _firestore.collection(collection);
     try {
       var querySnapshot = await collectionRef
           .where(attributeName, isEqualTo: attribute)
+          .startAfter((lastObject == null) ? [] : [lastObject])
           .limit(limit)
           .get();
       var mapList = <Map<String, Object?>>[];

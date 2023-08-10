@@ -4,7 +4,10 @@ import '../../../use_case.dart';
 import '../../application/dtos/advertisement_dto.dart';
 
 abstract class FindSpecialAdvertisementsUseCase
-    implements UseCase<void, List<AdvertisementDto>> {
+    implements
+        UseCase<({AdvertisementDto? object, int position}),
+            List<AdvertisementDto>> {
   @override
-  FutureOr<List<AdvertisementDto>> execute([void request]);
+  FutureOr<List<AdvertisementDto>> execute(
+      ({AdvertisementDto? object, int position}) request);
 }

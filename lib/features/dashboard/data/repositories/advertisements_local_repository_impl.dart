@@ -16,9 +16,9 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   final _advertisementStringProperties = [
     'id',
     'description',
-    'imagePath',
-    'createdAt',
-    'modifiedAt',
+    'image_path',
+    'created_at',
+    'modified_at',
   ];
 
   final SQLiteApi _sqliteApi;
@@ -38,9 +38,17 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   }
 
   @override
-  FutureOr<List<Advertisement>> findAdvertisementsWithLimit(int limit) async {
-    var resultListMap =
-        await _sqliteApi.findAllWithLimit("advertisements", limit);
+  FutureOr<List<Advertisement>> findAdvertisementsWithLimit(
+      int limit,
+      ({
+        Advertisement? advertisementObject,
+        int position
+      }) lastAdvertisement) async {
+    var resultListMap = await _sqliteApi.findAllWithLimit(
+      "advertisements",
+      limit,
+      lastAdvertisement.position,
+    );
     return resultListMap
         .map(
           (advMap) => Advertisement.fromJson(advMap),
@@ -69,12 +77,18 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   }
 
   @override
-  FutureOr<List<Advertisement>> findSpecialAdvertisements() async {
+  FutureOr<List<Advertisement>> findSpecialAdvertisements(
+      int limit,
+      ({
+        Advertisement? advertisementObject,
+        int position
+      }) lastAdvertisement) async {
     var resultListMap = await _sqliteApi.findByAttributeDesc(
       "advertisements",
       true,
-      "isSpecial",
-      10,
+      "is_special",
+      limit,
+      lastAdvertisement.position,
     );
     return resultListMap
         .map(
