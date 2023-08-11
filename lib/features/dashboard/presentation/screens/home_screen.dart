@@ -10,6 +10,7 @@ import '../../../../common_widgets/product_card.dart';
 import '../../../../constants/custom_colors.dart';
 import '../../../../constants/strings.dart';
 import '../../../../routers/app_router.dart';
+import '../../application/dtos/advertisement_dto.dart';
 import '../controllers/home_controller.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -19,6 +20,24 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var currentAdvertisementsState = ref.watch(
+      homeControllerProvider.select(
+        (asyncState) => asyncState.when(
+          data: (state) {
+            return state.advertisements;
+          },
+          error: (error, stackTrace) {
+            return error as Exception;
+          },
+          loading: () {
+            return null;
+          },
+          skipLoadingOnReload: true,
+          skipError: true,
+        ),
+      ),
+    );
+
     final mediaQuerySize = MediaQuery.sizeOf(context);
     return Scaffold(
       appBar: AppBar(
@@ -115,36 +134,24 @@ class HomeScreen extends ConsumerWidget {
                 // On Sales Carousel cards
                 SizedBox(
                   height: mediaQuerySize.height * 0.1954976,
-                  child: ref.watch(
-                    homeControllerProvider.select(
-                      (asyncHomeState) => asyncHomeState.when(
-                        data: (state) {
-                          return OnSaleCardCarousel(
-                            advertisements: state.advertisements,
-                          );
-                        },
-                        error: (error, stackTrace) {
-                          return const Card(
-                            color: CustomColors.buttonGreen,
-                            child: Center(
-                              child: Text(
-                                //TODO
-                                Strings.unknownErrorCode,
-                                style: TextStyle(
-                                  color: Colors.white,
+                  child: (currentAdvertisementsState is List<AdvertisementDto>)
+                      ? OnSaleCardCarousel(
+                          advertisements: currentAdvertisementsState,
+                        )
+                      : (currentAdvertisementsState is Exception)
+                          ? const Card(
+                              color: CustomColors.buttonGreen,
+                              child: Center(
+                                child: Text(
+                                  //TODO
+                                  Strings.unknownErrorCode,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                        loading: () {
-                          return const Card();
-                        },
-                        skipLoadingOnReload: true,
-                        skipError: true,
-                      ),
-                    ),
-                  ),
+                            )
+                          : const Card(),
                 ),
                 const SizedBox(
                   height: 13.0,
@@ -177,71 +184,147 @@ class HomeScreen extends ConsumerWidget {
                 // First popular products list
                 SizedBox(
                   height: mediaQuerySize.height * 0.1789099526,
-                  child: ref.watch(homeControllerProvider).when(
-                        data: (state) {
-                          return ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: state.firstPopularProducts.length,
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(
-                              width: 33.0,
-                            ),
-                            itemBuilder: (context, index) {
-                              // the ProductCard will always be the same height - width relation, according to the actual height of the screen
-                              var cardHeight = mediaQuerySize.height * 0.17891;
-                              return ProductCard(
-                                height: cardHeight,
-                                width: cardHeight * 0.662252,
-                                product: state.firstPopularProducts[index],
-                              );
-                            },
-                          );
-                        },
-                        error: (error, stackTrace) {
-                          return SizedBox(
-                            child: SizedBox(
-                              height: mediaQuerySize.height * 0.17891,
-                              child: const Center(
-                                child: Text(
-                                  //TODO
-                                  Strings.unknownErrorCode,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        loading: () {
-                          return ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 6,
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(
-                              width: 33.0,
-                            ),
-                            itemBuilder: (context, index) {
-                              // the ProductCard will always be the same height - width relation, according to the actual height of the screen
-                              var cardHeight = mediaQuerySize.height * 0.17891;
-                              // Shimmer Placeholder
-                              return Container(
-                                height: cardHeight,
-                                width: cardHeight * 0.662252,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(7.0),
-                                  border: Border.all(
-                                    color: CustomColors.buttonGreen,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                        skipLoadingOnReload: true,
-                        skipError: true,
-                      ),
+                  // child: ref.watch(
+                  //   homeControllerProvider.select(
+                  //     (asyncState) => switch(asyncState) {
+                  //       AsyncData => asyncState.asData.value.advertisements, _ => null,
+                  //     }
+                  //   ),
+                  // ),
+                  // child: ref.watch(
+                  //   homeControllerProvider.select(
+                  //     (asyncState) => asyncState.when(
+                  //       data: (state) {
+                  //         return ListView.separated(
+                  //           scrollDirection: Axis.horizontal,
+                  //           itemCount: state.firstPopularProducts.length,
+                  //           separatorBuilder: (context, index) =>
+                  //               const SizedBox(
+                  //             width: 33.0,
+                  //           ),
+                  //           itemBuilder: (context, index) {
+                  //             // the ProductCard will always be the same height - width relation, according to the actual height of the screen
+                  //             var cardHeight = mediaQuerySize.height * 0.17891;
+                  //             return ProductCard(
+                  //               height: cardHeight,
+                  //               width: cardHeight * 0.662252,
+                  //               product: state.firstPopularProducts[index],
+                  //             );
+                  //           },
+                  //         );
+                  //       },
+                  //       error: (error, stackTrace) {
+                  //         return SizedBox(
+                  //           child: SizedBox(
+                  //             height: mediaQuerySize.height * 0.17891,
+                  //             child: const Center(
+                  //               child: Text(
+                  //                 //TODO
+                  //                 Strings.unknownErrorCode,
+                  //                 style: TextStyle(
+                  //                   color: Colors.white,
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         );
+                  //       },
+                  //       loading: () {
+                  //         return ListView.separated(
+                  //           scrollDirection: Axis.horizontal,
+                  //           itemCount: 6,
+                  //           separatorBuilder: (context, index) =>
+                  //               const SizedBox(
+                  //             width: 33.0,
+                  //           ),
+                  //           itemBuilder: (context, index) {
+                  //             // the ProductCard will always be the same height - width relation, according to the actual height of the screen
+                  //             var cardHeight = mediaQuerySize.height * 0.17891;
+                  //             // Shimmer Placeholder
+                  //             return Container(
+                  //               height: cardHeight,
+                  //               width: cardHeight * 0.662252,
+                  //               decoration: BoxDecoration(
+                  //                 borderRadius: BorderRadius.circular(7.0),
+                  //                 border: Border.all(
+                  //                   color: CustomColors.buttonGreen,
+                  //                   width: 1.0,
+                  //                 ),
+                  //               ),
+                  //             );
+                  //           },
+                  //         );
+                  //       },
+                  //       skipLoadingOnReload: true,
+                  //       skipError: true,
+                  //     ),
+                  //   ),
+                  // ),
+                  // child: ref.watch(homeControllerProvider).when(
+                  //       data: (state) {
+                  //         return ListView.separated(
+                  //           scrollDirection: Axis.horizontal,
+                  //           itemCount: state.firstPopularProducts.length,
+                  //           separatorBuilder: (context, index) =>
+                  //               const SizedBox(
+                  //             width: 33.0,
+                  //           ),
+                  //           itemBuilder: (context, index) {
+                  //             // the ProductCard will always be the same height - width relation, according to the actual height of the screen
+                  //             var cardHeight = mediaQuerySize.height * 0.17891;
+                  //             return ProductCard(
+                  //               height: cardHeight,
+                  //               width: cardHeight * 0.662252,
+                  //               product: state.firstPopularProducts[index],
+                  //             );
+                  //           },
+                  //         );
+                  //       },
+                  //       error: (error, stackTrace) {
+                  //         return SizedBox(
+                  //           child: SizedBox(
+                  //             height: mediaQuerySize.height * 0.17891,
+                  //             child: const Center(
+                  //               child: Text(
+                  //                 //TODO
+                  //                 Strings.unknownErrorCode,
+                  //                 style: TextStyle(
+                  //                   color: Colors.white,
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         );
+                  //       },
+                  //       loading: () {
+                  //         return ListView.separated(
+                  //           scrollDirection: Axis.horizontal,
+                  //           itemCount: 6,
+                  //           separatorBuilder: (context, index) =>
+                  //               const SizedBox(
+                  //             width: 33.0,
+                  //           ),
+                  //           itemBuilder: (context, index) {
+                  //             // the ProductCard will always be the same height - width relation, according to the actual height of the screen
+                  //             var cardHeight = mediaQuerySize.height * 0.17891;
+                  //             // Shimmer Placeholder
+                  //             return Container(
+                  //               height: cardHeight,
+                  //               width: cardHeight * 0.662252,
+                  //               decoration: BoxDecoration(
+                  //                 borderRadius: BorderRadius.circular(7.0),
+                  //                 border: Border.all(
+                  //                   color: CustomColors.buttonGreen,
+                  //                   width: 1.0,
+                  //                 ),
+                  //               ),
+                  //             );
+                  //           },
+                  //         );
+                  //       },
+                  //       skipLoadingOnReload: true,
+                  //       skipError: true,
+                  //     ),
                 ),
                 const SizedBox(
                   height: 16.0,
@@ -249,7 +332,9 @@ class HomeScreen extends ConsumerWidget {
                 // Special Sale Card
                 SizedBox(
                   height: mediaQuerySize.height * 0.10663507,
-                  child: ref.watch(homeControllerProvider).when(
+                  child: ref.watch(
+                    homeControllerProvider.select(
+                      (asyncState) => asyncState.when(
                         data: (state) {
                           return Card(
                             child: GestureDetector(
@@ -295,6 +380,55 @@ class HomeScreen extends ConsumerWidget {
                         skipLoadingOnReload: true,
                         skipError: true,
                       ),
+                    ),
+                  ),
+
+                  // .when(
+                  //       data: (state) {
+                  //         return Card(
+                  //           child: GestureDetector(
+                  //             onTap: (state.specialOffer.id.isNotEmpty)
+                  //                 ? () => context.go(
+                  //                       AppRouter.onSales.path,
+                  //                       extra: state.specialOffer,
+                  //                     )
+                  //                 : null,
+                  //             child: FittedBox(
+                  //               fit: BoxFit.contain,
+                  //               child: CachedNetworkImage(
+                  //                 imageUrl: state.specialOffer.imagePath,
+                  //                 progressIndicatorBuilder:
+                  //                     (context, url, downloadProgress) =>
+                  //                         CircularProgressIndicator(
+                  //                   value: downloadProgress.progress,
+                  //                 ),
+                  //                 errorWidget: (context, url, error) =>
+                  //                     const Icon(Icons.error),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         );
+                  //       },
+                  //       error: (error, stackTrace) {
+                  //         return const Card(
+                  //           color: CustomColors.buttonGreen,
+                  //           child: Center(
+                  //             child: Text(
+                  //               //TODO
+                  //               Strings.unknownErrorCode,
+                  //               style: TextStyle(
+                  //                 color: Colors.white,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         );
+                  //       },
+                  //       loading: () {
+                  //         return const Card();
+                  //       },
+                  //       skipLoadingOnReload: true,
+                  //       skipError: true,
+                  //     ),
                 ),
                 const SizedBox(
                   height: 16.0,
@@ -302,7 +436,9 @@ class HomeScreen extends ConsumerWidget {
                 // Second popular products
                 SizedBox(
                   height: mediaQuerySize.height * 0.1789099526,
-                  child: ref.watch(homeControllerProvider).when(
+                  child: ref.watch(
+                    homeControllerProvider.select(
+                      (asyncState) => asyncState.when(
                         data: (state) {
                           return ListView.separated(
                             scrollDirection: Axis.horizontal,
@@ -367,6 +503,73 @@ class HomeScreen extends ConsumerWidget {
                         skipLoadingOnReload: true,
                         skipError: true,
                       ),
+                    ),
+                  ),
+                  // child: ref.watch(homeControllerProvider).when(
+                  //       data: (state) {
+                  //         return ListView.separated(
+                  //           scrollDirection: Axis.horizontal,
+                  //           itemCount: state.secondPopularProducts.length,
+                  //           separatorBuilder: (context, index) =>
+                  //               const SizedBox(
+                  //             width: 33.0,
+                  //           ),
+                  //           itemBuilder: (context, index) {
+                  //             // the ProductCard will always be the same height - width relation, according to the actual height of the screen
+                  //             var cardHeight = mediaQuerySize.height * 0.17891;
+                  //             return ProductCard(
+                  //               height: cardHeight,
+                  //               width: cardHeight * 0.662252,
+                  //               product: state.secondPopularProducts[index],
+                  //             );
+                  //           },
+                  //         );
+                  //       },
+                  //       error: (error, stackTrace) {
+                  //         return SizedBox(
+                  //           child: SizedBox(
+                  //             height: mediaQuerySize.height * 0.17891,
+                  //             child: const Center(
+                  //               child: Text(
+                  //                 //TODO
+                  //                 Strings.unknownErrorCode,
+                  //                 style: TextStyle(
+                  //                   color: Colors.white,
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         );
+                  //       },
+                  //       loading: () {
+                  //         return ListView.separated(
+                  //           scrollDirection: Axis.horizontal,
+                  //           itemCount: 6,
+                  //           separatorBuilder: (context, index) =>
+                  //               const SizedBox(
+                  //             width: 33.0,
+                  //           ),
+                  //           itemBuilder: (context, index) {
+                  //             // the ProductCard will always be the same height - width relation, according to the actual height of the screen
+                  //             var cardHeight = mediaQuerySize.height * 0.17891;
+                  //             // Shimmer Placeholder
+                  //             return Container(
+                  //               height: cardHeight,
+                  //               width: cardHeight * 0.662252,
+                  //               decoration: BoxDecoration(
+                  //                 borderRadius: BorderRadius.circular(7.0),
+                  //                 border: Border.all(
+                  //                   color: CustomColors.buttonGreen,
+                  //                   width: 1.0,
+                  //                 ),
+                  //               ),
+                  //             );
+                  //           },
+                  //         );
+                  //       },
+                  //       skipLoadingOnReload: true,
+                  //       skipError: true,
+                  //     ),
                 ),
               ],
             ),

@@ -12,5 +12,7 @@ class HomeState with _$HomeState {
     required List<ProductDto> firstPopularProducts,
     required List<ProductDto> secondPopularProducts,
     required AdvertisementDto specialOffer,
+    required String searchProductName,
+    required List<ProductDto> searchProductsResult,
   }) = _HomeState;
 }

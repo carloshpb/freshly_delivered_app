@@ -27,11 +27,14 @@ class HomeController extends AsyncNotifier<HomeState> {
     var firstSublistProducts =
         products.sublist(0, (products.length / 2).round());
     var secondSublistProducts = products.sublist((products.length / 2).round());
+
     return HomeState(
       advertisements: advertisements,
       firstPopularProducts: firstSublistProducts,
       secondPopularProducts: secondSublistProducts,
       specialOffer: specialAdvertisement[0],
+      searchProductName: '',
+      searchProductsResult: [],
     );
   }
 
