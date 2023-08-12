@@ -20,23 +20,41 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var currentAdvertisementsState = ref.watch(
-      homeControllerProvider.select(
-        (asyncState) => asyncState.when(
-          data: (state) {
-            return state.advertisements;
-          },
-          error: (error, stackTrace) {
-            return error as Exception;
-          },
-          loading: () {
-            return null;
-          },
-          skipLoadingOnReload: true,
-          skipError: true,
-        ),
-      ),
-    );
+    // var currentAdvertisementsState = ref.watch(
+    //   homeControllerProvider.select(
+    //     (asyncState) => asyncState.when(
+    //       data: (state) {
+    //         return state.advertisements;
+    //       },
+    //       error: (error, stackTrace) {
+    //         return error as Exception;
+    //       },
+    //       loading: () {
+    //         return null;
+    //       },
+    //       skipLoadingOnReload: true,
+    //       skipError: true,
+    //     ),
+    //   ),
+    // );
+
+    // var currentSpecialOfferState = ref.watch(
+    //   homeControllerProvider.select(
+    //     (asyncState) => asyncState.when(
+    //       data: (state) {
+    //         return state.specialOffer;
+    //       },
+    //       error: (error, stackTrace) {
+    //         return error as Exception;
+    //       },
+    //       loading: () {
+    //         return null;
+    //       },
+    //       skipLoadingOnReload: true,
+    //       skipError: true,
+    //     ),
+    //   ),
+    // );
 
     final mediaQuerySize = MediaQuery.sizeOf(context);
     return Scaffold(
@@ -332,56 +350,96 @@ class HomeScreen extends ConsumerWidget {
                 // Special Sale Card
                 SizedBox(
                   height: mediaQuerySize.height * 0.10663507,
-                  child: ref.watch(
-                    homeControllerProvider.select(
-                      (asyncState) => asyncState.when(
-                        data: (state) {
-                          return Card(
-                            child: GestureDetector(
-                              onTap: (state.specialOffer.id.isNotEmpty)
-                                  ? () => context.go(
-                                        AppRouter.onSales.path,
-                                        extra: state.specialOffer,
-                                      )
-                                  : null,
-                              child: FittedBox(
-                                fit: BoxFit.contain,
-                                child: CachedNetworkImage(
-                                  imageUrl: state.specialOffer.imagePath,
-                                  progressIndicatorBuilder:
-                                      (context, url, downloadProgress) =>
-                                          CircularProgressIndicator(
-                                    value: downloadProgress.progress,
+
+                  child: ()
+                      ? Card(
+                          child: GestureDetector(
+                            onTap: (state.specialOffer.id.isNotEmpty)
+                                ? () => context.go(
+                                      AppRouter.onSales.path,
+                                      extra: state.specialOffer,
+                                    )
+                                : null,
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: CachedNetworkImage(
+                                imageUrl: state.specialOffer.imagePath,
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) =>
+                                        CircularProgressIndicator(
+                                  value: downloadProgress.progress,
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                              ),
+                            ),
+                          ),
+                        )
+                      : (isError)
+                          ? const Card(
+                              color: CustomColors.buttonGreen,
+                              child: Center(
+                                child: Text(
+                                  //TODO
+                                  Strings.unknownErrorCode,
+                                  style: TextStyle(
+                                    color: Colors.white,
                                   ),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                        error: (error, stackTrace) {
-                          return const Card(
-                            color: CustomColors.buttonGreen,
-                            child: Center(
-                              child: Text(
-                                //TODO
-                                Strings.unknownErrorCode,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        loading: () {
-                          return const Card();
-                        },
-                        skipLoadingOnReload: true,
-                        skipError: true,
-                      ),
-                    ),
-                  ),
+                            )
+                          : const Card(),
+
+                  // child: ref.watch(
+                  //   homeControllerProvider.select(
+                  //     (asyncState) => asyncState.when(
+                  //       data: (state) {
+                  //         return Card(
+                  //           child: GestureDetector(
+                  //             onTap: (state.specialOffer.id.isNotEmpty)
+                  //                 ? () => context.go(
+                  //                       AppRouter.onSales.path,
+                  //                       extra: state.specialOffer,
+                  //                     )
+                  //                 : null,
+                  //             child: FittedBox(
+                  //               fit: BoxFit.contain,
+                  //               child: CachedNetworkImage(
+                  //                 imageUrl: state.specialOffer.imagePath,
+                  //                 progressIndicatorBuilder:
+                  //                     (context, url, downloadProgress) =>
+                  //                         CircularProgressIndicator(
+                  //                   value: downloadProgress.progress,
+                  //                 ),
+                  //                 errorWidget: (context, url, error) =>
+                  //                     const Icon(Icons.error),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         );
+                  //       },
+                  //       error: (error, stackTrace) {
+                  //         return const Card(
+                  //           color: CustomColors.buttonGreen,
+                  //           child: Center(
+                  //             child: Text(
+                  //               TODO
+                  //               Strings.unknownErrorCode,
+                  //               style: TextStyle(
+                  //                 color: Colors.white,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         );
+                  //       },
+                  //       loading: () {
+                  //         return const Card();
+                  //       },
+                  //       skipLoadingOnReload: true,
+                  //       skipError: true,
+                  //     ),
+                  //   ),
+                  // ),
 
                   // .when(
                   //       data: (state) {
