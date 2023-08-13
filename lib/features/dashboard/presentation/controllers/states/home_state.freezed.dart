@@ -23,6 +23,9 @@ mixin _$HomeState {
   List<ProductDto> get secondPopularProducts =>
       throw _privateConstructorUsedError;
   AdvertisementDto get specialOffer => throw _privateConstructorUsedError;
+  String get searchProductName => throw _privateConstructorUsedError;
+  List<ProductDto> get searchProductsResult =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -38,7 +41,9 @@ abstract class $HomeStateCopyWith<$Res> {
       {List<AdvertisementDto> advertisements,
       List<ProductDto> firstPopularProducts,
       List<ProductDto> secondPopularProducts,
-      AdvertisementDto specialOffer});
+      AdvertisementDto specialOffer,
+      String searchProductName,
+      List<ProductDto> searchProductsResult});
 
   $AdvertisementDtoCopyWith<$Res> get specialOffer;
 }
@@ -60,6 +65,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? firstPopularProducts = null,
     Object? secondPopularProducts = null,
     Object? specialOffer = null,
+    Object? searchProductName = null,
+    Object? searchProductsResult = null,
   }) {
     return _then(_value.copyWith(
       advertisements: null == advertisements
@@ -78,6 +85,14 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.specialOffer
           : specialOffer // ignore: cast_nullable_to_non_nullable
               as AdvertisementDto,
+      searchProductName: null == searchProductName
+          ? _value.searchProductName
+          : searchProductName // ignore: cast_nullable_to_non_nullable
+              as String,
+      searchProductsResult: null == searchProductsResult
+          ? _value.searchProductsResult
+          : searchProductsResult // ignore: cast_nullable_to_non_nullable
+              as List<ProductDto>,
     ) as $Val);
   }
 
@@ -101,7 +116,9 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       {List<AdvertisementDto> advertisements,
       List<ProductDto> firstPopularProducts,
       List<ProductDto> secondPopularProducts,
-      AdvertisementDto specialOffer});
+      AdvertisementDto specialOffer,
+      String searchProductName,
+      List<ProductDto> searchProductsResult});
 
   @override
   $AdvertisementDtoCopyWith<$Res> get specialOffer;
@@ -122,6 +139,8 @@ class __$$_HomeStateCopyWithImpl<$Res>
     Object? firstPopularProducts = null,
     Object? secondPopularProducts = null,
     Object? specialOffer = null,
+    Object? searchProductName = null,
+    Object? searchProductsResult = null,
   }) {
     return _then(_$_HomeState(
       advertisements: null == advertisements
@@ -140,6 +159,14 @@ class __$$_HomeStateCopyWithImpl<$Res>
           ? _value.specialOffer
           : specialOffer // ignore: cast_nullable_to_non_nullable
               as AdvertisementDto,
+      searchProductName: null == searchProductName
+          ? _value.searchProductName
+          : searchProductName // ignore: cast_nullable_to_non_nullable
+              as String,
+      searchProductsResult: null == searchProductsResult
+          ? _value._searchProductsResult
+          : searchProductsResult // ignore: cast_nullable_to_non_nullable
+              as List<ProductDto>,
     ));
   }
 }
@@ -151,10 +178,13 @@ class _$_HomeState implements _HomeState {
       {required final List<AdvertisementDto> advertisements,
       required final List<ProductDto> firstPopularProducts,
       required final List<ProductDto> secondPopularProducts,
-      required this.specialOffer})
+      required this.specialOffer,
+      required this.searchProductName,
+      required final List<ProductDto> searchProductsResult})
       : _advertisements = advertisements,
         _firstPopularProducts = firstPopularProducts,
-        _secondPopularProducts = secondPopularProducts;
+        _secondPopularProducts = secondPopularProducts,
+        _searchProductsResult = searchProductsResult;
 
   final List<AdvertisementDto> _advertisements;
   @override
@@ -184,10 +214,20 @@ class _$_HomeState implements _HomeState {
 
   @override
   final AdvertisementDto specialOffer;
+  @override
+  final String searchProductName;
+  final List<ProductDto> _searchProductsResult;
+  @override
+  List<ProductDto> get searchProductsResult {
+    if (_searchProductsResult is EqualUnmodifiableListView)
+      return _searchProductsResult;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_searchProductsResult);
+  }
 
   @override
   String toString() {
-    return 'HomeState(advertisements: $advertisements, firstPopularProducts: $firstPopularProducts, secondPopularProducts: $secondPopularProducts, specialOffer: $specialOffer)';
+    return 'HomeState(advertisements: $advertisements, firstPopularProducts: $firstPopularProducts, secondPopularProducts: $secondPopularProducts, specialOffer: $specialOffer, searchProductName: $searchProductName, searchProductsResult: $searchProductsResult)';
   }
 
   @override
@@ -202,7 +242,11 @@ class _$_HomeState implements _HomeState {
             const DeepCollectionEquality()
                 .equals(other._secondPopularProducts, _secondPopularProducts) &&
             (identical(other.specialOffer, specialOffer) ||
-                other.specialOffer == specialOffer));
+                other.specialOffer == specialOffer) &&
+            (identical(other.searchProductName, searchProductName) ||
+                other.searchProductName == searchProductName) &&
+            const DeepCollectionEquality()
+                .equals(other._searchProductsResult, _searchProductsResult));
   }
 
   @override
@@ -211,7 +255,9 @@ class _$_HomeState implements _HomeState {
       const DeepCollectionEquality().hash(_advertisements),
       const DeepCollectionEquality().hash(_firstPopularProducts),
       const DeepCollectionEquality().hash(_secondPopularProducts),
-      specialOffer);
+      specialOffer,
+      searchProductName,
+      const DeepCollectionEquality().hash(_searchProductsResult));
 
   @JsonKey(ignore: true)
   @override
@@ -225,7 +271,9 @@ abstract class _HomeState implements HomeState {
       {required final List<AdvertisementDto> advertisements,
       required final List<ProductDto> firstPopularProducts,
       required final List<ProductDto> secondPopularProducts,
-      required final AdvertisementDto specialOffer}) = _$_HomeState;
+      required final AdvertisementDto specialOffer,
+      required final String searchProductName,
+      required final List<ProductDto> searchProductsResult}) = _$_HomeState;
 
   @override
   List<AdvertisementDto> get advertisements;
@@ -235,6 +283,10 @@ abstract class _HomeState implements HomeState {
   List<ProductDto> get secondPopularProducts;
   @override
   AdvertisementDto get specialOffer;
+  @override
+  String get searchProductName;
+  @override
+  List<ProductDto> get searchProductsResult;
   @override
   @JsonKey(ignore: true)
   _$$_HomeStateCopyWith<_$_HomeState> get copyWith =>

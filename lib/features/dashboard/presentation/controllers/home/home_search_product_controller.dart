@@ -5,13 +5,13 @@ import '../../../application/use_cases/find_products_by_name_use_case_impl.dart'
 
 final searchProductTextFieldHomeProvider = StateProvider<String>((ref) => '');
 
-final filterProductsProvider =
-    NotifierProvider<FilterProductsController, List<ProductDto>>(
-  () => FilterProductsController(),
-  name: r'filterProductsProvider',
+final homeSearchProductsControllerProvider =
+    NotifierProvider<HomeSearchProductsController, List<ProductDto>>(
+  () => HomeSearchProductsController(),
+  name: r'homeSearchProductsControllerProvider',
 );
 
-class FilterProductsController extends Notifier<List<ProductDto>> {
+class HomeSearchProductsController extends Notifier<List<ProductDto>> {
   @override
   List<ProductDto> build() {
     return [];

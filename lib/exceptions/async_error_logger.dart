@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 
-import 'error_logger.dart';
+//import 'error_logger.dart';
 
 /// Error logger class to keep track of all AsyncError states that are set
 /// by the controllers in the app
@@ -12,15 +13,19 @@ class AsyncErrorLogger extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    final errorLogger = container.read(errorLoggerProvider);
-    final error = _findError(newValue);
-    if (error != null) {
-      if (error.error is Exception) {
+    //final errorLogger = container.read(errorLoggerProvider);
+    final logger = Logger();
+    final asyncError = _findError(newValue);
+    if (asyncError != null) {
+      if (asyncError.error is Exception) {
         // only prints the AppException data
-        errorLogger.logException(error.error as Exception);
+        logger.e(asyncError.error as Exception);
+        //errorLogger.logException(error.error as Exception);
       } else {
         // prints everything including the stack trace
-        errorLogger.logError(error.error, error.stackTrace);
+        logger.f("ASYNCVALUE ERROR",
+            error: asyncError.error, stackTrace: asyncError.stackTrace);
+        //errorLogger.logError(error.error, error.stackTrace);
       }
     }
   }

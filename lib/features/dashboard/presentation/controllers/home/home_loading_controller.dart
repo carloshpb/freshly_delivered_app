@@ -2,19 +2,15 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../application/use_cases/find_special_advertisements_use_case_impl.dart';
-import '../../application/use_cases/get_last_advertisements_use_case_impl.dart';
-import '../../application/use_cases/get_products_with_limit_use_case_impl.dart';
-import 'states/home_state.dart';
-
-final homeControllerProvider = AsyncNotifierProvider<HomeController, HomeState>(
-  () => HomeController(),
-  name: r'homeControllerProvider',
+final homeLoadingControllerProvider =
+    AsyncNotifierProvider<HomeLoadingController, bool>(
+  () => HomeLoadingController(),
+  name: r'homeLoadingControllerProvider',
 );
 
-class HomeController extends AsyncNotifier<HomeState> {
+class HomeLoadingController extends AsyncNotifier<bool> {
   @override
-  FutureOr<HomeState> build() async {
+  FutureOr<bool> build() async {
     var advertisements = await ref
         .watch(getLastAdvertisementsUseCaseProvider)
         .execute((object: null, position: 0));
