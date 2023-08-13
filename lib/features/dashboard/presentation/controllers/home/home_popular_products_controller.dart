@@ -5,13 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../application/dtos/product_dto.dart';
 import '../../../application/use_cases/get_products_with_limit_use_case_impl.dart';
 
-final homeProductsControllerProvider = AsyncNotifierProvider<
-    HomeProductsController, (List<ProductDto>, List<ProductDto>)>(
-  () => HomeProductsController(),
-  name: r'homeProductsControllerProvider',
+final homePopularProductsControllerProvider = AsyncNotifierProvider<
+    HomePopularProductsController, (List<ProductDto>, List<ProductDto>)>(
+  () => HomePopularProductsController(),
+  name: r'homePopularProductsControllerProvider',
 );
 
-class HomeProductsController
+class HomePopularProductsController
     extends AsyncNotifier<(List<ProductDto>, List<ProductDto>)> {
   @override
   FutureOr<(List<ProductDto>, List<ProductDto>)> build() async {

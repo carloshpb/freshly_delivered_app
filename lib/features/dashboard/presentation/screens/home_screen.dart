@@ -58,45 +58,45 @@ class HomeScreen extends ConsumerWidget {
 
     final mediaQuerySize = MediaQuery.sizeOf(context);
     return Scaffold(
-      appBar: AppBar(
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(47.0),
-          child: TextField(
-            keyboardType: TextInputType.text,
-            textInputAction: TextInputAction.go,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-            ),
-            onSubmitted: (text) {
-              context.go(
-                Uri(
-                  path: AppRouter.searchResults.path,
-                  queryParameters: {'product-name': text},
-                ).toString(),
-              );
-            },
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: CustomColors.buttonGreenDeactivated,
-              hintText: Strings.searchProductsHint,
-              hintStyle: const TextStyle(
-                color: Colors.white,
-              ),
-              prefixIcon: const Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  10.0,
-                ),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   bottom: PreferredSize(
+      //     preferredSize: const Size.fromHeight(47.0),
+      //     child: TextField(
+      //       keyboardType: TextInputType.text,
+      //       textInputAction: TextInputAction.go,
+      //       style: const TextStyle(
+      //         color: Colors.white,
+      //         fontSize: 16.0,
+      //       ),
+      //       onSubmitted: (text) {
+      //         context.go(
+      //           Uri(
+      //             path: AppRouter.searchResults.path,
+      //             queryParameters: {'product-name': text},
+      //           ).toString(),
+      //         );
+      //       },
+      //       decoration: InputDecoration(
+      //         filled: true,
+      //         fillColor: CustomColors.buttonGreenDeactivated,
+      //         hintText: Strings.searchProductsHint,
+      //         hintStyle: const TextStyle(
+      //           color: Colors.white,
+      //         ),
+      //         prefixIcon: const Icon(
+      //           Icons.search,
+      //           color: Colors.white,
+      //         ),
+      //         border: OutlineInputBorder(
+      //           borderRadius: BorderRadius.circular(
+      //             10.0,
+      //           ),
+      //           borderSide: BorderSide.none,
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -109,46 +109,49 @@ class HomeScreen extends ConsumerWidget {
             child: Column(
               children: [
                 // Search product field
-                // SizedBox(
-                //   height: 47.0,
-                //   child: TextField(
-                //     keyboardType: TextInputType.text,
-                //     textInputAction: TextInputAction.go,
-                //     style: const TextStyle(
-                //       color: Colors.white,
-                //       fontSize: 16.0,
-                //     ),
-                //     onSubmitted: (text) {
-                //       context.go(
-                //         Uri(
-                //           path: AppRouter.searchResults.path,
-                //           queryParameters: {'product-name': text},
-                //         ).toString(),
-                //       );
-                //     },
-                //     decoration: InputDecoration(
-                //       filled: true,
-                //       fillColor: CustomColors.buttonGreenDeactivated,
-                //       hintText: Strings.searchProductsHint,
-                //       hintStyle: const TextStyle(
-                //         color: Colors.white,
-                //       ),
-                //       prefixIcon: const Icon(
-                //         Icons.search,
-                //         color: Colors.white,
-                //       ),
-                //       border: OutlineInputBorder(
-                //         borderRadius: BorderRadius.circular(
-                //           10.0,
-                //         ),
-                //         borderSide: BorderSide.none,
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                SizedBox(
+                  height: 47.0,
+                  child: TextField(
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.go,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                    ),
+                    onSubmitted: (text) {
+                      context.go(
+                        Uri(
+                          path: AppRouter.searchResults.path,
+                          queryParameters: {'product-name': text},
+                        ).toString(),
+                      );
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: CustomColors.buttonGreenDeactivated,
+                      hintText: Strings.searchProductsHint,
+                      hintStyle: const TextStyle(
+                        color: Colors.white,
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: Colors.white,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                          10.0,
+                        ),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 13.0,
                 ),
+                if(search has text)
+                SHOW POPULAR BAR + LIST OF FOUND PRODUcTS
+                ELSE : SHOW BELOW
                 // On Sales Carousel cards
                 SizedBox(
                   height: mediaQuerySize.height * 0.1954976,
