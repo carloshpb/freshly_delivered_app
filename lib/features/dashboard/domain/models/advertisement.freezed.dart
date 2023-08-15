@@ -182,7 +182,7 @@ class _$_Advertisement extends _Advertisement {
       this.description = '',
       @JsonKey(name: 'image_path') this.imagePath = '',
       @JsonKey(name: 'is_special') this.isSpecial = false,
-      @JsonKey(name: 'products_ids') final List<String> productsIds = false,
+      @JsonKey(name: 'products_ids') final List<String> productsIds = const [],
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'modified_at') required this.modifiedAt})
       : _productsIds = productsIds,
