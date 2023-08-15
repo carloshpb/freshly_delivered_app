@@ -20,6 +20,7 @@ class Product with _$Product {
     @Default('') String category,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'modified_at') required DateTime modifiedAt,
+    @JsonKey(name: 'units_sold') @Default(0) int unitsSold,
   }) = _Product;
 
   factory Product.fromJson(Map<String, Object?> json) =>
@@ -36,6 +37,7 @@ class Product with _$Product {
       description: description,
       imagePath: imagePath,
       category: category,
+      unitsSold: unitsSold,
     );
   }
 }

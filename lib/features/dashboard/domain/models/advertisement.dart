@@ -15,6 +15,7 @@ class Advertisement with _$Advertisement {
     @Default('') String description,
     @JsonKey(name: 'image_path') @Default('') String imagePath,
     @JsonKey(name: 'is_special') @Default(false) bool isSpecial,
+    @JsonKey(name: 'products_ids') @Default([]) List<String> productsIds,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'modified_at') required DateTime modifiedAt,
   }) = _Advertisement;
@@ -30,6 +31,7 @@ class Advertisement with _$Advertisement {
       description: description,
       imagePath: imagePath,
       isSpecial: isSpecial,
+      productsIds: productsIds,
     );
   }
 }

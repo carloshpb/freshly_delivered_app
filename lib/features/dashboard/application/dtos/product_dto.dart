@@ -16,6 +16,7 @@ class ProductDto with _$ProductDto {
     @Default('') String description,
     @Default('') String imagePath,
     @Default('') String category,
+    @Default(0) int unitsSold,
   }) = _ProductDto;
 
   Product toModel() {
@@ -29,6 +30,7 @@ class ProductDto with _$ProductDto {
       category: category,
       createdAt: DateTime.parse('0000-00-00'),
       modifiedAt: DateTime.parse('0000-00-00'),
+      unitsSold: unitsSold,
     );
   }
 }

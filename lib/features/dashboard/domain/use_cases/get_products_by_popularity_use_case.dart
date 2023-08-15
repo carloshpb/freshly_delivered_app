@@ -3,11 +3,11 @@ import 'dart:async';
 import '../../../use_case.dart';
 import '../../application/dtos/product_dto.dart';
 
-abstract class FindProductsByNameUseCase
+abstract class GetProductsByPopularityUseCase
     implements
-        UseCase<({String productName, int position, ProductDto? productObject}),
+        UseCase<({int lastProductPosition, ProductDto? lastProductObject}),
             List<ProductDto>> {
   @override
   FutureOr<List<ProductDto>> execute(
-      ({String productName, int position, ProductDto? productObject}) request);
+      ({int lastProductPosition, ProductDto? lastProductObject}) request);
 }

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../application/dtos/product_dto.dart';
-import '../../../application/use_cases/find_products_by_name_use_case_impl.dart';
+import '../../../application/use_cases/get_products_by_name_use_case_impl.dart';
 
 final searchProductTextFieldHomeProvider = StateProvider<String>((ref) => '');
 

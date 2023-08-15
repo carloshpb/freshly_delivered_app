@@ -28,6 +28,8 @@ mixin _$Product {
   DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'modified_at')
   DateTime get modifiedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'units_sold')
+  int get unitsSold => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductCopyWith<Product> get copyWith => throw _privateConstructorUsedError;
@@ -47,7 +49,8 @@ abstract class $ProductCopyWith<$Res> {
       @JsonKey(name: 'image_path') String imagePath,
       String category,
       @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'modified_at') DateTime modifiedAt});
+      @JsonKey(name: 'modified_at') DateTime modifiedAt,
+      @JsonKey(name: 'units_sold') int unitsSold});
 }
 
 /// @nodoc
@@ -72,6 +75,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? category = null,
     Object? createdAt = null,
     Object? modifiedAt = null,
+    Object? unitsSold = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -110,6 +114,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.modifiedAt
           : modifiedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      unitsSold: null == unitsSold
+          ? _value.unitsSold
+          : unitsSold // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -130,7 +138,8 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       @JsonKey(name: 'image_path') String imagePath,
       String category,
       @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'modified_at') DateTime modifiedAt});
+      @JsonKey(name: 'modified_at') DateTime modifiedAt,
+      @JsonKey(name: 'units_sold') int unitsSold});
 }
 
 /// @nodoc
@@ -152,6 +161,7 @@ class __$$_ProductCopyWithImpl<$Res>
     Object? category = null,
     Object? createdAt = null,
     Object? modifiedAt = null,
+    Object? unitsSold = null,
   }) {
     return _then(_$_Product(
       id: null == id
@@ -190,6 +200,10 @@ class __$$_ProductCopyWithImpl<$Res>
           ? _value.modifiedAt
           : modifiedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      unitsSold: null == unitsSold
+          ? _value.unitsSold
+          : unitsSold // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -206,7 +220,8 @@ class _$_Product extends _Product {
       @JsonKey(name: 'image_path') this.imagePath = '',
       this.category = '',
       @JsonKey(name: 'created_at') required this.createdAt,
-      @JsonKey(name: 'modified_at') required this.modifiedAt})
+      @JsonKey(name: 'modified_at') required this.modifiedAt,
+      @JsonKey(name: 'units_sold') this.unitsSold = 0})
       : super._();
 
   @override
@@ -236,10 +251,13 @@ class _$_Product extends _Product {
   @override
   @JsonKey(name: 'modified_at')
   final DateTime modifiedAt;
+  @override
+  @JsonKey(name: 'units_sold')
+  final int unitsSold;
 
   @override
   String toString() {
-    return 'Product(id: $id, title: $title, price: $price, offer: $offer, description: $description, imagePath: $imagePath, category: $category, createdAt: $createdAt, modifiedAt: $modifiedAt)';
+    return 'Product(id: $id, title: $title, price: $price, offer: $offer, description: $description, imagePath: $imagePath, category: $category, createdAt: $createdAt, modifiedAt: $modifiedAt, unitsSold: $unitsSold)';
   }
 
   @override
@@ -260,12 +278,14 @@ class _$_Product extends _Product {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.modifiedAt, modifiedAt) ||
-                other.modifiedAt == modifiedAt));
+                other.modifiedAt == modifiedAt) &&
+            (identical(other.unitsSold, unitsSold) ||
+                other.unitsSold == unitsSold));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, title, price, offer,
-      description, imagePath, category, createdAt, modifiedAt);
+      description, imagePath, category, createdAt, modifiedAt, unitsSold);
 
   @JsonKey(ignore: true)
   @override
@@ -276,16 +296,16 @@ class _$_Product extends _Product {
 
 abstract class _Product extends Product {
   factory _Product(
-          {final String id,
-          final String title,
-          final double price,
-          final int offer,
-          final String description,
-          @JsonKey(name: 'image_path') final String imagePath,
-          final String category,
-          @JsonKey(name: 'created_at') required final DateTime createdAt,
-          @JsonKey(name: 'modified_at') required final DateTime modifiedAt}) =
-      _$_Product;
+      {final String id,
+      final String title,
+      final double price,
+      final int offer,
+      final String description,
+      @JsonKey(name: 'image_path') final String imagePath,
+      final String category,
+      @JsonKey(name: 'created_at') required final DateTime createdAt,
+      @JsonKey(name: 'modified_at') required final DateTime modifiedAt,
+      @JsonKey(name: 'units_sold') final int unitsSold}) = _$_Product;
   _Product._() : super._();
 
   @override
@@ -309,6 +329,9 @@ abstract class _Product extends Product {
   @override
   @JsonKey(name: 'modified_at')
   DateTime get modifiedAt;
+  @override
+  @JsonKey(name: 'units_sold')
+  int get unitsSold;
   @override
   @JsonKey(ignore: true)
   _$$_ProductCopyWith<_$_Product> get copyWith =>
