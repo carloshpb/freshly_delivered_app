@@ -6,22 +6,22 @@ import 'package:freshly_delivered_app/features/dashboard/application/dtos/advert
 import '../../data/repositories/advertisements_local_repository_impl.dart';
 import '../../data/repositories/advertisements_remote_repository_impl.dart';
 import '../../domain/repositories/advertisements_repository.dart';
-import '../../domain/use_cases/find_special_advertisements_use_case.dart';
+import '../../domain/use_cases/get_special_advertisements_use_case.dart';
 
-final findSpecialAdvertisementsUseCaseProvider =
-    Provider<FindSpecialAdvertisementsUseCase>(
-  (ref) => FindSpecialAdvertisementsUseCaseImpl(
+final getSpecialAdvertisementsUseCaseProvider =
+    Provider<GetSpecialAdvertisementsUseCase>(
+  (ref) => GetSpecialAdvertisementsUseCaseImpl(
     ref.watch(advertisementsLocalRepositoryProvider),
     ref.watch(advertisementsRemoteRepositoryProvider),
   ),
 );
 
-class FindSpecialAdvertisementsUseCaseImpl
-    implements FindSpecialAdvertisementsUseCase {
+class GetSpecialAdvertisementsUseCaseImpl
+    implements GetSpecialAdvertisementsUseCase {
   final AdvertisementsRepository _localAdvertisementsRepository;
   final AdvertisementsRepository _remoteAdvertisementsRepository;
 
-  FindSpecialAdvertisementsUseCaseImpl(
+  GetSpecialAdvertisementsUseCaseImpl(
     AdvertisementsRepository localAdvertisementsRepository,
     AdvertisementsRepository remoteAdvertisementsRepository,
   )   : _localAdvertisementsRepository = localAdvertisementsRepository,

@@ -10,7 +10,7 @@ part 'product.g.dart';
 class Product with _$Product {
   const Product._();
 
-  factory Product({
+  const factory Product({
     @Default('') String id,
     @Default('') String title,
     @Default(-1.0) double price,
@@ -18,8 +18,11 @@ class Product with _$Product {
     @Default('') String description,
     @JsonKey(name: 'image_path') @Default('') String imagePath,
     @Default('') String category,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'modified_at') required DateTime modifiedAt,
+    @JsonKey(name: 'units_sold') @Default(0) int unitsSold,
+    @JsonKey(name: 'advertisement_id') @Default('') String advertisementId,
+    @Default(0) int discount,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'modified_at') DateTime? modifiedAt,
   }) = _Product;
 
   factory Product.fromJson(Map<String, Object?> json) =>
@@ -36,6 +39,9 @@ class Product with _$Product {
       description: description,
       imagePath: imagePath,
       category: category,
+      unitsSold: unitsSold,
+      advertisementId: advertisementId,
+      discount: discount,
     );
   }
 }

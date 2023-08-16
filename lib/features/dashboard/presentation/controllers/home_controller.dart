@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../application/use_cases/find_special_advertisements_use_case_impl.dart';
+import '../../application/use_cases/get_special_advertisements_use_case_impl.dart';
 import '../../application/use_cases/get_last_advertisements_use_case_impl.dart';
 import '../../application/use_cases/get_products_with_limit_use_case_impl.dart';
 import 'states/home_state.dart';

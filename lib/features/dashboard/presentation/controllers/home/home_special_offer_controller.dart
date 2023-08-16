@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../application/dtos/advertisement_dto.dart';
-import '../../../application/use_cases/find_special_advertisements_use_case_impl.dart';
+import '../../../application/use_cases/get_special_advertisements_use_case_impl.dart';
 
 final homeSpecialOfferControllerProvider =
     AsyncNotifierProvider<HomeSpecialOfferController, List<AdvertisementDto>>(

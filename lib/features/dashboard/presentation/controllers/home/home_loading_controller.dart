@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../application/use_cases/get_last_advertisements_use_case_impl.dart';
+
 final homeLoadingControllerProvider =
     AsyncNotifierProvider<HomeLoadingController, bool>(
   () => HomeLoadingController(),

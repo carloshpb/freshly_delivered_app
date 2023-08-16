@@ -10,4 +10,5 @@ abstract class AdvertisementsRepository {
   FutureOr<List<Advertisement>> findSpecialAdvertisements(int limit,
       ({Advertisement? advertisementObject, int position}) lastAdvertisement);
   Future<void> saveAdvertisements(List<Advertisement> advertisements);
+  Stream<List<Advertisement>> fetchLastAdvertisements();
 }

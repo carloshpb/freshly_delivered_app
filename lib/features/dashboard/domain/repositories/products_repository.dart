@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import '../models/advertisement.dart';
 import '../models/product.dart';
 
 abstract class ProductsRepository {
@@ -10,4 +11,5 @@ abstract class ProductsRepository {
       int limit, ({Product? productObject, int position}) lastProduct);
   FutureOr<List<Product>> findAllProducts();
   Future<void> saveProducts(List<Product> products);
+  Stream<List<Product>> fetchProductsByAdvertisementId(String advertisementId);
 }

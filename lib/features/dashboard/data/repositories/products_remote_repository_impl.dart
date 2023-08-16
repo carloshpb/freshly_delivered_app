@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freshly_delivered_app/features/dashboard/domain/models/advertisement.dart';
 import 'package:freshly_delivered_app/features/dashboard/domain/models/product.dart';
 
 import '../../domain/repositories/products_repository.dart';
@@ -72,5 +73,24 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
           (prodMap) => Product.fromJson(prodMap),
         )
         .toList();
+  }
+
+  @override
+  Stream<List<Product>> fetchProductsByAdvertisementId(
+      String advertisementId) async* {
+    var resultListMap = _firestoreApi.fetchByAttributeDesc(
+      "products",
+      advertisementId,
+      'advertisement_id',
+      'units_sold',
+    );
+
+    yield* resultListMap.map<List<Product>>(
+      (listMapJson) => listMapJson
+          .map(
+            (mapJson) => Product.fromJson(mapJson),
+          )
+          .toList(),
+    );
   }
 }

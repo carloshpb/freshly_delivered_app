@@ -91,4 +91,10 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
         )
         .toList();
   }
+
+  @override
+  Stream<List<Product>> fetchProductsByAdvertisementId(String advertisementId) {
+    // TODO: implement fetchProductsByAdvertisementId
+    throw UnimplementedError();
+  }
 }

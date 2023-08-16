@@ -15,8 +15,9 @@ class Advertisement with _$Advertisement {
     @Default('') String description,
     @JsonKey(name: 'image_path') @Default('') String imagePath,
     @JsonKey(name: 'is_special') @Default(false) bool isSpecial,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'modified_at') required DateTime modifiedAt,
+    @Default(0) int discount,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'modified_at') DateTime? modifiedAt,
   }) = _Advertisement;
 
   factory Advertisement.fromJson(Map<String, Object?> json) =>
@@ -30,6 +31,7 @@ class Advertisement with _$Advertisement {
       description: description,
       imagePath: imagePath,
       isSpecial: isSpecial,
+      discount: discount,
     );
   }
 }
