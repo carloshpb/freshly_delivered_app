@@ -96,4 +96,10 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
         )
         .toList();
   }
+
+  @override
+  Stream<List<Advertisement>> fetchLastAdvertisements() {
+    // TODO: implement fetchLastAdvertisements
+    throw UnimplementedError();
+  }
 }

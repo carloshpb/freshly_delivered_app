@@ -153,14 +153,30 @@ class FirestoreApiImpl implements FirestoreApi {
   }
 
   @override
-  Stream<List<Map<String, Object?>>> fetchByAttributeDesc(
-      String collection, attribute, String attributeName) async* {
+  Stream<List<Map<String, Object?>>> fetchByAttributeDesc(String collection,
+      attribute, String attributeName, String descAttributeName) async* {
+    late Query<Map<String, dynamic>> collectionRef;
 
-        _firestore
-        .collection(collection).w
-    final collectionRef = _firestore
-        .collection(collection)
-        .where(attributeName, isEqualTo: attribute);
+    if (collection.isEmpty) {
+      throw FirebaseException(
+        plugin: "firebase_firestore",
+        code: "not-found",
+        message: "It's not allowed to query for an empty collection name",
+      );
+    } else if (attributeName.isEmpty && descAttributeName.isNotEmpty) {
+      collectionRef = _firestore
+          .collection(collection)
+          .orderBy(descAttributeName, descending: true);
+    } else if (attributeName.isNotEmpty && descAttributeName.isEmpty) {
+      collectionRef = _firestore
+          .collection(collection)
+          .where(attributeName, isEqualTo: attribute);
+    } else {
+      collectionRef = _firestore
+          .collection(collection)
+          .orderBy(descAttributeName, descending: true)
+          .where(attributeName, isEqualTo: attribute);
+    }
 
     await for (final query in collectionRef.snapshots()) {
       var mapList = <Map<String, Object?>>[];

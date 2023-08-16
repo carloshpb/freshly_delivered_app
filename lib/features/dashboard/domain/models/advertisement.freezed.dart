@@ -22,12 +22,11 @@ mixin _$Advertisement {
   String get imagePath => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_special')
   bool get isSpecial => throw _privateConstructorUsedError;
-  @JsonKey(name: 'products_ids')
-  List<String> get productsIds => throw _privateConstructorUsedError;
+  int get discount => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'modified_at')
-  DateTime get modifiedAt => throw _privateConstructorUsedError;
+  DateTime? get modifiedAt => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AdvertisementCopyWith<Advertisement> get copyWith =>
@@ -45,9 +44,9 @@ abstract class $AdvertisementCopyWith<$Res> {
       String description,
       @JsonKey(name: 'image_path') String imagePath,
       @JsonKey(name: 'is_special') bool isSpecial,
-      @JsonKey(name: 'products_ids') List<String> productsIds,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'modified_at') DateTime modifiedAt});
+      int discount,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'modified_at') DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -67,9 +66,9 @@ class _$AdvertisementCopyWithImpl<$Res, $Val extends Advertisement>
     Object? description = null,
     Object? imagePath = null,
     Object? isSpecial = null,
-    Object? productsIds = null,
-    Object? createdAt = null,
-    Object? modifiedAt = null,
+    Object? discount = null,
+    Object? createdAt = freezed,
+    Object? modifiedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -88,18 +87,18 @@ class _$AdvertisementCopyWithImpl<$Res, $Val extends Advertisement>
           ? _value.isSpecial
           : isSpecial // ignore: cast_nullable_to_non_nullable
               as bool,
-      productsIds: null == productsIds
-          ? _value.productsIds
-          : productsIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      createdAt: null == createdAt
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      modifiedAt: null == modifiedAt
+              as DateTime?,
+      modifiedAt: freezed == modifiedAt
           ? _value.modifiedAt
           : modifiedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -117,9 +116,9 @@ abstract class _$$_AdvertisementCopyWith<$Res>
       String description,
       @JsonKey(name: 'image_path') String imagePath,
       @JsonKey(name: 'is_special') bool isSpecial,
-      @JsonKey(name: 'products_ids') List<String> productsIds,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'modified_at') DateTime modifiedAt});
+      int discount,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'modified_at') DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -137,9 +136,9 @@ class __$$_AdvertisementCopyWithImpl<$Res>
     Object? description = null,
     Object? imagePath = null,
     Object? isSpecial = null,
-    Object? productsIds = null,
-    Object? createdAt = null,
-    Object? modifiedAt = null,
+    Object? discount = null,
+    Object? createdAt = freezed,
+    Object? modifiedAt = freezed,
   }) {
     return _then(_$_Advertisement(
       id: null == id
@@ -158,18 +157,18 @@ class __$$_AdvertisementCopyWithImpl<$Res>
           ? _value.isSpecial
           : isSpecial // ignore: cast_nullable_to_non_nullable
               as bool,
-      productsIds: null == productsIds
-          ? _value._productsIds
-          : productsIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      createdAt: null == createdAt
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      modifiedAt: null == modifiedAt
+              as DateTime?,
+      modifiedAt: freezed == modifiedAt
           ? _value.modifiedAt
           : modifiedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
     ));
   }
 }
@@ -182,11 +181,10 @@ class _$_Advertisement extends _Advertisement {
       this.description = '',
       @JsonKey(name: 'image_path') this.imagePath = '',
       @JsonKey(name: 'is_special') this.isSpecial = false,
-      @JsonKey(name: 'products_ids') final List<String> productsIds = const [],
-      @JsonKey(name: 'created_at') required this.createdAt,
-      @JsonKey(name: 'modified_at') required this.modifiedAt})
-      : _productsIds = productsIds,
-        super._();
+      this.discount = 0,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(name: 'modified_at') this.modifiedAt})
+      : super._();
 
   @override
   @JsonKey()
@@ -200,25 +198,19 @@ class _$_Advertisement extends _Advertisement {
   @override
   @JsonKey(name: 'is_special')
   final bool isSpecial;
-  final List<String> _productsIds;
   @override
-  @JsonKey(name: 'products_ids')
-  List<String> get productsIds {
-    if (_productsIds is EqualUnmodifiableListView) return _productsIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_productsIds);
-  }
-
+  @JsonKey()
+  final int discount;
   @override
   @JsonKey(name: 'created_at')
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @override
   @JsonKey(name: 'modified_at')
-  final DateTime modifiedAt;
+  final DateTime? modifiedAt;
 
   @override
   String toString() {
-    return 'Advertisement(id: $id, description: $description, imagePath: $imagePath, isSpecial: $isSpecial, productsIds: $productsIds, createdAt: $createdAt, modifiedAt: $modifiedAt)';
+    return 'Advertisement(id: $id, description: $description, imagePath: $imagePath, isSpecial: $isSpecial, discount: $discount, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
@@ -233,8 +225,8 @@ class _$_Advertisement extends _Advertisement {
                 other.imagePath == imagePath) &&
             (identical(other.isSpecial, isSpecial) ||
                 other.isSpecial == isSpecial) &&
-            const DeepCollectionEquality()
-                .equals(other._productsIds, _productsIds) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.modifiedAt, modifiedAt) ||
@@ -242,15 +234,8 @@ class _$_Advertisement extends _Advertisement {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      description,
-      imagePath,
-      isSpecial,
-      const DeepCollectionEquality().hash(_productsIds),
-      createdAt,
-      modifiedAt);
+  int get hashCode => Object.hash(runtimeType, id, description, imagePath,
+      isSpecial, discount, createdAt, modifiedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -265,9 +250,9 @@ abstract class _Advertisement extends Advertisement {
           final String description,
           @JsonKey(name: 'image_path') final String imagePath,
           @JsonKey(name: 'is_special') final bool isSpecial,
-          @JsonKey(name: 'products_ids') final List<String> productsIds,
-          @JsonKey(name: 'created_at') required final DateTime createdAt,
-          @JsonKey(name: 'modified_at') required final DateTime modifiedAt}) =
+          final int discount,
+          @JsonKey(name: 'created_at') final DateTime? createdAt,
+          @JsonKey(name: 'modified_at') final DateTime? modifiedAt}) =
       _$_Advertisement;
   _Advertisement._() : super._();
 
@@ -282,14 +267,13 @@ abstract class _Advertisement extends Advertisement {
   @JsonKey(name: 'is_special')
   bool get isSpecial;
   @override
-  @JsonKey(name: 'products_ids')
-  List<String> get productsIds;
+  int get discount;
   @override
   @JsonKey(name: 'created_at')
-  DateTime get createdAt;
+  DateTime? get createdAt;
   @override
   @JsonKey(name: 'modified_at')
-  DateTime get modifiedAt;
+  DateTime? get modifiedAt;
   @override
   @JsonKey(ignore: true)
   _$$_AdvertisementCopyWith<_$_Advertisement> get copyWith =>

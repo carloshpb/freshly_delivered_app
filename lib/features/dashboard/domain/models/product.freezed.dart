@@ -24,12 +24,15 @@ mixin _$Product {
   @JsonKey(name: 'image_path')
   String get imagePath => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'modified_at')
-  DateTime get modifiedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'units_sold')
   int get unitsSold => throw _privateConstructorUsedError;
+  @JsonKey(name: 'advertisement_id')
+  String get advertisementId => throw _privateConstructorUsedError;
+  int get discount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'modified_at')
+  DateTime? get modifiedAt => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductCopyWith<Product> get copyWith => throw _privateConstructorUsedError;
@@ -48,9 +51,11 @@ abstract class $ProductCopyWith<$Res> {
       String description,
       @JsonKey(name: 'image_path') String imagePath,
       String category,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'modified_at') DateTime modifiedAt,
-      @JsonKey(name: 'units_sold') int unitsSold});
+      @JsonKey(name: 'units_sold') int unitsSold,
+      @JsonKey(name: 'advertisement_id') String advertisementId,
+      int discount,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'modified_at') DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -73,9 +78,11 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? description = null,
     Object? imagePath = null,
     Object? category = null,
-    Object? createdAt = null,
-    Object? modifiedAt = null,
     Object? unitsSold = null,
+    Object? advertisementId = null,
+    Object? discount = null,
+    Object? createdAt = freezed,
+    Object? modifiedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -106,18 +113,26 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      modifiedAt: null == modifiedAt
-          ? _value.modifiedAt
-          : modifiedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       unitsSold: null == unitsSold
           ? _value.unitsSold
           : unitsSold // ignore: cast_nullable_to_non_nullable
               as int,
+      advertisementId: null == advertisementId
+          ? _value.advertisementId
+          : advertisementId // ignore: cast_nullable_to_non_nullable
+              as String,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      modifiedAt: freezed == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -137,9 +152,11 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String description,
       @JsonKey(name: 'image_path') String imagePath,
       String category,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'modified_at') DateTime modifiedAt,
-      @JsonKey(name: 'units_sold') int unitsSold});
+      @JsonKey(name: 'units_sold') int unitsSold,
+      @JsonKey(name: 'advertisement_id') String advertisementId,
+      int discount,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'modified_at') DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -159,9 +176,11 @@ class __$$_ProductCopyWithImpl<$Res>
     Object? description = null,
     Object? imagePath = null,
     Object? category = null,
-    Object? createdAt = null,
-    Object? modifiedAt = null,
     Object? unitsSold = null,
+    Object? advertisementId = null,
+    Object? discount = null,
+    Object? createdAt = freezed,
+    Object? modifiedAt = freezed,
   }) {
     return _then(_$_Product(
       id: null == id
@@ -192,18 +211,26 @@ class __$$_ProductCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      modifiedAt: null == modifiedAt
-          ? _value.modifiedAt
-          : modifiedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       unitsSold: null == unitsSold
           ? _value.unitsSold
           : unitsSold // ignore: cast_nullable_to_non_nullable
               as int,
+      advertisementId: null == advertisementId
+          ? _value.advertisementId
+          : advertisementId // ignore: cast_nullable_to_non_nullable
+              as String,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      modifiedAt: freezed == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -211,7 +238,7 @@ class __$$_ProductCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Product extends _Product {
-  _$_Product(
+  const _$_Product(
       {this.id = '',
       this.title = '',
       this.price = -1.0,
@@ -219,9 +246,11 @@ class _$_Product extends _Product {
       this.description = '',
       @JsonKey(name: 'image_path') this.imagePath = '',
       this.category = '',
-      @JsonKey(name: 'created_at') required this.createdAt,
-      @JsonKey(name: 'modified_at') required this.modifiedAt,
-      @JsonKey(name: 'units_sold') this.unitsSold = 0})
+      @JsonKey(name: 'units_sold') this.unitsSold = 0,
+      @JsonKey(name: 'advertisement_id') this.advertisementId = '',
+      this.discount = 0,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(name: 'modified_at') this.modifiedAt})
       : super._();
 
   @override
@@ -246,18 +275,24 @@ class _$_Product extends _Product {
   @JsonKey()
   final String category;
   @override
-  @JsonKey(name: 'created_at')
-  final DateTime createdAt;
-  @override
-  @JsonKey(name: 'modified_at')
-  final DateTime modifiedAt;
-  @override
   @JsonKey(name: 'units_sold')
   final int unitsSold;
+  @override
+  @JsonKey(name: 'advertisement_id')
+  final String advertisementId;
+  @override
+  @JsonKey()
+  final int discount;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+  @override
+  @JsonKey(name: 'modified_at')
+  final DateTime? modifiedAt;
 
   @override
   String toString() {
-    return 'Product(id: $id, title: $title, price: $price, offer: $offer, description: $description, imagePath: $imagePath, category: $category, createdAt: $createdAt, modifiedAt: $modifiedAt, unitsSold: $unitsSold)';
+    return 'Product(id: $id, title: $title, price: $price, offer: $offer, description: $description, imagePath: $imagePath, category: $category, unitsSold: $unitsSold, advertisementId: $advertisementId, discount: $discount, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
@@ -275,17 +310,33 @@ class _$_Product extends _Product {
                 other.imagePath == imagePath) &&
             (identical(other.category, category) ||
                 other.category == category) &&
+            (identical(other.unitsSold, unitsSold) ||
+                other.unitsSold == unitsSold) &&
+            (identical(other.advertisementId, advertisementId) ||
+                other.advertisementId == advertisementId) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.modifiedAt, modifiedAt) ||
-                other.modifiedAt == modifiedAt) &&
-            (identical(other.unitsSold, unitsSold) ||
-                other.unitsSold == unitsSold));
+                other.modifiedAt == modifiedAt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, price, offer,
-      description, imagePath, category, createdAt, modifiedAt, unitsSold);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      price,
+      offer,
+      description,
+      imagePath,
+      category,
+      unitsSold,
+      advertisementId,
+      discount,
+      createdAt,
+      modifiedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -295,7 +346,7 @@ class _$_Product extends _Product {
 }
 
 abstract class _Product extends Product {
-  factory _Product(
+  const factory _Product(
       {final String id,
       final String title,
       final double price,
@@ -303,10 +354,12 @@ abstract class _Product extends Product {
       final String description,
       @JsonKey(name: 'image_path') final String imagePath,
       final String category,
-      @JsonKey(name: 'created_at') required final DateTime createdAt,
-      @JsonKey(name: 'modified_at') required final DateTime modifiedAt,
-      @JsonKey(name: 'units_sold') final int unitsSold}) = _$_Product;
-  _Product._() : super._();
+      @JsonKey(name: 'units_sold') final int unitsSold,
+      @JsonKey(name: 'advertisement_id') final String advertisementId,
+      final int discount,
+      @JsonKey(name: 'created_at') final DateTime? createdAt,
+      @JsonKey(name: 'modified_at') final DateTime? modifiedAt}) = _$_Product;
+  const _Product._() : super._();
 
   @override
   String get id;
@@ -324,14 +377,19 @@ abstract class _Product extends Product {
   @override
   String get category;
   @override
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt;
-  @override
-  @JsonKey(name: 'modified_at')
-  DateTime get modifiedAt;
-  @override
   @JsonKey(name: 'units_sold')
   int get unitsSold;
+  @override
+  @JsonKey(name: 'advertisement_id')
+  String get advertisementId;
+  @override
+  int get discount;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt;
+  @override
+  @JsonKey(name: 'modified_at')
+  DateTime? get modifiedAt;
   @override
   @JsonKey(ignore: true)
   _$$_ProductCopyWith<_$_Product> get copyWith =>

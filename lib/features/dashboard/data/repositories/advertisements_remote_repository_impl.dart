@@ -79,4 +79,32 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
         )
         .toList();
   }
+
+  @override
+  Stream<List<Advertisement>> fetchLastAdvertisements() async* {
+    var resultListMap = _firestoreApi.fetchByAttributeDesc(
+      "advertisements",
+      null,
+      "",
+      "created_at",
+    );
+
+    yield* resultListMap.map<List<Advertisement>>(
+      (listMapJson) => listMapJson
+          .map(
+            (mapJson) => Advertisement.fromJson(mapJson),
+          )
+          .toList(),
+    );
+
+    // await for (final listMap in resultListMap) {
+    //   var mapList = <Map<String, Object?>>[];
+    //   for (var docSnapshot in query.docs) {
+    //     var map = docSnapshot.data();
+    //     map["id"] = docSnapshot.id;
+    //     mapList.add(map);
+    //   }
+    //   yield mapList;
+    // }
+  }
 }

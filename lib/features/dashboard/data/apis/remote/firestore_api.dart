@@ -14,9 +14,10 @@ abstract class FirestoreApi {
     Object? lastObject,
   );
   Future<void> save(String collection, dynamic entity);
-  Stream<dynamic> fetchByAttributeDesc(
+  Stream<List<Map<String, Object?>>> fetchByAttributeDesc(
     String collection,
     dynamic attribute,
     String attributeName,
+    String descAttributeName,
   );
 }

@@ -14,9 +14,15 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       description: json['description'] as String,
       imagePath: json['image_path'] as String,
       category: json['category'] as String,
-      createdAt: DateTime.parse(json['created_at'] as String),
-      modifiedAt: DateTime.parse(json['modified_at'] as String),
       unitsSold: json['units_sold'] as int,
+      advertisementId: json['advertisement_id'] as String,
+      discount: json['discount'] as int,
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      modifiedAt: json['modified_at'] == null
+          ? null
+          : DateTime.parse(json['modified_at'] as String),
     );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
@@ -27,7 +33,9 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'description': instance.description,
       'image_path': instance.imagePath,
       'category': instance.category,
-      'created_at': instance.createdAt.toIso8601String(),
-      'modified_at': instance.modifiedAt.toIso8601String(),
       'units_sold': instance.unitsSold,
+      'advertisement_id': instance.advertisementId,
+      'discount': instance.discount,
+      'created_at': instance.createdAt?.toIso8601String(),
+      'modified_at': instance.modifiedAt?.toIso8601String(),
     };

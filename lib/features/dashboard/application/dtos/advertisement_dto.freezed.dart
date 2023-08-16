@@ -20,7 +20,7 @@ mixin _$AdvertisementDto {
   String get description => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
   bool get isSpecial => throw _privateConstructorUsedError;
-  List<String> get productsIds => throw _privateConstructorUsedError;
+  int get discount => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AdvertisementDtoCopyWith<AdvertisementDto> get copyWith =>
@@ -38,7 +38,7 @@ abstract class $AdvertisementDtoCopyWith<$Res> {
       String description,
       String imagePath,
       bool isSpecial,
-      List<String> productsIds});
+      int discount});
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$AdvertisementDtoCopyWithImpl<$Res, $Val extends AdvertisementDto>
     Object? description = null,
     Object? imagePath = null,
     Object? isSpecial = null,
-    Object? productsIds = null,
+    Object? discount = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -77,10 +77,10 @@ class _$AdvertisementDtoCopyWithImpl<$Res, $Val extends AdvertisementDto>
           ? _value.isSpecial
           : isSpecial // ignore: cast_nullable_to_non_nullable
               as bool,
-      productsIds: null == productsIds
-          ? _value.productsIds
-          : productsIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -98,7 +98,7 @@ abstract class _$$_AdvertisementDtoCopyWith<$Res>
       String description,
       String imagePath,
       bool isSpecial,
-      List<String> productsIds});
+      int discount});
 }
 
 /// @nodoc
@@ -116,7 +116,7 @@ class __$$_AdvertisementDtoCopyWithImpl<$Res>
     Object? description = null,
     Object? imagePath = null,
     Object? isSpecial = null,
-    Object? productsIds = null,
+    Object? discount = null,
   }) {
     return _then(_$_AdvertisementDto(
       id: null == id
@@ -135,10 +135,10 @@ class __$$_AdvertisementDtoCopyWithImpl<$Res>
           ? _value.isSpecial
           : isSpecial // ignore: cast_nullable_to_non_nullable
               as bool,
-      productsIds: null == productsIds
-          ? _value._productsIds
-          : productsIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -151,9 +151,8 @@ class _$_AdvertisementDto extends _AdvertisementDto {
       this.description = '',
       this.imagePath = '',
       this.isSpecial = false,
-      final List<String> productsIds = const []})
-      : _productsIds = productsIds,
-        super._();
+      this.discount = 0})
+      : super._();
 
   @override
   @JsonKey()
@@ -167,18 +166,13 @@ class _$_AdvertisementDto extends _AdvertisementDto {
   @override
   @JsonKey()
   final bool isSpecial;
-  final List<String> _productsIds;
   @override
   @JsonKey()
-  List<String> get productsIds {
-    if (_productsIds is EqualUnmodifiableListView) return _productsIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_productsIds);
-  }
+  final int discount;
 
   @override
   String toString() {
-    return 'AdvertisementDto(id: $id, description: $description, imagePath: $imagePath, isSpecial: $isSpecial, productsIds: $productsIds)';
+    return 'AdvertisementDto(id: $id, description: $description, imagePath: $imagePath, isSpecial: $isSpecial, discount: $discount)';
   }
 
   @override
@@ -193,13 +187,13 @@ class _$_AdvertisementDto extends _AdvertisementDto {
                 other.imagePath == imagePath) &&
             (identical(other.isSpecial, isSpecial) ||
                 other.isSpecial == isSpecial) &&
-            const DeepCollectionEquality()
-                .equals(other._productsIds, _productsIds));
+            (identical(other.discount, discount) ||
+                other.discount == discount));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, description, imagePath,
-      isSpecial, const DeepCollectionEquality().hash(_productsIds));
+  int get hashCode =>
+      Object.hash(runtimeType, id, description, imagePath, isSpecial, discount);
 
   @JsonKey(ignore: true)
   @override
@@ -214,7 +208,7 @@ abstract class _AdvertisementDto extends AdvertisementDto {
       final String description,
       final String imagePath,
       final bool isSpecial,
-      final List<String> productsIds}) = _$_AdvertisementDto;
+      final int discount}) = _$_AdvertisementDto;
   const _AdvertisementDto._() : super._();
 
   @override
@@ -226,7 +220,7 @@ abstract class _AdvertisementDto extends AdvertisementDto {
   @override
   bool get isSpecial;
   @override
-  List<String> get productsIds;
+  int get discount;
   @override
   @JsonKey(ignore: true)
   _$$_AdvertisementDtoCopyWith<_$_AdvertisementDto> get copyWith =>
