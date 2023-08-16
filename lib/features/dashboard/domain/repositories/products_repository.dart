@@ -11,6 +11,5 @@ abstract class ProductsRepository {
       int limit, ({Product? productObject, int position}) lastProduct);
   FutureOr<List<Product>> findAllProducts();
   Future<void> saveProducts(List<Product> products);
-  Stream<List<Product>> fetchProductsByAdvertisement(
-      Advertisement advertisement);
+  Stream<List<Product>> fetchProductsByAdvertisementId(String advertisementId);
 }

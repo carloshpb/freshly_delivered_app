@@ -74,4 +74,23 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
         )
         .toList();
   }
+
+  @override
+  Stream<List<Product>> fetchProductsByAdvertisementId(
+      String advertisementId) async* {
+    var resultListMap = _firestoreApi.fetchByAttributeDesc(
+      "products",
+      advertisementId,
+      'advertisement_id',
+      'units_sold',
+    );
+
+    yield* resultListMap.map<List<Product>>(
+      (listMapJson) => listMapJson
+          .map(
+            (mapJson) => Product.fromJson(mapJson),
+          )
+          .toList(),
+    );
+  }
 }
