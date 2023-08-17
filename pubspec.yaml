@@ -45,6 +45,7 @@ dependencies:
   shimmer: ^3.0.0
   sqflite: ^2.3.0
   logger: ^2.0.1
+  uuid: ^4.0.0-beta3-1
 
 dev_dependencies:
   integration_test:
