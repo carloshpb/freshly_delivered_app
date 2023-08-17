@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sqflite/sqflite.dart';
+
 
 import '../sqlite_api.dart';
 
@@ -87,5 +90,18 @@ class SQLiteApiImpl implements SQLiteApi {
       OFFSET $offset
       ''',
     );
+  }
+
+  @override
+  Stream<Map<String, Object?>> fetchByAttribute(
+      String table, attribute, String attributeName) async* {
+    final streamController = StreamController<Map<String, Object?>>(
+      onListen: () => print('Listens'),
+
+    );
+
+    _database.ra
+
+    streamController.
   }
 }
