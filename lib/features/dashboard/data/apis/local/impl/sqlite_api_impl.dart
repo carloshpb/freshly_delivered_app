@@ -49,7 +49,7 @@ class SQLiteApiImpl implements SQLiteApi {
       ''',
     );
 
-    return result[0];
+    return result.isNotEmpty ? result[0] : {};
   }
 
   /// May throw TypeError
