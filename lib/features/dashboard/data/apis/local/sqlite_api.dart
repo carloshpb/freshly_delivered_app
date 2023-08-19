@@ -19,4 +19,5 @@ abstract class SQLiteApi {
     dynamic attribute,
     String attributeName,
   );
+  Future<void> clearDatabase();
 }

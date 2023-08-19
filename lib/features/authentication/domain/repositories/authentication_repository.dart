@@ -1,8 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../models/app_user.dart';
 
-abstract class AuthenticationRepository implements AsyncNotifier<AppUser> {
+abstract class AuthenticationRepository {
   Stream<AppUser?> authStateChanges();
   Future<void> signInWithEmailAndPassword(String email, String password);
   Future<void> createUserWithEmailAndPassword(

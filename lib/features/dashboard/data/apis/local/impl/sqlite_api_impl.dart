@@ -103,7 +103,8 @@ class SQLiteApiImpl implements SQLiteApi {
     // streamController.
   }
 
-  Future<void> cleanDatabase() async {
+  @override
+  Future<void> clearDatabase() async {
     await _database.transaction(
       (txn) async {
         var batch = txn.batch();
