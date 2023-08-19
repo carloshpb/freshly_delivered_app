@@ -18,12 +18,8 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
     case 'notConnected':
       return UserNotConnected.fromJson(json);
-    case 'connecting':
-      return UserConnecting.fromJson(json);
     case 'data':
       return UserData.fromJson(json);
-    case 'noPersonalData':
-      return UserNoPersonalData.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'runtimeType', 'AppUser',
@@ -36,56 +32,62 @@ mixin _$AppUser {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() notConnected,
-    required TResult Function() connecting,
-    required TResult Function(String uid, String email, String password,
-            String fullname, String phoneNumber)
+    required TResult Function(
+            String uid,
+            String email,
+            String password,
+            String fullname,
+            @JsonKey(name: 'phone_number') String phoneNumber,
+            @JsonKey(name: 'created_at') DateTime? createdAt,
+            @JsonKey(name: 'modified_at') DateTime? modifiedAt)
         data,
-    required TResult Function(String uid, String email) noPersonalData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notConnected,
-    TResult? Function()? connecting,
-    TResult? Function(String uid, String email, String password,
-            String fullname, String phoneNumber)?
+    TResult? Function(
+            String uid,
+            String email,
+            String password,
+            String fullname,
+            @JsonKey(name: 'phone_number') String phoneNumber,
+            @JsonKey(name: 'created_at') DateTime? createdAt,
+            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
         data,
-    TResult? Function(String uid, String email)? noPersonalData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notConnected,
-    TResult Function()? connecting,
-    TResult Function(String uid, String email, String password, String fullname,
-            String phoneNumber)?
+    TResult Function(
+            String uid,
+            String email,
+            String password,
+            String fullname,
+            @JsonKey(name: 'phone_number') String phoneNumber,
+            @JsonKey(name: 'created_at') DateTime? createdAt,
+            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
         data,
-    TResult Function(String uid, String email)? noPersonalData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(UserNotConnected value) notConnected,
-    required TResult Function(UserConnecting value) connecting,
     required TResult Function(UserData value) data,
-    required TResult Function(UserNoPersonalData value) noPersonalData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UserNotConnected value)? notConnected,
-    TResult? Function(UserConnecting value)? connecting,
     TResult? Function(UserData value)? data,
-    TResult? Function(UserNoPersonalData value)? noPersonalData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UserNotConnected value)? notConnected,
-    TResult Function(UserConnecting value)? connecting,
     TResult Function(UserData value)? data,
-    TResult Function(UserNoPersonalData value)? noPersonalData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -156,11 +158,15 @@ class _$UserNotConnected implements UserNotConnected {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() notConnected,
-    required TResult Function() connecting,
-    required TResult Function(String uid, String email, String password,
-            String fullname, String phoneNumber)
+    required TResult Function(
+            String uid,
+            String email,
+            String password,
+            String fullname,
+            @JsonKey(name: 'phone_number') String phoneNumber,
+            @JsonKey(name: 'created_at') DateTime? createdAt,
+            @JsonKey(name: 'modified_at') DateTime? modifiedAt)
         data,
-    required TResult Function(String uid, String email) noPersonalData,
   }) {
     return notConnected();
   }
@@ -169,11 +175,15 @@ class _$UserNotConnected implements UserNotConnected {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notConnected,
-    TResult? Function()? connecting,
-    TResult? Function(String uid, String email, String password,
-            String fullname, String phoneNumber)?
+    TResult? Function(
+            String uid,
+            String email,
+            String password,
+            String fullname,
+            @JsonKey(name: 'phone_number') String phoneNumber,
+            @JsonKey(name: 'created_at') DateTime? createdAt,
+            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
         data,
-    TResult? Function(String uid, String email)? noPersonalData,
   }) {
     return notConnected?.call();
   }
@@ -182,11 +192,15 @@ class _$UserNotConnected implements UserNotConnected {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notConnected,
-    TResult Function()? connecting,
-    TResult Function(String uid, String email, String password, String fullname,
-            String phoneNumber)?
+    TResult Function(
+            String uid,
+            String email,
+            String password,
+            String fullname,
+            @JsonKey(name: 'phone_number') String phoneNumber,
+            @JsonKey(name: 'created_at') DateTime? createdAt,
+            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
         data,
-    TResult Function(String uid, String email)? noPersonalData,
     required TResult orElse(),
   }) {
     if (notConnected != null) {
@@ -199,9 +213,7 @@ class _$UserNotConnected implements UserNotConnected {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(UserNotConnected value) notConnected,
-    required TResult Function(UserConnecting value) connecting,
     required TResult Function(UserData value) data,
-    required TResult Function(UserNoPersonalData value) noPersonalData,
   }) {
     return notConnected(this);
   }
@@ -210,9 +222,7 @@ class _$UserNotConnected implements UserNotConnected {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UserNotConnected value)? notConnected,
-    TResult? Function(UserConnecting value)? connecting,
     TResult? Function(UserData value)? data,
-    TResult? Function(UserNoPersonalData value)? noPersonalData,
   }) {
     return notConnected?.call(this);
   }
@@ -221,9 +231,7 @@ class _$UserNotConnected implements UserNotConnected {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UserNotConnected value)? notConnected,
-    TResult Function(UserConnecting value)? connecting,
     TResult Function(UserData value)? data,
-    TResult Function(UserNoPersonalData value)? noPersonalData,
     required TResult orElse(),
   }) {
     if (notConnected != null) {
@@ -248,143 +256,6 @@ abstract class UserNotConnected implements AppUser {
 }
 
 /// @nodoc
-abstract class _$$UserConnectingCopyWith<$Res> {
-  factory _$$UserConnectingCopyWith(
-          _$UserConnecting value, $Res Function(_$UserConnecting) then) =
-      __$$UserConnectingCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$UserConnectingCopyWithImpl<$Res>
-    extends _$AppUserCopyWithImpl<$Res, _$UserConnecting>
-    implements _$$UserConnectingCopyWith<$Res> {
-  __$$UserConnectingCopyWithImpl(
-      _$UserConnecting _value, $Res Function(_$UserConnecting) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$UserConnecting implements UserConnecting {
-  const _$UserConnecting({final String? $type}) : $type = $type ?? 'connecting';
-
-  factory _$UserConnecting.fromJson(Map<String, dynamic> json) =>
-      _$$UserConnectingFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'AppUser.connecting()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UserConnecting);
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() notConnected,
-    required TResult Function() connecting,
-    required TResult Function(String uid, String email, String password,
-            String fullname, String phoneNumber)
-        data,
-    required TResult Function(String uid, String email) noPersonalData,
-  }) {
-    return connecting();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? notConnected,
-    TResult? Function()? connecting,
-    TResult? Function(String uid, String email, String password,
-            String fullname, String phoneNumber)?
-        data,
-    TResult? Function(String uid, String email)? noPersonalData,
-  }) {
-    return connecting?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? notConnected,
-    TResult Function()? connecting,
-    TResult Function(String uid, String email, String password, String fullname,
-            String phoneNumber)?
-        data,
-    TResult Function(String uid, String email)? noPersonalData,
-    required TResult orElse(),
-  }) {
-    if (connecting != null) {
-      return connecting();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(UserNotConnected value) notConnected,
-    required TResult Function(UserConnecting value) connecting,
-    required TResult Function(UserData value) data,
-    required TResult Function(UserNoPersonalData value) noPersonalData,
-  }) {
-    return connecting(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UserNotConnected value)? notConnected,
-    TResult? Function(UserConnecting value)? connecting,
-    TResult? Function(UserData value)? data,
-    TResult? Function(UserNoPersonalData value)? noPersonalData,
-  }) {
-    return connecting?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(UserNotConnected value)? notConnected,
-    TResult Function(UserConnecting value)? connecting,
-    TResult Function(UserData value)? data,
-    TResult Function(UserNoPersonalData value)? noPersonalData,
-    required TResult orElse(),
-  }) {
-    if (connecting != null) {
-      return connecting(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$UserConnectingToJson(
-      this,
-    );
-  }
-}
-
-abstract class UserConnecting implements AppUser {
-  const factory UserConnecting() = _$UserConnecting;
-
-  factory UserConnecting.fromJson(Map<String, dynamic> json) =
-      _$UserConnecting.fromJson;
-}
-
-/// @nodoc
 abstract class _$$UserDataCopyWith<$Res> {
   factory _$$UserDataCopyWith(
           _$UserData value, $Res Function(_$UserData) then) =
@@ -395,7 +266,9 @@ abstract class _$$UserDataCopyWith<$Res> {
       String email,
       String password,
       String fullname,
-      String phoneNumber});
+      @JsonKey(name: 'phone_number') String phoneNumber,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'modified_at') DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -413,6 +286,8 @@ class __$$UserDataCopyWithImpl<$Res>
     Object? password = null,
     Object? fullname = null,
     Object? phoneNumber = null,
+    Object? createdAt = freezed,
+    Object? modifiedAt = freezed,
   }) {
     return _then(_$UserData(
       uid: null == uid
@@ -435,19 +310,30 @@ class __$$UserDataCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      modifiedAt: freezed == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$UserData implements UserData {
   const _$UserData(
       {required this.uid,
       required this.email,
       required this.password,
       required this.fullname,
-      required this.phoneNumber,
+      @JsonKey(name: 'phone_number') required this.phoneNumber,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(name: 'modified_at') this.modifiedAt,
       final String? $type})
       : $type = $type ?? 'data';
 
@@ -463,14 +349,21 @@ class _$UserData implements UserData {
   @override
   final String fullname;
   @override
+  @JsonKey(name: 'phone_number')
   final String phoneNumber;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+  @override
+  @JsonKey(name: 'modified_at')
+  final DateTime? modifiedAt;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'AppUser.data(uid: $uid, email: $email, password: $password, fullname: $fullname, phoneNumber: $phoneNumber)';
+    return 'AppUser.data(uid: $uid, email: $email, password: $password, fullname: $fullname, phoneNumber: $phoneNumber, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
@@ -485,13 +378,17 @@ class _$UserData implements UserData {
             (identical(other.fullname, fullname) ||
                 other.fullname == fullname) &&
             (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber));
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.modifiedAt, modifiedAt) ||
+                other.modifiedAt == modifiedAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, uid, email, password, fullname, phoneNumber);
+  int get hashCode => Object.hash(runtimeType, uid, email, password, fullname,
+      phoneNumber, createdAt, modifiedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -503,41 +400,56 @@ class _$UserData implements UserData {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() notConnected,
-    required TResult Function() connecting,
-    required TResult Function(String uid, String email, String password,
-            String fullname, String phoneNumber)
+    required TResult Function(
+            String uid,
+            String email,
+            String password,
+            String fullname,
+            @JsonKey(name: 'phone_number') String phoneNumber,
+            @JsonKey(name: 'created_at') DateTime? createdAt,
+            @JsonKey(name: 'modified_at') DateTime? modifiedAt)
         data,
-    required TResult Function(String uid, String email) noPersonalData,
   }) {
-    return data(uid, email, password, fullname, phoneNumber);
+    return data(
+        uid, email, password, fullname, phoneNumber, createdAt, modifiedAt);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notConnected,
-    TResult? Function()? connecting,
-    TResult? Function(String uid, String email, String password,
-            String fullname, String phoneNumber)?
+    TResult? Function(
+            String uid,
+            String email,
+            String password,
+            String fullname,
+            @JsonKey(name: 'phone_number') String phoneNumber,
+            @JsonKey(name: 'created_at') DateTime? createdAt,
+            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
         data,
-    TResult? Function(String uid, String email)? noPersonalData,
   }) {
-    return data?.call(uid, email, password, fullname, phoneNumber);
+    return data?.call(
+        uid, email, password, fullname, phoneNumber, createdAt, modifiedAt);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notConnected,
-    TResult Function()? connecting,
-    TResult Function(String uid, String email, String password, String fullname,
-            String phoneNumber)?
+    TResult Function(
+            String uid,
+            String email,
+            String password,
+            String fullname,
+            @JsonKey(name: 'phone_number') String phoneNumber,
+            @JsonKey(name: 'created_at') DateTime? createdAt,
+            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
         data,
-    TResult Function(String uid, String email)? noPersonalData,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(uid, email, password, fullname, phoneNumber);
+      return data(
+          uid, email, password, fullname, phoneNumber, createdAt, modifiedAt);
     }
     return orElse();
   }
@@ -546,9 +458,7 @@ class _$UserData implements UserData {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(UserNotConnected value) notConnected,
-    required TResult Function(UserConnecting value) connecting,
     required TResult Function(UserData value) data,
-    required TResult Function(UserNoPersonalData value) noPersonalData,
   }) {
     return data(this);
   }
@@ -557,9 +467,7 @@ class _$UserData implements UserData {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UserNotConnected value)? notConnected,
-    TResult? Function(UserConnecting value)? connecting,
     TResult? Function(UserData value)? data,
-    TResult? Function(UserNoPersonalData value)? noPersonalData,
   }) {
     return data?.call(this);
   }
@@ -568,9 +476,7 @@ class _$UserData implements UserData {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UserNotConnected value)? notConnected,
-    TResult Function(UserConnecting value)? connecting,
     TResult Function(UserData value)? data,
-    TResult Function(UserNoPersonalData value)? noPersonalData,
     required TResult orElse(),
   }) {
     if (data != null) {
@@ -593,7 +499,9 @@ abstract class UserData implements AppUser {
       required final String email,
       required final String password,
       required final String fullname,
-      required final String phoneNumber}) = _$UserData;
+      @JsonKey(name: 'phone_number') required final String phoneNumber,
+      @JsonKey(name: 'created_at') final DateTime? createdAt,
+      @JsonKey(name: 'modified_at') final DateTime? modifiedAt}) = _$UserData;
 
   factory UserData.fromJson(Map<String, dynamic> json) = _$UserData.fromJson;
 
@@ -601,190 +509,13 @@ abstract class UserData implements AppUser {
   String get email;
   String get password;
   String get fullname;
+  @JsonKey(name: 'phone_number')
   String get phoneNumber;
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt;
+  @JsonKey(name: 'modified_at')
+  DateTime? get modifiedAt;
   @JsonKey(ignore: true)
   _$$UserDataCopyWith<_$UserData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UserNoPersonalDataCopyWith<$Res> {
-  factory _$$UserNoPersonalDataCopyWith(_$UserNoPersonalData value,
-          $Res Function(_$UserNoPersonalData) then) =
-      __$$UserNoPersonalDataCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String uid, String email});
-}
-
-/// @nodoc
-class __$$UserNoPersonalDataCopyWithImpl<$Res>
-    extends _$AppUserCopyWithImpl<$Res, _$UserNoPersonalData>
-    implements _$$UserNoPersonalDataCopyWith<$Res> {
-  __$$UserNoPersonalDataCopyWithImpl(
-      _$UserNoPersonalData _value, $Res Function(_$UserNoPersonalData) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? uid = null,
-    Object? email = null,
-  }) {
-    return _then(_$UserNoPersonalData(
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$UserNoPersonalData implements UserNoPersonalData {
-  const _$UserNoPersonalData(
-      {required this.uid, required this.email, final String? $type})
-      : $type = $type ?? 'noPersonalData';
-
-  factory _$UserNoPersonalData.fromJson(Map<String, dynamic> json) =>
-      _$$UserNoPersonalDataFromJson(json);
-
-  @override
-  final String uid;
-  @override
-  final String email;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'AppUser.noPersonalData(uid: $uid, email: $email)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UserNoPersonalData &&
-            (identical(other.uid, uid) || other.uid == uid) &&
-            (identical(other.email, email) || other.email == email));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, uid, email);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UserNoPersonalDataCopyWith<_$UserNoPersonalData> get copyWith =>
-      __$$UserNoPersonalDataCopyWithImpl<_$UserNoPersonalData>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() notConnected,
-    required TResult Function() connecting,
-    required TResult Function(String uid, String email, String password,
-            String fullname, String phoneNumber)
-        data,
-    required TResult Function(String uid, String email) noPersonalData,
-  }) {
-    return noPersonalData(uid, email);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? notConnected,
-    TResult? Function()? connecting,
-    TResult? Function(String uid, String email, String password,
-            String fullname, String phoneNumber)?
-        data,
-    TResult? Function(String uid, String email)? noPersonalData,
-  }) {
-    return noPersonalData?.call(uid, email);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? notConnected,
-    TResult Function()? connecting,
-    TResult Function(String uid, String email, String password, String fullname,
-            String phoneNumber)?
-        data,
-    TResult Function(String uid, String email)? noPersonalData,
-    required TResult orElse(),
-  }) {
-    if (noPersonalData != null) {
-      return noPersonalData(uid, email);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(UserNotConnected value) notConnected,
-    required TResult Function(UserConnecting value) connecting,
-    required TResult Function(UserData value) data,
-    required TResult Function(UserNoPersonalData value) noPersonalData,
-  }) {
-    return noPersonalData(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UserNotConnected value)? notConnected,
-    TResult? Function(UserConnecting value)? connecting,
-    TResult? Function(UserData value)? data,
-    TResult? Function(UserNoPersonalData value)? noPersonalData,
-  }) {
-    return noPersonalData?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(UserNotConnected value)? notConnected,
-    TResult Function(UserConnecting value)? connecting,
-    TResult Function(UserData value)? data,
-    TResult Function(UserNoPersonalData value)? noPersonalData,
-    required TResult orElse(),
-  }) {
-    if (noPersonalData != null) {
-      return noPersonalData(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$UserNoPersonalDataToJson(
-      this,
-    );
-  }
-}
-
-abstract class UserNoPersonalData implements AppUser {
-  const factory UserNoPersonalData(
-      {required final String uid,
-      required final String email}) = _$UserNoPersonalData;
-
-  factory UserNoPersonalData.fromJson(Map<String, dynamic> json) =
-      _$UserNoPersonalData.fromJson;
-
-  String get uid;
-  String get email;
-  @JsonKey(ignore: true)
-  _$$UserNoPersonalDataCopyWith<_$UserNoPersonalData> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -16,22 +16,18 @@ Map<String, dynamic> _$$UserNotConnectedToJson(_$UserNotConnected instance) =>
       'runtimeType': instance.$type,
     };
 
-_$UserConnecting _$$UserConnectingFromJson(Map<String, dynamic> json) =>
-    _$UserConnecting(
-      $type: json['runtimeType'] as String?,
-    );
-
-Map<String, dynamic> _$$UserConnectingToJson(_$UserConnecting instance) =>
-    <String, dynamic>{
-      'runtimeType': instance.$type,
-    };
-
 _$UserData _$$UserDataFromJson(Map<String, dynamic> json) => _$UserData(
       uid: json['uid'] as String,
       email: json['email'] as String,
       password: json['password'] as String,
       fullname: json['fullname'] as String,
-      phoneNumber: json['phoneNumber'] as String,
+      phoneNumber: json['phone_number'] as String,
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      modifiedAt: json['modified_at'] == null
+          ? null
+          : DateTime.parse(json['modified_at'] as String),
       $type: json['runtimeType'] as String?,
     );
 
@@ -41,21 +37,8 @@ Map<String, dynamic> _$$UserDataToJson(_$UserData instance) =>
       'email': instance.email,
       'password': instance.password,
       'fullname': instance.fullname,
-      'phoneNumber': instance.phoneNumber,
-      'runtimeType': instance.$type,
-    };
-
-_$UserNoPersonalData _$$UserNoPersonalDataFromJson(Map<String, dynamic> json) =>
-    _$UserNoPersonalData(
-      uid: json['uid'] as String,
-      email: json['email'] as String,
-      $type: json['runtimeType'] as String?,
-    );
-
-Map<String, dynamic> _$$UserNoPersonalDataToJson(
-        _$UserNoPersonalData instance) =>
-    <String, dynamic>{
-      'uid': instance.uid,
-      'email': instance.email,
+      'phone_number': instance.phoneNumber,
+      'created_at': instance.createdAt?.toIso8601String(),
+      'modified_at': instance.modifiedAt?.toIso8601String(),
       'runtimeType': instance.$type,
     };
