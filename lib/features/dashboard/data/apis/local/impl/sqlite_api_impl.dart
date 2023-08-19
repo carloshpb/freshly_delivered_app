@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sqflite/sqflite.dart';
 
-
 import '../sqlite_api.dart';
 
 final sqliteApiProvider = Provider<SQLiteApi>(
@@ -49,7 +48,7 @@ class SQLiteApiImpl implements SQLiteApi {
       ''',
     );
 
-    return result[0];
+    return result.isNotEmpty ? result[0] : {};
   }
 
   /// May throw TypeError
@@ -97,11 +96,25 @@ class SQLiteApiImpl implements SQLiteApi {
       String table, attribute, String attributeName) async* {
     final streamController = StreamController<Map<String, Object?>>(
       onListen: () => print('Listens'),
-
     );
 
-    _database.ra
+    // _database.ra
 
-    streamController.
+    // streamController.
+  }
+
+  Future<void> cleanDatabase() async {
+    await _database.transaction(
+      (txn) async {
+        var batch = txn.batch();
+        batch.delete(AccountNames.tableName);
+        batch.delete(CategoryNames.tableName);
+        batch.delete(RecurrenceNames.tableName);
+        batch.delete(TransfersNames.tableName);
+        batch.delete(PlannedTransactionNames.tableName);
+        batch.delete(SettingNames.tableName);
+        await batch.commit();
+      },
+    );
   }
 }

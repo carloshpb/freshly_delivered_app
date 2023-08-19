@@ -51,6 +51,12 @@ class Strings {
   static const moreAdvertisementsSoon = "More advertisements soon!";
   static const addToCard = "Add to card";
 
+  /// SQLite tables
+  static const appUserLocalTable = "connected_user";
+
+  /// Firestore tables
+  static const appUserRemoteTable = "user_personal_data";
+
   /// Exceptions
   /// General
   static const serverOff =

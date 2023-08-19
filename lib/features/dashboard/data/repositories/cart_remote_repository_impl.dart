@@ -8,6 +8,10 @@ import '../../domain/repositories/cart_repository.dart';
 import '../apis/local/impl/sqlite_api_impl.dart';
 import '../apis/local/sqlite_api.dart';
 
+// final cartRemoteRepositoryProvider = Provider<CartRepository>(
+//   (ref) => CartRemoteRepositoryImpl(ref.watch(sqliteApiProvider)),
+// );
+
 final cartRemoteRepositoryProvider = Provider<CartRepository>(
   (ref) => CartRemoteRepositoryImpl(ref.watch(sqliteApiProvider)),
 );

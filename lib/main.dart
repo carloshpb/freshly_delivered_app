@@ -56,6 +56,16 @@ Future<void> main() async {
           modified_at TEXT NOT NULL
         )
         ''');
+
+      await db.execute('''
+      CREATE TABLE connected_user (
+          uid TEXT PRIMARY KEY,
+          email TEXT NOT NULL, 
+          fullname TEXT NOT NULL, 
+          password TEXT NOT NULL,
+          phoneNumber TEXT NOT NULL
+        )
+      ''');
     },
   );
 
