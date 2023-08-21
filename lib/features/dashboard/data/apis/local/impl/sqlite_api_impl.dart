@@ -95,7 +95,7 @@ class SQLiteApiImpl implements SQLiteApi {
   @override
   Stream<Map<String, Object?>> fetchByAttribute(
       String table, attribute, String attributeName) async* {
-    // TODO
+    // TODO - finish this
     final streamController = StreamController<Map<String, Object?>>(
       onListen: () => print('Listens'),
     );

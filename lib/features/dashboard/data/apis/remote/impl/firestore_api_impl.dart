@@ -120,7 +120,7 @@ class FirestoreApiImpl implements FirestoreApi {
   // TEMP
   @override
   Future<void> addMockDataToFirestore() async {
-    // TODO
+    // TODO - run this one then delete it, just to fill Firestore with the foods.json
     var fakeFoodsJson =
         await rootBundle.loadString("assets/fakeData/foods.json");
     var decodedFoods = json.decode(fakeFoodsJson);

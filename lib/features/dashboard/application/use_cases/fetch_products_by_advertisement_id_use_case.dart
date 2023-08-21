@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../application/dtos/product_dto.dart';
-import '../../data/repositories/products_local_repository_impl.dart';
 import '../../data/repositories/products_remote_repository_impl.dart';
 import '../../domain/repositories/products_repository.dart';
 import '../../domain/use_cases/fetch_products_by_advertisement_id_use_case.dart';
