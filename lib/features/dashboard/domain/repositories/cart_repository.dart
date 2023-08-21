@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import '../models/cart.dart';
-import '../models/product.dart';
+import '../models/cart_item.dart';
 
 abstract class CartRepository {
-  FutureOr<Stream<Cart>> fetchCartById(String currentUserId);
-  Future<void> addProductToCart(Product product, int amount);
+  Stream<List<CartItem>> fetchCartProducts();
+  Future<void> addProductToCart(CartItem item);
 }
