@@ -16,19 +16,73 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ProductDto {
-  String get id => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
-  int get offer => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  String get imagePath => throw _privateConstructorUsedError;
-  String get category => throw _privateConstructorUsedError;
-  int get unitsSold => throw _privateConstructorUsedError;
-  String get advertisementId => throw _privateConstructorUsedError;
-  int get discount => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $ProductDtoCopyWith<ProductDto> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(
+            String id,
+            String title,
+            double price,
+            String description,
+            String imagePath,
+            String category,
+            int unitsSold,
+            String advertisementId,
+            int discount)
+        normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(
+            String id,
+            String title,
+            double price,
+            String description,
+            String imagePath,
+            String category,
+            int unitsSold,
+            String advertisementId,
+            int discount)?
+        normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(
+            String id,
+            String title,
+            double price,
+            String description,
+            String imagePath,
+            String category,
+            int unitsSold,
+            String advertisementId,
+            int discount)?
+        normal,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyProductDto value) empty,
+    required TResult Function(NormalProductDto value) normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyProductDto value)? empty,
+    TResult? Function(NormalProductDto value)? normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyProductDto value)? empty,
+    TResult Function(NormalProductDto value)? normal,
+    required TResult orElse(),
+  }) =>
       throw _privateConstructorUsedError;
 }
 
@@ -37,18 +91,6 @@ abstract class $ProductDtoCopyWith<$Res> {
   factory $ProductDtoCopyWith(
           ProductDto value, $Res Function(ProductDto) then) =
       _$ProductDtoCopyWithImpl<$Res, ProductDto>;
-  @useResult
-  $Res call(
-      {String id,
-      String title,
-      double price,
-      int offer,
-      String description,
-      String imagePath,
-      String category,
-      int unitsSold,
-      String advertisementId,
-      int discount});
 }
 
 /// @nodoc
@@ -60,79 +102,151 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? title = null,
-    Object? price = null,
-    Object? offer = null,
-    Object? description = null,
-    Object? imagePath = null,
-    Object? category = null,
-    Object? unitsSold = null,
-    Object? advertisementId = null,
-    Object? discount = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
-      offer: null == offer
-          ? _value.offer
-          : offer // ignore: cast_nullable_to_non_nullable
-              as int,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      imagePath: null == imagePath
-          ? _value.imagePath
-          : imagePath // ignore: cast_nullable_to_non_nullable
-              as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
-      unitsSold: null == unitsSold
-          ? _value.unitsSold
-          : unitsSold // ignore: cast_nullable_to_non_nullable
-              as int,
-      advertisementId: null == advertisementId
-          ? _value.advertisementId
-          : advertisementId // ignore: cast_nullable_to_non_nullable
-              as String,
-      discount: null == discount
-          ? _value.discount
-          : discount // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_ProductDtoCopyWith<$Res>
-    implements $ProductDtoCopyWith<$Res> {
-  factory _$$_ProductDtoCopyWith(
-          _$_ProductDto value, $Res Function(_$_ProductDto) then) =
-      __$$_ProductDtoCopyWithImpl<$Res>;
+abstract class _$$EmptyProductDtoCopyWith<$Res> {
+  factory _$$EmptyProductDtoCopyWith(
+          _$EmptyProductDto value, $Res Function(_$EmptyProductDto) then) =
+      __$$EmptyProductDtoCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$EmptyProductDtoCopyWithImpl<$Res>
+    extends _$ProductDtoCopyWithImpl<$Res, _$EmptyProductDto>
+    implements _$$EmptyProductDtoCopyWith<$Res> {
+  __$$EmptyProductDtoCopyWithImpl(
+      _$EmptyProductDto _value, $Res Function(_$EmptyProductDto) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$EmptyProductDto extends EmptyProductDto {
+  const _$EmptyProductDto() : super._();
+
   @override
+  String toString() {
+    return 'ProductDto.empty()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$EmptyProductDto);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(
+            String id,
+            String title,
+            double price,
+            String description,
+            String imagePath,
+            String category,
+            int unitsSold,
+            String advertisementId,
+            int discount)
+        normal,
+  }) {
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(
+            String id,
+            String title,
+            double price,
+            String description,
+            String imagePath,
+            String category,
+            int unitsSold,
+            String advertisementId,
+            int discount)?
+        normal,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(
+            String id,
+            String title,
+            double price,
+            String description,
+            String imagePath,
+            String category,
+            int unitsSold,
+            String advertisementId,
+            int discount)?
+        normal,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyProductDto value) empty,
+    required TResult Function(NormalProductDto value) normal,
+  }) {
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyProductDto value)? empty,
+    TResult? Function(NormalProductDto value)? normal,
+  }) {
+    return empty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyProductDto value)? empty,
+    TResult Function(NormalProductDto value)? normal,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EmptyProductDto extends ProductDto {
+  const factory EmptyProductDto() = _$EmptyProductDto;
+  const EmptyProductDto._() : super._();
+}
+
+/// @nodoc
+abstract class _$$NormalProductDtoCopyWith<$Res> {
+  factory _$$NormalProductDtoCopyWith(
+          _$NormalProductDto value, $Res Function(_$NormalProductDto) then) =
+      __$$NormalProductDtoCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {String id,
       String title,
       double price,
-      int offer,
       String description,
       String imagePath,
       String category,
@@ -142,11 +256,11 @@ abstract class _$$_ProductDtoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ProductDtoCopyWithImpl<$Res>
-    extends _$ProductDtoCopyWithImpl<$Res, _$_ProductDto>
-    implements _$$_ProductDtoCopyWith<$Res> {
-  __$$_ProductDtoCopyWithImpl(
-      _$_ProductDto _value, $Res Function(_$_ProductDto) _then)
+class __$$NormalProductDtoCopyWithImpl<$Res>
+    extends _$ProductDtoCopyWithImpl<$Res, _$NormalProductDto>
+    implements _$$NormalProductDtoCopyWith<$Res> {
+  __$$NormalProductDtoCopyWithImpl(
+      _$NormalProductDto _value, $Res Function(_$NormalProductDto) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -155,7 +269,6 @@ class __$$_ProductDtoCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? price = null,
-    Object? offer = null,
     Object? description = null,
     Object? imagePath = null,
     Object? category = null,
@@ -163,7 +276,7 @@ class __$$_ProductDtoCopyWithImpl<$Res>
     Object? advertisementId = null,
     Object? discount = null,
   }) {
-    return _then(_$_ProductDto(
+    return _then(_$NormalProductDto(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -176,10 +289,6 @@ class __$$_ProductDtoCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
-      offer: null == offer
-          ? _value.offer
-          : offer // ignore: cast_nullable_to_non_nullable
-              as int,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -210,40 +319,36 @@ class __$$_ProductDtoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ProductDto extends _ProductDto {
-  const _$_ProductDto(
-      {this.id = '',
-      this.title = '',
-      this.price = -1.0,
-      this.offer = -1,
-      this.description = '',
-      this.imagePath = '',
-      this.category = '',
+class _$NormalProductDto extends NormalProductDto {
+  const _$NormalProductDto(
+      {required this.id,
+      required this.title,
+      required this.price,
+      required this.description,
+      required this.imagePath,
+      required this.category,
       this.unitsSold = 0,
       this.advertisementId = '',
       this.discount = 0})
-      : super._();
+      : assert(price >= 0.0, 'price cannot be negative'),
+        assert(id != "", 'id cannot be empty'),
+        assert(title != "", 'title cannot be empty'),
+        assert(description != "", 'description cannot be empty'),
+        assert(category != "", 'category cannot be empty'),
+        assert(imagePath != "", 'imagePath cannot be empty'),
+        super._();
 
   @override
-  @JsonKey()
   final String id;
   @override
-  @JsonKey()
   final String title;
   @override
-  @JsonKey()
   final double price;
   @override
-  @JsonKey()
-  final int offer;
-  @override
-  @JsonKey()
   final String description;
   @override
-  @JsonKey()
   final String imagePath;
   @override
-  @JsonKey()
   final String category;
   @override
   @JsonKey()
@@ -257,18 +362,17 @@ class _$_ProductDto extends _ProductDto {
 
   @override
   String toString() {
-    return 'ProductDto(id: $id, title: $title, price: $price, offer: $offer, description: $description, imagePath: $imagePath, category: $category, unitsSold: $unitsSold, advertisementId: $advertisementId, discount: $discount)';
+    return 'ProductDto.normal(id: $id, title: $title, price: $price, description: $description, imagePath: $imagePath, category: $category, unitsSold: $unitsSold, advertisementId: $advertisementId, discount: $discount)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ProductDto &&
+            other is _$NormalProductDto &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.price, price) || other.price == price) &&
-            (identical(other.offer, offer) || other.offer == offer) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.imagePath, imagePath) ||
@@ -284,52 +388,134 @@ class _$_ProductDto extends _ProductDto {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, price, offer,
-      description, imagePath, category, unitsSold, advertisementId, discount);
+  int get hashCode => Object.hash(runtimeType, id, title, price, description,
+      imagePath, category, unitsSold, advertisementId, discount);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ProductDtoCopyWith<_$_ProductDto> get copyWith =>
-      __$$_ProductDtoCopyWithImpl<_$_ProductDto>(this, _$identity);
+  _$$NormalProductDtoCopyWith<_$NormalProductDto> get copyWith =>
+      __$$NormalProductDtoCopyWithImpl<_$NormalProductDto>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(
+            String id,
+            String title,
+            double price,
+            String description,
+            String imagePath,
+            String category,
+            int unitsSold,
+            String advertisementId,
+            int discount)
+        normal,
+  }) {
+    return normal(id, title, price, description, imagePath, category, unitsSold,
+        advertisementId, discount);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(
+            String id,
+            String title,
+            double price,
+            String description,
+            String imagePath,
+            String category,
+            int unitsSold,
+            String advertisementId,
+            int discount)?
+        normal,
+  }) {
+    return normal?.call(id, title, price, description, imagePath, category,
+        unitsSold, advertisementId, discount);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(
+            String id,
+            String title,
+            double price,
+            String description,
+            String imagePath,
+            String category,
+            int unitsSold,
+            String advertisementId,
+            int discount)?
+        normal,
+    required TResult orElse(),
+  }) {
+    if (normal != null) {
+      return normal(id, title, price, description, imagePath, category,
+          unitsSold, advertisementId, discount);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyProductDto value) empty,
+    required TResult Function(NormalProductDto value) normal,
+  }) {
+    return normal(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyProductDto value)? empty,
+    TResult? Function(NormalProductDto value)? normal,
+  }) {
+    return normal?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyProductDto value)? empty,
+    TResult Function(NormalProductDto value)? normal,
+    required TResult orElse(),
+  }) {
+    if (normal != null) {
+      return normal(this);
+    }
+    return orElse();
+  }
 }
 
-abstract class _ProductDto extends ProductDto {
-  const factory _ProductDto(
-      {final String id,
-      final String title,
-      final double price,
-      final int offer,
-      final String description,
-      final String imagePath,
-      final String category,
+abstract class NormalProductDto extends ProductDto {
+  const factory NormalProductDto(
+      {required final String id,
+      required final String title,
+      required final double price,
+      required final String description,
+      required final String imagePath,
+      required final String category,
       final int unitsSold,
       final String advertisementId,
-      final int discount}) = _$_ProductDto;
-  const _ProductDto._() : super._();
+      final int discount}) = _$NormalProductDto;
+  const NormalProductDto._() : super._();
 
-  @override
   String get id;
-  @override
   String get title;
-  @override
   double get price;
-  @override
-  int get offer;
-  @override
   String get description;
-  @override
   String get imagePath;
-  @override
   String get category;
-  @override
   int get unitsSold;
-  @override
   String get advertisementId;
-  @override
   int get discount;
-  @override
   @JsonKey(ignore: true)
-  _$$_ProductDtoCopyWith<_$_ProductDto> get copyWith =>
+  _$$NormalProductDtoCopyWith<_$NormalProductDto> get copyWith =>
       throw _privateConstructorUsedError;
 }

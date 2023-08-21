@@ -7,43 +7,49 @@ import '../../application/dtos/product_dto.dart';
 part 'product.freezed.dart';
 part 'product.g.dart';
 
-@JsonSerializable(explicitToJson: true)
-@Freezed(toJson: false, fromJson: false)
-class Product with _$Product {
+@freezed
+sealed class Product with _$Product {
   const Product._();
 
-  const factory Product({
-    @Default('') String id,
-    @Default('') String title,
-    @Default(-1.0) double price,
-    @Default(-1) int offer,
-    @Default('') String description,
-    @JsonKey(name: 'image_path') @Default('') String imagePath,
-    @Default('') String category,
+  @JsonSerializable(explicitToJson: true)
+  const factory Product.empty() = EmptyProduct;
+
+  @JsonSerializable(explicitToJson: true)
+  @Assert('price >= 0.0', 'price cannot be negative')
+  @Assert('id != ""', 'id cannot be empty')
+  @Assert('title != ""', 'title cannot be empty')
+  @Assert('description != ""', 'description cannot be empty')
+  @Assert('category != ""', 'category cannot be empty')
+  @Assert('imagePath != ""', 'imagePath cannot be empty')
+  const factory Product.normal({
+    required String id,
+    required String title,
+    required double price,
+    required String description,
+    required String category,
+    @JsonKey(name: 'image_path') required String imagePath,
     @JsonKey(name: 'units_sold') @Default(0) int unitsSold,
     @JsonKey(name: 'advertisement_id') @Default('') String advertisementId,
     @Default(0) int discount,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'modified_at') DateTime? modifiedAt,
-  }) = _Product;
+  }) = NormalProduct;
 
   factory Product.fromJson(Map<String, Object?> json) =>
       _$ProductFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ProductToJson(this);
-
-  ProductDto toDto() {
-    return ProductDto(
-      id: id,
-      title: title,
-      price: price,
-      offer: offer,
-      description: description,
-      imagePath: imagePath,
-      category: category,
-      unitsSold: unitsSold,
-      advertisementId: advertisementId,
-      discount: discount,
-    );
-  }
+  ProductDto toDto() => switch (this) {
+        NormalProduct() => ProductDto.normal(
+            id: (this as NormalProduct).id,
+            title: (this as NormalProduct).title,
+            price: (this as NormalProduct).price,
+            description: (this as NormalProduct).description,
+            imagePath: (this as NormalProduct).imagePath,
+            category: (this as NormalProduct).category,
+            unitsSold: (this as NormalProduct).unitsSold,
+            advertisementId: (this as NormalProduct).advertisementId,
+            discount: (this as NormalProduct).discount,
+          ),
+        EmptyProduct() => const ProductDto.empty(),
+      };
 }
