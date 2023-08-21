@@ -32,34 +32,6 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
     this._firestoreApi,
   );
 
-  // @override
-  // FutureOr<AppUser> build() async {
-  //   var user = _firebaseAuth.currentUser;
-  //   if (user == null) {
-  //     return const AppUser.notConnected();
-  //     //  TODO : clean cache
-  //   }
-  //   var sqliteDB = ref.watch(sqliteApiProvider);
-  //   try {
-  //     var userDataJson =
-  //         await sqliteDB.findById(Strings.appUserLocalTable, user.uid);
-  //     var userData = (userDataJson.isNotEmpty)
-  //         ? UserData.fromJson(userDataJson)
-  //         : const AppUser.notConnected();
-  //     if (userData is UserData) {
-  //       return userData;
-  //     }
-  //     var firestore = ref.watch(firestoreApiProvider);
-  //     userDataJson =
-  //         await firestore.findById(Strings.appUserRemoteTable, user.uid);
-  //     userData = UserData.fromJson(userDataJson);
-  //     return userData;
-  //   } on Exception {
-  //     // TODO : Treat bad exceptions from user side
-  //     return const AppUser.notConnected();
-  //   }
-  // }
-
   @override
   Stream<AppUser?> authStateChanges() {
     var authState = _firebaseAuth.authStateChanges();
@@ -71,16 +43,9 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
       try {
         var userDataJson =
             await _sqLiteApi.findById(Strings.appUserLocalTable, user.uid);
-        // var = (userDataJson.isNotEmpty)
-        //     ? AsyncData(UserData.fromJson(userDataJson))
-        //     : const AsyncLoading();
-        // var userData = (userDataJson.isNotEmpty)
-        //     ? UserData.fromJson(userDataJson)
-        //     : const AppUser.notConnected();
         if (userDataJson.isNotEmpty) {
           return UserData.fromJson(userDataJson);
         }
-        // var firestore = ref.watch(firestoreApiProvider);
         userDataJson =
             await _firestoreApi.findById(Strings.appUserRemoteTable, user.uid);
 
@@ -94,14 +59,6 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
         } else {
           throw const AppAuthException.userNotFound();
         }
-        // state = AsyncData(UserData.fromJson(userDataJson));
-        // userData = (userDataJson.isNotEmpty)
-        //     ? UserData.fromJson(userDataJson)
-        //     : AppUser.noPersonalData(
-        //         uid: user.uid,
-        //         email: (user.email != null) ? user.email! : '',
-        //       );
-        // return state.value!;
       } on Exception {
         // TODO : Treat bad exceptions from user side
         // state = const AsyncValue.data(AppUser.notConnected());
@@ -111,23 +68,10 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
     });
   }
 
-  // @override
-  // AppUser get currentUser {
-  //   var user = _firebaseAuth.currentUser;
-  //   if (user == null) {
-  //     return const AppUser.notConnected();
-  //   }
-  //   return AppUser(
-  //     uid: user.uid,
-  //     email: user.email!,
-  //   );
-  // }
-
   @override
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     UserCredential? result;
     try {
-      //state = const AsyncValue.loading();
       result = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       if (result.user != null) {
@@ -135,11 +79,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
           Strings.appUserRemoteTable,
           result.user!.uid,
         );
-        var fullUser = UserData.fromJson(userJson);
 
-        // state = AsyncValue.data(fullUser);
-
-        // var sqliteDB = ref.watch(sqliteApiProvider);
         await _sqLiteApi.save(
           Strings.appUserLocalTable,
           userJson,
@@ -160,7 +100,6 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
       String fullName, String phoneNumber) async {
     UserCredential? result;
     try {
-      // state = const AsyncValue.loading();
       result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -184,8 +123,6 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
           fullUserJson,
           fullUserJson.keys.toList(),
         );
-
-        // state = AsyncValue.data(fullUser);
       }
     } on FirebaseAuthException catch (e) {
       if (result != null && result.user != null) {
@@ -198,10 +135,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   @override
   Future<void> sendPasswordResetEmail(String email) async {
     try {
-      // var oldState = state.value;
-      // state = const AsyncValue.loading();
       await _firebaseAuth.sendPasswordResetEmail(email: email);
-      // state = AsyncValue.data(oldState!);
     } on FirebaseAuthException catch (e) {
       throw e.convertToAppException();
     }
@@ -210,9 +144,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   @override
   Future<void> signOut() async {
     try {
-      // state = const AsyncValue.loading();
       await _firebaseAuth.signOut();
-      // state = const AsyncValue.data(AppUser.notConnected());
     } on FirebaseAuthException catch (e) {
       throw e.convertToAppException();
     }

@@ -4,13 +4,15 @@ part 'app_user_dto.freezed.dart';
 
 @freezed
 class AppUserDTO with _$AppUserDTO {
-  const AppUserDTO._();
+  const factory AppUserDTO.notConnected() = UserNotConnectedDTO;
 
-  const AppUserDTO.notConnected();
-
-  const factory AppUserDTO({
-    required String imageSvgPath,
-    required String title,
-    required String message,
-  }) = _AppUserDTO;
+  const factory AppUserDTO.data({
+    required String uid,
+    required String email,
+    required String password,
+    required String fullname,
+    required String phoneNumber,
+    DateTime? createdAt,
+    DateTime? modifiedAt,
+  }) = UserDataDTO;
 }

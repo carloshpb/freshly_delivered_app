@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freshly_delivered_app/features/dashboard/domain/models/product.dart';
 
+import '../../../../constants/strings.dart';
 import '../../domain/repositories/products_repository.dart';
 import '../apis/local/impl/sqlite_api_impl.dart';
 import '../apis/local/sqlite_api.dart';
@@ -30,7 +31,7 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
 
   @override
   FutureOr<Product> findProductById(String id) async {
-    var resultMap = await _sqliteApi.findById("products", id);
+    var resultMap = await _sqliteApi.findById(Strings.productsLocalTable, id);
     return (resultMap.isEmpty)
         ? Product(
             createdAt: DateTime.parse('0000-00-00'),
@@ -45,7 +46,7 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
     ({Product? productObject, int position}) lastProduct,
   ) async {
     var resultListMap = await _sqliteApi.findAllWithLimit(
-      "products",
+      Strings.productsLocalTable,
       limit,
       lastProduct.position,
     );
@@ -59,7 +60,7 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   @override
   FutureOr<List<Product>> findAllProducts() async {
     var resultListMap = await _sqliteApi.findAll(
-      "products",
+      Strings.productsLocalTable,
     );
     return resultListMap
         .map(
@@ -71,14 +72,15 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   @override
   Future<void> saveProducts(List<Product> products) async {
     var mapProducts = products.map((prod) => prod.toJson());
-    await _sqliteApi.save("products", mapProducts, _productStringProperties);
+    await _sqliteApi.save(
+        Strings.productsLocalTable, mapProducts, _productStringProperties);
   }
 
   @override
   FutureOr<List<Product>> findProductsByNameWithLimit(String name, int limit,
       ({int position, Product? productObject}) lastProduct) async {
     var result = await _sqliteApi.findByAttributeDesc(
-      "products",
+      Strings.productsLocalTable,
       name,
       "title",
       limit,

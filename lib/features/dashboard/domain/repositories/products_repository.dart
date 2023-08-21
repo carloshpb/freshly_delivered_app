@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import '../models/advertisement.dart';
 import '../models/product.dart';
 
 abstract class ProductsRepository {
