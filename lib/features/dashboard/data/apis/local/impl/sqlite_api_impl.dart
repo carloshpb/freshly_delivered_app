@@ -30,14 +30,15 @@ class SQLiteApiImpl implements SQLiteApi {
   @override
   Future<List<Map<String, Object?>>> findAllWithLimit(
       String table, int limit, int offset) {
-    return _database.rawQuery(
-      '''
-      SELECT * FROM $table
-      ORDER BY modified_at DESC
-      LIMIT $limit
-      OFFSET $offset
-      ''',
-    );
+    var query = "SELECT * FROM $table ORDER BY modified_at DESC";
+
+    if (limit != 0) {
+      query = "$query OFFSET $limit";
+    }
+    if (offset != 0) {
+      query = "$query LIMIT $offset";
+    }
+    return _database.rawQuery(query);
   }
 
   @override
@@ -92,18 +93,18 @@ class SQLiteApiImpl implements SQLiteApi {
     );
   }
 
-  @override
-  Stream<Map<String, Object?>> fetchByAttribute(
-      String table, attribute, String attributeName) async* {
-    // TODO - finish this
-    final streamController = StreamController<Map<String, Object?>>(
-      onListen: () => print('Listens'),
-    );
+  // @override
+  // StreamController<Map<String, Object?>> fetchByAttribute(
+  //     String table, attribute, String attributeName) {
+  //   // TODO - finish this
+  //   final streamController = StreamController<Map<String, Object?>>(
+  //     onListen: () => print('Listens'),
+  //   );
 
-    // _database.ra
+  //   // _database.ra
 
-    // streamController.
-  }
+  //   // streamController.
+  // }
 
   @override
   Future<void> clearDatabase() async {
