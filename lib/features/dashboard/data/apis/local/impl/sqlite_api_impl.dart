@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../../../../../constants/strings.dart';
 import '../sqlite_api.dart';
 
 final sqliteApiProvider = Provider<SQLiteApi>(
@@ -94,6 +95,7 @@ class SQLiteApiImpl implements SQLiteApi {
   @override
   Stream<Map<String, Object?>> fetchByAttribute(
       String table, attribute, String attributeName) async* {
+    // TODO
     final streamController = StreamController<Map<String, Object?>>(
       onListen: () => print('Listens'),
     );
@@ -108,12 +110,10 @@ class SQLiteApiImpl implements SQLiteApi {
     await _database.transaction(
       (txn) async {
         var batch = txn.batch();
-        batch.delete(AccountNames.tableName);
-        batch.delete(CategoryNames.tableName);
-        batch.delete(RecurrenceNames.tableName);
-        batch.delete(TransfersNames.tableName);
-        batch.delete(PlannedTransactionNames.tableName);
-        batch.delete(SettingNames.tableName);
+        batch.delete(Strings.appUserLocalTable);
+        batch.delete(Strings.productsLocalTable);
+        batch.delete(Strings.advertisementsLocalTable);
+        batch.delete(Strings.userCartLocalTable);
         await batch.commit();
       },
     );

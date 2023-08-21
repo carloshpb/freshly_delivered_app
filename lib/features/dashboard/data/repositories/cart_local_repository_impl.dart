@@ -10,6 +10,7 @@ import '../../domain/repositories/cart_repository.dart';
 import '../apis/local/impl/sqlite_api_impl.dart';
 import '../apis/local/sqlite_api.dart';
 
+// TODO : Change to StreamProvider with StreamController, to receive and add products to the cart
 final cartLocalRepositoryProvider =
     NotifierProvider.autoDispose<CartLocalRepositoryImpl, String>(
   () {

@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freshly_delivered_app/features/dashboard/domain/models/advertisement.dart';
 import 'package:freshly_delivered_app/features/dashboard/domain/models/product.dart';
 
+import '../../../../constants/strings.dart';
 import '../../domain/repositories/products_repository.dart';
 import '../apis/remote/firestore_api.dart';
 import '../apis/remote/impl/firestore_api_impl.dart';
@@ -20,7 +20,8 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
 
   @override
   FutureOr<Product> findProductById(String id) async {
-    var resultListMap = await _firestoreApi.findById("products", id);
+    var resultListMap =
+        await _firestoreApi.findById(Strings.productsRemoteTable, id);
     return Product.fromJson(resultListMap);
   }
 
@@ -30,7 +31,7 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
     ({Product? productObject, int position}) lastProduct,
   ) async {
     var resultListMap = await _firestoreApi.findAllWithLimit(
-      "products",
+      Strings.productsRemoteTable,
       limit,
       lastProduct.productObject,
     );
@@ -43,7 +44,8 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
 
   @override
   FutureOr<List<Product>> findAllProducts() async {
-    var resultListMap = await _firestoreApi.findAll("products");
+    var resultListMap =
+        await _firestoreApi.findAll(Strings.productsRemoteTable);
     return resultListMap
         .map(
           (prodMap) => Product.fromJson(prodMap),
@@ -54,14 +56,14 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
   @override
   Future<void> saveProducts(List<Product> products) async {
     var mapProducts = products.map((prod) => prod.toJson());
-    await _firestoreApi.save("products", mapProducts);
+    await _firestoreApi.save(Strings.productsRemoteTable, mapProducts);
   }
 
   @override
   FutureOr<List<Product>> findProductsByNameWithLimit(String name, int limit,
       ({int position, Product? productObject}) lastProduct) async {
     var result = await _firestoreApi.findByAttributeDesc(
-      "products",
+      Strings.productsRemoteTable,
       name,
       "title",
       limit,
@@ -79,7 +81,7 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
   Stream<List<Product>> fetchProductsByAdvertisementId(
       String advertisementId) async* {
     var resultListMap = _firestoreApi.fetchByAttributeDesc(
-      "products",
+      Strings.productsRemoteTable,
       advertisementId,
       'advertisement_id',
       'units_sold',

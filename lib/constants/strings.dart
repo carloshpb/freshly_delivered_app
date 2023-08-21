@@ -53,9 +53,16 @@ class Strings {
 
   /// SQLite tables
   static const appUserLocalTable = "connected_user";
+  static const productsLocalTable = "products";
+  static const advertisementsLocalTable = "advertisements";
+  static const userCartLocalTable = "user_cart";
 
   /// Firestore tables
   static const appUserRemoteTable = "user_personal_data";
+  static const productsRemoteTable = "products";
+  static const advertisementsRemoteTable = "advertisements";
+  static const userCartRemoteTable = "carts";
+  static const onboardingMessagesRemoteTable = "onboarding_messages";
 
   /// Exceptions
   /// General
