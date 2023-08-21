@@ -54,6 +54,7 @@ class SQLiteApiImpl implements SQLiteApi {
   }
 
   /// May throw TypeError
+  /// returns 0 if value was not saved
   @override
   Future<int> save(String table, dynamic entity, List<String> columns) async {
     var entityToString = (entity is List)
@@ -118,5 +119,24 @@ class SQLiteApiImpl implements SQLiteApi {
         await batch.commit();
       },
     );
+  }
+
+  /// May throw TypeError
+  /// returns 0 if value was not updated
+  @override
+  Future<int> update(
+    String table,
+    List<({String attributeName, dynamic value})> setAttributes,
+    ({String attributeName, dynamic equalValue}) whereSingleCondition,
+  ) {
+    var query = "UPDATE $table SET";
+    for (int index = 0; index < setAttributes.length; index++) {
+      query =
+          "$query ${setAttributes[index].attributeName} = ${setAttributes[index].value},";
+    }
+    query = query.substring(0, query.length - 1);
+    query =
+        "$query WHERE ${whereSingleCondition.attributeName} == ${whereSingleCondition.equalValue};";
+    return _database.rawUpdate(query);
   }
 }

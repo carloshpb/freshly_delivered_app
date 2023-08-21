@@ -21,5 +21,10 @@ abstract class SQLiteApi {
   //   dynamic attribute,
   //   String attributeName,
   // );
+  Future<int> update(
+    String table,
+    List<({String attributeName, dynamic value})> setAttributes,
+    ({String attributeName, dynamic equalValue}) whereSingleCondition,
+  );
   Future<void> clearDatabase();
 }
