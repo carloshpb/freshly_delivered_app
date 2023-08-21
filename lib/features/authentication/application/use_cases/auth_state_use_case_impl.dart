@@ -2,8 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart';
 
 import '../../data/repositories/firebase_authentication_repository.dart';
-import '../../domain/repositories/authentication_repository.dart';
-import '../../domain/use_cases/auth_state_use_case.dart';
 
 final authStateUseCaseProvider = StreamProvider<AppUser?>(
   (ref) => ref.watch(authenticationRepositoryProvider).authStateChanges(),

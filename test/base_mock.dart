@@ -3,7 +3,6 @@ import 'package:freshly_delivered_app/features/authentication/application/dtos/o
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/onboarding_messages_repository.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/use_cases/add_onboarding_message_use_case.dart';
-import 'package:freshly_delivered_app/features/authentication/domain/use_cases/current_user_use_case.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/use_cases/get_onboarding_messages_use_case.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/use_cases/send_password_reset_email_use_case.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/use_cases/set_onboarding_messages_use_case.dart';
@@ -23,7 +22,6 @@ import 'package:shared_preferences/shared_preferences.dart';
   MockSpec<SignInEmailPasswordUseCase>(),
   MockSpec<SignUpEmailPasswordUseCase>(),
   MockSpec<GetOnboardingMessagesUseCase>(),
-  MockSpec<CurrentUserUseCase>(),
   MockSpec<AddOnboardingMessageUseCase>(),
   MockSpec<UserCredential>(),
   MockSpec<FirebaseAuth>(),
