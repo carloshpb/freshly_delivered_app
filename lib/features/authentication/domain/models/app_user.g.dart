@@ -42,3 +42,16 @@ Map<String, dynamic> _$$UserDataToJson(_$UserData instance) =>
       'modified_at': instance.modifiedAt?.toIso8601String(),
       'runtimeType': instance.$type,
     };
+
+_$UserSimple _$$UserSimpleFromJson(Map<String, dynamic> json) => _$UserSimple(
+      uid: json['uid'] as String,
+      email: json['email'] as String,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$UserSimpleToJson(_$UserSimple instance) =>
+    <String, dynamic>{
+      'uid': instance.uid,
+      'email': instance.email,
+      'runtimeType': instance.$type,
+    };

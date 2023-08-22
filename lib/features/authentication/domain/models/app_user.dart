@@ -20,6 +20,12 @@ sealed class AppUser with _$AppUser {
     @JsonKey(name: 'modified_at') DateTime? modifiedAt,
   }) = UserData;
 
+  @JsonSerializable(explicitToJson: true)
+  const factory AppUser.simple({
+    required String uid,
+    required String email,
+  }) = UserSimple;
+
   factory AppUser.fromJson(Map<String, Object?> json) =>
       _$AppUserFromJson(json);
 }

@@ -265,14 +265,14 @@ class MockOnboardingMessageDTO extends _i1.Mock
 class MockAuthenticationRepository extends _i1.Mock
     implements _i8.AuthenticationRepository {
   @override
-  _i9.Stream<_i10.AppUser?> authStateChanges() => (super.noSuchMethod(
+  _i9.Stream<_i10.AppUser> authStateChanges() => (super.noSuchMethod(
         Invocation.method(
           #authStateChanges,
           [],
         ),
-        returnValue: _i9.Stream<_i10.AppUser?>.empty(),
-        returnValueForMissingStub: _i9.Stream<_i10.AppUser?>.empty(),
-      ) as _i9.Stream<_i10.AppUser?>);
+        returnValue: _i9.Stream<_i10.AppUser>.empty(),
+        returnValueForMissingStub: _i9.Stream<_i10.AppUser>.empty(),
+      ) as _i9.Stream<_i10.AppUser>);
   @override
   _i9.Future<void> signInWithEmailAndPassword(
     String? email,

@@ -20,6 +20,8 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) {
       return UserNotConnected.fromJson(json);
     case 'data':
       return UserData.fromJson(json);
+    case 'simple':
+      return UserSimple.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'runtimeType', 'AppUser',
@@ -41,6 +43,7 @@ mixin _$AppUser {
             @JsonKey(name: 'created_at') DateTime? createdAt,
             @JsonKey(name: 'modified_at') DateTime? modifiedAt)
         data,
+    required TResult Function(String uid, String email) simple,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +58,7 @@ mixin _$AppUser {
             @JsonKey(name: 'created_at') DateTime? createdAt,
             @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
         data,
+    TResult? Function(String uid, String email)? simple,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,6 +73,7 @@ mixin _$AppUser {
             @JsonKey(name: 'created_at') DateTime? createdAt,
             @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
         data,
+    TResult Function(String uid, String email)? simple,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -76,18 +81,21 @@ mixin _$AppUser {
   TResult map<TResult extends Object?>({
     required TResult Function(UserNotConnected value) notConnected,
     required TResult Function(UserData value) data,
+    required TResult Function(UserSimple value) simple,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UserNotConnected value)? notConnected,
     TResult? Function(UserData value)? data,
+    TResult? Function(UserSimple value)? simple,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UserNotConnected value)? notConnected,
     TResult Function(UserData value)? data,
+    TResult Function(UserSimple value)? simple,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -167,6 +175,7 @@ class _$UserNotConnected implements UserNotConnected {
             @JsonKey(name: 'created_at') DateTime? createdAt,
             @JsonKey(name: 'modified_at') DateTime? modifiedAt)
         data,
+    required TResult Function(String uid, String email) simple,
   }) {
     return notConnected();
   }
@@ -184,6 +193,7 @@ class _$UserNotConnected implements UserNotConnected {
             @JsonKey(name: 'created_at') DateTime? createdAt,
             @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
         data,
+    TResult? Function(String uid, String email)? simple,
   }) {
     return notConnected?.call();
   }
@@ -201,6 +211,7 @@ class _$UserNotConnected implements UserNotConnected {
             @JsonKey(name: 'created_at') DateTime? createdAt,
             @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
         data,
+    TResult Function(String uid, String email)? simple,
     required TResult orElse(),
   }) {
     if (notConnected != null) {
@@ -214,6 +225,7 @@ class _$UserNotConnected implements UserNotConnected {
   TResult map<TResult extends Object?>({
     required TResult Function(UserNotConnected value) notConnected,
     required TResult Function(UserData value) data,
+    required TResult Function(UserSimple value) simple,
   }) {
     return notConnected(this);
   }
@@ -223,6 +235,7 @@ class _$UserNotConnected implements UserNotConnected {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UserNotConnected value)? notConnected,
     TResult? Function(UserData value)? data,
+    TResult? Function(UserSimple value)? simple,
   }) {
     return notConnected?.call(this);
   }
@@ -232,6 +245,7 @@ class _$UserNotConnected implements UserNotConnected {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UserNotConnected value)? notConnected,
     TResult Function(UserData value)? data,
+    TResult Function(UserSimple value)? simple,
     required TResult orElse(),
   }) {
     if (notConnected != null) {
@@ -409,6 +423,7 @@ class _$UserData implements UserData {
             @JsonKey(name: 'created_at') DateTime? createdAt,
             @JsonKey(name: 'modified_at') DateTime? modifiedAt)
         data,
+    required TResult Function(String uid, String email) simple,
   }) {
     return data(
         uid, email, password, fullname, phoneNumber, createdAt, modifiedAt);
@@ -427,6 +442,7 @@ class _$UserData implements UserData {
             @JsonKey(name: 'created_at') DateTime? createdAt,
             @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
         data,
+    TResult? Function(String uid, String email)? simple,
   }) {
     return data?.call(
         uid, email, password, fullname, phoneNumber, createdAt, modifiedAt);
@@ -445,6 +461,7 @@ class _$UserData implements UserData {
             @JsonKey(name: 'created_at') DateTime? createdAt,
             @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
         data,
+    TResult Function(String uid, String email)? simple,
     required TResult orElse(),
   }) {
     if (data != null) {
@@ -459,6 +476,7 @@ class _$UserData implements UserData {
   TResult map<TResult extends Object?>({
     required TResult Function(UserNotConnected value) notConnected,
     required TResult Function(UserData value) data,
+    required TResult Function(UserSimple value) simple,
   }) {
     return data(this);
   }
@@ -468,6 +486,7 @@ class _$UserData implements UserData {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UserNotConnected value)? notConnected,
     TResult? Function(UserData value)? data,
+    TResult? Function(UserSimple value)? simple,
   }) {
     return data?.call(this);
   }
@@ -477,6 +496,7 @@ class _$UserData implements UserData {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UserNotConnected value)? notConnected,
     TResult Function(UserData value)? data,
+    TResult Function(UserSimple value)? simple,
     required TResult orElse(),
   }) {
     if (data != null) {
@@ -517,5 +537,198 @@ abstract class UserData implements AppUser {
   DateTime? get modifiedAt;
   @JsonKey(ignore: true)
   _$$UserDataCopyWith<_$UserData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UserSimpleCopyWith<$Res> {
+  factory _$$UserSimpleCopyWith(
+          _$UserSimple value, $Res Function(_$UserSimple) then) =
+      __$$UserSimpleCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String uid, String email});
+}
+
+/// @nodoc
+class __$$UserSimpleCopyWithImpl<$Res>
+    extends _$AppUserCopyWithImpl<$Res, _$UserSimple>
+    implements _$$UserSimpleCopyWith<$Res> {
+  __$$UserSimpleCopyWithImpl(
+      _$UserSimple _value, $Res Function(_$UserSimple) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? uid = null,
+    Object? email = null,
+  }) {
+    return _then(_$UserSimple(
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$UserSimple implements UserSimple {
+  const _$UserSimple(
+      {required this.uid, required this.email, final String? $type})
+      : $type = $type ?? 'simple';
+
+  factory _$UserSimple.fromJson(Map<String, dynamic> json) =>
+      _$$UserSimpleFromJson(json);
+
+  @override
+  final String uid;
+  @override
+  final String email;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'AppUser.simple(uid: $uid, email: $email)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserSimple &&
+            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.email, email) || other.email == email));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, uid, email);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserSimpleCopyWith<_$UserSimple> get copyWith =>
+      __$$UserSimpleCopyWithImpl<_$UserSimple>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notConnected,
+    required TResult Function(
+            String uid,
+            String email,
+            String password,
+            String fullname,
+            @JsonKey(name: 'phone_number') String phoneNumber,
+            @JsonKey(name: 'created_at') DateTime? createdAt,
+            @JsonKey(name: 'modified_at') DateTime? modifiedAt)
+        data,
+    required TResult Function(String uid, String email) simple,
+  }) {
+    return simple(uid, email);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? notConnected,
+    TResult? Function(
+            String uid,
+            String email,
+            String password,
+            String fullname,
+            @JsonKey(name: 'phone_number') String phoneNumber,
+            @JsonKey(name: 'created_at') DateTime? createdAt,
+            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+        data,
+    TResult? Function(String uid, String email)? simple,
+  }) {
+    return simple?.call(uid, email);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notConnected,
+    TResult Function(
+            String uid,
+            String email,
+            String password,
+            String fullname,
+            @JsonKey(name: 'phone_number') String phoneNumber,
+            @JsonKey(name: 'created_at') DateTime? createdAt,
+            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+        data,
+    TResult Function(String uid, String email)? simple,
+    required TResult orElse(),
+  }) {
+    if (simple != null) {
+      return simple(uid, email);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UserNotConnected value) notConnected,
+    required TResult Function(UserData value) data,
+    required TResult Function(UserSimple value) simple,
+  }) {
+    return simple(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(UserNotConnected value)? notConnected,
+    TResult? Function(UserData value)? data,
+    TResult? Function(UserSimple value)? simple,
+  }) {
+    return simple?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UserNotConnected value)? notConnected,
+    TResult Function(UserData value)? data,
+    TResult Function(UserSimple value)? simple,
+    required TResult orElse(),
+  }) {
+    if (simple != null) {
+      return simple(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserSimpleToJson(
+      this,
+    );
+  }
+}
+
+abstract class UserSimple implements AppUser {
+  const factory UserSimple(
+      {required final String uid, required final String email}) = _$UserSimple;
+
+  factory UserSimple.fromJson(Map<String, dynamic> json) =
+      _$UserSimple.fromJson;
+
+  String get uid;
+  String get email;
+  @JsonKey(ignore: true)
+  _$$UserSimpleCopyWith<_$UserSimple> get copyWith =>
       throw _privateConstructorUsedError;
 }
