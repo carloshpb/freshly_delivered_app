@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/strings.dart';
+import '../../../authentication/data/repositories/firebase_authentication_repository.dart';
+import '../../../authentication/domain/models/app_user.dart';
 import '../../domain/models/cart_item.dart';
 import '../../domain/repositories/cart_repository.dart';
 import '../apis/remote/firestore_api.dart';
@@ -13,30 +16,40 @@ import '../apis/remote/impl/firestore_api_impl.dart';
 final cartRemoteRepositoryProvider = Provider.autoDispose<CartRepository>(
   (ref) {
     var firestoreApi = ref.watch(firestoreApiProvider);
-    var cartStreamController = StreamController<List<CartItem>>.broadcast();
+    var authenticationRepository = ref.watch(authenticationRepositoryProvider);
+    // var cartStreamController = StreamController<List<CartItem>>.broadcast();
 
-    firestoreApi.findAll(Strings.userCartRemoteTable).then((listCartItemsJson) {
-      var cartItemsModels = (listCartItemsJson.isNotEmpty)
-          ? listCartItemsJson.map((ci) => CartItem.fromJson(ci)).toList()
-          : <CartItem>[];
-      cartStreamController.add(cartItemsModels);
-    });
+    // firestoreApi.findAll(Strings.userCartRemoteTable).then((listCartItemsJson) {
+    //   var cartItemsModels = (listCartItemsJson.isNotEmpty)
+    //       ? listCartItemsJson.map((ci) => CartItem.fromJson(ci)).toList()
+    //       : <CartItem>[];
+    //   cartStreamController.add(cartItemsModels);
+    // });
 
-    ref.onDispose(
-      () => cartStreamController.close(),
+    var currentSimpleUserData =
+        authenticationRepository.currentSimpleUserData();
+
+    var streamCart = firestoreApi.fetchSubCollection(
+      Strings.userCartRemoteTable,
+      (currentSimpleUserData as UserSimple).uid,
+      "items",
     );
 
-    return CartRemoteRepositoryImpl(firestoreApi, cartStreamController);
+    // ref.onDispose(
+    //   () => cartStreamController.close(),
+    // );
+
+    return CartRemoteRepositoryImpl(firestoreApi, streamCart);
   },
 );
 
 class CartRemoteRepositoryImpl implements CartRepository {
   final FirestoreApi _firestoreApi;
-  final StreamController<List<CartItem>> _cartItemsStreamController;
+  final Stream<List<Map<String, Object?>>> _cartItemsStreamController;
 
   CartRemoteRepositoryImpl(
     FirestoreApi firestoreApi,
-    StreamController<List<CartItem>> cartItemsStreamController,
+    Stream<List<Map<String, Object?>>> cartItemsStreamController,
   )   : _firestoreApi = firestoreApi,
         _cartItemsStreamController = cartItemsStreamController;
 
@@ -56,7 +69,8 @@ class CartRemoteRepositoryImpl implements CartRepository {
 
   @override
   Stream<List<CartItem>> fetchCartProducts() {
-    return _cartItemsStreamController.stream;
+    return _cartItemsStreamController
+        .map((event) => event.map((itemMap) => null));
   }
 
   @override

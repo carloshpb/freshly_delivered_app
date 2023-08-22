@@ -33,9 +33,9 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   );
 
   @override
-  Stream<AppUser?> authStateChanges() {
+  Stream<AppUser> authStateChanges() {
     var authState = _firebaseAuth.authStateChanges();
-    return authState.asyncMap<AppUser?>((user) async {
+    return authState.asyncMap<AppUser>((user) async {
       if (user == null) {
         _sqLiteApi.clearDatabase();
         return const AppUser.notConnected();
@@ -113,7 +113,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
           fullname: fullName,
           phoneNumber: phoneNumber,
         ).toJson();
-        await _firestoreApi.save(
+        await _firestoreApi.add(
           Strings.appUserRemoteTable,
           fullUserJson,
         );
@@ -148,6 +148,17 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
     } on FirebaseAuthException catch (e) {
       throw e.convertToAppException();
     }
+  }
+
+  @override
+  AppUser currentSimpleUserData() {
+    var currentUser = _firebaseAuth.currentUser;
+    return currentUser == null
+        ? const AppUser.notConnected()
+        : AppUser.simple(
+            uid: currentUser.uid,
+            email: currentUser.email!,
+          );
   }
 }
 

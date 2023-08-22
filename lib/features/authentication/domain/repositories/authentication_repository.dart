@@ -1,7 +1,8 @@
 import '../models/app_user.dart';
 
 abstract class AuthenticationRepository {
-  Stream<AppUser?> authStateChanges();
+  Stream<AppUser> authStateChanges();
+  AppUser currentSimpleUserData();
   Future<void> signInWithEmailAndPassword(String email, String password);
   Future<void> createUserWithEmailAndPassword(
       String email, String password, String fullName, String phoneNumber);
