@@ -215,7 +215,6 @@ class FirestoreApiImpl implements FirestoreApi {
     String parentCollection,
     String parentId,
     String childCollection,
-    String childId,
     dynamic entity,
   ) async {
     var ref = _firestore
@@ -256,8 +255,8 @@ class FirestoreApiImpl implements FirestoreApi {
   }
 
   @override
-  Future<void> set(String collection, String docId, dynamic entity) async {
-    var docRef = _firestore.collection(collection).doc(docId);
+  Future<void> set(String collection, dynamic entity) async {
+    var docRef = _firestore.collection(collection).doc(entity["id"]);
     try {
       if (entity is List) {
         for (int index = 0; index < entity.length; index++) {
@@ -321,6 +320,21 @@ class FirestoreApiImpl implements FirestoreApi {
       }
       yield mapList;
     }
+  }
+
+  @override
+  Future<void> removeFromSubcollection(
+    String parentCollection,
+    String parentId,
+    String childCollection,
+    dynamic entity,
+  ) {
+    var ref = _firestore
+        .collection(parentCollection)
+        .doc(parentId)
+        .collection(childCollection);
+
+    return ref.doc(entity["id"]).delete();
   }
 
   // @override
