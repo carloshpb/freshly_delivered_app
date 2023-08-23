@@ -31,4 +31,11 @@ class CartItem with _$CartItem {
       amount: amount,
     );
   }
+
+  Map<String, Object> toFirestoreJson() {
+    return {
+      "id": id,
+      "amount": amount,
+    };
+  }
 }

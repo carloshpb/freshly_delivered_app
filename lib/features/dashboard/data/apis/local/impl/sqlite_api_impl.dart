@@ -139,4 +139,17 @@ class SQLiteApiImpl implements SQLiteApi {
         "$query WHERE ${whereSingleCondition.attributeName} == ${whereSingleCondition.equalValue};";
     return _database.rawUpdate(query);
   }
+
+  @override
+  Future<Map<String, Object?>> findByIdWithJoinId(
+    String table,
+    String id,
+    String innerChildId,
+  ) {
+    SELECT products.id, products.name AS product_name, products.value, users.userId, users.name AS user_name
+FROM products
+JOIN users ON products.ownerId = users.userId
+WHERE products.id = 1;
+
+  }
 }
