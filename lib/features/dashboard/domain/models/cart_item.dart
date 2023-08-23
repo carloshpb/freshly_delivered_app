@@ -14,13 +14,13 @@ class CartItem with _$CartItem {
   CartItem._();
 
   @JsonSerializable(explicitToJson: true)
+  @Assert('id != ""', 'id cannot be empty')
+  @Assert('amount >= 1', 'amount cannot be zero or negative')
   factory CartItem({
+    required String id,
     required NormalProduct product,
     @Default(1) int amount,
   }) = _CartItem;
-
-  @JsonKey(name: 'product_id')
-  late final String productId = product.id;
 
   factory CartItem.fromJson(Map<String, Object?> json) =>
       _$CartItemFromJson(json);

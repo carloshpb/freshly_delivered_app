@@ -20,6 +20,7 @@ CartItem _$CartItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CartItem {
+  String get id => throw _privateConstructorUsedError;
   NormalProduct get product => throw _privateConstructorUsedError;
   int get amount => throw _privateConstructorUsedError;
 
@@ -34,7 +35,7 @@ abstract class $CartItemCopyWith<$Res> {
   factory $CartItemCopyWith(CartItem value, $Res Function(CartItem) then) =
       _$CartItemCopyWithImpl<$Res, CartItem>;
   @useResult
-  $Res call({NormalProduct product, int amount});
+  $Res call({String id, NormalProduct product, int amount});
 }
 
 /// @nodoc
@@ -50,10 +51,15 @@ class _$CartItemCopyWithImpl<$Res, $Val extends CartItem>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? product = freezed,
     Object? amount = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -73,7 +79,7 @@ abstract class _$$_CartItemCopyWith<$Res> implements $CartItemCopyWith<$Res> {
       __$$_CartItemCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({NormalProduct product, int amount});
+  $Res call({String id, NormalProduct product, int amount});
 }
 
 /// @nodoc
@@ -87,10 +93,15 @@ class __$$_CartItemCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? product = freezed,
     Object? amount = null,
   }) {
     return _then(_$_CartItem(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -107,11 +118,16 @@ class __$$_CartItemCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$_CartItem extends _CartItem {
-  _$_CartItem({required this.product, this.amount = 1}) : super._();
+  _$_CartItem({required this.id, required this.product, this.amount = 1})
+      : assert(id != "", 'id cannot be empty'),
+        assert(amount >= 1, 'amount cannot be zero or negative'),
+        super._();
 
   factory _$_CartItem.fromJson(Map<String, dynamic> json) =>
       _$$_CartItemFromJson(json);
 
+  @override
+  final String id;
   @override
   final NormalProduct product;
   @override
@@ -120,7 +136,7 @@ class _$_CartItem extends _CartItem {
 
   @override
   String toString() {
-    return 'CartItem(product: $product, amount: $amount)';
+    return 'CartItem(id: $id, product: $product, amount: $amount)';
   }
 
   @override
@@ -128,6 +144,7 @@ class _$_CartItem extends _CartItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CartItem &&
+            (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other.product, product) &&
             (identical(other.amount, amount) || other.amount == amount));
   }
@@ -135,7 +152,7 @@ class _$_CartItem extends _CartItem {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(product), amount);
+      runtimeType, id, const DeepCollectionEquality().hash(product), amount);
 
   @JsonKey(ignore: true)
   @override
@@ -152,12 +169,16 @@ class _$_CartItem extends _CartItem {
 }
 
 abstract class _CartItem extends CartItem {
-  factory _CartItem({required final NormalProduct product, final int amount}) =
-      _$_CartItem;
+  factory _CartItem(
+      {required final String id,
+      required final NormalProduct product,
+      final int amount}) = _$_CartItem;
   _CartItem._() : super._();
 
   factory _CartItem.fromJson(Map<String, dynamic> json) = _$_CartItem.fromJson;
 
+  @override
+  String get id;
   @override
   NormalProduct get product;
   @override
