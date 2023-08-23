@@ -28,7 +28,7 @@ dependencies:
   go_router: ^10.1.0
   input_history_text_field: ^0.2.0
   json_annotation: ^4.8.1
-  loader_overlay: ^2.3.0
+  loader_overlay: ^2.3.1
   multiple_result: ^5.1.0
   mockito: ^5.4.2
   riverpod_annotation: ^2.1.2
