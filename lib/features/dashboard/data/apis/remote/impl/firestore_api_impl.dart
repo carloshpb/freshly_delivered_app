@@ -217,9 +217,42 @@ class FirestoreApiImpl implements FirestoreApi {
     String childCollection,
     String childId,
     dynamic entity,
-  ) {
-    // TODO: implement setSubcollection
-    throw UnimplementedError();
+  ) async {
+    var ref = _firestore
+        .collection(parentCollection)
+        .doc(parentId)
+        .collection(childCollection);
+    try {
+      if (entity is List) {
+        for (int index = 0; index < entity.length; index++) {
+          await ref.doc(entity[index]["id"]).set(
+                entity[index]
+                  ..putIfAbsent(
+                    "created_at",
+                    () => FieldValue.serverTimestamp(),
+                  )
+                  ..putIfAbsent(
+                    "modified_at",
+                    () => entity[index]["created_at"],
+                  ),
+              );
+        }
+      } else {
+        await ref.doc(entity["id"]).set(
+              (entity as Map<String, Object?>)
+                ..putIfAbsent(
+                  "created_at",
+                  () => FieldValue.serverTimestamp(),
+                )
+                ..putIfAbsent(
+                  "modified_at",
+                  () => entity["created_at"],
+                ),
+            );
+      }
+    } on Exception {
+      rethrow;
+    }
   }
 
   @override
@@ -239,11 +272,9 @@ class FirestoreApiImpl implements FirestoreApi {
                 () => entity[index]["created_at"],
               ),
           );
-          entity[index]["id"] = docSnapshot.id;
         }
-        return entity;
       } else {
-        var docSnapshot = await collectionRef.add(
+        await docRef.set(
           (entity as Map<String, Object?>)
             ..putIfAbsent(
               "created_at",
@@ -254,8 +285,6 @@ class FirestoreApiImpl implements FirestoreApi {
               () => entity["created_at"],
             ),
         );
-        entity["id"] = docSnapshot.id;
-        return entity;
       }
     } on Exception {
       rethrow;

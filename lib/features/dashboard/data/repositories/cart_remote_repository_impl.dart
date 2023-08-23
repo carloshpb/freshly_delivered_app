@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/strings.dart';
@@ -57,8 +56,9 @@ class CartRemoteRepositoryImpl implements CartRepository {
   Future<void> setProductToCart(CartItem item) async {
     var itemJson = item.toJson();
     try {
-      await _firestoreApi.save(
+      await _firestoreApi.set(
         Strings.userCartRemoteTable,
+        item
         itemJson,
       );
     } on Exception {
@@ -69,8 +69,9 @@ class CartRemoteRepositoryImpl implements CartRepository {
 
   @override
   Stream<List<CartItem>> fetchCartProducts() {
-    return _cartItemsStreamController
-        .map((event) => event.map((itemMap) => null));
+    return _cartItemsStreamController.map(
+      (event) => event.map((itemMap) => CartItem.fromJson(itemMap)).toList(),
+    );
   }
 
   @override
