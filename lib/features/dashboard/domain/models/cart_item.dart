@@ -25,11 +25,27 @@ class CartItem with _$CartItem {
   factory CartItem.fromJson(Map<String, Object?> json) =>
       _$CartItemFromJson(json);
 
+  
+
+  factory CartItem.fromSqliteJson(Map<String, Object?> json) => CartItem(
+    id: ,
+    product: ProductDto.normal(id: id, title: title, price: price, description: description, imagePath: imagePath, category: category,),
+    amount: ,
+  );
+
   CartItemDto toDto() {
     return CartItemDto(
       product: product.toDto() as NormalProductDto,
       amount: amount,
     );
+  }
+
+  Map<String, Object> toSqliteJson() {
+    return {
+      "id": id,
+      "product_id": product.id,
+      "amount": amount,
+    };
   }
 
   Map<String, Object> toFirestoreJson() {

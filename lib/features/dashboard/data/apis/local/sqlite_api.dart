@@ -15,11 +15,6 @@ abstract class SQLiteApi {
     int limit,
     int offset,
   );
-  Future<Map<String, Object?>> findByIdWithJoinId(
-    String table,
-    String id,
-    String innerChildId,
-  );
   Future<int> save(String table, dynamic entity, List<String> columns);
   // StreamController<Map<String, Object?>> fetchByAttribute(
   //   String table,
@@ -32,4 +27,5 @@ abstract class SQLiteApi {
     ({String attributeName, dynamic equalValue}) whereSingleCondition,
   );
   Future<void> clearDatabase();
+  Future<List<Map<String, Object?>>> customQuery(String query);
 }

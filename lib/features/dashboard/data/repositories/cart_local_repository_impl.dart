@@ -105,6 +105,25 @@ class CartLocalRepositoryImpl implements CartRepository {
     //   (event) => event.map((itemMap) => CartItem.fromJson(itemMap)).toList(),
     // );
 
+    var customQuery = '''
+    SELECT
+      c.id AS cart_id,
+      c.amount,
+      p.id AS product_id,
+      p.title,
+      p.price,
+      p.description,
+      p.category,
+      p.image_path,
+      p.units_sold,
+      p.advertisement_id,
+      p.discount,
+      p.created_at,
+      p.modified_at
+    FROM cart_item AS c
+    JOIN products AS p ON c.product_id = p.id
+    ''';
+
     return _cartItemsStreamController.stream.asyncMap(
       (listFirestoreItems) async {
         var cartItemConvertedList = <CartItem>[];
