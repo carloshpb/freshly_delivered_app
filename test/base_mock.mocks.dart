@@ -1090,6 +1090,17 @@ class MockFirebaseAuth extends _i1.Mock implements _i4.FirebaseAuth {
         returnValue: _i9.Future<void>.value(),
         returnValueForMissingStub: _i9.Future<void>.value(),
       ) as _i9.Future<void>);
+  @override
+  _i9.Future<void> revokeTokenWithAuthorizationCode(
+          String? authorizationCode) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #revokeTokenWithAuthorizationCode,
+          [authorizationCode],
+        ),
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
 }
 
 /// A class which mocks [User].

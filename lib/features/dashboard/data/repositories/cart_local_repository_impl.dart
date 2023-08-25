@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/strings.dart';
+import '../../../../exceptions/object_already_added_exception.dart';
 import '../../domain/models/cart_item.dart';
-import '../../domain/models/product.dart';
 import '../../domain/repositories/cart_repository.dart';
 import '../../domain/repositories/products_repository.dart';
 import '../apis/local/impl/sqlite_api_impl.dart';
@@ -40,7 +40,7 @@ final cartLocalRepositoryProvider = Provider.autoDispose<CartRepository>(
 
 class CartLocalRepositoryImpl implements CartRepository {
   final SQLiteApi _sqliteApi;
-  final ProductsRepository _productsLocalRepository;
+  // final ProductsRepository _productsLocalRepository;
   final StreamController<List<Map<String, Object?>>> _cartItemsStreamController;
 
   CartLocalRepositoryImpl(
@@ -48,7 +48,7 @@ class CartLocalRepositoryImpl implements CartRepository {
     ProductsRepository productsLocalRepository,
     StreamController<List<Map<String, Object?>>> cartItemsStreamController,
   )   : _sqliteApi = sqliteApi,
-        _productsLocalRepository = productsLocalRepository,
+        // _productsLocalRepository = productsLocalRepository,
         _cartItemsStreamController = cartItemsStreamController;
 
   @override
@@ -63,12 +63,12 @@ class CartLocalRepositoryImpl implements CartRepository {
     // TODO :
 
     if (result > 0) {
-      var lastCartItemList = await _cartItemsStreamController.stream.last;
-      lastCartItemList[lastCartItemList.indexWhere(
-          (currentCartItem) => currentCartItem.id == item.id)] = item;
-      _cartItemsStreamController.add(lastCartItemList);
+      // var lastCartItemList = await _cartItemsStreamController.stream.last;
+      // lastCartItemList[lastCartItemList.indexWhere(
+      //     (currentCartItem) => currentCartItem.id == item.id)] = item;
+      // _cartItemsStreamController.add(lastCartItemList);
     } else {
-      throw ObjectAlreadyAddedException();
+      throw ObjectAlreadyAddedException("SQLite");
     }
 
     // var resultCartItem =
@@ -107,9 +107,8 @@ class CartLocalRepositoryImpl implements CartRepository {
 
     var customQuery = '''
     SELECT
-      c.id AS cart_id,
       c.amount,
-      p.id AS product_id,
+      c.id,
       p.title,
       p.price,
       p.description,
@@ -121,29 +120,25 @@ class CartLocalRepositoryImpl implements CartRepository {
       p.created_at,
       p.modified_at
     FROM cart_item AS c
-    JOIN products AS p ON c.product_id = p.id
+    JOIN products AS p ON c.id = p.id
     ''';
+
+    var result = _sqliteApi.customQuery(customQuery).then((value) => null);
 
     return _cartItemsStreamController.stream.asyncMap(
       (listFirestoreItems) async {
         var cartItemConvertedList = <CartItem>[];
-        for (int index = 0; index < listFirestoreItems.length; index++) {
-          var currentId = listFirestoreItems[index]["id"] as String;
-          // TODO : Treat better product that doesn't exist anymore
-          var product =
-              await _productsLocalRepository.findProductById(currentId);
-          switch (product) {
-            case EmptyProduct():
-              continue;
-            default:
-              cartItemConvertedList.add(
-                CartItem(
-                  id: listFirestoreItems[index]["id"] as String,
-                  product: product as NormalProduct,
-                  amount: listFirestoreItems[index]["amount"] as int,
-                ),
-              );
+        for (int index = 0; index < listFirestoreItems.length;) {
+          // if product was removed from local DB due to remote reason, then the cart_item shouldn't exist anymore
+          if (listFirestoreItems[index]["title"] == null ||
+              (listFirestoreItems[index]["title"] as String).isEmpty) {
+            await _sqliteApi.deleteById(
+                "cart", listFirestoreItems[index]["id"] as String);
+            continue;
           }
+          var currentCartItem =
+              CartItem.fromSqliteJson(listFirestoreItems[index]);
+          cartItemConvertedList.add(currentCartItem);
         }
         return cartItemConvertedList;
       },

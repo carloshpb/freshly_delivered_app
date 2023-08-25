@@ -144,4 +144,12 @@ class SQLiteApiImpl implements SQLiteApi {
   Future<List<Map<String, Object?>>> customQuery(String query) {
     return _database.rawQuery(query);
   }
+
+  @override
+  Future<int> deleteById(String table, String id) {
+    return _database.rawDelete('''
+      DELETE FROM $table
+      WHERE id == $id;
+    ''');
+  }
 }

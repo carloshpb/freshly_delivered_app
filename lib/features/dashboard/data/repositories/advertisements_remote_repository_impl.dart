@@ -56,7 +56,7 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
   @override
   Future<void> saveAdvertisements(List<Advertisement> advertisements) async {
     var mapAdvertisements = advertisements.map((prod) => prod.toJson());
-    await _firestoreApi.save("advertisements", mapAdvertisements);
+    await _firestoreApi.set("advertisements", mapAdvertisements);
   }
 
   @override

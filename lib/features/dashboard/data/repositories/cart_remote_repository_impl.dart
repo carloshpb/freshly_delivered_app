@@ -99,7 +99,7 @@ class CartRemoteRepositoryImpl implements CartRepository {
             default:
               cartItemConvertedList.add(
                 CartItem(
-                  id: listFirestoreItems[index]["id"] as String,
+                  // id: listFirestoreItems[index]["id"] as String,
                   product: product as NormalProduct,
                   amount: listFirestoreItems[index]["amount"] as int,
                 ),

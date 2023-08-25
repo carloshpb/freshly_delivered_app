@@ -15,7 +15,7 @@ class CartItem with _$CartItem {
 
   @JsonSerializable(explicitToJson: true)
   // @Assert('id != ""', 'id cannot be empty')
-  @Assert('amount >= 1', 'amount cannot be zero or negative')
+  @Assert('amount >= 0', 'amount cannot negative')
   factory CartItem({
     // required String id,
     required NormalProduct product,
@@ -32,19 +32,11 @@ class CartItem with _$CartItem {
     );
   }
 
-  Map<String, Object> toSqliteJson() {
-    return {
-      // "id": id,
-      "product_id": product.id,
-      "amount": amount,
-    };
-  }
-
   factory CartItem.fromSqliteJson(Map<String, Object?> json) => CartItem(
         // id: json["cart_id"] as String,
         amount: json["amount"] as int,
         product: NormalProduct(
-          id: json["product_id"] as String,
+          id: json["id"] as String,
           title: json["title"] as String,
           price: json["price"] as double,
           description: json["description"] as String,
