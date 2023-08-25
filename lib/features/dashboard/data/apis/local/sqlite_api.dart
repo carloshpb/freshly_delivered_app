@@ -28,4 +28,5 @@ abstract class SQLiteApi {
   );
   Future<void> clearDatabase();
   Future<List<Map<String, Object?>>> customQuery(String query);
+  Future<int> deleteById(String table, String id);
 }

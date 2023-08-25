@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../firestore_api.dart';
 
@@ -298,6 +299,8 @@ class FirestoreApiImpl implements FirestoreApi {
   ) async* {
     late CollectionReference<Map<String, dynamic>> collectionRef;
 
+    final subject = BehaviorSubject<Map<String, Object?>>();
+
     if (parentCollection.isEmpty || childCollection.isEmpty) {
       throw FirebaseException(
         plugin: "firebase_firestore",
@@ -311,15 +314,34 @@ class FirestoreApiImpl implements FirestoreApi {
           .collection(childCollection);
     }
 
-    await for (final query in collectionRef.snapshots()) {
-      var mapList = <Map<String, Object?>>[];
-      for (var docSnapshot in query.docs) {
-        var map = docSnapshot.data();
-        map["id"] = docSnapshot.id;
-        mapList.add(map);
-      }
-      yield mapList;
-    }
+    collectionRef.snapshots().listen(
+      (event) {
+        for (var change in event.docChanges) {
+          switch (change.type) {
+            case DocumentChangeType.added:
+              print("New City: ${change.doc.data()}");
+              subject.a
+              break;
+            case DocumentChangeType.modified:
+              print("Modified City: ${change.doc.data()}");
+              break;
+            case DocumentChangeType.removed:
+              print("Removed City: ${change.doc.data()}");
+              break;
+          }
+        }
+      },
+    );
+
+    // await for (final query in collectionRef.snapshots()) {
+    //   var mapList = <Map<String, Object?>>[];
+    //   for (var docSnapshot in query.docs) {
+    //     var map = docSnapshot.data();
+    //     map["id"] = docSnapshot.id;
+    //     mapList.add(map);
+    //   }
+    //   yield mapList;
+    // }
   }
 
   @override
