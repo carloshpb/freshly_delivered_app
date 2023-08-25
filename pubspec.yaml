@@ -17,7 +17,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   easy_debounce: ^2.0.3
   email_validator: ^2.1.17
-  firebase_auth: ^4.7.3
+  firebase_auth: ^4.8.0
   firebase_core: ^2.15.1
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.2
@@ -28,7 +28,7 @@ dependencies:
   go_router: ^10.1.0
   input_history_text_field: ^0.2.0
   json_annotation: ^4.8.1
-  loader_overlay: ^2.3.0
+  loader_overlay: ^2.3.1
   multiple_result: ^5.1.0
   mockito: ^5.4.2
   riverpod_annotation: ^2.1.2
@@ -41,7 +41,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
-  cloud_firestore: ^4.8.5
+  cloud_firestore: ^4.9.0
   shimmer: ^3.0.0
   sqflite: ^2.3.0
   logger: ^2.0.1

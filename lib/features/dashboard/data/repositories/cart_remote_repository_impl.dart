@@ -1,15 +1,18 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/strings.dart';
 import '../../../authentication/data/repositories/firebase_authentication_repository.dart';
 import '../../../authentication/domain/models/app_user.dart';
+import '../../../authentication/domain/repositories/authentication_repository.dart';
 import '../../domain/models/cart_item.dart';
+import '../../domain/models/product.dart';
 import '../../domain/repositories/cart_repository.dart';
+import '../../domain/repositories/products_repository.dart';
 import '../apis/remote/firestore_api.dart';
 import '../apis/remote/impl/firestore_api_impl.dart';
+import 'products_remote_repository_impl.dart';
 
 // import '../../../../utils/update_map_helper.dart' as update_map_helper;
 
@@ -17,6 +20,7 @@ final cartRemoteRepositoryProvider = Provider.autoDispose<CartRepository>(
   (ref) {
     var firestoreApi = ref.watch(firestoreApiProvider);
     var authenticationRepository = ref.watch(authenticationRepositoryProvider);
+    var productsRemoteRepository = ref.watch(productsRemoteRepositoryProvider);
     // var cartStreamController = StreamController<List<CartItem>>.broadcast();
 
     // firestoreApi.findAll(Strings.userCartRemoteTable).then((listCartItemsJson) {
@@ -39,26 +43,39 @@ final cartRemoteRepositoryProvider = Provider.autoDispose<CartRepository>(
     //   () => cartStreamController.close(),
     // );
 
-    return CartRemoteRepositoryImpl(firestoreApi, streamCart);
+    return CartRemoteRepositoryImpl(
+      firestoreApi,
+      authenticationRepository,
+      productsRemoteRepository,
+      streamCart,
+    );
   },
 );
 
 class CartRemoteRepositoryImpl implements CartRepository {
   final FirestoreApi _firestoreApi;
+  final AuthenticationRepository _authenticationRepository;
+  final ProductsRepository _productsRepository;
   final Stream<List<Map<String, Object?>>> _cartItemsStreamController;
 
   CartRemoteRepositoryImpl(
     FirestoreApi firestoreApi,
+    AuthenticationRepository authenticationRepository,
+    ProductsRepository productsRepository,
     Stream<List<Map<String, Object?>>> cartItemsStreamController,
   )   : _firestoreApi = firestoreApi,
+        _authenticationRepository = authenticationRepository,
+        _productsRepository = productsRepository,
         _cartItemsStreamController = cartItemsStreamController;
 
   @override
   Future<void> setProductToCart(CartItem item) async {
-    var itemJson = item.toJson();
+    var itemJson = item.toFirestoreJson();
     try {
-      await _firestoreApi.save(
+      await _firestoreApi.setSubcollection(
         Strings.userCartRemoteTable,
+        (_authenticationRepository.currentSimpleUserData() as UserSimple).uid,
+        "items",
         itemJson,
       );
     } on Exception {
@@ -69,14 +86,40 @@ class CartRemoteRepositoryImpl implements CartRepository {
 
   @override
   Stream<List<CartItem>> fetchCartProducts() {
-    return _cartItemsStreamController
-        .map((event) => event.map((itemMap) => null));
+    return _cartItemsStreamController.asyncMap(
+      (listFirestoreItems) async {
+        var cartItemConvertedList = <CartItem>[];
+        for (int index = 0; index < listFirestoreItems.length; index++) {
+          var currentId = listFirestoreItems[index]["id"] as String;
+          // TODO : Treat better product that doesn't exist anymore
+          var product = await _productsRepository.findProductById(currentId);
+          switch (product) {
+            case EmptyProduct():
+              continue;
+            default:
+              cartItemConvertedList.add(
+                CartItem(
+                  id: listFirestoreItems[index]["id"] as String,
+                  product: product as NormalProduct,
+                  amount: listFirestoreItems[index]["amount"] as int,
+                ),
+              );
+          }
+        }
+        return cartItemConvertedList;
+      },
+    );
   }
 
   @override
   Future<void> removeProductAtCart(CartItem item) {
-    // TODO: implement removeProductAtCart
-    throw UnimplementedError();
+    var itemJson = item.toFirestoreJson();
+    return _firestoreApi.removeFromSubcollection(
+      Strings.userCartRemoteTable,
+      (_authenticationRepository.currentSimpleUserData() as UserSimple).uid,
+      "items",
+      itemJson,
+    );
   }
 
   //   var lastCartItemList = await _cartItemsStreamController.stream.last;

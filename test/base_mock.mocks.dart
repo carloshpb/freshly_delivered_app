@@ -7,7 +7,7 @@ import 'dart:async' as _i9;
 
 import 'package:firebase_auth/firebase_auth.dart' as _i4;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart'
-    as _i19;
+    as _i20;
 import 'package:firebase_core/firebase_core.dart' as _i3;
 import 'package:flutter/widgets.dart' as _i6;
 import 'package:freshly_delivered_app/features/authentication/application/dtos/onboarding_message_dto.dart'
@@ -15,26 +15,27 @@ import 'package:freshly_delivered_app/features/authentication/application/dtos/o
 import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart'
     as _i10;
 import 'package:freshly_delivered_app/features/authentication/domain/models/onboarding_message.dart'
-    as _i12;
+    as _i13;
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/authentication_repository.dart'
     as _i8;
 import 'package:freshly_delivered_app/features/authentication/domain/repositories/onboarding_messages_repository.dart'
-    as _i11;
+    as _i12;
 import 'package:freshly_delivered_app/features/authentication/domain/use_cases/add_onboarding_message_use_case.dart'
-    as _i18;
+    as _i19;
 import 'package:freshly_delivered_app/features/authentication/domain/use_cases/get_onboarding_messages_use_case.dart'
-    as _i17;
+    as _i18;
 import 'package:freshly_delivered_app/features/authentication/domain/use_cases/send_password_reset_email_use_case.dart'
-    as _i14;
-import 'package:freshly_delivered_app/features/authentication/domain/use_cases/set_onboarding_messages_use_case.dart'
-    as _i13;
-import 'package:freshly_delivered_app/features/authentication/domain/use_cases/sign_in_email_password_use_case.dart'
     as _i15;
-import 'package:freshly_delivered_app/features/authentication/domain/use_cases/sign_up_email_password_use_case.dart'
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/set_onboarding_messages_use_case.dart'
+    as _i14;
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/sign_in_email_password_use_case.dart'
     as _i16;
+import 'package:freshly_delivered_app/features/authentication/domain/use_cases/sign_up_email_password_use_case.dart'
+    as _i17;
 import 'package:go_router/go_router.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:shared_preferences/shared_preferences.dart' as _i20;
+import 'package:mockito/src/dummies.dart' as _i11;
+import 'package:shared_preferences/shared_preferences.dart' as _i21;
 
 import 'base_mock.dart' as _i7;
 
@@ -274,6 +275,27 @@ class MockAuthenticationRepository extends _i1.Mock
         returnValueForMissingStub: _i9.Stream<_i10.AppUser>.empty(),
       ) as _i9.Stream<_i10.AppUser>);
   @override
+  _i10.AppUser currentSimpleUserData() => (super.noSuchMethod(
+        Invocation.method(
+          #currentSimpleUserData,
+          [],
+        ),
+        returnValue: _i11.dummyValue<_i10.AppUser>(
+          this,
+          Invocation.method(
+            #currentSimpleUserData,
+            [],
+          ),
+        ),
+        returnValueForMissingStub: _i11.dummyValue<_i10.AppUser>(
+          this,
+          Invocation.method(
+            #currentSimpleUserData,
+            [],
+          ),
+        ),
+      ) as _i10.AppUser);
+  @override
   _i9.Future<void> signInWithEmailAndPassword(
     String? email,
     String? password,
@@ -333,15 +355,15 @@ class MockAuthenticationRepository extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockOnboardingMessagesRepository extends _i1.Mock
-    implements _i11.OnboardingMessagesRepository {
+    implements _i12.OnboardingMessagesRepository {
   @override
-  List<_i12.OnboardingMessage> get onboardingMessages => (super.noSuchMethod(
+  List<_i13.OnboardingMessage> get onboardingMessages => (super.noSuchMethod(
         Invocation.getter(#onboardingMessages),
-        returnValue: <_i12.OnboardingMessage>[],
-        returnValueForMissingStub: <_i12.OnboardingMessage>[],
-      ) as List<_i12.OnboardingMessage>);
+        returnValue: <_i13.OnboardingMessage>[],
+        returnValueForMissingStub: <_i13.OnboardingMessage>[],
+      ) as List<_i13.OnboardingMessage>);
   @override
-  set onboardingMessages(List<_i12.OnboardingMessage>? messages) =>
+  set onboardingMessages(List<_i13.OnboardingMessage>? messages) =>
       super.noSuchMethod(
         Invocation.setter(
           #onboardingMessages,
@@ -350,7 +372,7 @@ class MockOnboardingMessagesRepository extends _i1.Mock
         returnValueForMissingStub: null,
       );
   @override
-  void addOnboardingMessage(_i12.OnboardingMessage? message) =>
+  void addOnboardingMessage(_i13.OnboardingMessage? message) =>
       super.noSuchMethod(
         Invocation.method(
           #addOnboardingMessage,
@@ -364,7 +386,7 @@ class MockOnboardingMessagesRepository extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSetOnboardingMessagesUseCase extends _i1.Mock
-    implements _i13.SetOnboardingMessagesUseCase {
+    implements _i14.SetOnboardingMessagesUseCase {
   @override
   void execute(List<_i2.OnboardingMessageDTO>? request) => super.noSuchMethod(
         Invocation.method(
@@ -379,7 +401,7 @@ class MockSetOnboardingMessagesUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSendPasswordResetEmailUseCase extends _i1.Mock
-    implements _i14.SendPasswordResetEmailUseCase {
+    implements _i15.SendPasswordResetEmailUseCase {
   @override
   _i9.Future<void> execute(String? request) => (super.noSuchMethod(
         Invocation.method(
@@ -395,7 +417,7 @@ class MockSendPasswordResetEmailUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSignInEmailPasswordUseCase extends _i1.Mock
-    implements _i15.SignInEmailPasswordUseCase {
+    implements _i16.SignInEmailPasswordUseCase {
   @override
   _i9.FutureOr<void> execute((String, String)? request) => (super.noSuchMethod(
         Invocation.method(
@@ -410,7 +432,7 @@ class MockSignInEmailPasswordUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSignUpEmailPasswordUseCase extends _i1.Mock
-    implements _i16.SignUpEmailPasswordUseCase {
+    implements _i17.SignUpEmailPasswordUseCase {
   @override
   _i9.FutureOr<void> execute((String, String, String, String)? request) =>
       (super.noSuchMethod(
@@ -426,7 +448,7 @@ class MockSignUpEmailPasswordUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetOnboardingMessagesUseCase extends _i1.Mock
-    implements _i17.GetOnboardingMessagesUseCase {
+    implements _i18.GetOnboardingMessagesUseCase {
   @override
   List<_i2.OnboardingMessageDTO> execute([dynamic request]) =>
       (super.noSuchMethod(
@@ -443,7 +465,7 @@ class MockGetOnboardingMessagesUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAddOnboardingMessageUseCase extends _i1.Mock
-    implements _i18.AddOnboardingMessageUseCase {
+    implements _i19.AddOnboardingMessageUseCase {
   @override
   void execute(_i2.OnboardingMessageDTO? request) => super.noSuchMethod(
         Invocation.method(
@@ -901,7 +923,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i4.FirebaseAuth {
       ) as _i9.Future<_i4.UserCredential>);
   @override
   _i9.Future<_i4.UserCredential> signInWithAuthProvider(
-          _i19.AuthProvider? provider) =>
+          _i20.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithAuthProvider,
@@ -925,7 +947,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i4.FirebaseAuth {
       ) as _i9.Future<_i4.UserCredential>);
   @override
   _i9.Future<_i4.UserCredential> signInWithProvider(
-          _i19.AuthProvider? provider) =>
+          _i20.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithProvider,
@@ -984,7 +1006,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i4.FirebaseAuth {
         )),
       ) as _i9.Future<_i4.ConfirmationResult>);
   @override
-  _i9.Future<_i4.UserCredential> signInWithPopup(_i19.AuthProvider? provider) =>
+  _i9.Future<_i4.UserCredential> signInWithPopup(_i20.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithPopup,
@@ -1007,7 +1029,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i4.FirebaseAuth {
         )),
       ) as _i9.Future<_i4.UserCredential>);
   @override
-  _i9.Future<void> signInWithRedirect(_i19.AuthProvider? provider) =>
+  _i9.Future<void> signInWithRedirect(_i20.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #signInWithRedirect,
@@ -1191,7 +1213,7 @@ class MockUser extends _i1.Mock implements _i4.User {
       ) as _i9.Future<_i4.UserCredential>);
   @override
   _i9.Future<_i4.UserCredential> linkWithProvider(
-          _i19.AuthProvider? provider) =>
+          _i20.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #linkWithProvider,
@@ -1215,7 +1237,7 @@ class MockUser extends _i1.Mock implements _i4.User {
       ) as _i9.Future<_i4.UserCredential>);
   @override
   _i9.Future<_i4.UserCredential> reauthenticateWithProvider(
-          _i19.AuthProvider? provider) =>
+          _i20.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #reauthenticateWithProvider,
@@ -1239,7 +1261,7 @@ class MockUser extends _i1.Mock implements _i4.User {
       ) as _i9.Future<_i4.UserCredential>);
   @override
   _i9.Future<_i4.UserCredential> reauthenticateWithPopup(
-          _i19.AuthProvider? provider) =>
+          _i20.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #reauthenticateWithPopup,
@@ -1262,7 +1284,7 @@ class MockUser extends _i1.Mock implements _i4.User {
         )),
       ) as _i9.Future<_i4.UserCredential>);
   @override
-  _i9.Future<void> reauthenticateWithRedirect(_i19.AuthProvider? provider) =>
+  _i9.Future<void> reauthenticateWithRedirect(_i20.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #reauthenticateWithRedirect,
@@ -1272,7 +1294,7 @@ class MockUser extends _i1.Mock implements _i4.User {
         returnValueForMissingStub: _i9.Future<void>.value(),
       ) as _i9.Future<void>);
   @override
-  _i9.Future<_i4.UserCredential> linkWithPopup(_i19.AuthProvider? provider) =>
+  _i9.Future<_i4.UserCredential> linkWithPopup(_i20.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #linkWithPopup,
@@ -1295,7 +1317,7 @@ class MockUser extends _i1.Mock implements _i4.User {
         )),
       ) as _i9.Future<_i4.UserCredential>);
   @override
-  _i9.Future<void> linkWithRedirect(_i19.AuthProvider? provider) =>
+  _i9.Future<void> linkWithRedirect(_i20.AuthProvider? provider) =>
       (super.noSuchMethod(
         Invocation.method(
           #linkWithRedirect,
@@ -1491,7 +1513,7 @@ class MockUser extends _i1.Mock implements _i4.User {
 /// A class which mocks [SharedPreferences].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSharedPreferences extends _i1.Mock implements _i20.SharedPreferences {
+class MockSharedPreferences extends _i1.Mock implements _i21.SharedPreferences {
   @override
   Set<String> getKeys() => (super.noSuchMethod(
         Invocation.method(

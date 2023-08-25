@@ -27,4 +27,5 @@ abstract class SQLiteApi {
     ({String attributeName, dynamic equalValue}) whereSingleCondition,
   );
   Future<void> clearDatabase();
+  Future<List<Map<String, Object?>>> customQuery(String query);
 }

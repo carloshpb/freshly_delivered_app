@@ -139,4 +139,9 @@ class SQLiteApiImpl implements SQLiteApi {
         "$query WHERE ${whereSingleCondition.attributeName} == ${whereSingleCondition.equalValue};";
     return _database.rawUpdate(query);
   }
+
+  @override
+  Future<List<Map<String, Object?>>> customQuery(String query) {
+    return _database.rawQuery(query);
+  }
 }
