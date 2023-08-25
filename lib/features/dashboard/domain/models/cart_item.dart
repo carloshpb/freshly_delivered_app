@@ -14,24 +14,16 @@ class CartItem with _$CartItem {
   CartItem._();
 
   @JsonSerializable(explicitToJson: true)
-  @Assert('id != ""', 'id cannot be empty')
+  // @Assert('id != ""', 'id cannot be empty')
   @Assert('amount >= 1', 'amount cannot be zero or negative')
   factory CartItem({
-    required String id,
+    // required String id,
     required NormalProduct product,
     @Default(1) int amount,
   }) = _CartItem;
 
   factory CartItem.fromJson(Map<String, Object?> json) =>
       _$CartItemFromJson(json);
-
-  
-
-  factory CartItem.fromSqliteJson(Map<String, Object?> json) => CartItem(
-    id: ,
-    product: ProductDto.normal(id: id, title: title, price: price, description: description, imagePath: imagePath, category: category,),
-    amount: ,
-  );
 
   CartItemDto toDto() {
     return CartItemDto(
@@ -42,15 +34,37 @@ class CartItem with _$CartItem {
 
   Map<String, Object> toSqliteJson() {
     return {
-      "id": id,
+      // "id": id,
       "product_id": product.id,
       "amount": amount,
     };
   }
 
+  factory CartItem.fromSqliteJson(Map<String, Object?> json) => CartItem(
+        // id: json["cart_id"] as String,
+        amount: json["amount"] as int,
+        product: NormalProduct(
+          id: json["product_id"] as String,
+          title: json["title"] as String,
+          price: json["price"] as double,
+          description: json["description"] as String,
+          imagePath: json["image_path"] as String,
+          category: json["category"] as String,
+          unitsSold: json["units_sold"] as int,
+          advertisementId: json["advertisement_id"] as String,
+          discount: json["discount"] as int,
+          createdAt: ((json["created_at"] as String).isEmpty)
+              ? null
+              : DateTime.parse((json["created_at"] as String)),
+          modifiedAt: ((json["modified_at"] as String).isEmpty)
+              ? null
+              : DateTime.parse((json["modified_at"] as String)),
+        ),
+      );
+
   Map<String, Object> toFirestoreJson() {
     return {
-      "id": id,
+      "id": product.id,
       "amount": amount,
     };
   }
