@@ -9,6 +9,7 @@ import 'product.dart';
 part 'cart_item.freezed.dart';
 part 'cart_item.g.dart';
 
+/// if CartItem amount is zero (0), it should be removed from local and remote DB
 @freezed
 class CartItem with _$CartItem {
   CartItem._();

@@ -1,3 +1,5 @@
+import 'package:rxdart/rxdart.dart';
+
 abstract class FirestoreApi {
   Future<List<dynamic>> findAllWithLimit(
     String collection,
@@ -30,15 +32,17 @@ abstract class FirestoreApi {
     String childCollection,
     dynamic entity,
   );
-  Stream<List<Map<String, Object?>>> fetchByAttributeDesc(
+  void fetchByAttributeDesc(
     String collection,
     dynamic attribute,
     String attributeName,
     String descAttributeName,
+    BehaviorSubject<Map<String, Object?>> streamSubject,
   );
-  Stream<List<Map<String, Object?>>> fetchSubCollection(
+  void fetchSubCollection(
     String parentCollection,
     String parentId,
     String childCollection,
+    BehaviorSubject<Map<String, Object?>> streamSubject,
   );
 }

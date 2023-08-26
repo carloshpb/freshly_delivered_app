@@ -155,8 +155,13 @@ class FirestoreApiImpl implements FirestoreApi {
   }
 
   @override
-  Stream<List<Map<String, Object?>>> fetchByAttributeDesc(String collection,
-      attribute, String attributeName, String descAttributeName) async* {
+  void fetchByAttributeDesc(
+    String collection,
+    attribute,
+    String attributeName,
+    String descAttributeName,
+    BehaviorSubject<Map<String, Object?>> streamSubject,
+  ) {
     late Query<Map<String, dynamic>> collectionRef;
 
     if (collection.isEmpty) {
@@ -180,15 +185,27 @@ class FirestoreApiImpl implements FirestoreApi {
           .where(attributeName, isEqualTo: attribute);
     }
 
-    await for (final query in collectionRef.snapshots()) {
-      var mapList = <Map<String, Object?>>[];
-      for (var docSnapshot in query.docs) {
-        var map = docSnapshot.data();
-        map["id"] = docSnapshot.id;
-        mapList.add(map);
-      }
-      yield mapList;
-    }
+    collectionRef.snapshots().listen(
+      (event) {
+        for (var change in event.docChanges) {
+          var doc = change.doc.data();
+          if (doc != null) {
+            doc["documentChangeType"] = change.type;
+            streamSubject.add(doc);
+          }
+        }
+      },
+    );
+
+    // await for (final query in collectionRef.snapshots()) {
+    //   var mapList = <Map<String, Object?>>[];
+    //   for (var docSnapshot in query.docs) {
+    //     var map = docSnapshot.data();
+    //     map["id"] = docSnapshot.id;
+    //     mapList.add(map);
+    //   }
+    //   yield mapList;
+    // }
   }
 
   // @override
@@ -292,14 +309,13 @@ class FirestoreApiImpl implements FirestoreApi {
   }
 
   @override
-  Stream<List<Map<String, Object?>>> fetchSubCollection(
+  void fetchSubCollection(
     String parentCollection,
     String parentId,
     String childCollection,
-  ) async* {
+    BehaviorSubject<Map<String, Object?>> streamSubject,
+  ) {
     late CollectionReference<Map<String, dynamic>> collectionRef;
-
-    final subject = BehaviorSubject<Map<String, Object?>>();
 
     if (parentCollection.isEmpty || childCollection.isEmpty) {
       throw FirebaseException(
@@ -317,18 +333,20 @@ class FirestoreApiImpl implements FirestoreApi {
     collectionRef.snapshots().listen(
       (event) {
         for (var change in event.docChanges) {
-          switch (change.type) {
-            case DocumentChangeType.added:
-              print("New City: ${change.doc.data()}");
-              subject.a
-              break;
-            case DocumentChangeType.modified:
-              print("Modified City: ${change.doc.data()}");
-              break;
-            case DocumentChangeType.removed:
-              print("Removed City: ${change.doc.data()}");
-              break;
+          var doc = change.doc.data();
+          if (doc != null) {
+            doc["documentChangeType"] = change.type;
+            streamSubject.add(doc);
           }
+
+          // switch (change.type) {
+          //   case DocumentChangeType.removed:
+          //     print("Removed City: ${change.doc.data()}");
+          //     return change.doc.data();
+          //     break;
+          //   default:
+          //     return change.doc.data();
+          // }
         }
       },
     );
