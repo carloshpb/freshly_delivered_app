@@ -98,7 +98,9 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
       true,
       "is_special",
       limit,
+      "created_at",
       lastAdvertisement.advertisementObject,
+      descending: true,
     );
     return resultListMap
         .map(
