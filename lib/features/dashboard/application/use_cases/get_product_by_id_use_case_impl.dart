@@ -3,6 +3,7 @@ import 'package:freshly_delivered_app/features/dashboard/application/dtos/produc
 
 import '../../data/repositories/products_local_repository_impl.dart';
 import '../../data/repositories/products_remote_repository_impl.dart';
+import '../../domain/models/product.dart';
 import '../../domain/repositories/products_repository.dart';
 import '../../domain/use_cases/get_product_by_id_use_case.dart';
 
@@ -27,15 +28,15 @@ class GetProductByIdUseCaseImpl implements GetProductByIdUseCase {
   Future<ProductDto> execute(String request) async {
     var product = await _localProductsRepository.findProductById(request);
 
-    if (product.id.isEmpty) {
-      product = await _remoteProductsRepository.findProductById(request);
-
-      if (product.id.isNotEmpty) {
-        // TODO : Treat when couldnt be saved locally
-        _localProductsRepository.saveProducts([product]);
-      }
+    switch (product) {
+      case EmptyProduct():
+        product = await _remoteProductsRepository.findProductById(request);
+        return switch (product) {
+          EmptyProduct() => const ProductDto.empty(),
+          _ => product.toDto()
+        };
+      default:
+        return product.toDto();
     }
-
-    return (product.id.isNotEmpty) ? product.toDto() : const ProductDto();
   }
 }
