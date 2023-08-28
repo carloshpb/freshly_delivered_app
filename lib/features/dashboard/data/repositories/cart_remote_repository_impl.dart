@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../constants/strings.dart';
+import '../../../../exceptions/app_auth_exception.dart';
 import '../../../authentication/data/repositories/firebase_authentication_repository.dart';
 import '../../../authentication/domain/models/app_user.dart';
 import '../../../authentication/domain/repositories/authentication_repository.dart';
@@ -61,8 +62,15 @@ final cartRemoteRepositoryProvider = Provider.autoDispose<CartRepository>(
 
     // TODO : This should be tested to see if any changes occurs on authenticationRepository or productsRemoteRepository will recreate the BehaviorSubject and fetch a new SubCollection again.
 
-    var currentSimpleUserData =
-        authenticationRepository.currentSimpleUserData();
+    UserSimple currentSimpleUserData;
+
+    try {
+      currentSimpleUserData = authenticationRepository.currentSimpleUserData();
+    } on UserNotConnectedException {
+      // TODO : test
+      ref.invalidateSelf();
+      rethrow;
+    }
 
     firestoreApi.fetchSubCollection(
       Strings.userCartRemoteTable,
@@ -87,6 +95,7 @@ final cartRemoteRepositoryProvider = Provider.autoDispose<CartRepository>(
       productsRemoteRepository,
       subject,
       transformer,
+      ref,
     );
   },
 );
@@ -99,6 +108,7 @@ class CartRemoteRepositoryImpl implements CartRepository {
   final BehaviorSubject<Map<String, Object?>> _cartItemsStreamController;
   final StreamTransformer<Map<String, Object?>, CartItem>
       _streamCartItemTransformer;
+  final Ref _ref;
 
   CartRemoteRepositoryImpl(
     FirestoreApi firestoreApi,
@@ -106,11 +116,13 @@ class CartRemoteRepositoryImpl implements CartRepository {
     ProductsRepository productsRepository,
     BehaviorSubject<Map<String, Object?>> cartItemsStreamController,
     StreamTransformer<Map<String, Object?>, CartItem> streamCartItemTransformer,
+    Ref ref,
   )   : _firestoreApi = firestoreApi,
         _authenticationRepository = authenticationRepository,
         _productsRepository = productsRepository,
         _cartItemsStreamController = cartItemsStreamController,
-        _streamCartItemTransformer = streamCartItemTransformer;
+        _streamCartItemTransformer = streamCartItemTransformer,
+        _ref = ref;
 
   @override
   Stream<CartItem> get streamCartItems =>
@@ -119,14 +131,20 @@ class CartRemoteRepositoryImpl implements CartRepository {
   @override
   Future<void> setProductToCart(CartItem item) async {
     var itemJson = item.toFirestoreJson();
+    UserSimple currentSimpleUser;
     try {
-      var currentSimpleUser = _authenticationRepository.currentSimpleUserData();
+      currentSimpleUser = _authenticationRepository.currentSimpleUserData();
+
       await _firestoreApi.setSubcollection(
         Strings.userCartRemoteTable,
         currentSimpleUser.uid,
         "items",
         itemJson,
       );
+    } on UserNotConnectedException {
+      // TODO : test
+      _ref.invalidateSelf();
+      rethrow;
     } on Exception {
       // TODO : Handle errors
       return;
@@ -168,15 +186,26 @@ class CartRemoteRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<void> removeProductAtCart(CartItem item) {
+  Future<void> removeProductAtCart(CartItem item) async {
     var itemJson = item.toFirestoreJson();
-    var currentSimpleUser = _authenticationRepository.currentSimpleUserData();
-    return _firestoreApi.removeFromSubcollection(
-      Strings.userCartRemoteTable,
-      currentSimpleUser.uid,
-      "items",
-      itemJson,
-    );
+    UserSimple currentSimpleUser;
+    try {
+      currentSimpleUser = _authenticationRepository.currentSimpleUserData();
+
+      await _firestoreApi.removeFromSubcollection(
+        Strings.userCartRemoteTable,
+        currentSimpleUser.uid,
+        "items",
+        itemJson,
+      );
+    } on UserNotConnectedException {
+      // TODO : test
+      _ref.invalidateSelf();
+      rethrow;
+    } on Exception {
+      // TODO : Handle errors
+      return;
+    }
   }
 
   //   var lastCartItemList = await _cartItemsStreamController.stream.last;
