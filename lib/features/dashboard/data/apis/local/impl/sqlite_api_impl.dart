@@ -153,6 +153,7 @@ class SQLiteApiImpl implements SQLiteApi {
     return _database.rawQuery(query);
   }
 
+  /// returns 0 if no changes were made. Otherwise, returns the number of changes
   @override
   Future<int> deleteById(String table, String id) {
     return _database.rawDelete('''
