@@ -109,7 +109,7 @@ class __$$_CartItemCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$_CartItem extends _CartItem {
   _$_CartItem({required this.product, this.amount = 1})
-      : assert(amount >= 1, 'amount cannot be zero or negative'),
+      : assert(amount >= 0, 'amount cannot negative'),
         super._();
 
   factory _$_CartItem.fromJson(Map<String, dynamic> json) =>

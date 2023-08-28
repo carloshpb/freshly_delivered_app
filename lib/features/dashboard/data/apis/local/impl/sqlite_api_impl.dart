@@ -57,41 +57,49 @@ class SQLiteApiImpl implements SQLiteApi {
   /// returns 0 if value was not saved
   @override
   Future<int> save(String table, dynamic entity, List<String> columns) async {
-    var entityToString = (entity is List)
-        ? entity.map(
-            (map) {
-              "(${(map as Map<String, Object?>).entries.join(",")})";
-            },
-          ).join(",")
-        : "(${(entity as Map<String, Object?>).entries.join(",")})";
+    var insert = "INSERT INTO $table(${columns.join(", ")}) VALUES";
 
-    var result = await _database.rawInsert(
-      '''
-      INSERT INTO $table(${columns.join(", ")})
-      VALUES $entityToString
-      ''',
-    );
+    if (entity is List) {
+      var batch = _database.batch();
+      for (var index = 0; index < entity.length; index++) {
+        batch.rawInsert(
+            "$insert (${(entity[index] as Map<String, Object?>).entries.join(",")})");
+      }
+      var resultList = await batch.commit();
+      return (resultList.length == entity.length) ? resultList.length : 0;
+    } else {
+      var result = await _database.rawInsert(
+          "$insert (${(entity as Map<String, Object?>).entries.join(",")})");
 
-    return result;
+      return result;
+    }
   }
 
   @override
   Future<List<Map<String, Object?>>> findByAttributeDesc(
     String table,
-    attribute,
+    dynamic attribute,
     String attributeName,
     int limit,
     int offset,
   ) {
-    return _database.rawQuery(
-      '''
-      SELECT * FROM $table
-      WHERE $attributeName = $attribute
-      ORDER BY modified_at DESC
-      LIMIT $limit
-      OFFSET $offset
-      ''',
-    );
+    var query = "SELECT * FROM $table";
+
+    if (attribute != null && attributeName.isNotEmpty) {
+      query = "$query WHERE $attributeName = $attribute";
+    }
+
+    query = "$query ORDER BY modified_at DESC";
+
+    if (limit != 0) {
+      query = "$query LIMIT $limit";
+    }
+
+    if (offset != 0) {
+      query = "$query OFFSET $offset";
+    }
+
+    return _database.rawQuery(query);
   }
 
   // @override

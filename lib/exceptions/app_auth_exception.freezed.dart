@@ -33,6 +33,7 @@ mixin _$AppAuthException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) =>
       throw _privateConstructorUsedError;
@@ -53,6 +54,7 @@ mixin _$AppAuthException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) =>
       throw _privateConstructorUsedError;
@@ -73,6 +75,7 @@ mixin _$AppAuthException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) =>
@@ -104,6 +107,7 @@ mixin _$AppAuthException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) =>
       throw _privateConstructorUsedError;
@@ -128,6 +132,7 @@ mixin _$AppAuthException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) =>
       throw _privateConstructorUsedError;
@@ -152,6 +157,7 @@ mixin _$AppAuthException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) =>
@@ -224,6 +230,7 @@ class _$InvalidEmailException extends InvalidEmailException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return invalidEmail();
@@ -247,6 +254,7 @@ class _$InvalidEmailException extends InvalidEmailException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return invalidEmail?.call();
@@ -270,6 +278,7 @@ class _$InvalidEmailException extends InvalidEmailException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -307,6 +316,7 @@ class _$InvalidEmailException extends InvalidEmailException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return invalidEmail(this);
@@ -334,6 +344,7 @@ class _$InvalidEmailException extends InvalidEmailException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return invalidEmail?.call(this);
@@ -361,6 +372,7 @@ class _$InvalidEmailException extends InvalidEmailException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -427,6 +439,7 @@ class _$InvalidPhoneNumberException extends InvalidPhoneNumberException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return invalidPhoneNumber();
@@ -450,6 +463,7 @@ class _$InvalidPhoneNumberException extends InvalidPhoneNumberException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return invalidPhoneNumber?.call();
@@ -473,6 +487,7 @@ class _$InvalidPhoneNumberException extends InvalidPhoneNumberException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -510,6 +525,7 @@ class _$InvalidPhoneNumberException extends InvalidPhoneNumberException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return invalidPhoneNumber(this);
@@ -537,6 +553,7 @@ class _$InvalidPhoneNumberException extends InvalidPhoneNumberException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return invalidPhoneNumber?.call(this);
@@ -564,6 +581,7 @@ class _$InvalidPhoneNumberException extends InvalidPhoneNumberException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -631,6 +649,7 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return missingAndroidPkgName();
@@ -654,6 +673,7 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return missingAndroidPkgName?.call();
@@ -677,6 +697,7 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -714,6 +735,7 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return missingAndroidPkgName(this);
@@ -741,6 +763,7 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return missingAndroidPkgName?.call(this);
@@ -768,6 +791,7 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -835,6 +859,7 @@ class _$MissingContinueUriException extends MissingContinueUriException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return missingContinueUri();
@@ -858,6 +883,7 @@ class _$MissingContinueUriException extends MissingContinueUriException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return missingContinueUri?.call();
@@ -881,6 +907,7 @@ class _$MissingContinueUriException extends MissingContinueUriException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -918,6 +945,7 @@ class _$MissingContinueUriException extends MissingContinueUriException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return missingContinueUri(this);
@@ -945,6 +973,7 @@ class _$MissingContinueUriException extends MissingContinueUriException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return missingContinueUri?.call(this);
@@ -972,6 +1001,7 @@ class _$MissingContinueUriException extends MissingContinueUriException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1038,6 +1068,7 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return missingIosBundleId();
@@ -1061,6 +1092,7 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return missingIosBundleId?.call();
@@ -1084,6 +1116,7 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1121,6 +1154,7 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return missingIosBundleId(this);
@@ -1148,6 +1182,7 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return missingIosBundleId?.call(this);
@@ -1175,6 +1210,7 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1241,6 +1277,7 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return invalidContinueUri();
@@ -1264,6 +1301,7 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return invalidContinueUri?.call();
@@ -1287,6 +1325,7 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1324,6 +1363,7 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return invalidContinueUri(this);
@@ -1351,6 +1391,7 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return invalidContinueUri?.call(this);
@@ -1378,6 +1419,7 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1446,6 +1488,7 @@ class _$UnauthorizedContinueUriException
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return unauthorizedContinueUri();
@@ -1469,6 +1512,7 @@ class _$UnauthorizedContinueUriException
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return unauthorizedContinueUri?.call();
@@ -1492,6 +1536,7 @@ class _$UnauthorizedContinueUriException
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1529,6 +1574,7 @@ class _$UnauthorizedContinueUriException
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return unauthorizedContinueUri(this);
@@ -1556,6 +1602,7 @@ class _$UnauthorizedContinueUriException
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return unauthorizedContinueUri?.call(this);
@@ -1583,6 +1630,7 @@ class _$UnauthorizedContinueUriException
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1647,6 +1695,7 @@ class _$UserNotFoundException extends UserNotFoundException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return userNotFound();
@@ -1670,6 +1719,7 @@ class _$UserNotFoundException extends UserNotFoundException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return userNotFound?.call();
@@ -1693,6 +1743,7 @@ class _$UserNotFoundException extends UserNotFoundException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1730,6 +1781,7 @@ class _$UserNotFoundException extends UserNotFoundException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return userNotFound(this);
@@ -1757,6 +1809,7 @@ class _$UserNotFoundException extends UserNotFoundException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return userNotFound?.call(this);
@@ -1784,6 +1837,7 @@ class _$UserNotFoundException extends UserNotFoundException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1847,6 +1901,7 @@ class _$UserDisabledException extends UserDisabledException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return userDisabled();
@@ -1870,6 +1925,7 @@ class _$UserDisabledException extends UserDisabledException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return userDisabled?.call();
@@ -1893,6 +1949,7 @@ class _$UserDisabledException extends UserDisabledException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -1930,6 +1987,7 @@ class _$UserDisabledException extends UserDisabledException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return userDisabled(this);
@@ -1957,6 +2015,7 @@ class _$UserDisabledException extends UserDisabledException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return userDisabled?.call(this);
@@ -1984,6 +2043,7 @@ class _$UserDisabledException extends UserDisabledException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2047,6 +2107,7 @@ class _$WrongPasswordException extends WrongPasswordException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return wrongPassword();
@@ -2070,6 +2131,7 @@ class _$WrongPasswordException extends WrongPasswordException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return wrongPassword?.call();
@@ -2093,6 +2155,7 @@ class _$WrongPasswordException extends WrongPasswordException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2130,6 +2193,7 @@ class _$WrongPasswordException extends WrongPasswordException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return wrongPassword(this);
@@ -2157,6 +2221,7 @@ class _$WrongPasswordException extends WrongPasswordException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return wrongPassword?.call(this);
@@ -2184,6 +2249,7 @@ class _$WrongPasswordException extends WrongPasswordException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2250,6 +2316,7 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return emailAlreadyInUseException();
@@ -2273,6 +2340,7 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return emailAlreadyInUseException?.call();
@@ -2296,6 +2364,7 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2333,6 +2402,7 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return emailAlreadyInUseException(this);
@@ -2360,6 +2430,7 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return emailAlreadyInUseException?.call(this);
@@ -2387,6 +2458,7 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2453,6 +2525,7 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return operationNotAllowedException();
@@ -2476,6 +2549,7 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return operationNotAllowedException?.call();
@@ -2499,6 +2573,7 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2536,6 +2611,7 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return operationNotAllowedException(this);
@@ -2563,6 +2639,7 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return operationNotAllowedException?.call(this);
@@ -2590,6 +2667,7 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2653,6 +2731,7 @@ class _$WeakPasswordException extends WeakPasswordException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return weakPassword();
@@ -2676,6 +2755,7 @@ class _$WeakPasswordException extends WeakPasswordException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return weakPassword?.call();
@@ -2699,6 +2779,7 @@ class _$WeakPasswordException extends WeakPasswordException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2736,6 +2817,7 @@ class _$WeakPasswordException extends WeakPasswordException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return weakPassword(this);
@@ -2763,6 +2845,7 @@ class _$WeakPasswordException extends WeakPasswordException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return weakPassword?.call(this);
@@ -2790,6 +2873,7 @@ class _$WeakPasswordException extends WeakPasswordException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2856,6 +2940,7 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return expiredActionCode();
@@ -2879,6 +2964,7 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return expiredActionCode?.call();
@@ -2902,6 +2988,7 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -2939,6 +3026,7 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return expiredActionCode(this);
@@ -2966,6 +3054,7 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return expiredActionCode?.call(this);
@@ -2993,6 +3082,7 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -3059,6 +3149,7 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return invalidActionCode();
@@ -3082,6 +3173,7 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return invalidActionCode?.call();
@@ -3105,6 +3197,7 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -3142,6 +3235,7 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return invalidActionCode(this);
@@ -3169,6 +3263,7 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return invalidActionCode?.call(this);
@@ -3196,6 +3291,7 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -3209,6 +3305,214 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
 abstract class InvalidActionCodeException extends AppAuthException {
   const factory InvalidActionCodeException() = _$InvalidActionCodeException;
   const InvalidActionCodeException._() : super._();
+}
+
+/// @nodoc
+abstract class _$$UserNotConnectedExceptionCopyWith<$Res> {
+  factory _$$UserNotConnectedExceptionCopyWith(
+          _$UserNotConnectedException value,
+          $Res Function(_$UserNotConnectedException) then) =
+      __$$UserNotConnectedExceptionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UserNotConnectedExceptionCopyWithImpl<$Res>
+    extends _$AppAuthExceptionCopyWithImpl<$Res, _$UserNotConnectedException>
+    implements _$$UserNotConnectedExceptionCopyWith<$Res> {
+  __$$UserNotConnectedExceptionCopyWithImpl(_$UserNotConnectedException _value,
+      $Res Function(_$UserNotConnectedException) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$UserNotConnectedException extends UserNotConnectedException {
+  const _$UserNotConnectedException() : super._();
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserNotConnectedException);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidEmail,
+    required TResult Function() invalidPhoneNumber,
+    required TResult Function() missingAndroidPkgName,
+    required TResult Function() missingContinueUri,
+    required TResult Function() missingIosBundleId,
+    required TResult Function() invalidContinueUri,
+    required TResult Function() unauthorizedContinueUri,
+    required TResult Function() userNotFound,
+    required TResult Function() userDisabled,
+    required TResult Function() wrongPassword,
+    required TResult Function() emailAlreadyInUseException,
+    required TResult Function() operationNotAllowedException,
+    required TResult Function() weakPassword,
+    required TResult Function() expiredActionCode,
+    required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
+    required TResult Function(String code) unknownAuthCode,
+  }) {
+    return notConnected();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPhoneNumber,
+    TResult? Function()? missingAndroidPkgName,
+    TResult? Function()? missingContinueUri,
+    TResult? Function()? missingIosBundleId,
+    TResult? Function()? invalidContinueUri,
+    TResult? Function()? unauthorizedContinueUri,
+    TResult? Function()? userNotFound,
+    TResult? Function()? userDisabled,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? emailAlreadyInUseException,
+    TResult? Function()? operationNotAllowedException,
+    TResult? Function()? weakPassword,
+    TResult? Function()? expiredActionCode,
+    TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
+    TResult? Function(String code)? unknownAuthCode,
+  }) {
+    return notConnected?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidEmail,
+    TResult Function()? invalidPhoneNumber,
+    TResult Function()? missingAndroidPkgName,
+    TResult Function()? missingContinueUri,
+    TResult Function()? missingIosBundleId,
+    TResult Function()? invalidContinueUri,
+    TResult Function()? unauthorizedContinueUri,
+    TResult Function()? userNotFound,
+    TResult Function()? userDisabled,
+    TResult Function()? wrongPassword,
+    TResult Function()? emailAlreadyInUseException,
+    TResult Function()? operationNotAllowedException,
+    TResult Function()? weakPassword,
+    TResult Function()? expiredActionCode,
+    TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
+    TResult Function(String code)? unknownAuthCode,
+    required TResult orElse(),
+  }) {
+    if (notConnected != null) {
+      return notConnected();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidEmailException value) invalidEmail,
+    required TResult Function(InvalidPhoneNumberException value)
+        invalidPhoneNumber,
+    required TResult Function(MissingAndroidPkgNameException value)
+        missingAndroidPkgName,
+    required TResult Function(MissingContinueUriException value)
+        missingContinueUri,
+    required TResult Function(MissingIosBundleIdException value)
+        missingIosBundleId,
+    required TResult Function(InvalidContinueUriException value)
+        invalidContinueUri,
+    required TResult Function(UnauthorizedContinueUriException value)
+        unauthorizedContinueUri,
+    required TResult Function(UserNotFoundException value) userNotFound,
+    required TResult Function(UserDisabledException value) userDisabled,
+    required TResult Function(WrongPasswordException value) wrongPassword,
+    required TResult Function(EmailAlreadyInUseException value)
+        emailAlreadyInUseException,
+    required TResult Function(OperationNotAllowedException value)
+        operationNotAllowedException,
+    required TResult Function(WeakPasswordException value) weakPassword,
+    required TResult Function(ExpiredActionCodeException value)
+        expiredActionCode,
+    required TResult Function(InvalidActionCodeException value)
+        invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
+    required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
+  }) {
+    return notConnected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidEmailException value)? invalidEmail,
+    TResult? Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
+    TResult? Function(MissingAndroidPkgNameException value)?
+        missingAndroidPkgName,
+    TResult? Function(MissingContinueUriException value)? missingContinueUri,
+    TResult? Function(MissingIosBundleIdException value)? missingIosBundleId,
+    TResult? Function(InvalidContinueUriException value)? invalidContinueUri,
+    TResult? Function(UnauthorizedContinueUriException value)?
+        unauthorizedContinueUri,
+    TResult? Function(UserNotFoundException value)? userNotFound,
+    TResult? Function(UserDisabledException value)? userDisabled,
+    TResult? Function(WrongPasswordException value)? wrongPassword,
+    TResult? Function(EmailAlreadyInUseException value)?
+        emailAlreadyInUseException,
+    TResult? Function(OperationNotAllowedException value)?
+        operationNotAllowedException,
+    TResult? Function(WeakPasswordException value)? weakPassword,
+    TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
+    TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
+  }) {
+    return notConnected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidEmailException value)? invalidEmail,
+    TResult Function(InvalidPhoneNumberException value)? invalidPhoneNumber,
+    TResult Function(MissingAndroidPkgNameException value)?
+        missingAndroidPkgName,
+    TResult Function(MissingContinueUriException value)? missingContinueUri,
+    TResult Function(MissingIosBundleIdException value)? missingIosBundleId,
+    TResult Function(InvalidContinueUriException value)? invalidContinueUri,
+    TResult Function(UnauthorizedContinueUriException value)?
+        unauthorizedContinueUri,
+    TResult Function(UserNotFoundException value)? userNotFound,
+    TResult Function(UserDisabledException value)? userDisabled,
+    TResult Function(WrongPasswordException value)? wrongPassword,
+    TResult Function(EmailAlreadyInUseException value)?
+        emailAlreadyInUseException,
+    TResult Function(OperationNotAllowedException value)?
+        operationNotAllowedException,
+    TResult Function(WeakPasswordException value)? weakPassword,
+    TResult Function(ExpiredActionCodeException value)? expiredActionCode,
+    TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
+    TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
+    required TResult orElse(),
+  }) {
+    if (notConnected != null) {
+      return notConnected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UserNotConnectedException extends AppAuthException {
+  const factory UserNotConnectedException() = _$UserNotConnectedException;
+  const UserNotConnectedException._() : super._();
 }
 
 /// @nodoc
@@ -3287,6 +3591,7 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
     required TResult Function() weakPassword,
     required TResult Function() expiredActionCode,
     required TResult Function() invalidActionCode,
+    required TResult Function() notConnected,
     required TResult Function(String code) unknownAuthCode,
   }) {
     return unknownAuthCode(code);
@@ -3310,6 +3615,7 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
     TResult? Function()? weakPassword,
     TResult? Function()? expiredActionCode,
     TResult? Function()? invalidActionCode,
+    TResult? Function()? notConnected,
     TResult? Function(String code)? unknownAuthCode,
   }) {
     return unknownAuthCode?.call(code);
@@ -3333,6 +3639,7 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
     TResult Function()? weakPassword,
     TResult Function()? expiredActionCode,
     TResult Function()? invalidActionCode,
+    TResult Function()? notConnected,
     TResult Function(String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
@@ -3370,6 +3677,7 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
         expiredActionCode,
     required TResult Function(InvalidActionCodeException value)
         invalidActionCode,
+    required TResult Function(UserNotConnectedException value) notConnected,
     required TResult Function(UnknownAuthCodeException value) unknownAuthCode,
   }) {
     return unknownAuthCode(this);
@@ -3397,6 +3705,7 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
     TResult? Function(WeakPasswordException value)? weakPassword,
     TResult? Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult? Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult? Function(UserNotConnectedException value)? notConnected,
     TResult? Function(UnknownAuthCodeException value)? unknownAuthCode,
   }) {
     return unknownAuthCode?.call(this);
@@ -3424,6 +3733,7 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
     TResult Function(WeakPasswordException value)? weakPassword,
     TResult Function(ExpiredActionCodeException value)? expiredActionCode,
     TResult Function(InvalidActionCodeException value)? invalidActionCode,
+    TResult Function(UserNotConnectedException value)? notConnected,
     TResult Function(UnknownAuthCodeException value)? unknownAuthCode,
     required TResult orElse(),
   }) {

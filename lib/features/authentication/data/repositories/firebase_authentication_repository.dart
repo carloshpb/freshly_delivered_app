@@ -150,15 +150,17 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
     }
   }
 
+  /// throws UserNotConnectedException if not connected
   @override
-  AppUser currentSimpleUserData() {
+  UserSimple currentSimpleUserData() {
     var currentUser = _firebaseAuth.currentUser;
-    return currentUser == null
-        ? const AppUser.notConnected()
-        : AppUser.simple(
-            uid: currentUser.uid,
-            email: currentUser.email!,
-          );
+    if (currentUser == null) {
+      throw const UserNotConnectedException();
+    }
+    return UserSimple(
+      uid: currentUser.uid,
+      email: currentUser.email!,
+    );
   }
 }
 

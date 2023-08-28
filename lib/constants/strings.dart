@@ -79,6 +79,7 @@ class Strings {
       "The operation can't be completed (not signed in)";
   static const invalidEmailOrPasswordSignIn =
       "The email or password does not match";
+  static const userNotConnected = "No account is logged in at the moment";
 
   // Firebase Auth
   static const invalidEmail = "The email address is not valid";
