@@ -98,7 +98,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   }
 
   @override
-  Stream<List<Advertisement>> fetchLastAdvertisements() {
+  void fetchLastAdvertisements() {
     // TODO: implement fetchLastAdvertisements
     throw UnimplementedError();
   }
