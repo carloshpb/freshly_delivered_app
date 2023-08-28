@@ -2,8 +2,7 @@ import 'dart:async';
 
 import '../../../use_case.dart';
 
-abstract class InitUserSessionWithUserIdUseCase
-    implements UseCase<String, void> {
+abstract class InitUserSessionWithUserIdUseCase implements UseCase<void, void> {
   @override
-  FutureOr<void> execute(String request);
+  FutureOr<void> execute([void request]);
 }
