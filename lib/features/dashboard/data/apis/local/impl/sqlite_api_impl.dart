@@ -78,20 +78,28 @@ class SQLiteApiImpl implements SQLiteApi {
   @override
   Future<List<Map<String, Object?>>> findByAttributeDesc(
     String table,
-    attribute,
+    dynamic attribute,
     String attributeName,
     int limit,
     int offset,
   ) {
-    return _database.rawQuery(
-      '''
-      SELECT * FROM $table
-      WHERE $attributeName = $attribute
-      ORDER BY modified_at DESC
-      LIMIT $limit
-      OFFSET $offset
-      ''',
-    );
+    var query = "SELECT * FROM $table";
+
+    if (attribute != null && attributeName.isNotEmpty) {
+      query = "$query WHERE $attributeName = $attribute";
+    }
+
+    query = "$query ORDER BY modified_at DESC";
+
+    if (limit != 0) {
+      query = "$query LIMIT $limit";
+    }
+
+    if (offset != 0) {
+      query = "$query OFFSET $offset";
+    }
+
+    return _database.rawQuery(query);
   }
 
   // @override
