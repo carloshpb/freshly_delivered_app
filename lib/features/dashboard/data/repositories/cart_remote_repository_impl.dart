@@ -12,7 +12,6 @@ import '../../../authentication/domain/repositories/authentication_repository.da
 import '../../domain/models/cart_item.dart';
 import '../../domain/models/product.dart';
 import '../../domain/repositories/cart_repository.dart';
-import '../../domain/repositories/products_repository.dart';
 import '../apis/remote/firestore_api.dart';
 import '../apis/remote/impl/firestore_api_impl.dart';
 import 'products_remote_repository_impl.dart';
@@ -92,7 +91,7 @@ final cartRemoteRepositoryProvider = Provider.autoDispose<CartRepository>(
     return CartRemoteRepositoryImpl(
       firestoreApi,
       authenticationRepository,
-      productsRemoteRepository,
+      //productsRemoteRepository,
       subject,
       transformer,
       ref,
@@ -103,7 +102,7 @@ final cartRemoteRepositoryProvider = Provider.autoDispose<CartRepository>(
 class CartRemoteRepositoryImpl implements CartRepository {
   final FirestoreApi _firestoreApi;
   final AuthenticationRepository _authenticationRepository;
-  final ProductsRepository _productsRepository;
+  //final ProductsRepository _productsRepository;
   //final Stream<List<Map<String, Object?>>> _cartItemsStreamController;
   final BehaviorSubject<Map<String, Object?>> _cartItemsStreamController;
   final StreamTransformer<Map<String, Object?>, CartItem>
@@ -113,13 +112,13 @@ class CartRemoteRepositoryImpl implements CartRepository {
   CartRemoteRepositoryImpl(
     FirestoreApi firestoreApi,
     AuthenticationRepository authenticationRepository,
-    ProductsRepository productsRepository,
+    //ProductsRepository productsRepository,
     BehaviorSubject<Map<String, Object?>> cartItemsStreamController,
     StreamTransformer<Map<String, Object?>, CartItem> streamCartItemTransformer,
     Ref ref,
   )   : _firestoreApi = firestoreApi,
         _authenticationRepository = authenticationRepository,
-        _productsRepository = productsRepository,
+        //_productsRepository = productsRepository,
         _cartItemsStreamController = cartItemsStreamController,
         _streamCartItemTransformer = streamCartItemTransformer,
         _ref = ref;
@@ -153,36 +152,23 @@ class CartRemoteRepositoryImpl implements CartRepository {
 
   @override
   void fetchCartProducts() {
-    var currentSimpleUser = _authenticationRepository.currentSimpleUserData();
-    _firestoreApi.fetchSubCollection(
-      Strings.userCartRemoteTable,
-      currentSimpleUser.uid,
-      "items",
-      _cartItemsStreamController,
-    );
-    // return _cartItemsStreamController.asyncMap(
-    //   (listFirestoreItems) async {
-    //     var cartItemConvertedList = <CartItem>[];
-    //     for (int index = 0; index < listFirestoreItems.length; index++) {
-    //       var currentId = listFirestoreItems[index]["id"] as String;
-    //       // TODO : Treat better product that doesn't exist anymore
-    //       var product = await _productsRepository.findProductById(currentId);
-    //       switch (product) {
-    //         case EmptyProduct():
-    //           continue;
-    //         default:
-    //           cartItemConvertedList.add(
-    //             CartItem(
-    //               // id: listFirestoreItems[index]["id"] as String,
-    //               product: product as NormalProduct,
-    //               amount: listFirestoreItems[index]["amount"] as int,
-    //             ),
-    //           );
-    //       }
-    //     }
-    //     return cartItemConvertedList;
-    //   },
-    // );
+    try {
+      var currentSimpleUser = _authenticationRepository.currentSimpleUserData();
+
+      _firestoreApi.fetchSubCollection(
+        Strings.userCartRemoteTable,
+        currentSimpleUser.uid,
+        "items",
+        _cartItemsStreamController,
+      );
+    } on UserNotConnectedException {
+      // TODO : test
+      _ref.invalidateSelf();
+      rethrow;
+    } on Exception {
+      // TODO : Handle errors
+      return;
+    }
   }
 
   @override
