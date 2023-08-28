@@ -130,18 +130,30 @@ class FirestoreApiImpl implements FirestoreApi {
   @override
   Future<List<Map<String, Object?>>> findByAttributeDesc(
     String collection,
-    attribute,
+    dynamic attribute,
     String attributeName,
     int limit,
-    Object? lastObject,
-  ) async {
+    String orderBy,
+    Object? lastObject, {
+    bool descending = false,
+  }) async {
     var collectionRef = _firestore.collection(collection);
     try {
-      var querySnapshot = await collectionRef
-          .where(attributeName, isEqualTo: attribute)
-          .startAfter((lastObject == null) ? [] : [lastObject])
-          .limit(limit)
-          .get();
+      QuerySnapshot<Map<String, dynamic>> querySnapshot;
+      if (orderBy.isNotEmpty) {
+        querySnapshot = await collectionRef
+            .where(attributeName, isEqualTo: attribute)
+            .startAfter((lastObject == null) ? [] : [lastObject])
+            .orderBy(orderBy, descending: descending)
+            .limit(limit)
+            .get();
+      } else {
+        querySnapshot = await collectionRef
+            .where(attributeName, isEqualTo: attribute)
+            .startAfter((lastObject == null) ? [] : [lastObject])
+            .limit(limit)
+            .get();
+      }
       var mapList = <Map<String, Object?>>[];
       for (var docSnapshot in querySnapshot.docs) {
         var map = docSnapshot.data();
