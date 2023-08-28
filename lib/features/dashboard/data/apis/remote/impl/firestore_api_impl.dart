@@ -155,12 +155,12 @@ class FirestoreApiImpl implements FirestoreApi {
   }
 
   @override
-  void fetchByAttributeDesc(
+  void fetchListByAttributeDesc(
     String collection,
-    attribute,
+    dynamic attribute,
     String attributeName,
     String descAttributeName,
-    BehaviorSubject<Map<String, Object?>> streamSubject,
+    BehaviorSubject<List<Map<String, Object?>>> streamSubject,
   ) {
     late Query<Map<String, dynamic>> collectionRef;
 
@@ -170,11 +170,16 @@ class FirestoreApiImpl implements FirestoreApi {
         code: "not-found",
         message: "It's not allowed to query for an empty collection name",
       );
-    } else if (attributeName.isEmpty && descAttributeName.isNotEmpty) {
+    } else if ((attribute == null || attributeName.isEmpty) &&
+        descAttributeName.isEmpty) {
+      collectionRef = _firestore.collection(collection);
+    } else if ((attribute == null || attributeName.isEmpty) &&
+        descAttributeName.isNotEmpty) {
       collectionRef = _firestore
           .collection(collection)
           .orderBy(descAttributeName, descending: true);
-    } else if (attributeName.isNotEmpty && descAttributeName.isEmpty) {
+    } else if ((attribute != null && attributeName.isNotEmpty) &&
+        descAttributeName.isEmpty) {
       collectionRef = _firestore
           .collection(collection)
           .where(attributeName, isEqualTo: attribute);
@@ -187,13 +192,17 @@ class FirestoreApiImpl implements FirestoreApi {
 
     collectionRef.snapshots().listen(
       (event) {
+        var docList = event.docs.map((e) => e.data()).toList();
         for (var change in event.docChanges) {
-          var doc = change.doc.data();
-          if (doc != null) {
-            doc["documentChangeType"] = change.type;
-            streamSubject.add(doc);
+          switch (change.type) {
+            case DocumentChangeType.removed:
+              docList.removeWhere((doc) => doc == change.doc.data());
+              break;
+            default:
+              break;
           }
         }
+        streamSubject.sink.add(docList);
       },
     );
 

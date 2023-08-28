@@ -32,12 +32,12 @@ abstract class FirestoreApi {
     String childCollection,
     dynamic entity,
   );
-  void fetchByAttributeDesc(
+  void fetchListByAttributeDesc(
     String collection,
     dynamic attribute,
     String attributeName,
     String descAttributeName,
-    BehaviorSubject<Map<String, Object?>> streamSubject,
+    BehaviorSubject<List<Map<String, Object?>>> streamSubject,
   );
   void fetchSubCollection(
     String parentCollection,
