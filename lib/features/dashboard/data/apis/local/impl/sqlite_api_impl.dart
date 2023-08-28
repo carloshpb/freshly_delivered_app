@@ -57,22 +57,22 @@ class SQLiteApiImpl implements SQLiteApi {
   /// returns 0 if value was not saved
   @override
   Future<int> save(String table, dynamic entity, List<String> columns) async {
-    var entityToString = (entity is List)
-        ? entity.map(
-            (map) {
-              "(${(map as Map<String, Object?>).entries.join(",")})";
-            },
-          ).join(",")
-        : "(${(entity as Map<String, Object?>).entries.join(",")})";
+    var insert = "INSERT INTO $table(${columns.join(", ")}) VALUES";
 
-    var result = await _database.rawInsert(
-      '''
-      INSERT INTO $table(${columns.join(", ")})
-      VALUES $entityToString
-      ''',
-    );
+    if (entity is List) {
+      var batch = _database.batch();
+      for (var index = 0; index < entity.length; index++) {
+        batch.rawInsert(
+            "$insert (${(entity[index] as Map<String, Object?>).entries.join(",")})");
+      }
+      var resultList = await batch.commit();
+      return (resultList.length == entity.length) ? resultList.length : 0;
+    } else {
+      var result = await _database.rawInsert(
+          "$insert (${(entity as Map<String, Object?>).entries.join(",")})");
 
-    return result;
+      return result;
+    }
   }
 
   @override
