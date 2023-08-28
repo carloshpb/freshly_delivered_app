@@ -81,7 +81,53 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
       name,
       "title",
       limit,
+      "title",
       lastProduct.position,
+    );
+
+    return result
+        .map(
+          (prodMap) => Product.fromJson(prodMap),
+        )
+        .toList();
+  }
+
+  @override
+  FutureOr<List<Product>> findProductsByAdvertisementId(
+    String advertisementId,
+    int limit,
+    ({int position, Product? productObject}) lastProduct,
+  ) async {
+    var result = await _sqliteApi.findByAttributeDesc(
+      Strings.productsLocalTable,
+      advertisementId,
+      'advertisement_id',
+      limit,
+      "units_sold",
+      lastProduct.position,
+      descending: true,
+    );
+
+    return result
+        .map(
+          (prodMap) => Product.fromJson(prodMap),
+        )
+        .toList();
+  }
+
+  @override
+  FutureOr<List<Product>> findProductsByPopularity(
+    int limit,
+    ({int position, Product? productObject}) lastProduct,
+  ) async {
+    var result = await _sqliteApi.findByAttributeDesc(
+      Strings.productsLocalTable,
+      null,
+      '',
+      limit,
+      "units_sold",
+      lastProduct.position,
+      descending: true,
     );
 
     return result

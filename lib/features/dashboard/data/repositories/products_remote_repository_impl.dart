@@ -67,6 +67,7 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
       name,
       "title",
       limit,
+      "title",
       lastProduct.productObject,
     );
 
@@ -77,16 +78,48 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
         .toList();
   }
 
-  // @override
-  // Stream<List<Product>> fetchProductsByAdvertisementId(
-  //     String advertisementId) async* {
-  //   var resultListMap = _firestoreApi.fetchListByAttributeDesc(
-  //     Strings.productsRemoteTable,
-  //     advertisementId,
-  //     'advertisement_id',
-  //     'units_sold',
+  @override
+  FutureOr<List<Product>> findProductsByAdvertisementId(
+    String advertisementId,
+    int limit,
+    ({Product? productObject, int position}) lastProduct,
+  ) async {
+    var result = await _firestoreApi.findByAttributeDesc(
+      Strings.productsRemoteTable,
+      advertisementId,
+      'advertisement_id',
+      limit,
+      "units_sold",
+      lastProduct.productObject,
+      descending: true,
+    );
 
-  //   );
+    return result
+        .map(
+          (prodMap) => Product.fromJson(prodMap),
+        )
+        .toList();
+  }
 
-  // }
+  @override
+  FutureOr<List<Product>> findProductsByPopularity(
+    int limit,
+    ({int position, Product? productObject}) lastProduct,
+  ) async {
+    var result = await _firestoreApi.findByAttributeDesc(
+      Strings.productsRemoteTable,
+      null,
+      '',
+      limit,
+      "units_sold",
+      lastProduct.productObject,
+      descending: true,
+    );
+
+    return result
+        .map(
+          (prodMap) => Product.fromJson(prodMap),
+        )
+        .toList();
+  }
 }
