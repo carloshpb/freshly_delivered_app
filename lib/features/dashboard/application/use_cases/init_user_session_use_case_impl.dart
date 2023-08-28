@@ -17,7 +17,7 @@ class InitUserSessionWithUserIdUseCaseImpl
   InitUserSessionWithUserIdUseCaseImpl(Ref ref) : _ref = ref;
 
   @override
-  Future<void> execute(String request) {
+  Future<void> execute([void request]) {
     _ref.watch(cartLocalRepositoryProvider).;
   }
 }

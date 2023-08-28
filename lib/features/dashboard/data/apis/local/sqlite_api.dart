@@ -13,8 +13,10 @@ abstract class SQLiteApi {
     dynamic attribute,
     String attributeName,
     int limit,
-    int offset,
-  );
+    String orderBy,
+    int offset, {
+    bool descending = false,
+  });
   Future<int> save(String table, dynamic entity, List<String> columns);
   // StreamController<Map<String, Object?>> fetchByAttribute(
   //   String table,

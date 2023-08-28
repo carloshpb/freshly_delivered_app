@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../../../constants/strings.dart';
+import '../../../../exceptions/app_sqflite_exception.dart';
 import '../../../../exceptions/object_already_added_exception.dart';
 import '../../domain/models/cart_item.dart';
 import '../../domain/repositories/cart_repository.dart';
@@ -11,19 +13,51 @@ import '../apis/local/impl/sqlite_api_impl.dart';
 import '../apis/local/sqlite_api.dart';
 import 'products_local_repository_impl.dart';
 
+const _customQuery = '''
+    SELECT
+      c.amount,
+      c.id,
+      p.title,
+      p.price,
+      p.description,
+      p.category,
+      p.image_path,
+      p.units_sold,
+      p.advertisement_id,
+      p.discount,
+      p.created_at,
+      p.modified_at
+    FROM cart AS c
+    JOIN products AS p ON c.id = p.id
+    ''';
+
 final cartLocalRepositoryProvider = Provider.autoDispose<CartRepository>(
   (ref) {
     var sqliteApi = ref.watch(sqliteApiProvider);
     var productsLocalRepository = ref.watch(productsLocalRepositoryProvider);
-    var cartStreamController =
-        StreamController<List<Map<String, Object?>>>.broadcast();
+    // var cartStreamController =
+    //     StreamController<List<Map<String, Object?>>>.broadcast();
 
-    sqliteApi.findAll(Strings.userCartLocalTable).then((listCartItemsJson) {
+    final cartStreamController = BehaviorSubject<Map<String, Object?>>();
+
+    final transformer =
+        StreamTransformer<Map<String, Object?>, CartItem>.fromHandlers(
+      handleData: (data, sink) async {
+        var modelAdv = CartItem.fromSqliteJson(data);
+        sink.add(modelAdv);
+      },
+    );
+
+    sqliteApi.customQuery(_customQuery).then((listCartItemsJson) {
+      for (var index = 0; index < listCartItemsJson.length; index++) {
+        cartStreamController.add(listCartItemsJson[index]);
+      }
+
       // var cartItemsModels = (listCartItemsJson.isNotEmpty)
       //     ? listCartItemsJson.map((ci) => CartItem.fromJson(ci)).toList()
       //     : <CartItem>[];
       // cartStreamController.add(cartItemsModels);
-      cartStreamController.add(listCartItemsJson);
+      // cartStreamController.add(listCartItemsJson);
     });
 
     ref.onDispose(
@@ -34,6 +68,7 @@ final cartLocalRepositoryProvider = Provider.autoDispose<CartRepository>(
       sqliteApi,
       productsLocalRepository,
       cartStreamController,
+      transformer,
     );
   },
 );
@@ -41,15 +76,18 @@ final cartLocalRepositoryProvider = Provider.autoDispose<CartRepository>(
 class CartLocalRepositoryImpl implements CartRepository {
   final SQLiteApi _sqliteApi;
   // final ProductsRepository _productsLocalRepository;
-  final StreamController<List<Map<String, Object?>>> _cartItemsStreamController;
+  final BehaviorSubject<Map<String, Object?>> _cartItemsStreamController;
+  final StreamTransformer<Map<String, Object?>, CartItem> _cartItemsTransformer;
 
   CartLocalRepositoryImpl(
     SQLiteApi sqliteApi,
     ProductsRepository productsLocalRepository,
-    StreamController<List<Map<String, Object?>>> cartItemsStreamController,
+    BehaviorSubject<Map<String, Object?>> cartItemsStreamController,
+    StreamTransformer<Map<String, Object?>, CartItem> cartItemsTransformer,
   )   : _sqliteApi = sqliteApi,
         // _productsLocalRepository = productsLocalRepository,
-        _cartItemsStreamController = cartItemsStreamController;
+        _cartItemsStreamController = cartItemsStreamController,
+        _cartItemsTransformer = cartItemsTransformer;
 
   @override
   Future<void> setProductToCart(CartItem item) async {
@@ -99,61 +137,44 @@ class CartLocalRepositoryImpl implements CartRepository {
   }
 
   @override
-  Stream<List<CartItem>> fetchCartProducts() {
-    // return _cartItemsStreamController.stream;
-    // return _cartItemsStreamController.stream.map(
-    //   (event) => event.map((itemMap) => CartItem.fromJson(itemMap)).toList(),
+  void fetchCartProducts() {
+    _sqliteApi.customQuery(_customQuery).then((listCartItemsJson) {
+      for (var index = 0; index < listCartItemsJson.length; index++) {
+        _cartItemsStreamController.add(listCartItemsJson[index]);
+      }
+    });
+
+    // var result = _sqliteApi.customQuery(_customQuery).then((value) => null);
+
+    // return _cartItemsStreamController.stream.asyncMap(
+    //   (listFirestoreItems) async {
+    //     var cartItemConvertedList = <CartItem>[];
+    //     for (int index = 0; index < listFirestoreItems.length;) {
+    //       // if product was removed from local DB due to remote reason, then the cart_item shouldn't exist anymore
+    //       if (listFirestoreItems[index]["title"] == null ||
+    //           (listFirestoreItems[index]["title"] as String).isEmpty) {
+    //         await _sqliteApi.deleteById(
+    //             "cart", listFirestoreItems[index]["id"] as String);
+    //         continue;
+    //       }
+    //       var currentCartItem =
+    //           CartItem.fromSqliteJson(listFirestoreItems[index]);
+    //       cartItemConvertedList.add(currentCartItem);
+    //     }
+    //     return cartItemConvertedList;
+    //   },
     // );
-
-    var customQuery = '''
-    SELECT
-      c.amount,
-      c.id,
-      p.title,
-      p.price,
-      p.description,
-      p.category,
-      p.image_path,
-      p.units_sold,
-      p.advertisement_id,
-      p.discount,
-      p.created_at,
-      p.modified_at
-    FROM cart_item AS c
-    JOIN products AS p ON c.id = p.id
-    ''';
-
-    var result = _sqliteApi.customQuery(customQuery).then((value) => null);
-
-    return _cartItemsStreamController.stream.asyncMap(
-      (listFirestoreItems) async {
-        var cartItemConvertedList = <CartItem>[];
-        for (int index = 0; index < listFirestoreItems.length;) {
-          // if product was removed from local DB due to remote reason, then the cart_item shouldn't exist anymore
-          if (listFirestoreItems[index]["title"] == null ||
-              (listFirestoreItems[index]["title"] as String).isEmpty) {
-            await _sqliteApi.deleteById(
-                "cart", listFirestoreItems[index]["id"] as String);
-            continue;
-          }
-          var currentCartItem =
-              CartItem.fromSqliteJson(listFirestoreItems[index]);
-          cartItemConvertedList.add(currentCartItem);
-        }
-        return cartItemConvertedList;
-      },
-    );
   }
 
   @override
-  Future<void> updateProductAtCart(CartItem item) {
-    // TODO: implement updateProductAtCart
-    throw UnimplementedError();
+  Future<void> removeProductAtCart(CartItem item) async {
+    var result = await _sqliteApi.deleteById("cart", item.product.id);
+    if (result == 0) {
+      throw const ObjectNotDeletedException();
+    }
   }
 
   @override
-  Future<void> removeProductAtCart(CartItem item) {
-    // TODO: implement removeProductAtCart
-    throw UnimplementedError();
-  }
+  Stream<CartItem> get streamCartItems =>
+      _cartItemsStreamController.transform(_cartItemsTransformer);
 }

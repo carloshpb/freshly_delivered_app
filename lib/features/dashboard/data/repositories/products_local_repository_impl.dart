@@ -33,10 +33,7 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   FutureOr<Product> findProductById(String id) async {
     var resultMap = await _sqliteApi.findById(Strings.productsLocalTable, id);
     return (resultMap.isEmpty)
-        ? Product(
-            createdAt: DateTime.parse('0000-00-00'),
-            modifiedAt: DateTime.parse('0000-00-00'),
-          )
+        ? const Product.empty()
         : Product.fromJson(resultMap);
   }
 
@@ -84,6 +81,7 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
       name,
       "title",
       limit,
+      "title",
       lastProduct.position,
     );
 
@@ -95,8 +93,47 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  Stream<List<Product>> fetchProductsByAdvertisementId(String advertisementId) {
-    // TODO: implement fetchProductsByAdvertisementId
-    throw UnimplementedError();
+  FutureOr<List<Product>> findProductsByAdvertisementId(
+    String advertisementId,
+    int limit,
+    ({int position, Product? productObject}) lastProduct,
+  ) async {
+    var result = await _sqliteApi.findByAttributeDesc(
+      Strings.productsLocalTable,
+      advertisementId,
+      'advertisement_id',
+      limit,
+      "units_sold",
+      lastProduct.position,
+      descending: true,
+    );
+
+    return result
+        .map(
+          (prodMap) => Product.fromJson(prodMap),
+        )
+        .toList();
+  }
+
+  @override
+  FutureOr<List<Product>> findProductsByPopularity(
+    int limit,
+    ({int position, Product? productObject}) lastProduct,
+  ) async {
+    var result = await _sqliteApi.findByAttributeDesc(
+      Strings.productsLocalTable,
+      null,
+      '',
+      limit,
+      "units_sold",
+      lastProduct.position,
+      descending: true,
+    );
+
+    return result
+        .map(
+          (prodMap) => Product.fromJson(prodMap),
+        )
+        .toList();
   }
 }

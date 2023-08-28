@@ -28,14 +28,11 @@ class GetProductsByPopularityUseCaseImpl
         ProductDto? lastProductObject,
         int lastProductPosition
       }) request) async {
-    var products = await _remoteProductsRepository.findProductsByNameWithLimit(
-      request.productName,
+    var products = await _remoteProductsRepository.findProductsByPopularity(
       10,
       (
-        position: request.position,
-        productObject: (request.productObject != null)
-            ? request.productObject!.toModel()
-            : null,
+        position: request.lastProductPosition,
+        productObject: request.lastProductObject?.toModel(),
       ),
     );
 

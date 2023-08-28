@@ -19,32 +19,38 @@ mixin _$AppSqfliteException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() failInsert,
+    required TResult Function() objectNotDeleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? failInsert,
+    TResult? Function()? objectNotDeleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? failInsert,
+    TResult Function()? objectNotDeleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(FailInsertSQLException value) failInsert,
+    required TResult Function(ObjectNotDeletedException value) objectNotDeleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(FailInsertSQLException value)? failInsert,
+    TResult? Function(ObjectNotDeletedException value)? objectNotDeleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FailInsertSQLException value)? failInsert,
+    TResult Function(ObjectNotDeletedException value)? objectNotDeleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,6 +113,7 @@ class _$FailInsertSQLException extends FailInsertSQLException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() failInsert,
+    required TResult Function() objectNotDeleted,
   }) {
     return failInsert();
   }
@@ -115,6 +122,7 @@ class _$FailInsertSQLException extends FailInsertSQLException {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? failInsert,
+    TResult? Function()? objectNotDeleted,
   }) {
     return failInsert?.call();
   }
@@ -123,6 +131,7 @@ class _$FailInsertSQLException extends FailInsertSQLException {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? failInsert,
+    TResult Function()? objectNotDeleted,
     required TResult orElse(),
   }) {
     if (failInsert != null) {
@@ -135,6 +144,7 @@ class _$FailInsertSQLException extends FailInsertSQLException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(FailInsertSQLException value) failInsert,
+    required TResult Function(ObjectNotDeletedException value) objectNotDeleted,
   }) {
     return failInsert(this);
   }
@@ -143,6 +153,7 @@ class _$FailInsertSQLException extends FailInsertSQLException {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(FailInsertSQLException value)? failInsert,
+    TResult? Function(ObjectNotDeletedException value)? objectNotDeleted,
   }) {
     return failInsert?.call(this);
   }
@@ -151,6 +162,7 @@ class _$FailInsertSQLException extends FailInsertSQLException {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FailInsertSQLException value)? failInsert,
+    TResult Function(ObjectNotDeletedException value)? objectNotDeleted,
     required TResult orElse(),
   }) {
     if (failInsert != null) {
@@ -163,4 +175,109 @@ class _$FailInsertSQLException extends FailInsertSQLException {
 abstract class FailInsertSQLException extends AppSqfliteException {
   const factory FailInsertSQLException() = _$FailInsertSQLException;
   const FailInsertSQLException._() : super._();
+}
+
+/// @nodoc
+abstract class _$$ObjectNotDeletedExceptionCopyWith<$Res> {
+  factory _$$ObjectNotDeletedExceptionCopyWith(
+          _$ObjectNotDeletedException value,
+          $Res Function(_$ObjectNotDeletedException) then) =
+      __$$ObjectNotDeletedExceptionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ObjectNotDeletedExceptionCopyWithImpl<$Res>
+    extends _$AppSqfliteExceptionCopyWithImpl<$Res, _$ObjectNotDeletedException>
+    implements _$$ObjectNotDeletedExceptionCopyWith<$Res> {
+  __$$ObjectNotDeletedExceptionCopyWithImpl(_$ObjectNotDeletedException _value,
+      $Res Function(_$ObjectNotDeletedException) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ObjectNotDeletedException extends ObjectNotDeletedException {
+  const _$ObjectNotDeletedException() : super._();
+
+  @override
+  String toString() {
+    return 'AppSqfliteException.objectNotDeleted()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ObjectNotDeletedException);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() failInsert,
+    required TResult Function() objectNotDeleted,
+  }) {
+    return objectNotDeleted();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? failInsert,
+    TResult? Function()? objectNotDeleted,
+  }) {
+    return objectNotDeleted?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? failInsert,
+    TResult Function()? objectNotDeleted,
+    required TResult orElse(),
+  }) {
+    if (objectNotDeleted != null) {
+      return objectNotDeleted();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FailInsertSQLException value) failInsert,
+    required TResult Function(ObjectNotDeletedException value) objectNotDeleted,
+  }) {
+    return objectNotDeleted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(FailInsertSQLException value)? failInsert,
+    TResult? Function(ObjectNotDeletedException value)? objectNotDeleted,
+  }) {
+    return objectNotDeleted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FailInsertSQLException value)? failInsert,
+    TResult Function(ObjectNotDeletedException value)? objectNotDeleted,
+    required TResult orElse(),
+  }) {
+    if (objectNotDeleted != null) {
+      return objectNotDeleted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ObjectNotDeletedException extends AppSqfliteException {
+  const factory ObjectNotDeletedException() = _$ObjectNotDeletedException;
+  const ObjectNotDeletedException._() : super._();
 }

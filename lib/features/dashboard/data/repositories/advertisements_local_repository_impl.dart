@@ -116,7 +116,9 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
       true,
       "is_special",
       limit,
+      "created_at",
       lastAdvertisement.position,
+      descending: true,
     );
     return resultListMap
         .map(
@@ -131,10 +133,12 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
     _sqliteApi
         .findByAttributeDesc(
           "advertisements",
-          true,
-          "is_special",
+          null,
+          "",
           0,
+          "created_at",
           0,
+          descending: true,
         )
         .then((result) => _advertisementStream.add(result));
   }

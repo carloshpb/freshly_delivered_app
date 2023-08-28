@@ -81,15 +81,23 @@ class SQLiteApiImpl implements SQLiteApi {
     dynamic attribute,
     String attributeName,
     int limit,
-    int offset,
-  ) {
+    String orderBy,
+    int offset, {
+    bool descending = false,
+  }) {
     var query = "SELECT * FROM $table";
 
     if (attribute != null && attributeName.isNotEmpty) {
       query = "$query WHERE $attributeName = $attribute";
     }
 
-    query = "$query ORDER BY modified_at DESC";
+    if (orderBy.isEmpty) {
+      orderBy = "modified_at";
+    }
+
+    String ascOrDesc = (descending) ? "DESC" : "ASC";
+
+    query = "$query ORDER BY $orderBy $ascOrDesc";
 
     if (limit != 0) {
       query = "$query LIMIT $limit";
@@ -153,6 +161,7 @@ class SQLiteApiImpl implements SQLiteApi {
     return _database.rawQuery(query);
   }
 
+  /// returns 0 if no changes were made. Otherwise, returns the number of changes
   @override
   Future<int> deleteById(String table, String id) {
     return _database.rawDelete('''

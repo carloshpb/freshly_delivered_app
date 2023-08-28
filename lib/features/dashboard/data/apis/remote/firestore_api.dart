@@ -13,8 +13,10 @@ abstract class FirestoreApi {
     dynamic attribute,
     String attributeName,
     int limit,
-    Object? lastObject,
-  );
+    String orderBy,
+    Object? lastObject, {
+    bool descending = false,
+  });
   Future<void> add(String collection, dynamic entity);
   Future<void> set(String collection, dynamic entity);
   Future<void> setSubcollection(

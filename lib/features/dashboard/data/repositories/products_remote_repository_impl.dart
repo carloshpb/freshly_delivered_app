@@ -56,7 +56,7 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
   @override
   Future<void> saveProducts(List<Product> products) async {
     var mapProducts = products.map((prod) => prod.toJson());
-    await _firestoreApi.save(Strings.productsRemoteTable, mapProducts);
+    await _firestoreApi.add(Strings.productsRemoteTable, mapProducts);
   }
 
   @override
@@ -67,6 +67,7 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
       name,
       "title",
       limit,
+      "title",
       lastProduct.productObject,
     );
 
@@ -78,21 +79,47 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  Stream<List<Product>> fetchProductsByAdvertisementId(
-      String advertisementId) async* {
-    var resultListMap = _firestoreApi.fetchByAttributeDesc(
+  FutureOr<List<Product>> findProductsByAdvertisementId(
+    String advertisementId,
+    int limit,
+    ({Product? productObject, int position}) lastProduct,
+  ) async {
+    var result = await _firestoreApi.findByAttributeDesc(
       Strings.productsRemoteTable,
       advertisementId,
       'advertisement_id',
-      'units_sold',
+      limit,
+      "units_sold",
+      lastProduct.productObject,
+      descending: true,
     );
 
-    yield* resultListMap.map<List<Product>>(
-      (listMapJson) => listMapJson
-          .map(
-            (mapJson) => Product.fromJson(mapJson),
-          )
-          .toList(),
+    return result
+        .map(
+          (prodMap) => Product.fromJson(prodMap),
+        )
+        .toList();
+  }
+
+  @override
+  FutureOr<List<Product>> findProductsByPopularity(
+    int limit,
+    ({int position, Product? productObject}) lastProduct,
+  ) async {
+    var result = await _firestoreApi.findByAttributeDesc(
+      Strings.productsRemoteTable,
+      null,
+      '',
+      limit,
+      "units_sold",
+      lastProduct.productObject,
+      descending: true,
     );
+
+    return result
+        .map(
+          (prodMap) => Product.fromJson(prodMap),
+        )
+        .toList();
   }
 }
