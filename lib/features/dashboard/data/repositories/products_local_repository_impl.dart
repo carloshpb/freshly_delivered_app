@@ -33,10 +33,7 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   FutureOr<Product> findProductById(String id) async {
     var resultMap = await _sqliteApi.findById(Strings.productsLocalTable, id);
     return (resultMap.isEmpty)
-        ? Product(
-            createdAt: DateTime.parse('0000-00-00'),
-            modifiedAt: DateTime.parse('0000-00-00'),
-          )
+        ? const Product.empty()
         : Product.fromJson(resultMap);
   }
 
@@ -92,11 +89,5 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
           (prodMap) => Product.fromJson(prodMap),
         )
         .toList();
-  }
-
-  @override
-  Stream<List<Product>> fetchProductsByAdvertisementId(String advertisementId) {
-    // TODO: implement fetchProductsByAdvertisementId
-    throw UnimplementedError();
   }
 }

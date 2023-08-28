@@ -56,7 +56,7 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
   @override
   Future<void> saveProducts(List<Product> products) async {
     var mapProducts = products.map((prod) => prod.toJson());
-    await _firestoreApi.save(Strings.productsRemoteTable, mapProducts);
+    await _firestoreApi.add(Strings.productsRemoteTable, mapProducts);
   }
 
   @override
@@ -77,22 +77,16 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
         .toList();
   }
 
-  @override
-  Stream<List<Product>> fetchProductsByAdvertisementId(
-      String advertisementId) async* {
-    var resultListMap = _firestoreApi.fetchByAttributeDesc(
-      Strings.productsRemoteTable,
-      advertisementId,
-      'advertisement_id',
-      'units_sold',
-    );
+  // @override
+  // Stream<List<Product>> fetchProductsByAdvertisementId(
+  //     String advertisementId) async* {
+  //   var resultListMap = _firestoreApi.fetchListByAttributeDesc(
+  //     Strings.productsRemoteTable,
+  //     advertisementId,
+  //     'advertisement_id',
+  //     'units_sold',
 
-    yield* resultListMap.map<List<Product>>(
-      (listMapJson) => listMapJson
-          .map(
-            (mapJson) => Product.fromJson(mapJson),
-          )
-          .toList(),
-    );
-  }
+  //   );
+
+  // }
 }
