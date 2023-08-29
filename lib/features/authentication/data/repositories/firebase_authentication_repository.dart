@@ -65,7 +65,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
         // return state.value!;
         rethrow;
       }
-    });
+    }).asBroadcastStream();
   }
 
   @override
