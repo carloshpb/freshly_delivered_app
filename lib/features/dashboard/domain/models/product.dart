@@ -1,7 +1,9 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../../utils/converters/datetime_timestamp_converter.dart';
 import '../../application/dtos/product_dto.dart';
 
 part 'product.freezed.dart';
@@ -31,8 +33,12 @@ sealed class Product with _$Product {
     @JsonKey(name: 'units_sold') @Default(0) int unitsSold,
     @JsonKey(name: 'advertisement_id') @Default('') String advertisementId,
     @Default(0) int discount,
-    @JsonKey(name: 'created_at') DateTime? createdAt,
-    @JsonKey(name: 'modified_at') DateTime? modifiedAt,
+    @DateTimeTimestampConverter()
+    @JsonKey(name: 'created_at')
+    DateTime? createdAt,
+    @DateTimeTimestampConverter()
+    @JsonKey(name: 'modified_at')
+    DateTime? modifiedAt,
   }) = NormalProduct;
 
   factory Product.fromJson(Map<String, Object?> json) =>

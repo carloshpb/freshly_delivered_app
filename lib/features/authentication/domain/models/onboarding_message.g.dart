@@ -11,6 +11,10 @@ _$_OnboardingMessage _$$_OnboardingMessageFromJson(Map<String, dynamic> json) =>
       imageSvgPath: json['imageSvgPath'] as String,
       title: json['title'] as String,
       message: json['message'] as String,
+      createdAt: const DateTimeTimestampConverter()
+          .fromJson(json['created_at'] as Timestamp?),
+      modifiedAt: const DateTimeTimestampConverter()
+          .fromJson(json['modified_at'] as Timestamp?),
     );
 
 Map<String, dynamic> _$$_OnboardingMessageToJson(
@@ -19,4 +23,8 @@ Map<String, dynamic> _$$_OnboardingMessageToJson(
       'imageSvgPath': instance.imageSvgPath,
       'title': instance.title,
       'message': instance.message,
+      'created_at':
+          const DateTimeTimestampConverter().toJson(instance.createdAt),
+      'modified_at':
+          const DateTimeTimestampConverter().toJson(instance.modifiedAt),
     };

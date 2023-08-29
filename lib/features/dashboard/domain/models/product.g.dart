@@ -27,12 +27,10 @@ _$NormalProduct _$$NormalProductFromJson(Map<String, dynamic> json) =>
       unitsSold: json['units_sold'] as int? ?? 0,
       advertisementId: json['advertisement_id'] as String? ?? '',
       discount: json['discount'] as int? ?? 0,
-      createdAt: json['created_at'] == null
-          ? null
-          : DateTime.parse(json['created_at'] as String),
-      modifiedAt: json['modified_at'] == null
-          ? null
-          : DateTime.parse(json['modified_at'] as String),
+      createdAt: const DateTimeTimestampConverter()
+          .fromJson(json['created_at'] as Timestamp?),
+      modifiedAt: const DateTimeTimestampConverter()
+          .fromJson(json['modified_at'] as Timestamp?),
       $type: json['runtimeType'] as String?,
     );
 
@@ -47,7 +45,9 @@ Map<String, dynamic> _$$NormalProductToJson(_$NormalProduct instance) =>
       'units_sold': instance.unitsSold,
       'advertisement_id': instance.advertisementId,
       'discount': instance.discount,
-      'created_at': instance.createdAt?.toIso8601String(),
-      'modified_at': instance.modifiedAt?.toIso8601String(),
+      'created_at':
+          const DateTimeTimestampConverter().toJson(instance.createdAt),
+      'modified_at':
+          const DateTimeTimestampConverter().toJson(instance.modifiedAt),
       'runtimeType': instance.$type,
     };

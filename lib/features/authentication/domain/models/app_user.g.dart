@@ -22,12 +22,10 @@ _$UserData _$$UserDataFromJson(Map<String, dynamic> json) => _$UserData(
       password: json['password'] as String,
       fullname: json['fullname'] as String,
       phoneNumber: json['phone_number'] as String,
-      createdAt: json['created_at'] == null
-          ? null
-          : DateTime.parse(json['created_at'] as String),
-      modifiedAt: json['modified_at'] == null
-          ? null
-          : DateTime.parse(json['modified_at'] as String),
+      createdAt: const DateTimeTimestampConverter()
+          .fromJson(json['created_at'] as Timestamp?),
+      modifiedAt: const DateTimeTimestampConverter()
+          .fromJson(json['modified_at'] as Timestamp?),
       $type: json['runtimeType'] as String?,
     );
 
@@ -38,8 +36,10 @@ Map<String, dynamic> _$$UserDataToJson(_$UserData instance) =>
       'password': instance.password,
       'fullname': instance.fullname,
       'phone_number': instance.phoneNumber,
-      'created_at': instance.createdAt?.toIso8601String(),
-      'modified_at': instance.modifiedAt?.toIso8601String(),
+      'created_at':
+          const DateTimeTimestampConverter().toJson(instance.createdAt),
+      'modified_at':
+          const DateTimeTimestampConverter().toJson(instance.modifiedAt),
       'runtimeType': instance.$type,
     };
 

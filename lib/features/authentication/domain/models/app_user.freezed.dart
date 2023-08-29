@@ -40,8 +40,12 @@ mixin _$AppUser {
             String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)
         data,
     required TResult Function(String uid, String email) simple,
   }) =>
@@ -55,8 +59,12 @@ mixin _$AppUser {
             String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         data,
     TResult? Function(String uid, String email)? simple,
   }) =>
@@ -70,8 +78,12 @@ mixin _$AppUser {
             String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         data,
     TResult Function(String uid, String email)? simple,
     required TResult orElse(),
@@ -172,8 +184,12 @@ class _$UserNotConnected implements UserNotConnected {
             String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)
         data,
     required TResult Function(String uid, String email) simple,
   }) {
@@ -190,8 +206,12 @@ class _$UserNotConnected implements UserNotConnected {
             String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         data,
     TResult? Function(String uid, String email)? simple,
   }) {
@@ -208,8 +228,12 @@ class _$UserNotConnected implements UserNotConnected {
             String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         data,
     TResult Function(String uid, String email)? simple,
     required TResult orElse(),
@@ -281,8 +305,12 @@ abstract class _$$UserDataCopyWith<$Res> {
       String password,
       String fullname,
       @JsonKey(name: 'phone_number') String phoneNumber,
-      @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'modified_at') DateTime? modifiedAt});
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -346,8 +374,10 @@ class _$UserData implements UserData {
       required this.password,
       required this.fullname,
       @JsonKey(name: 'phone_number') required this.phoneNumber,
-      @JsonKey(name: 'created_at') this.createdAt,
-      @JsonKey(name: 'modified_at') this.modifiedAt,
+      @DateTimeTimestampConverter() @JsonKey(name: 'created_at') this.createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      this.modifiedAt,
       final String? $type})
       : $type = $type ?? 'data';
 
@@ -366,9 +396,11 @@ class _$UserData implements UserData {
   @JsonKey(name: 'phone_number')
   final String phoneNumber;
   @override
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
   @override
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'modified_at')
   final DateTime? modifiedAt;
 
@@ -420,8 +452,12 @@ class _$UserData implements UserData {
             String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)
         data,
     required TResult Function(String uid, String email) simple,
   }) {
@@ -439,8 +475,12 @@ class _$UserData implements UserData {
             String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         data,
     TResult? Function(String uid, String email)? simple,
   }) {
@@ -458,8 +498,12 @@ class _$UserData implements UserData {
             String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         data,
     TResult Function(String uid, String email)? simple,
     required TResult orElse(),
@@ -520,8 +564,12 @@ abstract class UserData implements AppUser {
       required final String password,
       required final String fullname,
       @JsonKey(name: 'phone_number') required final String phoneNumber,
-      @JsonKey(name: 'created_at') final DateTime? createdAt,
-      @JsonKey(name: 'modified_at') final DateTime? modifiedAt}) = _$UserData;
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      final DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      final DateTime? modifiedAt}) = _$UserData;
 
   factory UserData.fromJson(Map<String, dynamic> json) = _$UserData.fromJson;
 
@@ -531,8 +579,10 @@ abstract class UserData implements AppUser {
   String get fullname;
   @JsonKey(name: 'phone_number')
   String get phoneNumber;
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
   DateTime? get createdAt;
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'modified_at')
   DateTime? get modifiedAt;
   @JsonKey(ignore: true)
@@ -629,8 +679,12 @@ class _$UserSimple implements UserSimple {
             String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)
         data,
     required TResult Function(String uid, String email) simple,
   }) {
@@ -647,8 +701,12 @@ class _$UserSimple implements UserSimple {
             String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         data,
     TResult? Function(String uid, String email)? simple,
   }) {
@@ -665,8 +723,12 @@ class _$UserSimple implements UserSimple {
             String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         data,
     TResult Function(String uid, String email)? simple,
     required TResult orElse(),

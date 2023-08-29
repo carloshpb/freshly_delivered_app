@@ -13,12 +13,10 @@ Advertisement _$AdvertisementFromJson(Map<String, dynamic> json) =>
       imagePath: json['image_path'] as String,
       isSpecial: json['is_special'] as bool,
       discount: json['discount'] as int,
-      createdAt: json['created_at'] == null
-          ? null
-          : DateTime.parse(json['created_at'] as String),
-      modifiedAt: json['modified_at'] == null
-          ? null
-          : DateTime.parse(json['modified_at'] as String),
+      createdAt: const DateTimeTimestampConverter()
+          .fromJson(json['created_at'] as Timestamp?),
+      modifiedAt: const DateTimeTimestampConverter()
+          .fromJson(json['modified_at'] as Timestamp?),
     );
 
 Map<String, dynamic> _$AdvertisementToJson(Advertisement instance) =>
@@ -28,6 +26,8 @@ Map<String, dynamic> _$AdvertisementToJson(Advertisement instance) =>
       'image_path': instance.imagePath,
       'is_special': instance.isSpecial,
       'discount': instance.discount,
-      'created_at': instance.createdAt?.toIso8601String(),
-      'modified_at': instance.modifiedAt?.toIso8601String(),
+      'created_at':
+          const DateTimeTimestampConverter().toJson(instance.createdAt),
+      'modified_at':
+          const DateTimeTimestampConverter().toJson(instance.modifiedAt),
     };

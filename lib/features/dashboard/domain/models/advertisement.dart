@@ -1,7 +1,9 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../../utils/converters/datetime_timestamp_converter.dart';
 import '../../application/dtos/advertisement_dto.dart';
 
 part 'advertisement.freezed.dart';
@@ -18,8 +20,12 @@ class Advertisement with _$Advertisement {
     @JsonKey(name: 'image_path') @Default('') String imagePath,
     @JsonKey(name: 'is_special') @Default(false) bool isSpecial,
     @Default(0) int discount,
-    @JsonKey(name: 'created_at') DateTime? createdAt,
-    @JsonKey(name: 'modified_at') DateTime? modifiedAt,
+    @DateTimeTimestampConverter()
+    @JsonKey(name: 'created_at')
+    DateTime? createdAt,
+    @DateTimeTimestampConverter()
+    @JsonKey(name: 'modified_at')
+    DateTime? modifiedAt,
   }) = _Advertisement;
 
   factory Advertisement.fromJson(Map<String, Object?> json) =>

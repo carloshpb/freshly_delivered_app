@@ -23,6 +23,12 @@ mixin _$CartItem {
 // required String id,
   NormalProduct get product => throw _privateConstructorUsedError;
   int get amount => throw _privateConstructorUsedError;
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'modified_at')
+  DateTime? get modifiedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +41,15 @@ abstract class $CartItemCopyWith<$Res> {
   factory $CartItemCopyWith(CartItem value, $Res Function(CartItem) then) =
       _$CartItemCopyWithImpl<$Res, CartItem>;
   @useResult
-  $Res call({NormalProduct product, int amount});
+  $Res call(
+      {NormalProduct product,
+      int amount,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -53,6 +67,8 @@ class _$CartItemCopyWithImpl<$Res, $Val extends CartItem>
   $Res call({
     Object? product = freezed,
     Object? amount = null,
+    Object? createdAt = freezed,
+    Object? modifiedAt = freezed,
   }) {
     return _then(_value.copyWith(
       product: freezed == product
@@ -63,6 +79,14 @@ class _$CartItemCopyWithImpl<$Res, $Val extends CartItem>
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as int,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      modifiedAt: freezed == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -74,7 +98,15 @@ abstract class _$$_CartItemCopyWith<$Res> implements $CartItemCopyWith<$Res> {
       __$$_CartItemCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({NormalProduct product, int amount});
+  $Res call(
+      {NormalProduct product,
+      int amount,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -90,6 +122,8 @@ class __$$_CartItemCopyWithImpl<$Res>
   $Res call({
     Object? product = freezed,
     Object? amount = null,
+    Object? createdAt = freezed,
+    Object? modifiedAt = freezed,
   }) {
     return _then(_$_CartItem(
       product: freezed == product
@@ -100,6 +134,14 @@ class __$$_CartItemCopyWithImpl<$Res>
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as int,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      modifiedAt: freezed == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -108,7 +150,13 @@ class __$$_CartItemCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$_CartItem extends _CartItem {
-  _$_CartItem({required this.product, this.amount = 1})
+  _$_CartItem(
+      {required this.product,
+      this.amount = 1,
+      @DateTimeTimestampConverter() @JsonKey(name: 'created_at') this.createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      this.modifiedAt})
       : assert(amount >= 0, 'amount cannot negative'),
         super._();
 
@@ -121,10 +169,18 @@ class _$_CartItem extends _CartItem {
   @override
   @JsonKey()
   final int amount;
+  @override
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+  @override
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'modified_at')
+  final DateTime? modifiedAt;
 
   @override
   String toString() {
-    return 'CartItem(product: $product, amount: $amount)';
+    return 'CartItem(product: $product, amount: $amount, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
@@ -133,13 +189,21 @@ class _$_CartItem extends _CartItem {
         (other.runtimeType == runtimeType &&
             other is _$_CartItem &&
             const DeepCollectionEquality().equals(other.product, product) &&
-            (identical(other.amount, amount) || other.amount == amount));
+            (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.modifiedAt, modifiedAt) ||
+                other.modifiedAt == modifiedAt));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(product), amount);
+      runtimeType,
+      const DeepCollectionEquality().hash(product),
+      amount,
+      createdAt,
+      modifiedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -156,8 +220,15 @@ class _$_CartItem extends _CartItem {
 }
 
 abstract class _CartItem extends CartItem {
-  factory _CartItem({required final NormalProduct product, final int amount}) =
-      _$_CartItem;
+  factory _CartItem(
+      {required final NormalProduct product,
+      final int amount,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      final DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      final DateTime? modifiedAt}) = _$_CartItem;
   _CartItem._() : super._();
 
   factory _CartItem.fromJson(Map<String, dynamic> json) = _$_CartItem.fromJson;
@@ -166,6 +237,14 @@ abstract class _CartItem extends CartItem {
   NormalProduct get product;
   @override
   int get amount;
+  @override
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt;
+  @override
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'modified_at')
+  DateTime? get modifiedAt;
   @override
   @JsonKey(ignore: true)
   _$$_CartItemCopyWith<_$_CartItem> get copyWith =>

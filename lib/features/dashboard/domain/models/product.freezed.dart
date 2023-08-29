@@ -42,8 +42,12 @@ mixin _$Product {
             @JsonKey(name: 'units_sold') int unitsSold,
             @JsonKey(name: 'advertisement_id') String advertisementId,
             int discount,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)
         normal,
   }) =>
       throw _privateConstructorUsedError;
@@ -60,8 +64,12 @@ mixin _$Product {
             @JsonKey(name: 'units_sold') int unitsSold,
             @JsonKey(name: 'advertisement_id') String advertisementId,
             int discount,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         normal,
   }) =>
       throw _privateConstructorUsedError;
@@ -78,8 +86,12 @@ mixin _$Product {
             @JsonKey(name: 'units_sold') int unitsSold,
             @JsonKey(name: 'advertisement_id') String advertisementId,
             int discount,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         normal,
     required TResult orElse(),
   }) =>
@@ -182,8 +194,12 @@ class _$EmptyProduct extends EmptyProduct {
             @JsonKey(name: 'units_sold') int unitsSold,
             @JsonKey(name: 'advertisement_id') String advertisementId,
             int discount,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)
         normal,
   }) {
     return empty();
@@ -203,8 +219,12 @@ class _$EmptyProduct extends EmptyProduct {
             @JsonKey(name: 'units_sold') int unitsSold,
             @JsonKey(name: 'advertisement_id') String advertisementId,
             int discount,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         normal,
   }) {
     return empty?.call();
@@ -224,8 +244,12 @@ class _$EmptyProduct extends EmptyProduct {
             @JsonKey(name: 'units_sold') int unitsSold,
             @JsonKey(name: 'advertisement_id') String advertisementId,
             int discount,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         normal,
     required TResult orElse(),
   }) {
@@ -298,8 +322,12 @@ abstract class _$$NormalProductCopyWith<$Res> {
       @JsonKey(name: 'units_sold') int unitsSold,
       @JsonKey(name: 'advertisement_id') String advertisementId,
       int discount,
-      @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'modified_at') DateTime? modifiedAt});
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -388,8 +416,10 @@ class _$NormalProduct extends NormalProduct {
       @JsonKey(name: 'units_sold') this.unitsSold = 0,
       @JsonKey(name: 'advertisement_id') this.advertisementId = '',
       this.discount = 0,
-      @JsonKey(name: 'created_at') this.createdAt,
-      @JsonKey(name: 'modified_at') this.modifiedAt,
+      @DateTimeTimestampConverter() @JsonKey(name: 'created_at') this.createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      this.modifiedAt,
       final String? $type})
       : assert(price >= 0.0, 'price cannot be negative'),
         assert(id != "", 'id cannot be empty'),
@@ -426,9 +456,11 @@ class _$NormalProduct extends NormalProduct {
   @JsonKey()
   final int discount;
   @override
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
   @override
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'modified_at')
   final DateTime? modifiedAt;
 
@@ -502,8 +534,12 @@ class _$NormalProduct extends NormalProduct {
             @JsonKey(name: 'units_sold') int unitsSold,
             @JsonKey(name: 'advertisement_id') String advertisementId,
             int discount,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)
         normal,
   }) {
     return normal(id, title, price, description, category, imagePath, unitsSold,
@@ -524,8 +560,12 @@ class _$NormalProduct extends NormalProduct {
             @JsonKey(name: 'units_sold') int unitsSold,
             @JsonKey(name: 'advertisement_id') String advertisementId,
             int discount,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         normal,
   }) {
     return normal?.call(id, title, price, description, category, imagePath,
@@ -546,8 +586,12 @@ class _$NormalProduct extends NormalProduct {
             @JsonKey(name: 'units_sold') int unitsSold,
             @JsonKey(name: 'advertisement_id') String advertisementId,
             int discount,
-            @JsonKey(name: 'created_at') DateTime? createdAt,
-            @JsonKey(name: 'modified_at') DateTime? modifiedAt)?
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
         normal,
     required TResult orElse(),
   }) {
@@ -599,18 +643,21 @@ class _$NormalProduct extends NormalProduct {
 
 abstract class NormalProduct extends Product {
   const factory NormalProduct(
-          {required final String id,
-          required final String title,
-          required final double price,
-          required final String description,
-          required final String category,
-          @JsonKey(name: 'image_path') required final String imagePath,
-          @JsonKey(name: 'units_sold') final int unitsSold,
-          @JsonKey(name: 'advertisement_id') final String advertisementId,
-          final int discount,
-          @JsonKey(name: 'created_at') final DateTime? createdAt,
-          @JsonKey(name: 'modified_at') final DateTime? modifiedAt}) =
-      _$NormalProduct;
+      {required final String id,
+      required final String title,
+      required final double price,
+      required final String description,
+      required final String category,
+      @JsonKey(name: 'image_path') required final String imagePath,
+      @JsonKey(name: 'units_sold') final int unitsSold,
+      @JsonKey(name: 'advertisement_id') final String advertisementId,
+      final int discount,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      final DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      final DateTime? modifiedAt}) = _$NormalProduct;
   const NormalProduct._() : super._();
 
   factory NormalProduct.fromJson(Map<String, dynamic> json) =
@@ -628,8 +675,10 @@ abstract class NormalProduct extends Product {
   @JsonKey(name: 'advertisement_id')
   String get advertisementId;
   int get discount;
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
   DateTime? get createdAt;
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'modified_at')
   DateTime? get modifiedAt;
   @JsonKey(ignore: true)

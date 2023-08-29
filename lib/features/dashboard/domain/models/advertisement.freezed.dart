@@ -23,8 +23,10 @@ mixin _$Advertisement {
   @JsonKey(name: 'is_special')
   bool get isSpecial => throw _privateConstructorUsedError;
   int get discount => throw _privateConstructorUsedError;
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'modified_at')
   DateTime? get modifiedAt => throw _privateConstructorUsedError;
 
@@ -45,8 +47,12 @@ abstract class $AdvertisementCopyWith<$Res> {
       @JsonKey(name: 'image_path') String imagePath,
       @JsonKey(name: 'is_special') bool isSpecial,
       int discount,
-      @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'modified_at') DateTime? modifiedAt});
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -117,8 +123,12 @@ abstract class _$$_AdvertisementCopyWith<$Res>
       @JsonKey(name: 'image_path') String imagePath,
       @JsonKey(name: 'is_special') bool isSpecial,
       int discount,
-      @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'modified_at') DateTime? modifiedAt});
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -182,8 +192,10 @@ class _$_Advertisement extends _Advertisement {
       @JsonKey(name: 'image_path') this.imagePath = '',
       @JsonKey(name: 'is_special') this.isSpecial = false,
       this.discount = 0,
-      @JsonKey(name: 'created_at') this.createdAt,
-      @JsonKey(name: 'modified_at') this.modifiedAt})
+      @DateTimeTimestampConverter() @JsonKey(name: 'created_at') this.createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      this.modifiedAt})
       : super._();
 
   @override
@@ -202,9 +214,11 @@ class _$_Advertisement extends _Advertisement {
   @JsonKey()
   final int discount;
   @override
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
   @override
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'modified_at')
   final DateTime? modifiedAt;
 
@@ -246,14 +260,17 @@ class _$_Advertisement extends _Advertisement {
 
 abstract class _Advertisement extends Advertisement {
   factory _Advertisement(
-          {final String id,
-          final String description,
-          @JsonKey(name: 'image_path') final String imagePath,
-          @JsonKey(name: 'is_special') final bool isSpecial,
-          final int discount,
-          @JsonKey(name: 'created_at') final DateTime? createdAt,
-          @JsonKey(name: 'modified_at') final DateTime? modifiedAt}) =
-      _$_Advertisement;
+      {final String id,
+      final String description,
+      @JsonKey(name: 'image_path') final String imagePath,
+      @JsonKey(name: 'is_special') final bool isSpecial,
+      final int discount,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      final DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      final DateTime? modifiedAt}) = _$_Advertisement;
   _Advertisement._() : super._();
 
   @override
@@ -269,9 +286,11 @@ abstract class _Advertisement extends Advertisement {
   @override
   int get discount;
   @override
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
   DateTime? get createdAt;
   @override
+  @DateTimeTimestampConverter()
   @JsonKey(name: 'modified_at')
   DateTime? get modifiedAt;
   @override

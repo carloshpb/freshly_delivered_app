@@ -23,6 +23,12 @@ mixin _$OnboardingMessage {
   String get imageSvgPath => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'modified_at')
+  DateTime? get modifiedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +42,16 @@ abstract class $OnboardingMessageCopyWith<$Res> {
           OnboardingMessage value, $Res Function(OnboardingMessage) then) =
       _$OnboardingMessageCopyWithImpl<$Res, OnboardingMessage>;
   @useResult
-  $Res call({String imageSvgPath, String title, String message});
+  $Res call(
+      {String imageSvgPath,
+      String title,
+      String message,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -55,6 +70,8 @@ class _$OnboardingMessageCopyWithImpl<$Res, $Val extends OnboardingMessage>
     Object? imageSvgPath = null,
     Object? title = null,
     Object? message = null,
+    Object? createdAt = freezed,
+    Object? modifiedAt = freezed,
   }) {
     return _then(_value.copyWith(
       imageSvgPath: null == imageSvgPath
@@ -69,6 +86,14 @@ class _$OnboardingMessageCopyWithImpl<$Res, $Val extends OnboardingMessage>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      modifiedAt: freezed == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -81,7 +106,16 @@ abstract class _$$_OnboardingMessageCopyWith<$Res>
       __$$_OnboardingMessageCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String imageSvgPath, String title, String message});
+  $Res call(
+      {String imageSvgPath,
+      String title,
+      String message,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -98,6 +132,8 @@ class __$$_OnboardingMessageCopyWithImpl<$Res>
     Object? imageSvgPath = null,
     Object? title = null,
     Object? message = null,
+    Object? createdAt = freezed,
+    Object? modifiedAt = freezed,
   }) {
     return _then(_$_OnboardingMessage(
       imageSvgPath: null == imageSvgPath
@@ -112,15 +148,30 @@ class __$$_OnboardingMessageCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      modifiedAt: freezed == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$_OnboardingMessage extends _OnboardingMessage {
   const _$_OnboardingMessage(
-      {required this.imageSvgPath, required this.title, required this.message})
+      {required this.imageSvgPath,
+      required this.title,
+      required this.message,
+      @DateTimeTimestampConverter() @JsonKey(name: 'created_at') this.createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      this.modifiedAt})
       : super._();
 
   factory _$_OnboardingMessage.fromJson(Map<String, dynamic> json) =>
@@ -132,10 +183,18 @@ class _$_OnboardingMessage extends _OnboardingMessage {
   final String title;
   @override
   final String message;
+  @override
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+  @override
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'modified_at')
+  final DateTime? modifiedAt;
 
   @override
   String toString() {
-    return 'OnboardingMessage(imageSvgPath: $imageSvgPath, title: $title, message: $message)';
+    return 'OnboardingMessage(imageSvgPath: $imageSvgPath, title: $title, message: $message, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
@@ -146,12 +205,17 @@ class _$_OnboardingMessage extends _OnboardingMessage {
             (identical(other.imageSvgPath, imageSvgPath) ||
                 other.imageSvgPath == imageSvgPath) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.modifiedAt, modifiedAt) ||
+                other.modifiedAt == modifiedAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, imageSvgPath, title, message);
+  int get hashCode => Object.hash(
+      runtimeType, imageSvgPath, title, message, createdAt, modifiedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -172,7 +236,13 @@ abstract class _OnboardingMessage extends OnboardingMessage {
   const factory _OnboardingMessage(
       {required final String imageSvgPath,
       required final String title,
-      required final String message}) = _$_OnboardingMessage;
+      required final String message,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      final DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      final DateTime? modifiedAt}) = _$_OnboardingMessage;
   const _OnboardingMessage._() : super._();
 
   factory _OnboardingMessage.fromJson(Map<String, dynamic> json) =
@@ -184,6 +254,14 @@ abstract class _OnboardingMessage extends OnboardingMessage {
   String get title;
   @override
   String get message;
+  @override
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt;
+  @override
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'modified_at')
+  DateTime? get modifiedAt;
   @override
   @JsonKey(ignore: true)
   _$$_OnboardingMessageCopyWith<_$_OnboardingMessage> get copyWith =>
