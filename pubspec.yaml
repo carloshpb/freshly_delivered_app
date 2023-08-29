@@ -25,7 +25,7 @@ dependencies:
   flutter_svg: ^2.0.7
   # font_awesome_flutter: ^10.4.0
   freezed_annotation: ^2.4.1
-  go_router: ^10.1.0
+  go_router: ^10.1.1
   input_history_text_field: ^0.2.0
   json_annotation: ^4.8.1
   loader_overlay: ^2.3.2
@@ -53,7 +53,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.4.6
-  custom_lint: ^0.5.2
+  custom_lint: ^0.5.3
   firebase_auth_mocks: ^0.12.0
   flutter_lints: ^2.0.2
   freezed: ^2.4.1
