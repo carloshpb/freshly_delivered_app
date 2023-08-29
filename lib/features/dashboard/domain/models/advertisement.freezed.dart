@@ -14,25 +14,96 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Advertisement _$AdvertisementFromJson(Map<String, dynamic> json) {
+  switch (json['runtimeType']) {
+    case 'empty':
+      return EmptyAdvertisement.fromJson(json);
+    case 'normal':
+      return NormalAdvertisement.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'runtimeType', 'Advertisement',
+          'Invalid union type "${json['runtimeType']}"!');
+  }
+}
+
 /// @nodoc
 mixin _$Advertisement {
-  String get id => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_path')
-  String get imagePath => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_special')
-  bool get isSpecial => throw _privateConstructorUsedError;
-  int get discount => throw _privateConstructorUsedError;
-  @DateTimeTimestampConverter()
-  @JsonKey(name: 'created_at')
-  DateTime? get createdAt => throw _privateConstructorUsedError;
-  @DateTimeTimestampConverter()
-  @JsonKey(name: 'modified_at')
-  DateTime? get modifiedAt => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $AdvertisementCopyWith<Advertisement> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(
+            String id,
+            String description,
+            @JsonKey(name: 'image_path') String imagePath,
+            @JsonKey(name: 'is_special') bool isSpecial,
+            int discount,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)
+        normal,
+  }) =>
       throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(
+            String id,
+            String description,
+            @JsonKey(name: 'image_path') String imagePath,
+            @JsonKey(name: 'is_special') bool isSpecial,
+            int discount,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
+        normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(
+            String id,
+            String description,
+            @JsonKey(name: 'image_path') String imagePath,
+            @JsonKey(name: 'is_special') bool isSpecial,
+            int discount,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
+        normal,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyAdvertisement value) empty,
+    required TResult Function(NormalAdvertisement value) normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyAdvertisement value)? empty,
+    TResult? Function(NormalAdvertisement value)? normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyAdvertisement value)? empty,
+    TResult Function(NormalAdvertisement value)? normal,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -40,19 +111,6 @@ abstract class $AdvertisementCopyWith<$Res> {
   factory $AdvertisementCopyWith(
           Advertisement value, $Res Function(Advertisement) then) =
       _$AdvertisementCopyWithImpl<$Res, Advertisement>;
-  @useResult
-  $Res call(
-      {String id,
-      String description,
-      @JsonKey(name: 'image_path') String imagePath,
-      @JsonKey(name: 'is_special') bool isSpecial,
-      int discount,
-      @DateTimeTimestampConverter()
-      @JsonKey(name: 'created_at')
-      DateTime? createdAt,
-      @DateTimeTimestampConverter()
-      @JsonKey(name: 'modified_at')
-      DateTime? modifiedAt});
 }
 
 /// @nodoc
@@ -64,58 +122,172 @@ class _$AdvertisementCopyWithImpl<$Res, $Val extends Advertisement>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? description = null,
-    Object? imagePath = null,
-    Object? isSpecial = null,
-    Object? discount = null,
-    Object? createdAt = freezed,
-    Object? modifiedAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      imagePath: null == imagePath
-          ? _value.imagePath
-          : imagePath // ignore: cast_nullable_to_non_nullable
-              as String,
-      isSpecial: null == isSpecial
-          ? _value.isSpecial
-          : isSpecial // ignore: cast_nullable_to_non_nullable
-              as bool,
-      discount: null == discount
-          ? _value.discount
-          : discount // ignore: cast_nullable_to_non_nullable
-              as int,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      modifiedAt: freezed == modifiedAt
-          ? _value.modifiedAt
-          : modifiedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_AdvertisementCopyWith<$Res>
-    implements $AdvertisementCopyWith<$Res> {
-  factory _$$_AdvertisementCopyWith(
-          _$_Advertisement value, $Res Function(_$_Advertisement) then) =
-      __$$_AdvertisementCopyWithImpl<$Res>;
+abstract class _$$EmptyAdvertisementCopyWith<$Res> {
+  factory _$$EmptyAdvertisementCopyWith(_$EmptyAdvertisement value,
+          $Res Function(_$EmptyAdvertisement) then) =
+      __$$EmptyAdvertisementCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$EmptyAdvertisementCopyWithImpl<$Res>
+    extends _$AdvertisementCopyWithImpl<$Res, _$EmptyAdvertisement>
+    implements _$$EmptyAdvertisementCopyWith<$Res> {
+  __$$EmptyAdvertisementCopyWithImpl(
+      _$EmptyAdvertisement _value, $Res Function(_$EmptyAdvertisement) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$EmptyAdvertisement extends EmptyAdvertisement {
+  const _$EmptyAdvertisement({final String? $type})
+      : $type = $type ?? 'empty',
+        super._();
+
+  factory _$EmptyAdvertisement.fromJson(Map<String, dynamic> json) =>
+      _$$EmptyAdvertisementFromJson(json);
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
   @override
+  String toString() {
+    return 'Advertisement.empty()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$EmptyAdvertisement);
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(
+            String id,
+            String description,
+            @JsonKey(name: 'image_path') String imagePath,
+            @JsonKey(name: 'is_special') bool isSpecial,
+            int discount,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)
+        normal,
+  }) {
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(
+            String id,
+            String description,
+            @JsonKey(name: 'image_path') String imagePath,
+            @JsonKey(name: 'is_special') bool isSpecial,
+            int discount,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
+        normal,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(
+            String id,
+            String description,
+            @JsonKey(name: 'image_path') String imagePath,
+            @JsonKey(name: 'is_special') bool isSpecial,
+            int discount,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
+        normal,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyAdvertisement value) empty,
+    required TResult Function(NormalAdvertisement value) normal,
+  }) {
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyAdvertisement value)? empty,
+    TResult? Function(NormalAdvertisement value)? normal,
+  }) {
+    return empty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyAdvertisement value)? empty,
+    TResult Function(NormalAdvertisement value)? normal,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$EmptyAdvertisementToJson(
+      this,
+    );
+  }
+}
+
+abstract class EmptyAdvertisement extends Advertisement {
+  const factory EmptyAdvertisement() = _$EmptyAdvertisement;
+  const EmptyAdvertisement._() : super._();
+
+  factory EmptyAdvertisement.fromJson(Map<String, dynamic> json) =
+      _$EmptyAdvertisement.fromJson;
+}
+
+/// @nodoc
+abstract class _$$NormalAdvertisementCopyWith<$Res> {
+  factory _$$NormalAdvertisementCopyWith(_$NormalAdvertisement value,
+          $Res Function(_$NormalAdvertisement) then) =
+      __$$NormalAdvertisementCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {String id,
@@ -132,11 +304,11 @@ abstract class _$$_AdvertisementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AdvertisementCopyWithImpl<$Res>
-    extends _$AdvertisementCopyWithImpl<$Res, _$_Advertisement>
-    implements _$$_AdvertisementCopyWith<$Res> {
-  __$$_AdvertisementCopyWithImpl(
-      _$_Advertisement _value, $Res Function(_$_Advertisement) _then)
+class __$$NormalAdvertisementCopyWithImpl<$Res>
+    extends _$AdvertisementCopyWithImpl<$Res, _$NormalAdvertisement>
+    implements _$$NormalAdvertisementCopyWith<$Res> {
+  __$$NormalAdvertisementCopyWithImpl(
+      _$NormalAdvertisement _value, $Res Function(_$NormalAdvertisement) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -150,7 +322,7 @@ class __$$_AdvertisementCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? modifiedAt = freezed,
   }) {
-    return _then(_$_Advertisement(
+    return _then(_$NormalAdvertisement(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -185,24 +357,32 @@ class __$$_AdvertisementCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Advertisement extends _Advertisement {
-  _$_Advertisement(
-      {this.id = '',
-      this.description = '',
-      @JsonKey(name: 'image_path') this.imagePath = '',
+@JsonSerializable(explicitToJson: true)
+class _$NormalAdvertisement extends NormalAdvertisement {
+  _$NormalAdvertisement(
+      {required this.id,
+      required this.description,
+      @JsonKey(name: 'image_path') required this.imagePath,
       @JsonKey(name: 'is_special') this.isSpecial = false,
       this.discount = 0,
       @DateTimeTimestampConverter() @JsonKey(name: 'created_at') this.createdAt,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'modified_at')
-      this.modifiedAt})
-      : super._();
+      this.modifiedAt,
+      final String? $type})
+      : assert(discount >= 0, 'discount cannot be negative'),
+        assert(id != "", 'id cannot be empty'),
+        assert(description != "", 'description cannot be empty'),
+        assert(imagePath != "", 'imagePath cannot be empty'),
+        $type = $type ?? 'normal',
+        super._();
+
+  factory _$NormalAdvertisement.fromJson(Map<String, dynamic> json) =>
+      _$$NormalAdvertisementFromJson(json);
 
   @override
-  @JsonKey()
   final String id;
   @override
-  @JsonKey()
   final String description;
   @override
   @JsonKey(name: 'image_path')
@@ -222,16 +402,19 @@ class _$_Advertisement extends _Advertisement {
   @JsonKey(name: 'modified_at')
   final DateTime? modifiedAt;
 
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
   @override
   String toString() {
-    return 'Advertisement(id: $id, description: $description, imagePath: $imagePath, isSpecial: $isSpecial, discount: $discount, createdAt: $createdAt, modifiedAt: $modifiedAt)';
+    return 'Advertisement.normal(id: $id, description: $description, imagePath: $imagePath, isSpecial: $isSpecial, discount: $discount, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Advertisement &&
+            other is _$NormalAdvertisement &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -247,6 +430,7 @@ class _$_Advertisement extends _Advertisement {
                 other.modifiedAt == modifiedAt));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, description, imagePath,
       isSpecial, discount, createdAt, modifiedAt);
@@ -254,15 +438,124 @@ class _$_Advertisement extends _Advertisement {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AdvertisementCopyWith<_$_Advertisement> get copyWith =>
-      __$$_AdvertisementCopyWithImpl<_$_Advertisement>(this, _$identity);
+  _$$NormalAdvertisementCopyWith<_$NormalAdvertisement> get copyWith =>
+      __$$NormalAdvertisementCopyWithImpl<_$NormalAdvertisement>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(
+            String id,
+            String description,
+            @JsonKey(name: 'image_path') String imagePath,
+            @JsonKey(name: 'is_special') bool isSpecial,
+            int discount,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)
+        normal,
+  }) {
+    return normal(
+        id, description, imagePath, isSpecial, discount, createdAt, modifiedAt);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(
+            String id,
+            String description,
+            @JsonKey(name: 'image_path') String imagePath,
+            @JsonKey(name: 'is_special') bool isSpecial,
+            int discount,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
+        normal,
+  }) {
+    return normal?.call(
+        id, description, imagePath, isSpecial, discount, createdAt, modifiedAt);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(
+            String id,
+            String description,
+            @JsonKey(name: 'image_path') String imagePath,
+            @JsonKey(name: 'is_special') bool isSpecial,
+            int discount,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'created_at')
+            DateTime? createdAt,
+            @DateTimeTimestampConverter()
+            @JsonKey(name: 'modified_at')
+            DateTime? modifiedAt)?
+        normal,
+    required TResult orElse(),
+  }) {
+    if (normal != null) {
+      return normal(id, description, imagePath, isSpecial, discount, createdAt,
+          modifiedAt);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyAdvertisement value) empty,
+    required TResult Function(NormalAdvertisement value) normal,
+  }) {
+    return normal(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyAdvertisement value)? empty,
+    TResult? Function(NormalAdvertisement value)? normal,
+  }) {
+    return normal?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyAdvertisement value)? empty,
+    TResult Function(NormalAdvertisement value)? normal,
+    required TResult orElse(),
+  }) {
+    if (normal != null) {
+      return normal(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NormalAdvertisementToJson(
+      this,
+    );
+  }
 }
 
-abstract class _Advertisement extends Advertisement {
-  factory _Advertisement(
-      {final String id,
-      final String description,
-      @JsonKey(name: 'image_path') final String imagePath,
+abstract class NormalAdvertisement extends Advertisement {
+  factory NormalAdvertisement(
+      {required final String id,
+      required final String description,
+      @JsonKey(name: 'image_path') required final String imagePath,
       @JsonKey(name: 'is_special') final bool isSpecial,
       final int discount,
       @DateTimeTimestampConverter()
@@ -270,31 +563,26 @@ abstract class _Advertisement extends Advertisement {
       final DateTime? createdAt,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'modified_at')
-      final DateTime? modifiedAt}) = _$_Advertisement;
-  _Advertisement._() : super._();
+      final DateTime? modifiedAt}) = _$NormalAdvertisement;
+  NormalAdvertisement._() : super._();
 
-  @override
+  factory NormalAdvertisement.fromJson(Map<String, dynamic> json) =
+      _$NormalAdvertisement.fromJson;
+
   String get id;
-  @override
   String get description;
-  @override
   @JsonKey(name: 'image_path')
   String get imagePath;
-  @override
   @JsonKey(name: 'is_special')
   bool get isSpecial;
-  @override
   int get discount;
-  @override
   @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
   DateTime? get createdAt;
-  @override
   @DateTimeTimestampConverter()
   @JsonKey(name: 'modified_at')
   DateTime? get modifiedAt;
-  @override
   @JsonKey(ignore: true)
-  _$$_AdvertisementCopyWith<_$_Advertisement> get copyWith =>
+  _$$NormalAdvertisementCopyWith<_$NormalAdvertisement> get copyWith =>
       throw _privateConstructorUsedError;
 }

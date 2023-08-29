@@ -8,6 +8,6 @@ part 'onboarding_screen_state.freezed.dart';
 class OnboardingScreenState with _$OnboardingScreenState {
   const factory OnboardingScreenState({
     required int pagePosition,
-    required List<OnboardingMessageDTO> messages,
+    required List<OnboardingMessageDto> messages,
   }) = _OnboardingScreenState;
 }

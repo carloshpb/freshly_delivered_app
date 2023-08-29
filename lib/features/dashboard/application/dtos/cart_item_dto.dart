@@ -10,19 +10,32 @@ part 'cart_item_dto.freezed.dart';
 
 @freezed
 class CartItemDto with _$CartItemDto {
-  CartItemDto._();
+  const CartItemDto._();
 
-  factory CartItemDto({
+  const factory CartItemDto.empty() = EmptyCartItemDto;
+
+  @Assert('amount >= 0', 'amount cannot negative')
+  factory CartItemDto.normal({
     required NormalProductDto product,
     @Default(1) int amount,
-  }) = _CartItemDto;
+  }) = NormalCartItemDto;
 
-  late final String productId = product.id;
+  factory CartItemDto.fromDomain(CartItem domain) => switch (domain) {
+        NormalCartItem() => NormalCartItemDto(
+            product: ProductDto.fromDomain(domain.product) as NormalProductDto,
+            amount: domain.amount,
+          ),
+        _ => const EmptyCartItemDto(),
+      };
 
-  CartItem toModel() {
-    return CartItem(
-      product: product.toModel() as NormalProduct,
-      amount: amount,
-    );
+  CartItem toDomain() {
+    return switch (this) {
+      NormalCartItemDto() => NormalCartItem(
+          product:
+              (this as NormalCartItemDto).product.toDomain() as NormalProduct,
+          amount: (this as NormalCartItemDto).amount,
+        ),
+      _ => const EmptyCartItem(),
+    };
   }
 }

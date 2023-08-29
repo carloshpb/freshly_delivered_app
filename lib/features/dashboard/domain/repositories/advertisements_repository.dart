@@ -4,12 +4,20 @@ import '../models/advertisement.dart';
 
 abstract class AdvertisementsRepository {
   FutureOr<Advertisement> findAdvertisementById(String id);
-  FutureOr<List<Advertisement>> findAdvertisementsWithLimit(int limit,
-      ({Advertisement? advertisementObject, int position}) lastAdvertisement);
-  FutureOr<List<Advertisement>> findAllAdvertisements();
-  FutureOr<List<Advertisement>> findSpecialAdvertisements(int limit,
-      ({Advertisement? advertisementObject, int position}) lastAdvertisement);
-  Future<void> saveAdvertisements(List<Advertisement> advertisements);
+  FutureOr<List<NormalAdvertisement>> findAdvertisementsWithLimit(
+      int limit,
+      ({
+        NormalAdvertisement? advertisementObject,
+        int position
+      }) lastAdvertisement);
+  FutureOr<List<NormalAdvertisement>> findAllAdvertisements();
+  FutureOr<List<NormalAdvertisement>> findSpecialAdvertisements(
+      int limit,
+      ({
+        NormalAdvertisement? advertisementObject,
+        int position
+      }) lastAdvertisement);
+  Future<void> saveAdvertisements(List<NormalAdvertisement> advertisements);
   void fetchLastAdvertisements();
-  Stream<List<Advertisement>> get advertisementsStream;
+  Stream<List<NormalAdvertisement>> get advertisementsStream;
 }

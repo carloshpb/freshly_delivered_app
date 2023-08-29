@@ -16,11 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CartItemDto {
-  NormalProductDto get product => throw _privateConstructorUsedError;
-  int get amount => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $CartItemDtoCopyWith<CartItemDto> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(NormalProductDto product, int amount) normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(NormalProductDto product, int amount)? normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(NormalProductDto product, int amount)? normal,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyCartItemDto value) empty,
+    required TResult Function(NormalCartItemDto value) normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyCartItemDto value)? empty,
+    TResult? Function(NormalCartItemDto value)? normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyCartItemDto value)? empty,
+    TResult Function(NormalCartItemDto value)? normal,
+    required TResult orElse(),
+  }) =>
       throw _privateConstructorUsedError;
 }
 
@@ -29,8 +61,6 @@ abstract class $CartItemDtoCopyWith<$Res> {
   factory $CartItemDtoCopyWith(
           CartItemDto value, $Res Function(CartItemDto) then) =
       _$CartItemDtoCopyWithImpl<$Res, CartItemDto>;
-  @useResult
-  $Res call({NormalProductDto product, int amount});
 }
 
 /// @nodoc
@@ -42,43 +72,126 @@ class _$CartItemDtoCopyWithImpl<$Res, $Val extends CartItemDto>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? product = freezed,
-    Object? amount = null,
-  }) {
-    return _then(_value.copyWith(
-      product: freezed == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as NormalProductDto,
-      amount: null == amount
-          ? _value.amount
-          : amount // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_CartItemDtoCopyWith<$Res>
-    implements $CartItemDtoCopyWith<$Res> {
-  factory _$$_CartItemDtoCopyWith(
-          _$_CartItemDto value, $Res Function(_$_CartItemDto) then) =
-      __$$_CartItemDtoCopyWithImpl<$Res>;
+abstract class _$$EmptyCartItemDtoCopyWith<$Res> {
+  factory _$$EmptyCartItemDtoCopyWith(
+          _$EmptyCartItemDto value, $Res Function(_$EmptyCartItemDto) then) =
+      __$$EmptyCartItemDtoCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$EmptyCartItemDtoCopyWithImpl<$Res>
+    extends _$CartItemDtoCopyWithImpl<$Res, _$EmptyCartItemDto>
+    implements _$$EmptyCartItemDtoCopyWith<$Res> {
+  __$$EmptyCartItemDtoCopyWithImpl(
+      _$EmptyCartItemDto _value, $Res Function(_$EmptyCartItemDto) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$EmptyCartItemDto extends EmptyCartItemDto {
+  const _$EmptyCartItemDto() : super._();
+
   @override
+  String toString() {
+    return 'CartItemDto.empty()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$EmptyCartItemDto);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(NormalProductDto product, int amount) normal,
+  }) {
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(NormalProductDto product, int amount)? normal,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(NormalProductDto product, int amount)? normal,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyCartItemDto value) empty,
+    required TResult Function(NormalCartItemDto value) normal,
+  }) {
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyCartItemDto value)? empty,
+    TResult? Function(NormalCartItemDto value)? normal,
+  }) {
+    return empty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyCartItemDto value)? empty,
+    TResult Function(NormalCartItemDto value)? normal,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EmptyCartItemDto extends CartItemDto {
+  const factory EmptyCartItemDto() = _$EmptyCartItemDto;
+  const EmptyCartItemDto._() : super._();
+}
+
+/// @nodoc
+abstract class _$$NormalCartItemDtoCopyWith<$Res> {
+  factory _$$NormalCartItemDtoCopyWith(
+          _$NormalCartItemDto value, $Res Function(_$NormalCartItemDto) then) =
+      __$$NormalCartItemDtoCopyWithImpl<$Res>;
   @useResult
   $Res call({NormalProductDto product, int amount});
 }
 
 /// @nodoc
-class __$$_CartItemDtoCopyWithImpl<$Res>
-    extends _$CartItemDtoCopyWithImpl<$Res, _$_CartItemDto>
-    implements _$$_CartItemDtoCopyWith<$Res> {
-  __$$_CartItemDtoCopyWithImpl(
-      _$_CartItemDto _value, $Res Function(_$_CartItemDto) _then)
+class __$$NormalCartItemDtoCopyWithImpl<$Res>
+    extends _$CartItemDtoCopyWithImpl<$Res, _$NormalCartItemDto>
+    implements _$$NormalCartItemDtoCopyWith<$Res> {
+  __$$NormalCartItemDtoCopyWithImpl(
+      _$NormalCartItemDto _value, $Res Function(_$NormalCartItemDto) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +200,7 @@ class __$$_CartItemDtoCopyWithImpl<$Res>
     Object? product = freezed,
     Object? amount = null,
   }) {
-    return _then(_$_CartItemDto(
+    return _then(_$NormalCartItemDto(
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -102,8 +215,10 @@ class __$$_CartItemDtoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CartItemDto extends _CartItemDto {
-  _$_CartItemDto({required this.product, this.amount = 1}) : super._();
+class _$NormalCartItemDto extends NormalCartItemDto {
+  _$NormalCartItemDto({required this.product, this.amount = 1})
+      : assert(amount >= 0, 'amount cannot negative'),
+        super._();
 
   @override
   final NormalProductDto product;
@@ -113,14 +228,14 @@ class _$_CartItemDto extends _CartItemDto {
 
   @override
   String toString() {
-    return 'CartItemDto(product: $product, amount: $amount)';
+    return 'CartItemDto.normal(product: $product, amount: $amount)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CartItemDto &&
+            other is _$NormalCartItemDto &&
             const DeepCollectionEquality().equals(other.product, product) &&
             (identical(other.amount, amount) || other.amount == amount));
   }
@@ -132,22 +247,81 @@ class _$_CartItemDto extends _CartItemDto {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CartItemDtoCopyWith<_$_CartItemDto> get copyWith =>
-      __$$_CartItemDtoCopyWithImpl<_$_CartItemDto>(this, _$identity);
+  _$$NormalCartItemDtoCopyWith<_$NormalCartItemDto> get copyWith =>
+      __$$NormalCartItemDtoCopyWithImpl<_$NormalCartItemDto>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(NormalProductDto product, int amount) normal,
+  }) {
+    return normal(product, amount);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(NormalProductDto product, int amount)? normal,
+  }) {
+    return normal?.call(product, amount);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(NormalProductDto product, int amount)? normal,
+    required TResult orElse(),
+  }) {
+    if (normal != null) {
+      return normal(product, amount);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyCartItemDto value) empty,
+    required TResult Function(NormalCartItemDto value) normal,
+  }) {
+    return normal(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyCartItemDto value)? empty,
+    TResult? Function(NormalCartItemDto value)? normal,
+  }) {
+    return normal?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyCartItemDto value)? empty,
+    TResult Function(NormalCartItemDto value)? normal,
+    required TResult orElse(),
+  }) {
+    if (normal != null) {
+      return normal(this);
+    }
+    return orElse();
+  }
 }
 
-abstract class _CartItemDto extends CartItemDto {
-  factory _CartItemDto(
+abstract class NormalCartItemDto extends CartItemDto {
+  factory NormalCartItemDto(
       {required final NormalProductDto product,
-      final int amount}) = _$_CartItemDto;
-  _CartItemDto._() : super._();
+      final int amount}) = _$NormalCartItemDto;
+  NormalCartItemDto._() : super._();
 
-  @override
   NormalProductDto get product;
-  @override
   int get amount;
-  @override
   @JsonKey(ignore: true)
-  _$$_CartItemDtoCopyWith<_$_CartItemDto> get copyWith =>
+  _$$NormalCartItemDtoCopyWith<_$NormalCartItemDto> get copyWith =>
       throw _privateConstructorUsedError;
 }

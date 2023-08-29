@@ -32,7 +32,7 @@ class GetLastAdvertisementsUseCaseImpl implements GetLastAdvertisementsUseCase {
       10,
       (
         advertisementObject:
-            (request.object != null) ? request.object!.toModel() : null,
+            (request.object != null) ? request.object!.toDomain() : null,
         position: request.position,
       ),
     );
@@ -43,7 +43,7 @@ class GetLastAdvertisementsUseCaseImpl implements GetLastAdvertisementsUseCase {
         10,
         (
           advertisementObject:
-              (request.object != null) ? request.object!.toModel() : null,
+              (request.object != null) ? request.object!.toDomain() : null,
           position: request.position,
         ),
       );
@@ -55,7 +55,7 @@ class GetLastAdvertisementsUseCaseImpl implements GetLastAdvertisementsUseCase {
     }
 
     return (advertisements.isNotEmpty)
-        ? advertisements.map((adv) => adv.toDto()).toList()
+        ? advertisements.map((adv) => AdvertisementDto.fromDomain(adv)).toList()
         : [];
   }
 }

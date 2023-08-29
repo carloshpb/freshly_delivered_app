@@ -10,11 +10,18 @@ part 'app_user.g.dart';
 
 @freezed
 sealed class AppUser with _$AppUser {
+  const AppUser._();
+
   const factory AppUser.notConnected() = UserNotConnected;
 
   @JsonSerializable(explicitToJson: true)
+  @Assert('id != ""', 'id cannot be empty')
+  @Assert('email != ""', 'id cannot be empty')
+  @Assert('password != ""', 'id cannot be empty')
+  @Assert('fullname != ""', 'id cannot be empty')
+  @Assert('phoneNumber != ""', 'id cannot be empty')
   const factory AppUser.data({
-    required String uid,
+    required String id,
     required String email,
     required String password,
     required String fullname,
@@ -28,8 +35,10 @@ sealed class AppUser with _$AppUser {
   }) = UserData;
 
   @JsonSerializable(explicitToJson: true)
+  @Assert('id != ""', 'id cannot be empty')
+  @Assert('email != ""', 'id cannot be empty')
   const factory AppUser.simple({
-    required String uid,
+    required String id,
     required String email,
   }) = UserSimple;
 

@@ -3,9 +3,9 @@ import 'dart:async';
 import '../models/cart_item.dart';
 
 abstract class CartRepository {
-  Stream<CartItem> get streamCartItems;
+  Stream<NormalCartItem> get streamCartItems;
   void fetchCartProducts();
-  Future<void> setProductToCart(CartItem item);
+  Future<void> setProductToCart(NormalCartItem item);
   // Future<void> updateProductAtCart(CartItem item);
-  Future<void> removeProductAtCart(CartItem item);
+  Future<void> removeProductAtCart(NormalCartItem item);
 }

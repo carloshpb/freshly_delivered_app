@@ -107,7 +107,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
 
       if (result.user != null) {
         var fullUserJson = UserData(
-          uid: result.user!.uid,
+          id: result.user!.uid,
           email: email,
           password: password,
           fullname: fullName,
@@ -158,7 +158,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
       throw const UserNotConnectedException();
     }
     return UserSimple(
-      uid: currentUser.uid,
+      id: currentUser.uid,
       email: currentUser.email!,
     );
   }

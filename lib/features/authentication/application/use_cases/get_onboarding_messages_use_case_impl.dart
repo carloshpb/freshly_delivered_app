@@ -25,7 +25,7 @@ class GetOnboardingMessagesUseCaseImpl implements GetOnboardingMessagesUseCase {
   final OnboardingMessagesRepository _onboardingMessagesRepository;
   final SetOnboardingMessagesUseCase _setOnboardingMessagesUseCase;
 
-  static const _defaultOnboardingMessages = [
+  final _defaultOnboardingMessages = const [
     OnboardingMessage(
       imageSvgPath: 'assets/images/onboarding1.svg.vec',
       title: 'SHOP CONVENIENTLY',
@@ -53,7 +53,7 @@ class GetOnboardingMessagesUseCaseImpl implements GetOnboardingMessagesUseCase {
         _setOnboardingMessagesUseCase = setOnboardingMessagesUseCase;
 
   @override
-  List<OnboardingMessageDTO> execute([void request]) {
+  List<OnboardingMessageDto> execute([void request]) {
     late List<OnboardingMessage> resultMessagesFromRepo;
 
     try {
@@ -66,7 +66,7 @@ class GetOnboardingMessagesUseCaseImpl implements GetOnboardingMessagesUseCase {
       _setOnboardingMessagesUseCase.execute(
         _defaultOnboardingMessages
             .map(
-              (onbMsg) => OnboardingMessageDTO(
+              (onbMsg) => OnboardingMessageDto(
                 imageSvgPath: onbMsg.imageSvgPath,
                 message: onbMsg.message,
                 title: onbMsg.title,
@@ -79,7 +79,7 @@ class GetOnboardingMessagesUseCaseImpl implements GetOnboardingMessagesUseCase {
 
     return resultMessagesFromRepo
         .map(
-          (onbMsg) => OnboardingMessageDTO(
+          (onbMsg) => OnboardingMessageDto(
             imageSvgPath: onbMsg.imageSvgPath,
             message: onbMsg.message,
             title: onbMsg.title,

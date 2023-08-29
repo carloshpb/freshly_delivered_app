@@ -40,12 +40,12 @@ class GetProductsByAdvertisementUseCaseImpl
       10,
       (
         position: request.lastProductPosition,
-        productObject: request.lastProductObject?.toModel(),
+        productObject: request.lastProductObject?.toDomain(),
       ),
     );
 
     return (products.isNotEmpty)
-        ? products.map((adv) => adv.toDto()).toList()
+        ? products.map((prod) => ProductDto.fromDomain(prod)).toList()
         : [];
   }
 }

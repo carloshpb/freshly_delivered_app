@@ -16,14 +16,49 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AdvertisementDto {
-  String get id => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  String get imagePath => throw _privateConstructorUsedError;
-  bool get isSpecial => throw _privateConstructorUsedError;
-  int get discount => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $AdvertisementDtoCopyWith<AdvertisementDto> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(String id, String description, String imagePath,
+            bool isSpecial, int discount)
+        normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(String id, String description, String imagePath,
+            bool isSpecial, int discount)?
+        normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(String id, String description, String imagePath,
+            bool isSpecial, int discount)?
+        normal,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyAdvertisementDto value) empty,
+    required TResult Function(NormalAdvertisementDto value) normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyAdvertisementDto value)? empty,
+    TResult? Function(NormalAdvertisementDto value)? normal,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyAdvertisementDto value)? empty,
+    TResult Function(NormalAdvertisementDto value)? normal,
+    required TResult orElse(),
+  }) =>
       throw _privateConstructorUsedError;
 }
 
@@ -32,13 +67,6 @@ abstract class $AdvertisementDtoCopyWith<$Res> {
   factory $AdvertisementDtoCopyWith(
           AdvertisementDto value, $Res Function(AdvertisementDto) then) =
       _$AdvertisementDtoCopyWithImpl<$Res, AdvertisementDto>;
-  @useResult
-  $Res call(
-      {String id,
-      String description,
-      String imagePath,
-      bool isSpecial,
-      int discount});
 }
 
 /// @nodoc
@@ -50,48 +78,122 @@ class _$AdvertisementDtoCopyWithImpl<$Res, $Val extends AdvertisementDto>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? description = null,
-    Object? imagePath = null,
-    Object? isSpecial = null,
-    Object? discount = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      imagePath: null == imagePath
-          ? _value.imagePath
-          : imagePath // ignore: cast_nullable_to_non_nullable
-              as String,
-      isSpecial: null == isSpecial
-          ? _value.isSpecial
-          : isSpecial // ignore: cast_nullable_to_non_nullable
-              as bool,
-      discount: null == discount
-          ? _value.discount
-          : discount // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_AdvertisementDtoCopyWith<$Res>
-    implements $AdvertisementDtoCopyWith<$Res> {
-  factory _$$_AdvertisementDtoCopyWith(
-          _$_AdvertisementDto value, $Res Function(_$_AdvertisementDto) then) =
-      __$$_AdvertisementDtoCopyWithImpl<$Res>;
+abstract class _$$EmptyAdvertisementDtoCopyWith<$Res> {
+  factory _$$EmptyAdvertisementDtoCopyWith(_$EmptyAdvertisementDto value,
+          $Res Function(_$EmptyAdvertisementDto) then) =
+      __$$EmptyAdvertisementDtoCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$EmptyAdvertisementDtoCopyWithImpl<$Res>
+    extends _$AdvertisementDtoCopyWithImpl<$Res, _$EmptyAdvertisementDto>
+    implements _$$EmptyAdvertisementDtoCopyWith<$Res> {
+  __$$EmptyAdvertisementDtoCopyWithImpl(_$EmptyAdvertisementDto _value,
+      $Res Function(_$EmptyAdvertisementDto) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$EmptyAdvertisementDto extends EmptyAdvertisementDto {
+  const _$EmptyAdvertisementDto() : super._();
+
   @override
+  String toString() {
+    return 'AdvertisementDto.empty()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$EmptyAdvertisementDto);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(String id, String description, String imagePath,
+            bool isSpecial, int discount)
+        normal,
+  }) {
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(String id, String description, String imagePath,
+            bool isSpecial, int discount)?
+        normal,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(String id, String description, String imagePath,
+            bool isSpecial, int discount)?
+        normal,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyAdvertisementDto value) empty,
+    required TResult Function(NormalAdvertisementDto value) normal,
+  }) {
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyAdvertisementDto value)? empty,
+    TResult? Function(NormalAdvertisementDto value)? normal,
+  }) {
+    return empty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyAdvertisementDto value)? empty,
+    TResult Function(NormalAdvertisementDto value)? normal,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EmptyAdvertisementDto extends AdvertisementDto {
+  const factory EmptyAdvertisementDto() = _$EmptyAdvertisementDto;
+  const EmptyAdvertisementDto._() : super._();
+}
+
+/// @nodoc
+abstract class _$$NormalAdvertisementDtoCopyWith<$Res> {
+  factory _$$NormalAdvertisementDtoCopyWith(_$NormalAdvertisementDto value,
+          $Res Function(_$NormalAdvertisementDto) then) =
+      __$$NormalAdvertisementDtoCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {String id,
@@ -102,11 +204,11 @@ abstract class _$$_AdvertisementDtoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AdvertisementDtoCopyWithImpl<$Res>
-    extends _$AdvertisementDtoCopyWithImpl<$Res, _$_AdvertisementDto>
-    implements _$$_AdvertisementDtoCopyWith<$Res> {
-  __$$_AdvertisementDtoCopyWithImpl(
-      _$_AdvertisementDto _value, $Res Function(_$_AdvertisementDto) _then)
+class __$$NormalAdvertisementDtoCopyWithImpl<$Res>
+    extends _$AdvertisementDtoCopyWithImpl<$Res, _$NormalAdvertisementDto>
+    implements _$$NormalAdvertisementDtoCopyWith<$Res> {
+  __$$NormalAdvertisementDtoCopyWithImpl(_$NormalAdvertisementDto _value,
+      $Res Function(_$NormalAdvertisementDto) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -118,7 +220,7 @@ class __$$_AdvertisementDtoCopyWithImpl<$Res>
     Object? isSpecial = null,
     Object? discount = null,
   }) {
-    return _then(_$_AdvertisementDto(
+    return _then(_$NormalAdvertisementDto(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -145,8 +247,8 @@ class __$$_AdvertisementDtoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AdvertisementDto extends _AdvertisementDto {
-  const _$_AdvertisementDto(
+class _$NormalAdvertisementDto extends NormalAdvertisementDto {
+  const _$NormalAdvertisementDto(
       {this.id = '',
       this.description = '',
       this.imagePath = '',
@@ -172,14 +274,14 @@ class _$_AdvertisementDto extends _AdvertisementDto {
 
   @override
   String toString() {
-    return 'AdvertisementDto(id: $id, description: $description, imagePath: $imagePath, isSpecial: $isSpecial, discount: $discount)';
+    return 'AdvertisementDto.normal(id: $id, description: $description, imagePath: $imagePath, isSpecial: $isSpecial, discount: $discount)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AdvertisementDto &&
+            other is _$NormalAdvertisementDto &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -198,31 +300,94 @@ class _$_AdvertisementDto extends _AdvertisementDto {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AdvertisementDtoCopyWith<_$_AdvertisementDto> get copyWith =>
-      __$$_AdvertisementDtoCopyWithImpl<_$_AdvertisementDto>(this, _$identity);
+  _$$NormalAdvertisementDtoCopyWith<_$NormalAdvertisementDto> get copyWith =>
+      __$$NormalAdvertisementDtoCopyWithImpl<_$NormalAdvertisementDto>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(String id, String description, String imagePath,
+            bool isSpecial, int discount)
+        normal,
+  }) {
+    return normal(id, description, imagePath, isSpecial, discount);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(String id, String description, String imagePath,
+            bool isSpecial, int discount)?
+        normal,
+  }) {
+    return normal?.call(id, description, imagePath, isSpecial, discount);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(String id, String description, String imagePath,
+            bool isSpecial, int discount)?
+        normal,
+    required TResult orElse(),
+  }) {
+    if (normal != null) {
+      return normal(id, description, imagePath, isSpecial, discount);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyAdvertisementDto value) empty,
+    required TResult Function(NormalAdvertisementDto value) normal,
+  }) {
+    return normal(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyAdvertisementDto value)? empty,
+    TResult? Function(NormalAdvertisementDto value)? normal,
+  }) {
+    return normal?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyAdvertisementDto value)? empty,
+    TResult Function(NormalAdvertisementDto value)? normal,
+    required TResult orElse(),
+  }) {
+    if (normal != null) {
+      return normal(this);
+    }
+    return orElse();
+  }
 }
 
-abstract class _AdvertisementDto extends AdvertisementDto {
-  const factory _AdvertisementDto(
+abstract class NormalAdvertisementDto extends AdvertisementDto {
+  const factory NormalAdvertisementDto(
       {final String id,
       final String description,
       final String imagePath,
       final bool isSpecial,
-      final int discount}) = _$_AdvertisementDto;
-  const _AdvertisementDto._() : super._();
+      final int discount}) = _$NormalAdvertisementDto;
+  const NormalAdvertisementDto._() : super._();
 
-  @override
   String get id;
-  @override
   String get description;
-  @override
   String get imagePath;
-  @override
   bool get isSpecial;
-  @override
   int get discount;
-  @override
   @JsonKey(ignore: true)
-  _$$_AdvertisementDtoCopyWith<_$_AdvertisementDto> get copyWith =>
+  _$$NormalAdvertisementDtoCopyWith<_$NormalAdvertisementDto> get copyWith =>
       throw _privateConstructorUsedError;
 }

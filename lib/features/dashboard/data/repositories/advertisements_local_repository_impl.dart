@@ -58,12 +58,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   FutureOr<Advertisement> findAdvertisementById(String id) async {
     var resultMap =
         await _sqliteApi.findById(Strings.advertisementsLocalTable, id);
-    return (resultMap.isEmpty)
-        ? Advertisement(
-            createdAt: DateTime.parse('0000-00-00'),
-            modifiedAt: DateTime.parse('0000-00-00'),
-          )
-        : Advertisement.fromJson(resultMap);
+    return Advertisement.fromSqliteJson(resultMap);
   }
 
   @override

@@ -28,18 +28,35 @@ sealed class ProductDto with _$ProductDto {
     @Default(0) int discount,
   }) = NormalProductDto;
 
-  Product toModel() => switch (this) {
-        NormalProductDto() => Product.normal(
-            id: (this as NormalProductDto).id,
-            title: (this as NormalProductDto).title,
-            price: (this as NormalProductDto).price,
-            description: (this as NormalProductDto).description,
-            imagePath: (this as NormalProductDto).imagePath,
-            category: (this as NormalProductDto).category,
-            unitsSold: (this as NormalProductDto).unitsSold,
-            advertisementId: (this as NormalProductDto).advertisementId,
-            discount: (this as NormalProductDto).discount,
+  factory ProductDto.fromDomain(Product domain) => switch (domain) {
+        NormalProduct() => NormalProductDto(
+            id: domain.id,
+            title: domain.title,
+            price: domain.price,
+            description: domain.description,
+            imagePath: domain.imagePath,
+            category: domain.category,
+            unitsSold: domain.unitsSold,
+            advertisementId: domain.advertisementId,
+            discount: domain.discount,
           ),
-        EmptyProductDto() => const Product.empty(),
+        _ => const EmptyProductDto(),
       };
+
+  Product toDomain() {
+    return switch (this) {
+      NormalProductDto() => NormalProduct(
+          id: (this as NormalProductDto).id,
+          title: (this as NormalProductDto).title,
+          price: (this as NormalProductDto).price,
+          description: (this as NormalProductDto).description,
+          imagePath: (this as NormalProductDto).imagePath,
+          category: (this as NormalProductDto).category,
+          unitsSold: (this as NormalProductDto).unitsSold,
+          advertisementId: (this as NormalProductDto).advertisementId,
+          discount: (this as NormalProductDto).discount,
+        ),
+      _ => const EmptyProduct(),
+    };
+  }
 }

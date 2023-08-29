@@ -168,10 +168,16 @@ class CartLocalRepositoryImpl implements CartRepository {
 
   @override
   Future<void> removeProductAtCart(CartItem item) async {
-    var result = await _sqliteApi.deleteById(
-        Strings.userCartLocalTable, item.product.id);
-    if (result == 0) {
-      throw const ObjectNotDeletedException();
+    switch (item) {
+      case NormalCartItem():
+        var result = await _sqliteApi.deleteById(
+            Strings.userCartLocalTable, item.product.id);
+        if (result == 0) {
+          throw const ObjectNotDeletedException();
+        }
+        break;
+      default:
+        return;
     }
   }
 
