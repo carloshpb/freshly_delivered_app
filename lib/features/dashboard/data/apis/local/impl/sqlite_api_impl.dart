@@ -6,6 +6,58 @@ import 'package:sqflite/sqflite.dart';
 import '../../../../../../constants/strings.dart';
 import '../sqlite_api.dart';
 
+Future<void> sqliteOnCreate(Database db, int version) async {
+  var batch = db.batch();
+  // When creating the db, create the table
+  batch.execute('''
+        CREATE TABLE ${Strings.productsLocalTable} (
+          id TEXT PRIMARY KEY,
+          title TEXT NOT NULL, 
+          price REAL NOT NULL, 
+          description TEXT NOT NULL, 
+          category TEXT NOT NULL,
+          image_path TEXT NOT NULL, 
+          units_sold INTEGER NOT NULL,
+          advertisement_id TEXT NOT NULL,
+          discount INTEGER NOT NULL,
+          created_at INTEGER NOT NULL,
+          modified_at INTEGER NOT NULL
+        )
+        ''');
+
+  batch.execute('''
+        CREATE TABLE ${Strings.advertisementsLocalTable} (
+          id TEXT PRIMARY KEY,
+          description TEXT NOT NULL, 
+          image_path TEXT NOT NULL, 
+          is_special INTEGER NOT NULL,
+          created_at INTEGER NOT NULL,
+          modified_at INTEGER NOT NULL
+        )
+        ''');
+
+  batch.execute('''
+      CREATE TABLE ${Strings.appUserLocalTable} (
+          id TEXT PRIMARY KEY,
+          email TEXT NOT NULL, 
+          fullname TEXT NOT NULL, 
+          password TEXT NOT NULL,
+          phoneNumber TEXT NOT NULL
+        )
+      ''');
+
+  batch.execute('''
+      CREATE TABLE ${Strings.userCartLocalTable} (
+          id TEXT PRIMARY KEY,
+          amount INTEGER NOT NULL
+          created_at INTEGER NOT NULL,
+          modified_at INTEGER NOT NULL
+        )
+      ''');
+
+  await batch.commit();
+}
+
 final sqliteApiProvider = Provider<SQLiteApi>(
   (_) {
     // Always override in main to dispose the DB

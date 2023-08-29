@@ -11,9 +11,8 @@ import 'package:sqflite/sqflite.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 import 'constants/custom_colors.dart';
+import 'constants/strings.dart';
 import 'exceptions/async_error_logger.dart';
-import 'features/authentication/data/repositories/fake_authentication_repository.dart';
-import 'features/authentication/data/repositories/firebase_authentication_repository.dart';
 import 'features/dashboard/data/apis/local/impl/sqlite_api_impl.dart';
 import 'features/top_level_providers.dart';
 import 'firebase_options.dart';
@@ -30,43 +29,7 @@ Future<void> main() async {
   final localDB = await openDatabase(
     'freshly_main.db',
     version: 1,
-    onCreate: (Database db, int version) async {
-      // When creating the db, create the table
-      await db.execute('''
-        CREATE TABLE products (
-          id TEXT PRIMARY KEY,
-          title TEXT NOT NULL, 
-          price REAL NOT NULL, 
-          offer INTEGER NOT NULL, 
-          description TEXT NOT NULL, 
-          image_path TEXT NOT NULL, 
-          category TEXT NOT NULL,
-          created_at TEXT NOT NULL,
-          modified_at TEXT NOT NULL
-        )
-        ''');
-
-      await db.execute('''
-        CREATE TABLE advertisements (
-          id TEXT PRIMARY KEY,
-          description TEXT NOT NULL, 
-          image_path TEXT NOT NULL, 
-          is_special INTEGER NOT NULL,
-          created_at TEXT NOT NULL,
-          modified_at TEXT NOT NULL
-        )
-        ''');
-
-      await db.execute('''
-      CREATE TABLE connected_user (
-          uid TEXT PRIMARY KEY,
-          email TEXT NOT NULL, 
-          fullname TEXT NOT NULL, 
-          password TEXT NOT NULL,
-          phoneNumber TEXT NOT NULL
-        )
-      ''');
-    },
+    onCreate: sqliteOnCreate,
   );
 
   await Firebase.initializeApp(
@@ -84,12 +47,12 @@ Future<void> main() async {
   // * Create ProviderContainer with any required overrides
   final container = ProviderContainer(
     overrides: [
-      authenticationRepositoryProvider.overrideWith((ref) {
-        final auth = FakeAuthenticationRepository();
-        ref.onDispose(() => auth.dispose());
-        ref.keepAlive();
-        return auth;
-      }),
+      // authenticationRepositoryProvider.overrideWith((ref) {
+      //   final auth = FakeAuthenticationRepository();
+      //   ref.onDispose(() => auth.dispose());
+      //   ref.keepAlive();
+      //   return auth;
+      // }),
       sqliteApiProvider.overrideWith((ref) {
         final sqliteApi = SQLiteApiImpl(localDB);
         ref.onDispose(
