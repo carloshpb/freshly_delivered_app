@@ -3,7 +3,7 @@ import 'package:freshly_delivered_app/features/authentication/domain/models/app_
 
 import '../../data/repositories/firebase_authentication_repository.dart';
 
-final authStateUseCaseProvider = StreamProvider<AppUser?>(
+final authStateUseCaseProvider = StreamProvider<AppUser>(
   (ref) => ref.watch(authenticationRepositoryProvider).authStateChanges(),
 );
 
