@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freshly_delivered_app/features/dashboard/domain/models/advertisement.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../../constants/strings.dart';
 import '../../domain/repositories/advertisements_repository.dart';
 import '../apis/remote/firestore_api.dart';
 import '../apis/remote/impl/firestore_api_impl.dart';
@@ -47,7 +48,8 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
 
   @override
   FutureOr<Advertisement> findAdvertisementById(String id) async {
-    var resultListMap = await _firestoreApi.findById("advertisements", id);
+    var resultListMap =
+        await _firestoreApi.findById(Strings.advertisementsRemoteTable, id);
     return Advertisement.fromJson(resultListMap);
   }
 
@@ -59,7 +61,7 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
         int position
       }) lastAdvertisement) async {
     var resultListMap = await _firestoreApi.findAllWithLimit(
-      "advertisements",
+      Strings.advertisementsRemoteTable,
       limit,
       lastAdvertisement.advertisementObject,
     );
@@ -72,7 +74,8 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
 
   @override
   FutureOr<List<Advertisement>> findAllAdvertisements() async {
-    var resultListMap = await _firestoreApi.findAll("advertisements");
+    var resultListMap =
+        await _firestoreApi.findAll(Strings.advertisementsRemoteTable);
     return resultListMap
         .map(
           (prodMap) => Advertisement.fromJson(prodMap),
@@ -83,7 +86,8 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
   @override
   Future<void> saveAdvertisements(List<Advertisement> advertisements) async {
     var mapAdvertisements = advertisements.map((prod) => prod.toJson());
-    await _firestoreApi.set("advertisements", mapAdvertisements);
+    await _firestoreApi.set(
+        Strings.advertisementsRemoteTable, mapAdvertisements);
   }
 
   @override
@@ -94,7 +98,7 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
         int position
       }) lastAdvertisement) async {
     var resultListMap = await _firestoreApi.findByAttributeDesc(
-      "advertisements",
+      Strings.advertisementsRemoteTable,
       true,
       "is_special",
       limit,
@@ -113,7 +117,7 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
   void fetchLastAdvertisements() {
     try {
       _firestoreApi.fetchListByAttributeDesc(
-        "advertisements",
+        Strings.advertisementsRemoteTable,
         null,
         "",
         "created_at",

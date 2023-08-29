@@ -154,7 +154,7 @@ class CartLocalRepositoryImpl implements CartRepository {
     //       if (listFirestoreItems[index]["title"] == null ||
     //           (listFirestoreItems[index]["title"] as String).isEmpty) {
     //         await _sqliteApi.deleteById(
-    //             "cart", listFirestoreItems[index]["id"] as String);
+    //             Strings.userCartLocalTable, listFirestoreItems[index]["id"] as String);
     //         continue;
     //       }
     //       var currentCartItem =
@@ -168,9 +168,16 @@ class CartLocalRepositoryImpl implements CartRepository {
 
   @override
   Future<void> removeProductAtCart(CartItem item) async {
-    var result = await _sqliteApi.deleteById("cart", item.product.id);
-    if (result == 0) {
-      throw const ObjectNotDeletedException();
+    switch (item) {
+      case NormalCartItem():
+        var result = await _sqliteApi.deleteById(
+            Strings.userCartLocalTable, item.product.id);
+        if (result == 0) {
+          throw const ObjectNotDeletedException();
+        }
+        break;
+      default:
+        return;
     }
   }
 

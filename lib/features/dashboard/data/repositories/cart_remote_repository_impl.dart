@@ -47,7 +47,7 @@ final cartRemoteRepositoryProvider = Provider.autoDispose<CartRepository>(
         switch (product) {
           case NormalProduct():
             sink.add(
-              CartItem(
+              NormalCartItem(
                 product: product,
                 amount: data["amount"] as int,
               ),

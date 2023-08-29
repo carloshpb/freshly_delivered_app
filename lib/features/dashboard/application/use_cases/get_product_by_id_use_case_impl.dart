@@ -33,10 +33,10 @@ class GetProductByIdUseCaseImpl implements GetProductByIdUseCase {
         product = await _remoteProductsRepository.findProductById(request);
         return switch (product) {
           EmptyProduct() => const ProductDto.empty(),
-          _ => product.toDto()
+          _ => ProductDto.fromDomain(product)
         };
       default:
-        return product.toDto();
+        return ProductDto.fromDomain(product);
     }
   }
 }

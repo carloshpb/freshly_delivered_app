@@ -4,14 +4,16 @@ import '../models/product.dart';
 
 abstract class ProductsRepository {
   FutureOr<Product> findProductById(String id);
-  FutureOr<List<Product>> findProductsByNameWithLimit(String name, int limit,
-      ({Product? productObject, int position}) lastProduct);
-  FutureOr<List<Product>> findProductsWithLimit(
-      int limit, ({Product? productObject, int position}) lastProduct);
-  FutureOr<List<Product>> findAllProducts();
-  Future<void> saveProducts(List<Product> products);
-  FutureOr<List<Product>> findProductsByAdvertisementId(String advertisementId,
-      int limit, ({Product? productObject, int position}) lastProduct);
-  FutureOr<List<Product>> findProductsByPopularity(
-      int limit, ({int position, Product? productObject}) lastProduct);
+  FutureOr<List<NormalProduct>> findProductsByNameWithLimit(String name,
+      int limit, ({NormalProduct? productObject, int position}) lastProduct);
+  FutureOr<List<NormalProduct>> findProductsWithLimit(
+      int limit, ({NormalProduct? productObject, int position}) lastProduct);
+  FutureOr<List<NormalProduct>> findAllProducts();
+  Future<void> saveProducts(List<NormalProduct> products);
+  FutureOr<List<NormalProduct>> findProductsByAdvertisementId(
+      String advertisementId,
+      int limit,
+      ({NormalProduct? productObject, int position}) lastProduct);
+  FutureOr<List<NormalProduct>> findProductsByPopularity(
+      int limit, ({int position, NormalProduct? productObject}) lastProduct);
 }

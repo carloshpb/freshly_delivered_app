@@ -15,12 +15,12 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$AppUserDTO {
+mixin _$AppUserDto {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() notConnected,
     required TResult Function(
-            String uid,
+            String id,
             String email,
             String password,
             String fullname,
@@ -28,63 +28,63 @@ mixin _$AppUserDTO {
             DateTime? createdAt,
             DateTime? modifiedAt)
         data,
+    required TResult Function(String id, String email) simple,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notConnected,
-    TResult? Function(
-            String uid,
-            String email,
-            String password,
-            String fullname,
-            String phoneNumber,
-            DateTime? createdAt,
-            DateTime? modifiedAt)?
+    TResult? Function(String id, String email, String password, String fullname,
+            String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
+    TResult? Function(String id, String email)? simple,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notConnected,
-    TResult Function(String uid, String email, String password, String fullname,
+    TResult Function(String id, String email, String password, String fullname,
             String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
+    TResult Function(String id, String email)? simple,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UserNotConnectedDTO value) notConnected,
-    required TResult Function(UserDataDTO value) data,
+    required TResult Function(UserNotConnectedDto value) notConnected,
+    required TResult Function(UserDataDto value) data,
+    required TResult Function(UserSimpleDto value) simple,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UserNotConnectedDTO value)? notConnected,
-    TResult? Function(UserDataDTO value)? data,
+    TResult? Function(UserNotConnectedDto value)? notConnected,
+    TResult? Function(UserDataDto value)? data,
+    TResult? Function(UserSimpleDto value)? simple,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UserNotConnectedDTO value)? notConnected,
-    TResult Function(UserDataDTO value)? data,
+    TResult Function(UserNotConnectedDto value)? notConnected,
+    TResult Function(UserDataDto value)? data,
+    TResult Function(UserSimpleDto value)? simple,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AppUserDTOCopyWith<$Res> {
-  factory $AppUserDTOCopyWith(
-          AppUserDTO value, $Res Function(AppUserDTO) then) =
-      _$AppUserDTOCopyWithImpl<$Res, AppUserDTO>;
+abstract class $AppUserDtoCopyWith<$Res> {
+  factory $AppUserDtoCopyWith(
+          AppUserDto value, $Res Function(AppUserDto) then) =
+      _$AppUserDtoCopyWithImpl<$Res, AppUserDto>;
 }
 
 /// @nodoc
-class _$AppUserDTOCopyWithImpl<$Res, $Val extends AppUserDTO>
-    implements $AppUserDTOCopyWith<$Res> {
-  _$AppUserDTOCopyWithImpl(this._value, this._then);
+class _$AppUserDtoCopyWithImpl<$Res, $Val extends AppUserDto>
+    implements $AppUserDtoCopyWith<$Res> {
+  _$AppUserDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -93,35 +93,35 @@ class _$AppUserDTOCopyWithImpl<$Res, $Val extends AppUserDTO>
 }
 
 /// @nodoc
-abstract class _$$UserNotConnectedDTOCopyWith<$Res> {
-  factory _$$UserNotConnectedDTOCopyWith(_$UserNotConnectedDTO value,
-          $Res Function(_$UserNotConnectedDTO) then) =
-      __$$UserNotConnectedDTOCopyWithImpl<$Res>;
+abstract class _$$UserNotConnectedDtoCopyWith<$Res> {
+  factory _$$UserNotConnectedDtoCopyWith(_$UserNotConnectedDto value,
+          $Res Function(_$UserNotConnectedDto) then) =
+      __$$UserNotConnectedDtoCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$UserNotConnectedDTOCopyWithImpl<$Res>
-    extends _$AppUserDTOCopyWithImpl<$Res, _$UserNotConnectedDTO>
-    implements _$$UserNotConnectedDTOCopyWith<$Res> {
-  __$$UserNotConnectedDTOCopyWithImpl(
-      _$UserNotConnectedDTO _value, $Res Function(_$UserNotConnectedDTO) _then)
+class __$$UserNotConnectedDtoCopyWithImpl<$Res>
+    extends _$AppUserDtoCopyWithImpl<$Res, _$UserNotConnectedDto>
+    implements _$$UserNotConnectedDtoCopyWith<$Res> {
+  __$$UserNotConnectedDtoCopyWithImpl(
+      _$UserNotConnectedDto _value, $Res Function(_$UserNotConnectedDto) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$UserNotConnectedDTO implements UserNotConnectedDTO {
-  const _$UserNotConnectedDTO();
+class _$UserNotConnectedDto extends UserNotConnectedDto {
+  const _$UserNotConnectedDto() : super._();
 
   @override
   String toString() {
-    return 'AppUserDTO.notConnected()';
+    return 'AppUserDto.notConnected()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UserNotConnectedDTO);
+        (other.runtimeType == runtimeType && other is _$UserNotConnectedDto);
   }
 
   @override
@@ -132,7 +132,7 @@ class _$UserNotConnectedDTO implements UserNotConnectedDTO {
   TResult when<TResult extends Object?>({
     required TResult Function() notConnected,
     required TResult Function(
-            String uid,
+            String id,
             String email,
             String password,
             String fullname,
@@ -140,6 +140,7 @@ class _$UserNotConnectedDTO implements UserNotConnectedDTO {
             DateTime? createdAt,
             DateTime? modifiedAt)
         data,
+    required TResult Function(String id, String email) simple,
   }) {
     return notConnected();
   }
@@ -148,15 +149,10 @@ class _$UserNotConnectedDTO implements UserNotConnectedDTO {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notConnected,
-    TResult? Function(
-            String uid,
-            String email,
-            String password,
-            String fullname,
-            String phoneNumber,
-            DateTime? createdAt,
-            DateTime? modifiedAt)?
+    TResult? Function(String id, String email, String password, String fullname,
+            String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
+    TResult? Function(String id, String email)? simple,
   }) {
     return notConnected?.call();
   }
@@ -165,9 +161,10 @@ class _$UserNotConnectedDTO implements UserNotConnectedDTO {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notConnected,
-    TResult Function(String uid, String email, String password, String fullname,
+    TResult Function(String id, String email, String password, String fullname,
             String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
+    TResult Function(String id, String email)? simple,
     required TResult orElse(),
   }) {
     if (notConnected != null) {
@@ -179,8 +176,9 @@ class _$UserNotConnectedDTO implements UserNotConnectedDTO {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UserNotConnectedDTO value) notConnected,
-    required TResult Function(UserDataDTO value) data,
+    required TResult Function(UserNotConnectedDto value) notConnected,
+    required TResult Function(UserDataDto value) data,
+    required TResult Function(UserSimpleDto value) simple,
   }) {
     return notConnected(this);
   }
@@ -188,8 +186,9 @@ class _$UserNotConnectedDTO implements UserNotConnectedDTO {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UserNotConnectedDTO value)? notConnected,
-    TResult? Function(UserDataDTO value)? data,
+    TResult? Function(UserNotConnectedDto value)? notConnected,
+    TResult? Function(UserDataDto value)? data,
+    TResult? Function(UserSimpleDto value)? simple,
   }) {
     return notConnected?.call(this);
   }
@@ -197,8 +196,9 @@ class _$UserNotConnectedDTO implements UserNotConnectedDTO {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UserNotConnectedDTO value)? notConnected,
-    TResult Function(UserDataDTO value)? data,
+    TResult Function(UserNotConnectedDto value)? notConnected,
+    TResult Function(UserDataDto value)? data,
+    TResult Function(UserSimpleDto value)? simple,
     required TResult orElse(),
   }) {
     if (notConnected != null) {
@@ -208,18 +208,19 @@ class _$UserNotConnectedDTO implements UserNotConnectedDTO {
   }
 }
 
-abstract class UserNotConnectedDTO implements AppUserDTO {
-  const factory UserNotConnectedDTO() = _$UserNotConnectedDTO;
+abstract class UserNotConnectedDto extends AppUserDto {
+  const factory UserNotConnectedDto() = _$UserNotConnectedDto;
+  const UserNotConnectedDto._() : super._();
 }
 
 /// @nodoc
-abstract class _$$UserDataDTOCopyWith<$Res> {
-  factory _$$UserDataDTOCopyWith(
-          _$UserDataDTO value, $Res Function(_$UserDataDTO) then) =
-      __$$UserDataDTOCopyWithImpl<$Res>;
+abstract class _$$UserDataDtoCopyWith<$Res> {
+  factory _$$UserDataDtoCopyWith(
+          _$UserDataDto value, $Res Function(_$UserDataDto) then) =
+      __$$UserDataDtoCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String uid,
+      {String id,
       String email,
       String password,
       String fullname,
@@ -229,17 +230,17 @@ abstract class _$$UserDataDTOCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$UserDataDTOCopyWithImpl<$Res>
-    extends _$AppUserDTOCopyWithImpl<$Res, _$UserDataDTO>
-    implements _$$UserDataDTOCopyWith<$Res> {
-  __$$UserDataDTOCopyWithImpl(
-      _$UserDataDTO _value, $Res Function(_$UserDataDTO) _then)
+class __$$UserDataDtoCopyWithImpl<$Res>
+    extends _$AppUserDtoCopyWithImpl<$Res, _$UserDataDto>
+    implements _$$UserDataDtoCopyWith<$Res> {
+  __$$UserDataDtoCopyWithImpl(
+      _$UserDataDto _value, $Res Function(_$UserDataDto) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = null,
+    Object? id = null,
     Object? email = null,
     Object? password = null,
     Object? fullname = null,
@@ -247,10 +248,10 @@ class __$$UserDataDTOCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? modifiedAt = freezed,
   }) {
-    return _then(_$UserDataDTO(
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+    return _then(_$UserDataDto(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _value.email
@@ -282,18 +283,24 @@ class __$$UserDataDTOCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UserDataDTO implements UserDataDTO {
-  const _$UserDataDTO(
-      {required this.uid,
+class _$UserDataDto extends UserDataDto {
+  const _$UserDataDto(
+      {required this.id,
       required this.email,
       required this.password,
       required this.fullname,
       required this.phoneNumber,
       this.createdAt,
-      this.modifiedAt});
+      this.modifiedAt})
+      : assert(id != "", 'id cannot be empty'),
+        assert(email != "", 'id cannot be empty'),
+        assert(password != "", 'id cannot be empty'),
+        assert(fullname != "", 'id cannot be empty'),
+        assert(phoneNumber != "", 'id cannot be empty'),
+        super._();
 
   @override
-  final String uid;
+  final String id;
   @override
   final String email;
   @override
@@ -309,15 +316,15 @@ class _$UserDataDTO implements UserDataDTO {
 
   @override
   String toString() {
-    return 'AppUserDTO.data(uid: $uid, email: $email, password: $password, fullname: $fullname, phoneNumber: $phoneNumber, createdAt: $createdAt, modifiedAt: $modifiedAt)';
+    return 'AppUserDto.data(id: $id, email: $email, password: $password, fullname: $fullname, phoneNumber: $phoneNumber, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserDataDTO &&
-            (identical(other.uid, uid) || other.uid == uid) &&
+            other is _$UserDataDto &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password) &&
@@ -332,21 +339,21 @@ class _$UserDataDTO implements UserDataDTO {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, uid, email, password, fullname,
+  int get hashCode => Object.hash(runtimeType, id, email, password, fullname,
       phoneNumber, createdAt, modifiedAt);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserDataDTOCopyWith<_$UserDataDTO> get copyWith =>
-      __$$UserDataDTOCopyWithImpl<_$UserDataDTO>(this, _$identity);
+  _$$UserDataDtoCopyWith<_$UserDataDto> get copyWith =>
+      __$$UserDataDtoCopyWithImpl<_$UserDataDto>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() notConnected,
     required TResult Function(
-            String uid,
+            String id,
             String email,
             String password,
             String fullname,
@@ -354,41 +361,38 @@ class _$UserDataDTO implements UserDataDTO {
             DateTime? createdAt,
             DateTime? modifiedAt)
         data,
+    required TResult Function(String id, String email) simple,
   }) {
     return data(
-        uid, email, password, fullname, phoneNumber, createdAt, modifiedAt);
+        id, email, password, fullname, phoneNumber, createdAt, modifiedAt);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notConnected,
-    TResult? Function(
-            String uid,
-            String email,
-            String password,
-            String fullname,
-            String phoneNumber,
-            DateTime? createdAt,
-            DateTime? modifiedAt)?
+    TResult? Function(String id, String email, String password, String fullname,
+            String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
+    TResult? Function(String id, String email)? simple,
   }) {
     return data?.call(
-        uid, email, password, fullname, phoneNumber, createdAt, modifiedAt);
+        id, email, password, fullname, phoneNumber, createdAt, modifiedAt);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notConnected,
-    TResult Function(String uid, String email, String password, String fullname,
+    TResult Function(String id, String email, String password, String fullname,
             String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
+    TResult Function(String id, String email)? simple,
     required TResult orElse(),
   }) {
     if (data != null) {
       return data(
-          uid, email, password, fullname, phoneNumber, createdAt, modifiedAt);
+          id, email, password, fullname, phoneNumber, createdAt, modifiedAt);
     }
     return orElse();
   }
@@ -396,8 +400,9 @@ class _$UserDataDTO implements UserDataDTO {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UserNotConnectedDTO value) notConnected,
-    required TResult Function(UserDataDTO value) data,
+    required TResult Function(UserNotConnectedDto value) notConnected,
+    required TResult Function(UserDataDto value) data,
+    required TResult Function(UserSimpleDto value) simple,
   }) {
     return data(this);
   }
@@ -405,8 +410,9 @@ class _$UserDataDTO implements UserDataDTO {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UserNotConnectedDTO value)? notConnected,
-    TResult? Function(UserDataDTO value)? data,
+    TResult? Function(UserNotConnectedDto value)? notConnected,
+    TResult? Function(UserDataDto value)? data,
+    TResult? Function(UserSimpleDto value)? simple,
   }) {
     return data?.call(this);
   }
@@ -414,8 +420,9 @@ class _$UserDataDTO implements UserDataDTO {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UserNotConnectedDTO value)? notConnected,
-    TResult Function(UserDataDTO value)? data,
+    TResult Function(UserNotConnectedDto value)? notConnected,
+    TResult Function(UserDataDto value)? data,
+    TResult Function(UserSimpleDto value)? simple,
     required TResult orElse(),
   }) {
     if (data != null) {
@@ -425,17 +432,18 @@ class _$UserDataDTO implements UserDataDTO {
   }
 }
 
-abstract class UserDataDTO implements AppUserDTO {
-  const factory UserDataDTO(
-      {required final String uid,
+abstract class UserDataDto extends AppUserDto {
+  const factory UserDataDto(
+      {required final String id,
       required final String email,
       required final String password,
       required final String fullname,
       required final String phoneNumber,
       final DateTime? createdAt,
-      final DateTime? modifiedAt}) = _$UserDataDTO;
+      final DateTime? modifiedAt}) = _$UserDataDto;
+  const UserDataDto._() : super._();
 
-  String get uid;
+  String get id;
   String get email;
   String get password;
   String get fullname;
@@ -443,6 +451,172 @@ abstract class UserDataDTO implements AppUserDTO {
   DateTime? get createdAt;
   DateTime? get modifiedAt;
   @JsonKey(ignore: true)
-  _$$UserDataDTOCopyWith<_$UserDataDTO> get copyWith =>
+  _$$UserDataDtoCopyWith<_$UserDataDto> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UserSimpleDtoCopyWith<$Res> {
+  factory _$$UserSimpleDtoCopyWith(
+          _$UserSimpleDto value, $Res Function(_$UserSimpleDto) then) =
+      __$$UserSimpleDtoCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id, String email});
+}
+
+/// @nodoc
+class __$$UserSimpleDtoCopyWithImpl<$Res>
+    extends _$AppUserDtoCopyWithImpl<$Res, _$UserSimpleDto>
+    implements _$$UserSimpleDtoCopyWith<$Res> {
+  __$$UserSimpleDtoCopyWithImpl(
+      _$UserSimpleDto _value, $Res Function(_$UserSimpleDto) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? email = null,
+  }) {
+    return _then(_$UserSimpleDto(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UserSimpleDto extends UserSimpleDto {
+  const _$UserSimpleDto({required this.id, required this.email})
+      : assert(id != "", 'id cannot be empty'),
+        assert(email != "", 'id cannot be empty'),
+        super._();
+
+  @override
+  final String id;
+  @override
+  final String email;
+
+  @override
+  String toString() {
+    return 'AppUserDto.simple(id: $id, email: $email)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserSimpleDto &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.email, email) || other.email == email));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id, email);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserSimpleDtoCopyWith<_$UserSimpleDto> get copyWith =>
+      __$$UserSimpleDtoCopyWithImpl<_$UserSimpleDto>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notConnected,
+    required TResult Function(
+            String id,
+            String email,
+            String password,
+            String fullname,
+            String phoneNumber,
+            DateTime? createdAt,
+            DateTime? modifiedAt)
+        data,
+    required TResult Function(String id, String email) simple,
+  }) {
+    return simple(id, email);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? notConnected,
+    TResult? Function(String id, String email, String password, String fullname,
+            String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
+        data,
+    TResult? Function(String id, String email)? simple,
+  }) {
+    return simple?.call(id, email);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notConnected,
+    TResult Function(String id, String email, String password, String fullname,
+            String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
+        data,
+    TResult Function(String id, String email)? simple,
+    required TResult orElse(),
+  }) {
+    if (simple != null) {
+      return simple(id, email);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UserNotConnectedDto value) notConnected,
+    required TResult Function(UserDataDto value) data,
+    required TResult Function(UserSimpleDto value) simple,
+  }) {
+    return simple(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(UserNotConnectedDto value)? notConnected,
+    TResult? Function(UserDataDto value)? data,
+    TResult? Function(UserSimpleDto value)? simple,
+  }) {
+    return simple?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UserNotConnectedDto value)? notConnected,
+    TResult Function(UserDataDto value)? data,
+    TResult Function(UserSimpleDto value)? simple,
+    required TResult orElse(),
+  }) {
+    if (simple != null) {
+      return simple(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UserSimpleDto extends AppUserDto {
+  const factory UserSimpleDto(
+      {required final String id,
+      required final String email}) = _$UserSimpleDto;
+  const UserSimpleDto._() : super._();
+
+  String get id;
+  String get email;
+  @JsonKey(ignore: true)
+  _$$UserSimpleDtoCopyWith<_$UserSimpleDto> get copyWith =>
       throw _privateConstructorUsedError;
 }

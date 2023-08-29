@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freshly_delivered_app/features/dashboard/domain/models/advertisement.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../../constants/strings.dart';
 import '../../domain/repositories/advertisements_repository.dart';
 import '../apis/local/impl/sqlite_api_impl.dart';
 import '../apis/local/sqlite_api.dart';
@@ -55,13 +56,9 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
 
   @override
   FutureOr<Advertisement> findAdvertisementById(String id) async {
-    var resultMap = await _sqliteApi.findById("advertisements", id);
-    return (resultMap.isEmpty)
-        ? Advertisement(
-            createdAt: DateTime.parse('0000-00-00'),
-            modifiedAt: DateTime.parse('0000-00-00'),
-          )
-        : Advertisement.fromJson(resultMap);
+    var resultMap =
+        await _sqliteApi.findById(Strings.advertisementsLocalTable, id);
+    return Advertisement.fromSqliteJson(resultMap);
   }
 
   @override
@@ -72,7 +69,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
         int position
       }) lastAdvertisement) async {
     var resultListMap = await _sqliteApi.findAllWithLimit(
-      "advertisements",
+      Strings.advertisementsLocalTable,
       limit,
       lastAdvertisement.position,
     );
@@ -85,7 +82,8 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
 
   @override
   FutureOr<List<Advertisement>> findAllAdvertisements() async {
-    var resultListMap = await _sqliteApi.findAll("advertisements");
+    var resultListMap =
+        await _sqliteApi.findAll(Strings.advertisementsLocalTable);
     return resultListMap
         .map(
           (prodMap) => Advertisement.fromJson(prodMap),
@@ -98,7 +96,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
     var mapAdvertisements =
         advertisements.map((prod) => prod.toJson()).toList();
     await _sqliteApi.save(
-      "advertisements",
+      Strings.advertisementsLocalTable,
       mapAdvertisements,
       _advertisementStringProperties,
     );
@@ -112,7 +110,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
         int position
       }) lastAdvertisement) async {
     var resultListMap = await _sqliteApi.findByAttributeDesc(
-      "advertisements",
+      Strings.advertisementsLocalTable,
       true,
       "is_special",
       limit,
@@ -132,7 +130,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   void fetchLastAdvertisements() {
     _sqliteApi
         .findByAttributeDesc(
-          "advertisements",
+          Strings.advertisementsLocalTable,
           null,
           "",
           0,

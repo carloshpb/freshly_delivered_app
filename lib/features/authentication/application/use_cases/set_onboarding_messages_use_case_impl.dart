@@ -25,7 +25,7 @@ class SetOnboardingMessagesUseCaseImpl implements SetOnboardingMessagesUseCase {
       : _onboardingMessagesRepository = onboardingMessagesRepository;
 
   @override
-  void execute(List<OnboardingMessageDTO> request) {
+  void execute(List<OnboardingMessageDto> request) {
     var count = 0;
     List<OnboardingMessage> newList = [];
     while (count < request.length) {

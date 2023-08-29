@@ -5,9 +5,18 @@ import '../../application/dtos/product_dto.dart';
 
 abstract class GetProductsByNameUseCase
     implements
-        UseCase<({String productName, int position, ProductDto? productObject}),
-            List<ProductDto>> {
+        UseCase<
+            ({
+              String productName,
+              int position,
+              NormalProductDto? productObject
+            }),
+            List<NormalProductDto>> {
   @override
-  FutureOr<List<ProductDto>> execute(
-      ({String productName, int position, ProductDto? productObject}) request);
+  FutureOr<List<NormalProductDto>> execute(
+      ({
+        String productName,
+        int position,
+        NormalProductDto? productObject
+      }) request);
 }

@@ -5,9 +5,10 @@ import '../../application/dtos/product_dto.dart';
 
 abstract class GetProductsByPopularityUseCase
     implements
-        UseCase<({int lastProductPosition, ProductDto? lastProductObject}),
-            List<ProductDto>> {
+        UseCase<
+            ({int lastProductPosition, NormalProductDto? lastProductObject}),
+            List<NormalProductDto>> {
   @override
-  FutureOr<List<ProductDto>> execute(
-      ({int lastProductPosition, ProductDto? lastProductObject}) request);
+  FutureOr<List<NormalProductDto>> execute(
+      ({int lastProductPosition, NormalProductDto? lastProductObject}) request);
 }

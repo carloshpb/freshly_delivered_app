@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../exceptions/app_auth_exception.dart';
+import '../features/authentication/application/use_cases/auth_state_use_case_impl.dart';
+import '../features/authentication/domain/models/app_user.dart';
 import '../features/authentication/presentation/screens/login_screen.dart';
 import '../features/authentication/presentation/screens/onboarding_screen.dart';
 import '../features/authentication/presentation/screens/sign_up_screen.dart';
@@ -15,7 +18,6 @@ import '../features/dashboard/presentation/screens/scaffold_with_nested_navigati
 import '../features/dashboard/presentation/screens/search_results_screen.dart';
 import '../features/dashboard/presentation/screens/settings_screen.dart';
 import '../features/dashboard/presentation/screens/wishlist_screen.dart';
-import 'go_router_refresh_stream.dart';
 import 'not_found_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -61,9 +63,13 @@ enum AppRouter {
 
 final goRouterProvider = Provider<GoRouter>(
   (ref) {
+    final authState = ref.watch(authStateUseCaseProvider);
+
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
-      initialLocation: AppRouter.intro.path,
+      initialLocation: (authState.hasValue && authState.value is UserData)
+          ? AppRouter.home.path
+          : AppRouter.intro.path,
       routes: [
         // Stateful nested navigation based on:
         // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
@@ -218,22 +224,37 @@ final goRouterProvider = Provider<GoRouter>(
           ],
         ),
       ],
-      refreshListenable: GoRouterRefreshStream(authService.authStateChanges),
       // redirect to the login page if the user is not logged in
       redirect: (context, state) {
-        // if the user is not logged in, they need to login
-        final loggedIn =
-            (ref.read(currentUserUseCaseProvider).execute(request: null) !=
-                null);
-        final loggingIn = state.fullPath == AppRouter.login.path;
-        if (!loggedIn) return loggingIn ? null : AppRouter.login.path;
+        // If our async state is loading, don't perform redirects, yet
+        if (authState.isLoading) {
+          return null;
+        } else if (authState.hasError && authState.error is AppAuthException) {
+          // TODO : Treat better each Auth Exception to each route that was thrown by authStateChangesProvider
+          switch (authState.error) {
+            case UserNotFoundException():
+              context.goNamed(
+                AppRouter.login.path,
+                extra: authState.error,
+              );
+              return null;
+            default:
+              return null;
+          }
+        }
 
-        // if the user is logged in but still on the login page, send them to
-        // the home page
-        if (loggingIn) return AppRouter.home.path;
+        // Here we guarantee that hasData == true, i.e. we have a readable value
 
-        // no need to redirect at all
-        return null;
+        switch (authState.value!) {
+          case UserData():
+            return (state.fullPath == AppRouter.login.path)
+                ? AppRouter.home.path
+                : null;
+          default:
+            return (state.fullPath == AppRouter.login.path)
+                ? null
+                : AppRouter.login.path;
+        }
       },
     );
 

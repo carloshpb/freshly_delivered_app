@@ -25,7 +25,7 @@ class AddOnboardingMessageUseCaseImpl implements AddOnboardingMessageUseCase {
       : _onboardingMessagesRepository = onboardingMessagesRepository;
 
   @override
-  void execute(OnboardingMessageDTO request) {
+  void execute(OnboardingMessageDto request) {
     if (request.imageSvgPath.isEmpty ||
         request.message.isEmpty ||
         request.title.isEmpty) {

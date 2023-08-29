@@ -15,30 +15,30 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$OnboardingMessageDTO {
+mixin _$OnboardingMessageDto {
   String get imageSvgPath => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $OnboardingMessageDTOCopyWith<OnboardingMessageDTO> get copyWith =>
+  $OnboardingMessageDtoCopyWith<OnboardingMessageDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $OnboardingMessageDTOCopyWith<$Res> {
-  factory $OnboardingMessageDTOCopyWith(OnboardingMessageDTO value,
-          $Res Function(OnboardingMessageDTO) then) =
-      _$OnboardingMessageDTOCopyWithImpl<$Res, OnboardingMessageDTO>;
+abstract class $OnboardingMessageDtoCopyWith<$Res> {
+  factory $OnboardingMessageDtoCopyWith(OnboardingMessageDto value,
+          $Res Function(OnboardingMessageDto) then) =
+      _$OnboardingMessageDtoCopyWithImpl<$Res, OnboardingMessageDto>;
   @useResult
   $Res call({String imageSvgPath, String title, String message});
 }
 
 /// @nodoc
-class _$OnboardingMessageDTOCopyWithImpl<$Res,
-        $Val extends OnboardingMessageDTO>
-    implements $OnboardingMessageDTOCopyWith<$Res> {
-  _$OnboardingMessageDTOCopyWithImpl(this._value, this._then);
+class _$OnboardingMessageDtoCopyWithImpl<$Res,
+        $Val extends OnboardingMessageDto>
+    implements $OnboardingMessageDtoCopyWith<$Res> {
+  _$OnboardingMessageDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -70,22 +70,22 @@ class _$OnboardingMessageDTOCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_OnboardingMessageDTOCopyWith<$Res>
-    implements $OnboardingMessageDTOCopyWith<$Res> {
-  factory _$$_OnboardingMessageDTOCopyWith(_$_OnboardingMessageDTO value,
-          $Res Function(_$_OnboardingMessageDTO) then) =
-      __$$_OnboardingMessageDTOCopyWithImpl<$Res>;
+abstract class _$$_OnboardingMessageDtoCopyWith<$Res>
+    implements $OnboardingMessageDtoCopyWith<$Res> {
+  factory _$$_OnboardingMessageDtoCopyWith(_$_OnboardingMessageDto value,
+          $Res Function(_$_OnboardingMessageDto) then) =
+      __$$_OnboardingMessageDtoCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String imageSvgPath, String title, String message});
 }
 
 /// @nodoc
-class __$$_OnboardingMessageDTOCopyWithImpl<$Res>
-    extends _$OnboardingMessageDTOCopyWithImpl<$Res, _$_OnboardingMessageDTO>
-    implements _$$_OnboardingMessageDTOCopyWith<$Res> {
-  __$$_OnboardingMessageDTOCopyWithImpl(_$_OnboardingMessageDTO _value,
-      $Res Function(_$_OnboardingMessageDTO) _then)
+class __$$_OnboardingMessageDtoCopyWithImpl<$Res>
+    extends _$OnboardingMessageDtoCopyWithImpl<$Res, _$_OnboardingMessageDto>
+    implements _$$_OnboardingMessageDtoCopyWith<$Res> {
+  __$$_OnboardingMessageDtoCopyWithImpl(_$_OnboardingMessageDto _value,
+      $Res Function(_$_OnboardingMessageDto) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -95,7 +95,7 @@ class __$$_OnboardingMessageDTOCopyWithImpl<$Res>
     Object? title = null,
     Object? message = null,
   }) {
-    return _then(_$_OnboardingMessageDTO(
+    return _then(_$_OnboardingMessageDto(
       imageSvgPath: null == imageSvgPath
           ? _value.imageSvgPath
           : imageSvgPath // ignore: cast_nullable_to_non_nullable
@@ -114,8 +114,8 @@ class __$$_OnboardingMessageDTOCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_OnboardingMessageDTO extends _OnboardingMessageDTO {
-  const _$_OnboardingMessageDTO(
+class _$_OnboardingMessageDto extends _OnboardingMessageDto {
+  const _$_OnboardingMessageDto(
       {required this.imageSvgPath, required this.title, required this.message})
       : super._();
 
@@ -128,14 +128,14 @@ class _$_OnboardingMessageDTO extends _OnboardingMessageDTO {
 
   @override
   String toString() {
-    return 'OnboardingMessageDTO(imageSvgPath: $imageSvgPath, title: $title, message: $message)';
+    return 'OnboardingMessageDto(imageSvgPath: $imageSvgPath, title: $title, message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OnboardingMessageDTO &&
+            other is _$_OnboardingMessageDto &&
             (identical(other.imageSvgPath, imageSvgPath) ||
                 other.imageSvgPath == imageSvgPath) &&
             (identical(other.title, title) || other.title == title) &&
@@ -148,17 +148,17 @@ class _$_OnboardingMessageDTO extends _OnboardingMessageDTO {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OnboardingMessageDTOCopyWith<_$_OnboardingMessageDTO> get copyWith =>
-      __$$_OnboardingMessageDTOCopyWithImpl<_$_OnboardingMessageDTO>(
+  _$$_OnboardingMessageDtoCopyWith<_$_OnboardingMessageDto> get copyWith =>
+      __$$_OnboardingMessageDtoCopyWithImpl<_$_OnboardingMessageDto>(
           this, _$identity);
 }
 
-abstract class _OnboardingMessageDTO extends OnboardingMessageDTO {
-  const factory _OnboardingMessageDTO(
+abstract class _OnboardingMessageDto extends OnboardingMessageDto {
+  const factory _OnboardingMessageDto(
       {required final String imageSvgPath,
       required final String title,
-      required final String message}) = _$_OnboardingMessageDTO;
-  const _OnboardingMessageDTO._() : super._();
+      required final String message}) = _$_OnboardingMessageDto;
+  const _OnboardingMessageDto._() : super._();
 
   @override
   String get imageSvgPath;
@@ -168,6 +168,6 @@ abstract class _OnboardingMessageDTO extends OnboardingMessageDTO {
   String get message;
   @override
   @JsonKey(ignore: true)
-  _$$_OnboardingMessageDTOCopyWith<_$_OnboardingMessageDTO> get copyWith =>
+  _$$_OnboardingMessageDtoCopyWith<_$_OnboardingMessageDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
