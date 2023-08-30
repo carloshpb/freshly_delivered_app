@@ -6,18 +6,7 @@ part of 'product.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$EmptyProduct _$$EmptyProductFromJson(Map<String, dynamic> json) =>
-    _$EmptyProduct(
-      $type: json['runtimeType'] as String?,
-    );
-
-Map<String, dynamic> _$$EmptyProductToJson(_$EmptyProduct instance) =>
-    <String, dynamic>{
-      'runtimeType': instance.$type,
-    };
-
-_$NormalProduct _$$NormalProductFromJson(Map<String, dynamic> json) =>
-    _$NormalProduct(
+_$_Product _$$_ProductFromJson(Map<String, dynamic> json) => _$_Product(
       id: json['id'] as String,
       title: json['title'] as String,
       price: (json['price'] as num).toDouble(),
@@ -31,10 +20,9 @@ _$NormalProduct _$$NormalProductFromJson(Map<String, dynamic> json) =>
           .fromJson(json['created_at'] as Timestamp?),
       modifiedAt: const DateTimeTimestampConverter()
           .fromJson(json['modified_at'] as Timestamp?),
-      $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$NormalProductToJson(_$NormalProduct instance) =>
+Map<String, dynamic> _$$_ProductToJson(_$_Product instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
@@ -49,5 +37,4 @@ Map<String, dynamic> _$$NormalProductToJson(_$NormalProduct instance) =>
           const DateTimeTimestampConverter().toJson(instance.createdAt),
       'modified_at':
           const DateTimeTimestampConverter().toJson(instance.modifiedAt),
-      'runtimeType': instance.$type,
     };

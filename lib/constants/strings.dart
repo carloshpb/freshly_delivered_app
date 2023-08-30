@@ -52,6 +52,7 @@ class Strings {
   static const addToCard = "Add to card";
 
   /// SQLite tables
+  static const sqlite = "SQLite";
   static const appUserLocalTable = "connected_user";
   static const productsLocalTable = "products";
   static const advertisementsLocalTable = "advertisements";

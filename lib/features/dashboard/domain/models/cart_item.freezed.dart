@@ -15,92 +15,42 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 CartItem _$CartItemFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
-    case 'empty':
-      return EmptyCartItem.fromJson(json);
-    case 'normal':
-      return NormalCartItem.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'CartItem',
-          'Invalid union type "${json['runtimeType']}"!');
-  }
+  return _CartItem.fromJson(json);
 }
 
 /// @nodoc
 mixin _$CartItem {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() empty,
-    required TResult Function(
-            NormalProduct product,
-            int amount,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'created_at')
-            DateTime? createdAt,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'modified_at')
-            DateTime? modifiedAt)
-        normal,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? empty,
-    TResult? Function(
-            NormalProduct product,
-            int amount,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'created_at')
-            DateTime? createdAt,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'modified_at')
-            DateTime? modifiedAt)?
-        normal,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? empty,
-    TResult Function(
-            NormalProduct product,
-            int amount,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'created_at')
-            DateTime? createdAt,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'modified_at')
-            DateTime? modifiedAt)?
-        normal,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(EmptyCartItem value) empty,
-    required TResult Function(NormalCartItem value) normal,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EmptyCartItem value)? empty,
-    TResult? Function(NormalCartItem value)? normal,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(EmptyCartItem value)? empty,
-    TResult Function(NormalCartItem value)? normal,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  Product get product => throw _privateConstructorUsedError;
+  int get amount => throw _privateConstructorUsedError;
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @DateTimeTimestampConverter()
+  @JsonKey(name: 'modified_at')
+  DateTime? get modifiedAt => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CartItemCopyWith<CartItem> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CartItemCopyWith<$Res> {
   factory $CartItemCopyWith(CartItem value, $Res Function(CartItem) then) =
       _$CartItemCopyWithImpl<$Res, CartItem>;
+  @useResult
+  $Res call(
+      {Product product,
+      int amount,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'created_at')
+      DateTime? createdAt,
+      @DateTimeTimestampConverter()
+      @JsonKey(name: 'modified_at')
+      DateTime? modifiedAt});
+
+  $ProductCopyWith<$Res> get product;
 }
 
 /// @nodoc
@@ -112,166 +62,53 @@ class _$CartItemCopyWithImpl<$Res, $Val extends CartItem>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? product = null,
+    Object? amount = null,
+    Object? createdAt = freezed,
+    Object? modifiedAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      product: null == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as Product,
+      amount: null == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      modifiedAt: freezed == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductCopyWith<$Res> get product {
+    return $ProductCopyWith<$Res>(_value.product, (value) {
+      return _then(_value.copyWith(product: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
-abstract class _$$EmptyCartItemCopyWith<$Res> {
-  factory _$$EmptyCartItemCopyWith(
-          _$EmptyCartItem value, $Res Function(_$EmptyCartItem) then) =
-      __$$EmptyCartItemCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$EmptyCartItemCopyWithImpl<$Res>
-    extends _$CartItemCopyWithImpl<$Res, _$EmptyCartItem>
-    implements _$$EmptyCartItemCopyWith<$Res> {
-  __$$EmptyCartItemCopyWithImpl(
-      _$EmptyCartItem _value, $Res Function(_$EmptyCartItem) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-@JsonSerializable(explicitToJson: true)
-class _$EmptyCartItem extends EmptyCartItem {
-  const _$EmptyCartItem({final String? $type})
-      : $type = $type ?? 'empty',
-        super._();
-
-  factory _$EmptyCartItem.fromJson(Map<String, dynamic> json) =>
-      _$$EmptyCartItemFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
+abstract class _$$_CartItemCopyWith<$Res> implements $CartItemCopyWith<$Res> {
+  factory _$$_CartItemCopyWith(
+          _$_CartItem value, $Res Function(_$_CartItem) then) =
+      __$$_CartItemCopyWithImpl<$Res>;
   @override
-  String toString() {
-    return 'CartItem.empty()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$EmptyCartItem);
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() empty,
-    required TResult Function(
-            NormalProduct product,
-            int amount,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'created_at')
-            DateTime? createdAt,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'modified_at')
-            DateTime? modifiedAt)
-        normal,
-  }) {
-    return empty();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? empty,
-    TResult? Function(
-            NormalProduct product,
-            int amount,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'created_at')
-            DateTime? createdAt,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'modified_at')
-            DateTime? modifiedAt)?
-        normal,
-  }) {
-    return empty?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? empty,
-    TResult Function(
-            NormalProduct product,
-            int amount,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'created_at')
-            DateTime? createdAt,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'modified_at')
-            DateTime? modifiedAt)?
-        normal,
-    required TResult orElse(),
-  }) {
-    if (empty != null) {
-      return empty();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(EmptyCartItem value) empty,
-    required TResult Function(NormalCartItem value) normal,
-  }) {
-    return empty(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EmptyCartItem value)? empty,
-    TResult? Function(NormalCartItem value)? normal,
-  }) {
-    return empty?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(EmptyCartItem value)? empty,
-    TResult Function(NormalCartItem value)? normal,
-    required TResult orElse(),
-  }) {
-    if (empty != null) {
-      return empty(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EmptyCartItemToJson(
-      this,
-    );
-  }
-}
-
-abstract class EmptyCartItem extends CartItem {
-  const factory EmptyCartItem() = _$EmptyCartItem;
-  const EmptyCartItem._() : super._();
-
-  factory EmptyCartItem.fromJson(Map<String, dynamic> json) =
-      _$EmptyCartItem.fromJson;
-}
-
-/// @nodoc
-abstract class _$$NormalCartItemCopyWith<$Res> {
-  factory _$$NormalCartItemCopyWith(
-          _$NormalCartItem value, $Res Function(_$NormalCartItem) then) =
-      __$$NormalCartItemCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {NormalProduct product,
+      {Product product,
       int amount,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'created_at')
@@ -279,29 +116,32 @@ abstract class _$$NormalCartItemCopyWith<$Res> {
       @DateTimeTimestampConverter()
       @JsonKey(name: 'modified_at')
       DateTime? modifiedAt});
+
+  @override
+  $ProductCopyWith<$Res> get product;
 }
 
 /// @nodoc
-class __$$NormalCartItemCopyWithImpl<$Res>
-    extends _$CartItemCopyWithImpl<$Res, _$NormalCartItem>
-    implements _$$NormalCartItemCopyWith<$Res> {
-  __$$NormalCartItemCopyWithImpl(
-      _$NormalCartItem _value, $Res Function(_$NormalCartItem) _then)
+class __$$_CartItemCopyWithImpl<$Res>
+    extends _$CartItemCopyWithImpl<$Res, _$_CartItem>
+    implements _$$_CartItemCopyWith<$Res> {
+  __$$_CartItemCopyWithImpl(
+      _$_CartItem _value, $Res Function(_$_CartItem) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? product = freezed,
+    Object? product = null,
     Object? amount = null,
     Object? createdAt = freezed,
     Object? modifiedAt = freezed,
   }) {
-    return _then(_$NormalCartItem(
-      product: freezed == product
+    return _then(_$_CartItem(
+      product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as NormalProduct,
+              as Product,
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -321,25 +161,22 @@ class __$$NormalCartItemCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$NormalCartItem extends NormalCartItem {
-  _$NormalCartItem(
+class _$_CartItem extends _CartItem {
+  _$_CartItem(
       {required this.product,
       this.amount = 1,
       @DateTimeTimestampConverter() @JsonKey(name: 'created_at') this.createdAt,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'modified_at')
-      this.modifiedAt,
-      final String? $type})
+      this.modifiedAt})
       : assert(amount >= 0, 'amount cannot negative'),
-        $type = $type ?? 'normal',
         super._();
 
-  factory _$NormalCartItem.fromJson(Map<String, dynamic> json) =>
-      _$$NormalCartItemFromJson(json);
+  factory _$_CartItem.fromJson(Map<String, dynamic> json) =>
+      _$$_CartItemFromJson(json);
 
-// required String id,
   @override
-  final NormalProduct product;
+  final Product product;
   @override
   @JsonKey()
   final int amount;
@@ -352,20 +189,17 @@ class _$NormalCartItem extends NormalCartItem {
   @JsonKey(name: 'modified_at')
   final DateTime? modifiedAt;
 
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
   @override
   String toString() {
-    return 'CartItem.normal(product: $product, amount: $amount, createdAt: $createdAt, modifiedAt: $modifiedAt)';
+    return 'CartItem(product: $product, amount: $amount, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NormalCartItem &&
-            const DeepCollectionEquality().equals(other.product, product) &&
+            other is _$_CartItem &&
+            (identical(other.product, product) || other.product == product) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -375,141 +209,51 @@ class _$NormalCartItem extends NormalCartItem {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(product),
-      amount,
-      createdAt,
-      modifiedAt);
+  int get hashCode =>
+      Object.hash(runtimeType, product, amount, createdAt, modifiedAt);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$NormalCartItemCopyWith<_$NormalCartItem> get copyWith =>
-      __$$NormalCartItemCopyWithImpl<_$NormalCartItem>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() empty,
-    required TResult Function(
-            NormalProduct product,
-            int amount,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'created_at')
-            DateTime? createdAt,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'modified_at')
-            DateTime? modifiedAt)
-        normal,
-  }) {
-    return normal(product, amount, createdAt, modifiedAt);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? empty,
-    TResult? Function(
-            NormalProduct product,
-            int amount,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'created_at')
-            DateTime? createdAt,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'modified_at')
-            DateTime? modifiedAt)?
-        normal,
-  }) {
-    return normal?.call(product, amount, createdAt, modifiedAt);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? empty,
-    TResult Function(
-            NormalProduct product,
-            int amount,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'created_at')
-            DateTime? createdAt,
-            @DateTimeTimestampConverter()
-            @JsonKey(name: 'modified_at')
-            DateTime? modifiedAt)?
-        normal,
-    required TResult orElse(),
-  }) {
-    if (normal != null) {
-      return normal(product, amount, createdAt, modifiedAt);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(EmptyCartItem value) empty,
-    required TResult Function(NormalCartItem value) normal,
-  }) {
-    return normal(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EmptyCartItem value)? empty,
-    TResult? Function(NormalCartItem value)? normal,
-  }) {
-    return normal?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(EmptyCartItem value)? empty,
-    TResult Function(NormalCartItem value)? normal,
-    required TResult orElse(),
-  }) {
-    if (normal != null) {
-      return normal(this);
-    }
-    return orElse();
-  }
+  _$$_CartItemCopyWith<_$_CartItem> get copyWith =>
+      __$$_CartItemCopyWithImpl<_$_CartItem>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$NormalCartItemToJson(
+    return _$$_CartItemToJson(
       this,
     );
   }
 }
 
-abstract class NormalCartItem extends CartItem {
-  factory NormalCartItem(
-      {required final NormalProduct product,
+abstract class _CartItem extends CartItem {
+  factory _CartItem(
+      {required final Product product,
       final int amount,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'created_at')
       final DateTime? createdAt,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'modified_at')
-      final DateTime? modifiedAt}) = _$NormalCartItem;
-  NormalCartItem._() : super._();
+      final DateTime? modifiedAt}) = _$_CartItem;
+  _CartItem._() : super._();
 
-  factory NormalCartItem.fromJson(Map<String, dynamic> json) =
-      _$NormalCartItem.fromJson;
+  factory _CartItem.fromJson(Map<String, dynamic> json) = _$_CartItem.fromJson;
 
-// required String id,
-  NormalProduct get product;
+  @override
+  Product get product;
+  @override
   int get amount;
+  @override
   @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
   DateTime? get createdAt;
+  @override
   @DateTimeTimestampConverter()
   @JsonKey(name: 'modified_at')
   DateTime? get modifiedAt;
+  @override
   @JsonKey(ignore: true)
-  _$$NormalCartItemCopyWith<_$NormalCartItem> get copyWith =>
+  _$$_CartItemCopyWith<_$_CartItem> get copyWith =>
       throw _privateConstructorUsedError;
 }

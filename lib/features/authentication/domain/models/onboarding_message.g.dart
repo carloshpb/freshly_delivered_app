@@ -8,9 +8,9 @@ part of 'onboarding_message.dart';
 
 _$_OnboardingMessage _$$_OnboardingMessageFromJson(Map<String, dynamic> json) =>
     _$_OnboardingMessage(
-      imageSvgPath: json['imageSvgPath'] as String,
       title: json['title'] as String,
       message: json['message'] as String,
+      imageSvgPath: json['imageSvgPath'] as String,
       createdAt: const DateTimeTimestampConverter()
           .fromJson(json['created_at'] as Timestamp?),
       modifiedAt: const DateTimeTimestampConverter()
@@ -20,9 +20,9 @@ _$_OnboardingMessage _$$_OnboardingMessageFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_OnboardingMessageToJson(
         _$_OnboardingMessage instance) =>
     <String, dynamic>{
-      'imageSvgPath': instance.imageSvgPath,
       'title': instance.title,
       'message': instance.message,
+      'imageSvgPath': instance.imageSvgPath,
       'created_at':
           const DateTimeTimestampConverter().toJson(instance.createdAt),
       'modified_at':

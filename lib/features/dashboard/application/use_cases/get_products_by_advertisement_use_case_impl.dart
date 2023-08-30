@@ -30,8 +30,8 @@ class GetProductsByAdvertisementUseCaseImpl
   @override
   FutureOr<List<ProductDto>> execute(
       ({
-        AdvertisementDto advertisement,
-        ProductDto? lastProductObject,
+        NormalAdvertisementDto advertisement,
+        NormalProductDto? lastProductObject,
         int lastProductPosition
       }) request) async {
     var products =

@@ -10,13 +10,16 @@ part 'onboarding_message.g.dart';
 
 @freezed
 class OnboardingMessage with _$OnboardingMessage {
-  const OnboardingMessage._();
+  //const OnboardingMessage._();
 
   @JsonSerializable(explicitToJson: true)
+  @Assert('title != ""', 'title cannot be empty')
+  @Assert('message != ""', 'message cannot be empty')
+  @Assert('imageSvgPath != ""', 'imageSvgPath cannot be empty')
   const factory OnboardingMessage({
-    required String imageSvgPath,
     required String title,
     required String message,
+    required String imageSvgPath,
     @DateTimeTimestampConverter()
     @JsonKey(name: 'created_at')
     DateTime? createdAt,
