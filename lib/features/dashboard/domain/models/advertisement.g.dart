@@ -6,20 +6,8 @@ part of 'advertisement.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$EmptyAdvertisement _$$EmptyAdvertisementFromJson(Map<String, dynamic> json) =>
-    _$EmptyAdvertisement(
-      $type: json['runtimeType'] as String?,
-    );
-
-Map<String, dynamic> _$$EmptyAdvertisementToJson(
-        _$EmptyAdvertisement instance) =>
-    <String, dynamic>{
-      'runtimeType': instance.$type,
-    };
-
-_$NormalAdvertisement _$$NormalAdvertisementFromJson(
-        Map<String, dynamic> json) =>
-    _$NormalAdvertisement(
+_$_Advertisement _$$_AdvertisementFromJson(Map<String, dynamic> json) =>
+    _$_Advertisement(
       id: json['id'] as String,
       description: json['description'] as String,
       imagePath: json['image_path'] as String,
@@ -29,11 +17,9 @@ _$NormalAdvertisement _$$NormalAdvertisementFromJson(
           .fromJson(json['created_at'] as Timestamp?),
       modifiedAt: const DateTimeTimestampConverter()
           .fromJson(json['modified_at'] as Timestamp?),
-      $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$NormalAdvertisementToJson(
-        _$NormalAdvertisement instance) =>
+Map<String, dynamic> _$$_AdvertisementToJson(_$_Advertisement instance) =>
     <String, dynamic>{
       'id': instance.id,
       'description': instance.description,
@@ -44,5 +30,4 @@ Map<String, dynamic> _$$NormalAdvertisementToJson(
           const DateTimeTimestampConverter().toJson(instance.createdAt),
       'modified_at':
           const DateTimeTimestampConverter().toJson(instance.modifiedAt),
-      'runtimeType': instance.$type,
     };
