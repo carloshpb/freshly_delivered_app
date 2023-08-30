@@ -29,12 +29,12 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
 
   ProductsLocalRepositoryImpl(SQLiteApi sqliteApi) : _sqliteApi = sqliteApi;
 
+  /// Throws
   @override
   FutureOr<Product> findProductById(String id) async {
     var resultMap = await _sqliteApi.findById(Strings.productsLocalTable, id);
-    return (resultMap.isEmpty)
-        ? const Product.empty()
-        : Product.fromJson(resultMap);
+
+    return Product.fromJson(resultMap);
   }
 
   @override

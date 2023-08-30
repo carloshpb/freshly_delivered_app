@@ -43,7 +43,7 @@ final cartLocalRepositoryProvider = Provider.autoDispose<CartRepository>(
     final transformer =
         StreamTransformer<Map<String, Object?>, CartItem>.fromHandlers(
       handleData: (data, sink) async {
-        var modelAdv = CartItem.fromSqliteJson(data);
+        var modelAdv = CartItem.fromJson(data);
         sink.add(modelAdv);
       },
     );
@@ -91,23 +91,23 @@ class CartLocalRepositoryImpl implements CartRepository {
 
   @override
   Future<void> setProductToCart(CartItem item) async {
-    var itemJson = item.toFirestoreJson();
-    int result = await _sqliteApi.save(
+    var itemJson = item.toSimplifiedJson();
+    await _sqliteApi.save(
       Strings.userCartLocalTable,
       itemJson,
       itemJson.keys.toList(),
     );
 
-    // TODO :
+    // // TODO :
 
-    if (result > 0) {
-      // var lastCartItemList = await _cartItemsStreamController.stream.last;
-      // lastCartItemList[lastCartItemList.indexWhere(
-      //     (currentCartItem) => currentCartItem.id == item.id)] = item;
-      // _cartItemsStreamController.add(lastCartItemList);
-    } else {
-      throw ObjectAlreadyAddedException("SQLite");
-    }
+    // if (result > 0) {
+    //   // var lastCartItemList = await _cartItemsStreamController.stream.last;
+    //   // lastCartItemList[lastCartItemList.indexWhere(
+    //   //     (currentCartItem) => currentCartItem.id == item.id)] = item;
+    //   // _cartItemsStreamController.add(lastCartItemList);
+    // } else {
+    //   throw ObjectAlreadyAddedException("SQLite");
+    // }
 
     // var resultCartItem =
     //     await _sqliteApi.findById(Strings.userCartLocalTable, item.productId);
@@ -168,16 +168,10 @@ class CartLocalRepositoryImpl implements CartRepository {
 
   @override
   Future<void> removeProductAtCart(CartItem item) async {
-    switch (item) {
-      case NormalCartItem():
-        var result = await _sqliteApi.deleteById(
-            Strings.userCartLocalTable, item.product.id);
-        if (result == 0) {
-          throw const ObjectNotDeletedException();
-        }
-        break;
-      default:
-        return;
+    var result = await _sqliteApi.deleteById(
+        Strings.userCartLocalTable, item.product.id);
+    if (result == 0) {
+      throw const ObjectNotDeletedException();
     }
   }
 
