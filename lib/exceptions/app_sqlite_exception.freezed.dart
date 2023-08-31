@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'app_api_exception.dart';
+part of 'app_sqlite_exception.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$AppApiException {
+mixin _$AppSqliteException {
   String get table => throw _privateConstructorUsedError;
   String get database => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -90,23 +90,23 @@ mixin _$AppApiException {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $AppApiExceptionCopyWith<AppApiException> get copyWith =>
+  $AppSqliteExceptionCopyWith<AppSqliteException> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AppApiExceptionCopyWith<$Res> {
-  factory $AppApiExceptionCopyWith(
-          AppApiException value, $Res Function(AppApiException) then) =
-      _$AppApiExceptionCopyWithImpl<$Res, AppApiException>;
+abstract class $AppSqliteExceptionCopyWith<$Res> {
+  factory $AppSqliteExceptionCopyWith(
+          AppSqliteException value, $Res Function(AppSqliteException) then) =
+      _$AppSqliteExceptionCopyWithImpl<$Res, AppSqliteException>;
   @useResult
   $Res call({String table, String database});
 }
 
 /// @nodoc
-class _$AppApiExceptionCopyWithImpl<$Res, $Val extends AppApiException>
-    implements $AppApiExceptionCopyWith<$Res> {
-  _$AppApiExceptionCopyWithImpl(this._value, this._then);
+class _$AppSqliteExceptionCopyWithImpl<$Res, $Val extends AppSqliteException>
+    implements $AppSqliteExceptionCopyWith<$Res> {
+  _$AppSqliteExceptionCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -134,7 +134,7 @@ class _$AppApiExceptionCopyWithImpl<$Res, $Val extends AppApiException>
 
 /// @nodoc
 abstract class _$$DataNotInsertedInDbExceptionCopyWith<$Res>
-    implements $AppApiExceptionCopyWith<$Res> {
+    implements $AppSqliteExceptionCopyWith<$Res> {
   factory _$$DataNotInsertedInDbExceptionCopyWith(
           _$DataNotInsertedInDbException value,
           $Res Function(_$DataNotInsertedInDbException) then) =
@@ -146,7 +146,8 @@ abstract class _$$DataNotInsertedInDbExceptionCopyWith<$Res>
 
 /// @nodoc
 class __$$DataNotInsertedInDbExceptionCopyWithImpl<$Res>
-    extends _$AppApiExceptionCopyWithImpl<$Res, _$DataNotInsertedInDbException>
+    extends _$AppSqliteExceptionCopyWithImpl<$Res,
+        _$DataNotInsertedInDbException>
     implements _$$DataNotInsertedInDbExceptionCopyWith<$Res> {
   __$$DataNotInsertedInDbExceptionCopyWithImpl(
       _$DataNotInsertedInDbException _value,
@@ -192,7 +193,7 @@ class _$DataNotInsertedInDbException extends DataNotInsertedInDbException {
 
   @override
   String toString() {
-    return 'AppApiException.dataNotInserted(object: $object, table: $table, database: $database)';
+    return 'AppSqliteException.dataNotInserted(object: $object, table: $table, database: $database)';
   }
 
   @override
@@ -312,7 +313,7 @@ class _$DataNotInsertedInDbException extends DataNotInsertedInDbException {
   }
 }
 
-abstract class DataNotInsertedInDbException extends AppApiException {
+abstract class DataNotInsertedInDbException extends AppSqliteException {
   const factory DataNotInsertedInDbException(
           final dynamic object, final String table, final String database) =
       _$DataNotInsertedInDbException;
@@ -331,7 +332,7 @@ abstract class DataNotInsertedInDbException extends AppApiException {
 
 /// @nodoc
 abstract class _$$DataNotDeletedInDbExceptionCopyWith<$Res>
-    implements $AppApiExceptionCopyWith<$Res> {
+    implements $AppSqliteExceptionCopyWith<$Res> {
   factory _$$DataNotDeletedInDbExceptionCopyWith(
           _$DataNotDeletedInDbException value,
           $Res Function(_$DataNotDeletedInDbException) then) =
@@ -343,7 +344,8 @@ abstract class _$$DataNotDeletedInDbExceptionCopyWith<$Res>
 
 /// @nodoc
 class __$$DataNotDeletedInDbExceptionCopyWithImpl<$Res>
-    extends _$AppApiExceptionCopyWithImpl<$Res, _$DataNotDeletedInDbException>
+    extends _$AppSqliteExceptionCopyWithImpl<$Res,
+        _$DataNotDeletedInDbException>
     implements _$$DataNotDeletedInDbExceptionCopyWith<$Res> {
   __$$DataNotDeletedInDbExceptionCopyWithImpl(
       _$DataNotDeletedInDbException _value,
@@ -389,7 +391,7 @@ class _$DataNotDeletedInDbException extends DataNotDeletedInDbException {
 
   @override
   String toString() {
-    return 'AppApiException.dataNotDeleted(object: $object, table: $table, database: $database)';
+    return 'AppSqliteException.dataNotDeleted(object: $object, table: $table, database: $database)';
   }
 
   @override
@@ -509,7 +511,7 @@ class _$DataNotDeletedInDbException extends DataNotDeletedInDbException {
   }
 }
 
-abstract class DataNotDeletedInDbException extends AppApiException {
+abstract class DataNotDeletedInDbException extends AppSqliteException {
   const factory DataNotDeletedInDbException(
           final dynamic object, final String table, final String database) =
       _$DataNotDeletedInDbException;
@@ -528,7 +530,7 @@ abstract class DataNotDeletedInDbException extends AppApiException {
 
 /// @nodoc
 abstract class _$$DataNotFoundInDbExceptionCopyWith<$Res>
-    implements $AppApiExceptionCopyWith<$Res> {
+    implements $AppSqliteExceptionCopyWith<$Res> {
   factory _$$DataNotFoundInDbExceptionCopyWith(
           _$DataNotFoundInDbException value,
           $Res Function(_$DataNotFoundInDbException) then) =
@@ -540,7 +542,7 @@ abstract class _$$DataNotFoundInDbExceptionCopyWith<$Res>
 
 /// @nodoc
 class __$$DataNotFoundInDbExceptionCopyWithImpl<$Res>
-    extends _$AppApiExceptionCopyWithImpl<$Res, _$DataNotFoundInDbException>
+    extends _$AppSqliteExceptionCopyWithImpl<$Res, _$DataNotFoundInDbException>
     implements _$$DataNotFoundInDbExceptionCopyWith<$Res> {
   __$$DataNotFoundInDbExceptionCopyWithImpl(_$DataNotFoundInDbException _value,
       $Res Function(_$DataNotFoundInDbException) _then)
@@ -585,7 +587,7 @@ class _$DataNotFoundInDbException extends DataNotFoundInDbException {
 
   @override
   String toString() {
-    return 'AppApiException.dataNotFound(object: $object, table: $table, database: $database)';
+    return 'AppSqliteException.dataNotFound(object: $object, table: $table, database: $database)';
   }
 
   @override
@@ -705,7 +707,7 @@ class _$DataNotFoundInDbException extends DataNotFoundInDbException {
   }
 }
 
-abstract class DataNotFoundInDbException extends AppApiException {
+abstract class DataNotFoundInDbException extends AppSqliteException {
   const factory DataNotFoundInDbException(
           final dynamic object, final String table, final String database) =
       _$DataNotFoundInDbException;
@@ -724,7 +726,7 @@ abstract class DataNotFoundInDbException extends AppApiException {
 
 /// @nodoc
 abstract class _$$DataNotUpdatedInDbExceptionCopyWith<$Res>
-    implements $AppApiExceptionCopyWith<$Res> {
+    implements $AppSqliteExceptionCopyWith<$Res> {
   factory _$$DataNotUpdatedInDbExceptionCopyWith(
           _$DataNotUpdatedInDbException value,
           $Res Function(_$DataNotUpdatedInDbException) then) =
@@ -736,7 +738,8 @@ abstract class _$$DataNotUpdatedInDbExceptionCopyWith<$Res>
 
 /// @nodoc
 class __$$DataNotUpdatedInDbExceptionCopyWithImpl<$Res>
-    extends _$AppApiExceptionCopyWithImpl<$Res, _$DataNotUpdatedInDbException>
+    extends _$AppSqliteExceptionCopyWithImpl<$Res,
+        _$DataNotUpdatedInDbException>
     implements _$$DataNotUpdatedInDbExceptionCopyWith<$Res> {
   __$$DataNotUpdatedInDbExceptionCopyWithImpl(
       _$DataNotUpdatedInDbException _value,
@@ -782,7 +785,7 @@ class _$DataNotUpdatedInDbException extends DataNotUpdatedInDbException {
 
   @override
   String toString() {
-    return 'AppApiException.dataNotUpdated(object: $object, table: $table, database: $database)';
+    return 'AppSqliteException.dataNotUpdated(object: $object, table: $table, database: $database)';
   }
 
   @override
@@ -902,7 +905,7 @@ class _$DataNotUpdatedInDbException extends DataNotUpdatedInDbException {
   }
 }
 
-abstract class DataNotUpdatedInDbException extends AppApiException {
+abstract class DataNotUpdatedInDbException extends AppSqliteException {
   const factory DataNotUpdatedInDbException(
           final dynamic object, final String table, final String database) =
       _$DataNotUpdatedInDbException;
@@ -921,7 +924,7 @@ abstract class DataNotUpdatedInDbException extends AppApiException {
 
 /// @nodoc
 abstract class _$$IdNotFoundExceptionCopyWith<$Res>
-    implements $AppApiExceptionCopyWith<$Res> {
+    implements $AppSqliteExceptionCopyWith<$Res> {
   factory _$$IdNotFoundExceptionCopyWith(_$IdNotFoundException value,
           $Res Function(_$IdNotFoundException) then) =
       __$$IdNotFoundExceptionCopyWithImpl<$Res>;
@@ -932,7 +935,7 @@ abstract class _$$IdNotFoundExceptionCopyWith<$Res>
 
 /// @nodoc
 class __$$IdNotFoundExceptionCopyWithImpl<$Res>
-    extends _$AppApiExceptionCopyWithImpl<$Res, _$IdNotFoundException>
+    extends _$AppSqliteExceptionCopyWithImpl<$Res, _$IdNotFoundException>
     implements _$$IdNotFoundExceptionCopyWith<$Res> {
   __$$IdNotFoundExceptionCopyWithImpl(
       _$IdNotFoundException _value, $Res Function(_$IdNotFoundException) _then)
@@ -976,7 +979,7 @@ class _$IdNotFoundException extends IdNotFoundException {
 
   @override
   String toString() {
-    return 'AppApiException.idNotFound(id: $id, table: $table, database: $database)';
+    return 'AppSqliteException.idNotFound(id: $id, table: $table, database: $database)';
   }
 
   @override
@@ -1095,7 +1098,7 @@ class _$IdNotFoundException extends IdNotFoundException {
   }
 }
 
-abstract class IdNotFoundException extends AppApiException {
+abstract class IdNotFoundException extends AppSqliteException {
   const factory IdNotFoundException(
           final String id, final String table, final String database) =
       _$IdNotFoundException;

@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../../../constants/strings.dart';
-import '../../../../../../exceptions/app_api_exception.dart';
+import '../../../../../../exceptions/app_sqlite_exception.dart';
 import '../sqlite_api.dart';
 
 Future<void> sqliteOnCreate(Database db, int version) async {

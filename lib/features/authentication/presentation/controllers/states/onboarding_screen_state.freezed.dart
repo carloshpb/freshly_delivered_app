@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$OnboardingScreenState {
   int get pagePosition => throw _privateConstructorUsedError;
-  List<OnboardingMessageDTO> get messages => throw _privateConstructorUsedError;
+  List<OnboardingMessageDto> get messages => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OnboardingScreenStateCopyWith<OnboardingScreenState> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $OnboardingScreenStateCopyWith<$Res> {
           $Res Function(OnboardingScreenState) then) =
       _$OnboardingScreenStateCopyWithImpl<$Res, OnboardingScreenState>;
   @useResult
-  $Res call({int pagePosition, List<OnboardingMessageDTO> messages});
+  $Res call({int pagePosition, List<OnboardingMessageDto> messages});
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$OnboardingScreenStateCopyWithImpl<$Res,
       messages: null == messages
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
-              as List<OnboardingMessageDTO>,
+              as List<OnboardingMessageDto>,
     ) as $Val);
   }
 }
@@ -71,7 +71,7 @@ abstract class _$$_OnboardingScreenStateCopyWith<$Res>
       __$$_OnboardingScreenStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int pagePosition, List<OnboardingMessageDTO> messages});
+  $Res call({int pagePosition, List<OnboardingMessageDto> messages});
 }
 
 /// @nodoc
@@ -96,7 +96,7 @@ class __$$_OnboardingScreenStateCopyWithImpl<$Res>
       messages: null == messages
           ? _value._messages
           : messages // ignore: cast_nullable_to_non_nullable
-              as List<OnboardingMessageDTO>,
+              as List<OnboardingMessageDto>,
     ));
   }
 }
@@ -106,14 +106,14 @@ class __$$_OnboardingScreenStateCopyWithImpl<$Res>
 class _$_OnboardingScreenState implements _OnboardingScreenState {
   const _$_OnboardingScreenState(
       {required this.pagePosition,
-      required final List<OnboardingMessageDTO> messages})
+      required final List<OnboardingMessageDto> messages})
       : _messages = messages;
 
   @override
   final int pagePosition;
-  final List<OnboardingMessageDTO> _messages;
+  final List<OnboardingMessageDto> _messages;
   @override
-  List<OnboardingMessageDTO> get messages {
+  List<OnboardingMessageDto> get messages {
     if (_messages is EqualUnmodifiableListView) return _messages;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_messages);
@@ -149,13 +149,13 @@ class _$_OnboardingScreenState implements _OnboardingScreenState {
 abstract class _OnboardingScreenState implements OnboardingScreenState {
   const factory _OnboardingScreenState(
           {required final int pagePosition,
-          required final List<OnboardingMessageDTO> messages}) =
+          required final List<OnboardingMessageDto> messages}) =
       _$_OnboardingScreenState;
 
   @override
   int get pagePosition;
   @override
-  List<OnboardingMessageDTO> get messages;
+  List<OnboardingMessageDto> get messages;
   @override
   @JsonKey(ignore: true)
   _$$_OnboardingScreenStateCopyWith<_$_OnboardingScreenState> get copyWith =>
