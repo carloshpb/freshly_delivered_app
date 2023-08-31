@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../../../../constants/strings.dart';
+import '../../../../../../exceptions/app_sqlite_exception.dart';
 import '../firestore_api.dart';
 
 final firestoreApiProvider = Provider<FirestoreApi>(
@@ -26,13 +28,20 @@ class FirestoreApiImpl implements FirestoreApi {
     try {
       var productsJsonList = [];
       var querySnapshot = await collectionRef.get();
+      if (querySnapshot.docs.isEmpty) {
+        throw DataNotFoundInDbException(
+          '',
+          collection,
+          Strings.firestore,
+        );
+      }
       for (var docSnapshot in querySnapshot.docs) {
         var map = docSnapshot.data();
         map["id"] = docSnapshot.id;
         productsJsonList.add(map);
       }
       return productsJsonList;
-    } on Exception {
+    } on FirebaseException {
       rethrow;
     }
   }
@@ -50,6 +59,13 @@ class FirestoreApiImpl implements FirestoreApi {
           .startAfter((lastObject == null) ? [] : [lastObject])
           .limit(limit)
           .get();
+      if (querySnapshot.docs.isEmpty) {
+        throw DataNotFoundInDbException(
+          '',
+          collection,
+          Strings.firestore,
+        );
+      }
       for (var docSnapshot in querySnapshot.docs) {
         var map = docSnapshot.data();
         map["id"] = docSnapshot.id;
@@ -68,8 +84,7 @@ class FirestoreApiImpl implements FirestoreApi {
       var docSnapshot = await collectionRef.doc(id).get();
       var productMap = docSnapshot.data();
       if (productMap == null || productMap.isEmpty) {
-        // TODO : Treat it in above call
-        return {};
+        throw IdNotFoundException(id, collection, Strings.firestore);
       }
       productMap["id"] = docSnapshot.id;
       return productMap;
@@ -81,40 +96,37 @@ class FirestoreApiImpl implements FirestoreApi {
   @override
   Future<dynamic> add(String collection, dynamic entity) async {
     var collectionRef = _firestore.collection(collection);
-    try {
-      if (entity is List) {
-        for (int index = 0; index < entity.length; index++) {
-          var docSnapshot = await collectionRef.add(
-            entity[index]
-              ..putIfAbsent(
-                "created_at",
-                () => FieldValue.serverTimestamp(),
-              )
-              ..putIfAbsent(
-                "modified_at",
-                () => entity[index]["created_at"],
-              ),
-          );
-          entity[index]["id"] = docSnapshot.id;
-        }
-        return entity;
-      } else {
-        var docSnapshot = await collectionRef.add(
-          (entity as Map<String, Object?>)
+
+    if (entity is List) {
+      for (int index = 0; index < entity.length; index++) {
+        var docRef = await collectionRef.add(
+          entity[index]
             ..putIfAbsent(
               "created_at",
               () => FieldValue.serverTimestamp(),
             )
             ..putIfAbsent(
               "modified_at",
-              () => entity["created_at"],
+              () => entity[index]["created_at"],
             ),
         );
-        entity["id"] = docSnapshot.id;
-        return entity;
+        entity[index]["id"] = docRef.id;
       }
-    } on Exception {
-      rethrow;
+      return entity;
+    } else {
+      var docSnapshot = await collectionRef.add(
+        (entity as Map<String, Object?>)
+          ..putIfAbsent(
+            "created_at",
+            () => FieldValue.serverTimestamp(),
+          )
+          ..putIfAbsent(
+            "modified_at",
+            () => entity["created_at"],
+          ),
+      );
+      entity["id"] = docSnapshot.id;
+      return entity;
     }
   }
 
