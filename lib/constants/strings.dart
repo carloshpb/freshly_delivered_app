@@ -59,6 +59,7 @@ class Strings {
   static const userCartLocalTable = "user_cart";
 
   /// Firestore tables
+  static const firestore = "Firestore";
   static const appUserRemoteTable = "user_personal_data";
   static const productsRemoteTable = "products";
   static const advertisementsRemoteTable = "advertisements";
