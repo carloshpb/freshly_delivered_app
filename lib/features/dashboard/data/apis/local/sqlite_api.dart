@@ -32,6 +32,8 @@ abstract class SQLiteApi {
   //   dynamic attribute,
   //   String attributeName,
   // );
+  Future<int> insertOrReplace(
+      String table, dynamic entity, List<String> columns);
   Future<int> update(
     String table,
     List<({String attributeName, dynamic value})> setAttributes,

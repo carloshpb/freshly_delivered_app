@@ -153,7 +153,7 @@ class SQLiteApiImpl implements SQLiteApi {
 
     result = _verifyExpirationTime(result, expirationLimit);
 
-    if (result.isEmpty) {
+    if (result.isEmpty || (result[0]["id"] as String).contains("expired")) {
       throw IdNotFoundException(id, table, Strings.sqlite);
     }
 
@@ -390,5 +390,50 @@ class SQLiteApiImpl implements SQLiteApi {
       }).toList();
     }
     return result;
+  }
+
+  @override
+  Future<int> insertOrReplace(
+      String table, entity, List<String> columns) async {
+    columns.add('expiration');
+    var insert = "INSERT OR REPLACE INTO $table(${columns.join(", ")}) VALUES";
+
+    if (entity is List) {
+      var batch = _database.batch();
+      for (var index = 0; index < entity.length; index++) {
+        _timestampToMillisecondsSinceEpoch(entity[index]);
+        entity[index]['expiration'] = DateTime.now().millisecondsSinceEpoch;
+        batch.rawInsert(
+            "$insert (${(entity[index] as Map<String, Object?>).entries.join(",")})");
+      }
+      var resultList = await batch.commit();
+      if (resultList.length != entity.length) {
+        var notAddedIds = entity
+            .where((element) => !resultList.contains(element["id"]))
+            .map((e) => e["id"])
+            .toList();
+        throw DataNotInsertedInDbException(
+          notAddedIds,
+          table,
+          Strings.sqlite,
+        );
+      }
+      return (resultList.length == entity.length) ? resultList.length : 0;
+    } else {
+      _timestampToMillisecondsSinceEpoch(entity);
+      entity['expiration'] = DateTime.now().millisecondsSinceEpoch;
+      var result = await _database.rawInsert(
+          "$insert (${(entity as Map<String, Object?>).entries.join(",")})");
+
+      if (result == 0) {
+        throw DataNotInsertedInDbException(
+          entity["id"],
+          table,
+          Strings.sqlite,
+        );
+      }
+
+      return result;
+    }
   }
 }

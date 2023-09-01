@@ -29,13 +29,13 @@ class FirestoreApiImpl implements FirestoreApi {
     try {
       var productsJsonList = [];
       var querySnapshot = await collectionRef.get();
-      if (querySnapshot.docs.isEmpty) {
-        throw DataNotFoundInDbException(
-          '',
-          collection,
-          Strings.firestore,
-        );
-      }
+      // if (querySnapshot.docs.isEmpty) {
+      //   throw DataNotFoundInDbException(
+      //     '',
+      //     collection,
+      //     Strings.firestore,
+      //   );
+      // }
       for (var docSnapshot in querySnapshot.docs) {
         var map = docSnapshot.data();
         map["id"] = docSnapshot.id;
@@ -60,13 +60,9 @@ class FirestoreApiImpl implements FirestoreApi {
           .startAfter((lastObject == null) ? [] : [lastObject])
           .limit(limit)
           .get();
-      if (querySnapshot.docs.isEmpty) {
-        throw DataNotFoundInDbException(
-          '',
-          collection,
-          Strings.firestore,
-        );
-      }
+      // if (querySnapshot.docs.isEmpty) {
+      //   throw NotFoundException("Data of ($collection) not found");
+      // }
       for (var docSnapshot in querySnapshot.docs) {
         var map = docSnapshot.data();
         map["id"] = docSnapshot.id;
@@ -85,7 +81,7 @@ class FirestoreApiImpl implements FirestoreApi {
       var docSnapshot = await collectionRef.doc(id).get();
       var productMap = docSnapshot.data();
       if (productMap == null || productMap.isEmpty) {
-        throw IdNotFoundException(id, collection, Strings.firestore);
+        throw NotFoundException("Data of id $id not found");
       }
       productMap["id"] = docSnapshot.id;
       return productMap;
