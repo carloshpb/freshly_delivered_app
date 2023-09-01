@@ -5,16 +5,25 @@ abstract class SQLiteApi {
     String table,
     int limit,
     int offset,
+    int expirationLimit,
   );
-  Future<List<Map<String, Object?>>> findAll(String table);
-  Future<Map<String, Object?>> findById(String table, String id);
+  Future<List<Map<String, Object?>>> findAll(
+    String table,
+    int expirationLimit,
+  );
+  Future<Map<String, Object?>> findById(
+    String table,
+    String id,
+    int expirationLimit,
+  );
   Future<List<Map<String, Object?>>> findByAttributeDesc(
     String table,
     dynamic attribute,
     String attributeName,
     int limit,
     String orderBy,
-    int offset, {
+    int offset,
+    int expirationLimit, {
     bool descending = false,
   });
   Future<int> save(String table, dynamic entity, List<String> columns);
@@ -29,6 +38,9 @@ abstract class SQLiteApi {
     ({String attributeName, dynamic equalValue}) whereSingleCondition,
   );
   Future<void> clearDatabase();
-  Future<List<Map<String, Object?>>> customQuery(String query);
+  Future<List<Map<String, Object?>>> customQuery(
+    String query,
+    int expirationLimit,
+  );
   Future<int> deleteById(String table, String id);
 }
