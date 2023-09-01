@@ -38,7 +38,8 @@ sealed class AppFirestoreException
       UnavailableException;
   const factory AppFirestoreException.unimplemented(String msg) =
       UnimplementedException;
-  const factory AppFirestoreException.unknown(String msg) = UnknownException;
+  const factory AppFirestoreException.unknown(String msg, String code) =
+      UnknownException;
 
   factory AppFirestoreException.fromFirebaseException(
       FirebaseException firebaseException) {
@@ -83,7 +84,8 @@ sealed class AppFirestoreException
       case "unimplemented":
         return AppFirestoreException.unimplemented(firebaseException.message!);
       default:
-        return AppFirestoreException.unknown(firebaseException.message!);
+        return AppFirestoreException.unknown(
+            firebaseException.message!, firebaseException.code);
     }
   }
 

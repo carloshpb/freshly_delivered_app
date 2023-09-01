@@ -34,7 +34,7 @@ mixin _$AppFirestoreException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,7 +54,7 @@ mixin _$AppFirestoreException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -74,7 +74,7 @@ mixin _$AppFirestoreException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -269,7 +269,7 @@ class _$OperationAbortedException extends OperationAbortedException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return operationAborted(msg);
   }
@@ -292,7 +292,7 @@ class _$OperationAbortedException extends OperationAbortedException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return operationAborted?.call(msg);
   }
@@ -315,7 +315,7 @@ class _$OperationAbortedException extends OperationAbortedException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (operationAborted != null) {
@@ -502,7 +502,7 @@ class _$DocumentAlreadyExistsException extends DocumentAlreadyExistsException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return documentAlreadyExists(msg);
   }
@@ -525,7 +525,7 @@ class _$DocumentAlreadyExistsException extends DocumentAlreadyExistsException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return documentAlreadyExists?.call(msg);
   }
@@ -548,7 +548,7 @@ class _$DocumentAlreadyExistsException extends DocumentAlreadyExistsException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (documentAlreadyExists != null) {
@@ -735,7 +735,7 @@ class _$OperationCancelledException extends OperationCancelledException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return operationCancelled(msg);
   }
@@ -758,7 +758,7 @@ class _$OperationCancelledException extends OperationCancelledException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return operationCancelled?.call(msg);
   }
@@ -781,7 +781,7 @@ class _$OperationCancelledException extends OperationCancelledException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (operationCancelled != null) {
@@ -964,7 +964,7 @@ class _$DataLossException extends DataLossException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return dataLoss(msg);
   }
@@ -987,7 +987,7 @@ class _$DataLossException extends DataLossException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return dataLoss?.call(msg);
   }
@@ -1010,7 +1010,7 @@ class _$DataLossException extends DataLossException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (dataLoss != null) {
@@ -1195,7 +1195,7 @@ class _$DeadlineExceededException extends DeadlineExceededException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return deadlineExceeded(msg);
   }
@@ -1218,7 +1218,7 @@ class _$DeadlineExceededException extends DeadlineExceededException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return deadlineExceeded?.call(msg);
   }
@@ -1241,7 +1241,7 @@ class _$DeadlineExceededException extends DeadlineExceededException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (deadlineExceeded != null) {
@@ -1428,7 +1428,7 @@ class _$FailedPreconditionException extends FailedPreconditionException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return failedPrecondition(msg);
   }
@@ -1451,7 +1451,7 @@ class _$FailedPreconditionException extends FailedPreconditionException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return failedPrecondition?.call(msg);
   }
@@ -1474,7 +1474,7 @@ class _$FailedPreconditionException extends FailedPreconditionException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (failedPrecondition != null) {
@@ -1657,7 +1657,7 @@ class _$InternalException extends InternalException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return internal(msg);
   }
@@ -1680,7 +1680,7 @@ class _$InternalException extends InternalException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return internal?.call(msg);
   }
@@ -1703,7 +1703,7 @@ class _$InternalException extends InternalException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (internal != null) {
@@ -1888,7 +1888,7 @@ class _$InvalidArgumentException extends InvalidArgumentException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return invalidArgument(msg);
   }
@@ -1911,7 +1911,7 @@ class _$InvalidArgumentException extends InvalidArgumentException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return invalidArgument?.call(msg);
   }
@@ -1934,7 +1934,7 @@ class _$InvalidArgumentException extends InvalidArgumentException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (invalidArgument != null) {
@@ -2117,7 +2117,7 @@ class _$NotFoundException extends NotFoundException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return notFound(msg);
   }
@@ -2140,7 +2140,7 @@ class _$NotFoundException extends NotFoundException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return notFound?.call(msg);
   }
@@ -2163,7 +2163,7 @@ class _$NotFoundException extends NotFoundException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (notFound != null) {
@@ -2346,7 +2346,7 @@ class _$OutOfRangeException extends OutOfRangeException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return outOfRange(msg);
   }
@@ -2369,7 +2369,7 @@ class _$OutOfRangeException extends OutOfRangeException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return outOfRange?.call(msg);
   }
@@ -2392,7 +2392,7 @@ class _$OutOfRangeException extends OutOfRangeException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (outOfRange != null) {
@@ -2577,7 +2577,7 @@ class _$PermissionDeniedException extends PermissionDeniedException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return permissionDenied(msg);
   }
@@ -2600,7 +2600,7 @@ class _$PermissionDeniedException extends PermissionDeniedException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return permissionDenied?.call(msg);
   }
@@ -2623,7 +2623,7 @@ class _$PermissionDeniedException extends PermissionDeniedException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (permissionDenied != null) {
@@ -2810,7 +2810,7 @@ class _$ResourceExhaustedException extends ResourceExhaustedException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return resourceExhausted(msg);
   }
@@ -2833,7 +2833,7 @@ class _$ResourceExhaustedException extends ResourceExhaustedException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return resourceExhausted?.call(msg);
   }
@@ -2856,7 +2856,7 @@ class _$ResourceExhaustedException extends ResourceExhaustedException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (resourceExhausted != null) {
@@ -3042,7 +3042,7 @@ class _$UnauthenticatedException extends UnauthenticatedException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return unauthenticated(msg);
   }
@@ -3065,7 +3065,7 @@ class _$UnauthenticatedException extends UnauthenticatedException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return unauthenticated?.call(msg);
   }
@@ -3088,7 +3088,7 @@ class _$UnauthenticatedException extends UnauthenticatedException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -3272,7 +3272,7 @@ class _$UnavailableException extends UnavailableException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return unavailable(msg);
   }
@@ -3295,7 +3295,7 @@ class _$UnavailableException extends UnavailableException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return unavailable?.call(msg);
   }
@@ -3318,7 +3318,7 @@ class _$UnavailableException extends UnavailableException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (unavailable != null) {
@@ -3501,7 +3501,7 @@ class _$UnimplementedException extends UnimplementedException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
     return unimplemented(msg);
   }
@@ -3524,7 +3524,7 @@ class _$UnimplementedException extends UnimplementedException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
     return unimplemented?.call(msg);
   }
@@ -3547,7 +3547,7 @@ class _$UnimplementedException extends UnimplementedException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (unimplemented != null) {
@@ -3657,7 +3657,7 @@ abstract class _$$UnknownExceptionCopyWith<$Res>
       __$$UnknownExceptionCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String msg});
+  $Res call({String msg, String code});
 }
 
 /// @nodoc
@@ -3672,11 +3672,16 @@ class __$$UnknownExceptionCopyWithImpl<$Res>
   @override
   $Res call({
     Object? msg = null,
+    Object? code = null,
   }) {
     return _then(_$UnknownException(
       null == msg
           ? _value.msg
           : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -3685,14 +3690,16 @@ class __$$UnknownExceptionCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UnknownException extends UnknownException {
-  const _$UnknownException(this.msg) : super._();
+  const _$UnknownException(this.msg, this.code) : super._();
 
   @override
   final String msg;
+  @override
+  final String code;
 
   @override
   String toString() {
-    return 'AppFirestoreException.unknown(msg: $msg)';
+    return 'AppFirestoreException.unknown(msg: $msg, code: $code)';
   }
 
   @override
@@ -3700,11 +3707,12 @@ class _$UnknownException extends UnknownException {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UnknownException &&
-            (identical(other.msg, msg) || other.msg == msg));
+            (identical(other.msg, msg) || other.msg == msg) &&
+            (identical(other.code, code) || other.code == code));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, msg);
+  int get hashCode => Object.hash(runtimeType, msg, code);
 
   @JsonKey(ignore: true)
   @override
@@ -3730,9 +3738,9 @@ class _$UnknownException extends UnknownException {
     required TResult Function(String msg) unauthenticated,
     required TResult Function(String msg) unavailable,
     required TResult Function(String msg) unimplemented,
-    required TResult Function(String msg) unknown,
+    required TResult Function(String msg, String code) unknown,
   }) {
-    return unknown(msg);
+    return unknown(msg, code);
   }
 
   @override
@@ -3753,9 +3761,9 @@ class _$UnknownException extends UnknownException {
     TResult? Function(String msg)? unauthenticated,
     TResult? Function(String msg)? unavailable,
     TResult? Function(String msg)? unimplemented,
-    TResult? Function(String msg)? unknown,
+    TResult? Function(String msg, String code)? unknown,
   }) {
-    return unknown?.call(msg);
+    return unknown?.call(msg, code);
   }
 
   @override
@@ -3776,11 +3784,11 @@ class _$UnknownException extends UnknownException {
     TResult Function(String msg)? unauthenticated,
     TResult Function(String msg)? unavailable,
     TResult Function(String msg)? unimplemented,
-    TResult Function(String msg)? unknown,
+    TResult Function(String msg, String code)? unknown,
     required TResult orElse(),
   }) {
     if (unknown != null) {
-      return unknown(msg);
+      return unknown(msg, code);
     }
     return orElse();
   }
@@ -3866,11 +3874,13 @@ class _$UnknownException extends UnknownException {
 }
 
 abstract class UnknownException extends AppFirestoreException {
-  const factory UnknownException(final String msg) = _$UnknownException;
+  const factory UnknownException(final String msg, final String code) =
+      _$UnknownException;
   const UnknownException._() : super._();
 
   @override
   String get msg;
+  String get code;
   @override
   @JsonKey(ignore: true)
   _$$UnknownExceptionCopyWith<_$UnknownException> get copyWith =>

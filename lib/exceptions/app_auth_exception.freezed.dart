@@ -16,67 +16,68 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AppAuthException {
+  String get msg => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -162,6 +163,10 @@ mixin _$AppAuthException {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $AppAuthExceptionCopyWith<AppAuthException> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -169,6 +174,8 @@ abstract class $AppAuthExceptionCopyWith<$Res> {
   factory $AppAuthExceptionCopyWith(
           AppAuthException value, $Res Function(AppAuthException) then) =
       _$AppAuthExceptionCopyWithImpl<$Res, AppAuthException>;
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -180,13 +187,30 @@ class _$AppAuthExceptionCopyWithImpl<$Res, $Val extends AppAuthException>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_value.copyWith(
+      msg: null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$InvalidEmailExceptionCopyWith<$Res> {
+abstract class _$$InvalidEmailExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$InvalidEmailExceptionCopyWith(_$InvalidEmailException value,
           $Res Function(_$InvalidEmailException) then) =
       __$$InvalidEmailExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -196,94 +220,124 @@ class __$$InvalidEmailExceptionCopyWithImpl<$Res>
   __$$InvalidEmailExceptionCopyWithImpl(_$InvalidEmailException _value,
       $Res Function(_$InvalidEmailException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$InvalidEmailException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$InvalidEmailException extends InvalidEmailException {
-  const _$InvalidEmailException() : super._();
+  const _$InvalidEmailException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.invalidEmail(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InvalidEmailException);
+        (other.runtimeType == runtimeType &&
+            other is _$InvalidEmailException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InvalidEmailExceptionCopyWith<_$InvalidEmailException> get copyWith =>
+      __$$InvalidEmailExceptionCopyWithImpl<_$InvalidEmailException>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return invalidEmail();
+    return invalidEmail(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return invalidEmail?.call();
+    return invalidEmail?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (invalidEmail != null) {
-      return invalidEmail();
+      return invalidEmail(msg);
     }
     return orElse();
   }
@@ -384,16 +438,28 @@ class _$InvalidEmailException extends InvalidEmailException {
 }
 
 abstract class InvalidEmailException extends AppAuthException {
-  const factory InvalidEmailException() = _$InvalidEmailException;
+  const factory InvalidEmailException(final String msg) =
+      _$InvalidEmailException;
   const InvalidEmailException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$InvalidEmailExceptionCopyWith<_$InvalidEmailException> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$InvalidPhoneNumberExceptionCopyWith<$Res> {
+abstract class _$$InvalidPhoneNumberExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$InvalidPhoneNumberExceptionCopyWith(
           _$InvalidPhoneNumberException value,
           $Res Function(_$InvalidPhoneNumberException) then) =
       __$$InvalidPhoneNumberExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -404,95 +470,124 @@ class __$$InvalidPhoneNumberExceptionCopyWithImpl<$Res>
       _$InvalidPhoneNumberException _value,
       $Res Function(_$InvalidPhoneNumberException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$InvalidPhoneNumberException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$InvalidPhoneNumberException extends InvalidPhoneNumberException {
-  const _$InvalidPhoneNumberException() : super._();
+  const _$InvalidPhoneNumberException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.invalidPhoneNumber(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InvalidPhoneNumberException);
+            other is _$InvalidPhoneNumberException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InvalidPhoneNumberExceptionCopyWith<_$InvalidPhoneNumberException>
+      get copyWith => __$$InvalidPhoneNumberExceptionCopyWithImpl<
+          _$InvalidPhoneNumberException>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return invalidPhoneNumber();
+    return invalidPhoneNumber(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return invalidPhoneNumber?.call();
+    return invalidPhoneNumber?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (invalidPhoneNumber != null) {
-      return invalidPhoneNumber();
+      return invalidPhoneNumber(msg);
     }
     return orElse();
   }
@@ -593,16 +688,28 @@ class _$InvalidPhoneNumberException extends InvalidPhoneNumberException {
 }
 
 abstract class InvalidPhoneNumberException extends AppAuthException {
-  const factory InvalidPhoneNumberException() = _$InvalidPhoneNumberException;
+  const factory InvalidPhoneNumberException(final String msg) =
+      _$InvalidPhoneNumberException;
   const InvalidPhoneNumberException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$InvalidPhoneNumberExceptionCopyWith<_$InvalidPhoneNumberException>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MissingAndroidPkgNameExceptionCopyWith<$Res> {
+abstract class _$$MissingAndroidPkgNameExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$MissingAndroidPkgNameExceptionCopyWith(
           _$MissingAndroidPkgNameException value,
           $Res Function(_$MissingAndroidPkgNameException) then) =
       __$$MissingAndroidPkgNameExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -614,95 +721,124 @@ class __$$MissingAndroidPkgNameExceptionCopyWithImpl<$Res>
       _$MissingAndroidPkgNameException _value,
       $Res Function(_$MissingAndroidPkgNameException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$MissingAndroidPkgNameException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
-  const _$MissingAndroidPkgNameException() : super._();
+  const _$MissingAndroidPkgNameException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.missingAndroidPkgName(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MissingAndroidPkgNameException);
+            other is _$MissingAndroidPkgNameException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MissingAndroidPkgNameExceptionCopyWith<_$MissingAndroidPkgNameException>
+      get copyWith => __$$MissingAndroidPkgNameExceptionCopyWithImpl<
+          _$MissingAndroidPkgNameException>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return missingAndroidPkgName();
+    return missingAndroidPkgName(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return missingAndroidPkgName?.call();
+    return missingAndroidPkgName?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (missingAndroidPkgName != null) {
-      return missingAndroidPkgName();
+      return missingAndroidPkgName(msg);
     }
     return orElse();
   }
@@ -803,17 +939,28 @@ class _$MissingAndroidPkgNameException extends MissingAndroidPkgNameException {
 }
 
 abstract class MissingAndroidPkgNameException extends AppAuthException {
-  const factory MissingAndroidPkgNameException() =
+  const factory MissingAndroidPkgNameException(final String msg) =
       _$MissingAndroidPkgNameException;
   const MissingAndroidPkgNameException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$MissingAndroidPkgNameExceptionCopyWith<_$MissingAndroidPkgNameException>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MissingContinueUriExceptionCopyWith<$Res> {
+abstract class _$$MissingContinueUriExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$MissingContinueUriExceptionCopyWith(
           _$MissingContinueUriException value,
           $Res Function(_$MissingContinueUriException) then) =
       __$$MissingContinueUriExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -824,95 +971,124 @@ class __$$MissingContinueUriExceptionCopyWithImpl<$Res>
       _$MissingContinueUriException _value,
       $Res Function(_$MissingContinueUriException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$MissingContinueUriException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$MissingContinueUriException extends MissingContinueUriException {
-  const _$MissingContinueUriException() : super._();
+  const _$MissingContinueUriException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.missingContinueUri(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MissingContinueUriException);
+            other is _$MissingContinueUriException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MissingContinueUriExceptionCopyWith<_$MissingContinueUriException>
+      get copyWith => __$$MissingContinueUriExceptionCopyWithImpl<
+          _$MissingContinueUriException>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return missingContinueUri();
+    return missingContinueUri(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return missingContinueUri?.call();
+    return missingContinueUri?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (missingContinueUri != null) {
-      return missingContinueUri();
+      return missingContinueUri(msg);
     }
     return orElse();
   }
@@ -1013,16 +1189,28 @@ class _$MissingContinueUriException extends MissingContinueUriException {
 }
 
 abstract class MissingContinueUriException extends AppAuthException {
-  const factory MissingContinueUriException() = _$MissingContinueUriException;
+  const factory MissingContinueUriException(final String msg) =
+      _$MissingContinueUriException;
   const MissingContinueUriException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$MissingContinueUriExceptionCopyWith<_$MissingContinueUriException>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MissingIosBundleIdExceptionCopyWith<$Res> {
+abstract class _$$MissingIosBundleIdExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$MissingIosBundleIdExceptionCopyWith(
           _$MissingIosBundleIdException value,
           $Res Function(_$MissingIosBundleIdException) then) =
       __$$MissingIosBundleIdExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -1033,95 +1221,124 @@ class __$$MissingIosBundleIdExceptionCopyWithImpl<$Res>
       _$MissingIosBundleIdException _value,
       $Res Function(_$MissingIosBundleIdException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$MissingIosBundleIdException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$MissingIosBundleIdException extends MissingIosBundleIdException {
-  const _$MissingIosBundleIdException() : super._();
+  const _$MissingIosBundleIdException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.missingIosBundleId(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MissingIosBundleIdException);
+            other is _$MissingIosBundleIdException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MissingIosBundleIdExceptionCopyWith<_$MissingIosBundleIdException>
+      get copyWith => __$$MissingIosBundleIdExceptionCopyWithImpl<
+          _$MissingIosBundleIdException>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return missingIosBundleId();
+    return missingIosBundleId(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return missingIosBundleId?.call();
+    return missingIosBundleId?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (missingIosBundleId != null) {
-      return missingIosBundleId();
+      return missingIosBundleId(msg);
     }
     return orElse();
   }
@@ -1222,16 +1439,28 @@ class _$MissingIosBundleIdException extends MissingIosBundleIdException {
 }
 
 abstract class MissingIosBundleIdException extends AppAuthException {
-  const factory MissingIosBundleIdException() = _$MissingIosBundleIdException;
+  const factory MissingIosBundleIdException(final String msg) =
+      _$MissingIosBundleIdException;
   const MissingIosBundleIdException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$MissingIosBundleIdExceptionCopyWith<_$MissingIosBundleIdException>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$InvalidContinueUriExceptionCopyWith<$Res> {
+abstract class _$$InvalidContinueUriExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$InvalidContinueUriExceptionCopyWith(
           _$InvalidContinueUriException value,
           $Res Function(_$InvalidContinueUriException) then) =
       __$$InvalidContinueUriExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -1242,95 +1471,124 @@ class __$$InvalidContinueUriExceptionCopyWithImpl<$Res>
       _$InvalidContinueUriException _value,
       $Res Function(_$InvalidContinueUriException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$InvalidContinueUriException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$InvalidContinueUriException extends InvalidContinueUriException {
-  const _$InvalidContinueUriException() : super._();
+  const _$InvalidContinueUriException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.invalidContinueUri(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InvalidContinueUriException);
+            other is _$InvalidContinueUriException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InvalidContinueUriExceptionCopyWith<_$InvalidContinueUriException>
+      get copyWith => __$$InvalidContinueUriExceptionCopyWithImpl<
+          _$InvalidContinueUriException>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return invalidContinueUri();
+    return invalidContinueUri(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return invalidContinueUri?.call();
+    return invalidContinueUri?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (invalidContinueUri != null) {
-      return invalidContinueUri();
+      return invalidContinueUri(msg);
     }
     return orElse();
   }
@@ -1431,16 +1689,28 @@ class _$InvalidContinueUriException extends InvalidContinueUriException {
 }
 
 abstract class InvalidContinueUriException extends AppAuthException {
-  const factory InvalidContinueUriException() = _$InvalidContinueUriException;
+  const factory InvalidContinueUriException(final String msg) =
+      _$InvalidContinueUriException;
   const InvalidContinueUriException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$InvalidContinueUriExceptionCopyWith<_$InvalidContinueUriException>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UnauthorizedContinueUriExceptionCopyWith<$Res> {
+abstract class _$$UnauthorizedContinueUriExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$UnauthorizedContinueUriExceptionCopyWith(
           _$UnauthorizedContinueUriException value,
           $Res Function(_$UnauthorizedContinueUriException) then) =
       __$$UnauthorizedContinueUriExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -1452,96 +1722,126 @@ class __$$UnauthorizedContinueUriExceptionCopyWithImpl<$Res>
       _$UnauthorizedContinueUriException _value,
       $Res Function(_$UnauthorizedContinueUriException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$UnauthorizedContinueUriException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$UnauthorizedContinueUriException
     extends UnauthorizedContinueUriException {
-  const _$UnauthorizedContinueUriException() : super._();
+  const _$UnauthorizedContinueUriException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.unauthorizedContinueUri(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UnauthorizedContinueUriException);
+            other is _$UnauthorizedContinueUriException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UnauthorizedContinueUriExceptionCopyWith<
+          _$UnauthorizedContinueUriException>
+      get copyWith => __$$UnauthorizedContinueUriExceptionCopyWithImpl<
+          _$UnauthorizedContinueUriException>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return unauthorizedContinueUri();
+    return unauthorizedContinueUri(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return unauthorizedContinueUri?.call();
+    return unauthorizedContinueUri?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (unauthorizedContinueUri != null) {
-      return unauthorizedContinueUri();
+      return unauthorizedContinueUri(msg);
     }
     return orElse();
   }
@@ -1642,16 +1942,28 @@ class _$UnauthorizedContinueUriException
 }
 
 abstract class UnauthorizedContinueUriException extends AppAuthException {
-  const factory UnauthorizedContinueUriException() =
+  const factory UnauthorizedContinueUriException(final String msg) =
       _$UnauthorizedContinueUriException;
   const UnauthorizedContinueUriException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$UnauthorizedContinueUriExceptionCopyWith<
+          _$UnauthorizedContinueUriException>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UserNotFoundExceptionCopyWith<$Res> {
+abstract class _$$UserNotFoundExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$UserNotFoundExceptionCopyWith(_$UserNotFoundException value,
           $Res Function(_$UserNotFoundException) then) =
       __$$UserNotFoundExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -1661,94 +1973,124 @@ class __$$UserNotFoundExceptionCopyWithImpl<$Res>
   __$$UserNotFoundExceptionCopyWithImpl(_$UserNotFoundException _value,
       $Res Function(_$UserNotFoundException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$UserNotFoundException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$UserNotFoundException extends UserNotFoundException {
-  const _$UserNotFoundException() : super._();
+  const _$UserNotFoundException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.userNotFound(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UserNotFoundException);
+        (other.runtimeType == runtimeType &&
+            other is _$UserNotFoundException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserNotFoundExceptionCopyWith<_$UserNotFoundException> get copyWith =>
+      __$$UserNotFoundExceptionCopyWithImpl<_$UserNotFoundException>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return userNotFound();
+    return userNotFound(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return userNotFound?.call();
+    return userNotFound?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (userNotFound != null) {
-      return userNotFound();
+      return userNotFound(msg);
     }
     return orElse();
   }
@@ -1849,15 +2191,27 @@ class _$UserNotFoundException extends UserNotFoundException {
 }
 
 abstract class UserNotFoundException extends AppAuthException {
-  const factory UserNotFoundException() = _$UserNotFoundException;
+  const factory UserNotFoundException(final String msg) =
+      _$UserNotFoundException;
   const UserNotFoundException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$UserNotFoundExceptionCopyWith<_$UserNotFoundException> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UserDisabledExceptionCopyWith<$Res> {
+abstract class _$$UserDisabledExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$UserDisabledExceptionCopyWith(_$UserDisabledException value,
           $Res Function(_$UserDisabledException) then) =
       __$$UserDisabledExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -1867,94 +2221,124 @@ class __$$UserDisabledExceptionCopyWithImpl<$Res>
   __$$UserDisabledExceptionCopyWithImpl(_$UserDisabledException _value,
       $Res Function(_$UserDisabledException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$UserDisabledException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$UserDisabledException extends UserDisabledException {
-  const _$UserDisabledException() : super._();
+  const _$UserDisabledException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.userDisabled(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UserDisabledException);
+        (other.runtimeType == runtimeType &&
+            other is _$UserDisabledException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserDisabledExceptionCopyWith<_$UserDisabledException> get copyWith =>
+      __$$UserDisabledExceptionCopyWithImpl<_$UserDisabledException>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return userDisabled();
+    return userDisabled(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return userDisabled?.call();
+    return userDisabled?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (userDisabled != null) {
-      return userDisabled();
+      return userDisabled(msg);
     }
     return orElse();
   }
@@ -2055,15 +2439,27 @@ class _$UserDisabledException extends UserDisabledException {
 }
 
 abstract class UserDisabledException extends AppAuthException {
-  const factory UserDisabledException() = _$UserDisabledException;
+  const factory UserDisabledException(final String msg) =
+      _$UserDisabledException;
   const UserDisabledException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$UserDisabledExceptionCopyWith<_$UserDisabledException> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$WrongPasswordExceptionCopyWith<$Res> {
+abstract class _$$WrongPasswordExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$WrongPasswordExceptionCopyWith(_$WrongPasswordException value,
           $Res Function(_$WrongPasswordException) then) =
       __$$WrongPasswordExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -2073,94 +2469,124 @@ class __$$WrongPasswordExceptionCopyWithImpl<$Res>
   __$$WrongPasswordExceptionCopyWithImpl(_$WrongPasswordException _value,
       $Res Function(_$WrongPasswordException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$WrongPasswordException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$WrongPasswordException extends WrongPasswordException {
-  const _$WrongPasswordException() : super._();
+  const _$WrongPasswordException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.wrongPassword(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WrongPasswordException);
+        (other.runtimeType == runtimeType &&
+            other is _$WrongPasswordException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$WrongPasswordExceptionCopyWith<_$WrongPasswordException> get copyWith =>
+      __$$WrongPasswordExceptionCopyWithImpl<_$WrongPasswordException>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return wrongPassword();
+    return wrongPassword(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return wrongPassword?.call();
+    return wrongPassword?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (wrongPassword != null) {
-      return wrongPassword();
+      return wrongPassword(msg);
     }
     return orElse();
   }
@@ -2261,16 +2687,28 @@ class _$WrongPasswordException extends WrongPasswordException {
 }
 
 abstract class WrongPasswordException extends AppAuthException {
-  const factory WrongPasswordException() = _$WrongPasswordException;
+  const factory WrongPasswordException(final String msg) =
+      _$WrongPasswordException;
   const WrongPasswordException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$WrongPasswordExceptionCopyWith<_$WrongPasswordException> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$EmailAlreadyInUseExceptionCopyWith<$Res> {
+abstract class _$$EmailAlreadyInUseExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$EmailAlreadyInUseExceptionCopyWith(
           _$EmailAlreadyInUseException value,
           $Res Function(_$EmailAlreadyInUseException) then) =
       __$$EmailAlreadyInUseExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -2281,95 +2719,124 @@ class __$$EmailAlreadyInUseExceptionCopyWithImpl<$Res>
       _$EmailAlreadyInUseException _value,
       $Res Function(_$EmailAlreadyInUseException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$EmailAlreadyInUseException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
-  const _$EmailAlreadyInUseException() : super._();
+  const _$EmailAlreadyInUseException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.emailAlreadyInUseException(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EmailAlreadyInUseException);
+            other is _$EmailAlreadyInUseException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EmailAlreadyInUseExceptionCopyWith<_$EmailAlreadyInUseException>
+      get copyWith => __$$EmailAlreadyInUseExceptionCopyWithImpl<
+          _$EmailAlreadyInUseException>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return emailAlreadyInUseException();
+    return emailAlreadyInUseException(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return emailAlreadyInUseException?.call();
+    return emailAlreadyInUseException?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (emailAlreadyInUseException != null) {
-      return emailAlreadyInUseException();
+      return emailAlreadyInUseException(msg);
     }
     return orElse();
   }
@@ -2470,16 +2937,28 @@ class _$EmailAlreadyInUseException extends EmailAlreadyInUseException {
 }
 
 abstract class EmailAlreadyInUseException extends AppAuthException {
-  const factory EmailAlreadyInUseException() = _$EmailAlreadyInUseException;
+  const factory EmailAlreadyInUseException(final String msg) =
+      _$EmailAlreadyInUseException;
   const EmailAlreadyInUseException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$EmailAlreadyInUseExceptionCopyWith<_$EmailAlreadyInUseException>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$OperationNotAllowedExceptionCopyWith<$Res> {
+abstract class _$$OperationNotAllowedExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$OperationNotAllowedExceptionCopyWith(
           _$OperationNotAllowedException value,
           $Res Function(_$OperationNotAllowedException) then) =
       __$$OperationNotAllowedExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -2490,95 +2969,124 @@ class __$$OperationNotAllowedExceptionCopyWithImpl<$Res>
       _$OperationNotAllowedException _value,
       $Res Function(_$OperationNotAllowedException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$OperationNotAllowedException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$OperationNotAllowedException extends OperationNotAllowedException {
-  const _$OperationNotAllowedException() : super._();
+  const _$OperationNotAllowedException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.operationNotAllowedException(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OperationNotAllowedException);
+            other is _$OperationNotAllowedException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OperationNotAllowedExceptionCopyWith<_$OperationNotAllowedException>
+      get copyWith => __$$OperationNotAllowedExceptionCopyWithImpl<
+          _$OperationNotAllowedException>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return operationNotAllowedException();
+    return operationNotAllowedException(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return operationNotAllowedException?.call();
+    return operationNotAllowedException?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (operationNotAllowedException != null) {
-      return operationNotAllowedException();
+      return operationNotAllowedException(msg);
     }
     return orElse();
   }
@@ -2679,15 +3187,27 @@ class _$OperationNotAllowedException extends OperationNotAllowedException {
 }
 
 abstract class OperationNotAllowedException extends AppAuthException {
-  const factory OperationNotAllowedException() = _$OperationNotAllowedException;
+  const factory OperationNotAllowedException(final String msg) =
+      _$OperationNotAllowedException;
   const OperationNotAllowedException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$OperationNotAllowedExceptionCopyWith<_$OperationNotAllowedException>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$WeakPasswordExceptionCopyWith<$Res> {
+abstract class _$$WeakPasswordExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$WeakPasswordExceptionCopyWith(_$WeakPasswordException value,
           $Res Function(_$WeakPasswordException) then) =
       __$$WeakPasswordExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -2697,94 +3217,124 @@ class __$$WeakPasswordExceptionCopyWithImpl<$Res>
   __$$WeakPasswordExceptionCopyWithImpl(_$WeakPasswordException _value,
       $Res Function(_$WeakPasswordException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$WeakPasswordException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$WeakPasswordException extends WeakPasswordException {
-  const _$WeakPasswordException() : super._();
+  const _$WeakPasswordException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.weakPassword(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WeakPasswordException);
+        (other.runtimeType == runtimeType &&
+            other is _$WeakPasswordException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$WeakPasswordExceptionCopyWith<_$WeakPasswordException> get copyWith =>
+      __$$WeakPasswordExceptionCopyWithImpl<_$WeakPasswordException>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return weakPassword();
+    return weakPassword(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return weakPassword?.call();
+    return weakPassword?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (weakPassword != null) {
-      return weakPassword();
+      return weakPassword(msg);
     }
     return orElse();
   }
@@ -2885,16 +3435,28 @@ class _$WeakPasswordException extends WeakPasswordException {
 }
 
 abstract class WeakPasswordException extends AppAuthException {
-  const factory WeakPasswordException() = _$WeakPasswordException;
+  const factory WeakPasswordException(final String msg) =
+      _$WeakPasswordException;
   const WeakPasswordException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$WeakPasswordExceptionCopyWith<_$WeakPasswordException> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ExpiredActionCodeExceptionCopyWith<$Res> {
+abstract class _$$ExpiredActionCodeExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$ExpiredActionCodeExceptionCopyWith(
           _$ExpiredActionCodeException value,
           $Res Function(_$ExpiredActionCodeException) then) =
       __$$ExpiredActionCodeExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -2905,95 +3467,124 @@ class __$$ExpiredActionCodeExceptionCopyWithImpl<$Res>
       _$ExpiredActionCodeException _value,
       $Res Function(_$ExpiredActionCodeException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$ExpiredActionCodeException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ExpiredActionCodeException extends ExpiredActionCodeException {
-  const _$ExpiredActionCodeException() : super._();
+  const _$ExpiredActionCodeException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.expiredActionCode(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ExpiredActionCodeException);
+            other is _$ExpiredActionCodeException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ExpiredActionCodeExceptionCopyWith<_$ExpiredActionCodeException>
+      get copyWith => __$$ExpiredActionCodeExceptionCopyWithImpl<
+          _$ExpiredActionCodeException>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return expiredActionCode();
+    return expiredActionCode(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return expiredActionCode?.call();
+    return expiredActionCode?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (expiredActionCode != null) {
-      return expiredActionCode();
+      return expiredActionCode(msg);
     }
     return orElse();
   }
@@ -3094,16 +3685,28 @@ class _$ExpiredActionCodeException extends ExpiredActionCodeException {
 }
 
 abstract class ExpiredActionCodeException extends AppAuthException {
-  const factory ExpiredActionCodeException() = _$ExpiredActionCodeException;
+  const factory ExpiredActionCodeException(final String msg) =
+      _$ExpiredActionCodeException;
   const ExpiredActionCodeException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$ExpiredActionCodeExceptionCopyWith<_$ExpiredActionCodeException>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$InvalidActionCodeExceptionCopyWith<$Res> {
+abstract class _$$InvalidActionCodeExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$InvalidActionCodeExceptionCopyWith(
           _$InvalidActionCodeException value,
           $Res Function(_$InvalidActionCodeException) then) =
       __$$InvalidActionCodeExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -3114,95 +3717,124 @@ class __$$InvalidActionCodeExceptionCopyWithImpl<$Res>
       _$InvalidActionCodeException _value,
       $Res Function(_$InvalidActionCodeException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$InvalidActionCodeException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$InvalidActionCodeException extends InvalidActionCodeException {
-  const _$InvalidActionCodeException() : super._();
+  const _$InvalidActionCodeException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.invalidActionCode(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InvalidActionCodeException);
+            other is _$InvalidActionCodeException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InvalidActionCodeExceptionCopyWith<_$InvalidActionCodeException>
+      get copyWith => __$$InvalidActionCodeExceptionCopyWithImpl<
+          _$InvalidActionCodeException>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return invalidActionCode();
+    return invalidActionCode(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return invalidActionCode?.call();
+    return invalidActionCode?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (invalidActionCode != null) {
-      return invalidActionCode();
+      return invalidActionCode(msg);
     }
     return orElse();
   }
@@ -3303,16 +3935,28 @@ class _$InvalidActionCodeException extends InvalidActionCodeException {
 }
 
 abstract class InvalidActionCodeException extends AppAuthException {
-  const factory InvalidActionCodeException() = _$InvalidActionCodeException;
+  const factory InvalidActionCodeException(final String msg) =
+      _$InvalidActionCodeException;
   const InvalidActionCodeException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$InvalidActionCodeExceptionCopyWith<_$InvalidActionCodeException>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UserNotConnectedExceptionCopyWith<$Res> {
+abstract class _$$UserNotConnectedExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$UserNotConnectedExceptionCopyWith(
           _$UserNotConnectedException value,
           $Res Function(_$UserNotConnectedException) then) =
       __$$UserNotConnectedExceptionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String msg});
 }
 
 /// @nodoc
@@ -3322,95 +3966,124 @@ class __$$UserNotConnectedExceptionCopyWithImpl<$Res>
   __$$UserNotConnectedExceptionCopyWithImpl(_$UserNotConnectedException _value,
       $Res Function(_$UserNotConnectedException) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$UserNotConnectedException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$UserNotConnectedException extends UserNotConnectedException {
-  const _$UserNotConnectedException() : super._();
+  const _$UserNotConnectedException(this.msg) : super._();
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'AppAuthException.notConnected(msg: $msg)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserNotConnectedException);
+            other is _$UserNotConnectedException &&
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserNotConnectedExceptionCopyWith<_$UserNotConnectedException>
+      get copyWith => __$$UserNotConnectedExceptionCopyWithImpl<
+          _$UserNotConnectedException>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return notConnected();
+    return notConnected(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return notConnected?.call();
+    return notConnected?.call(msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (notConnected != null) {
-      return notConnected();
+      return notConnected(msg);
     }
     return orElse();
   }
@@ -3511,17 +4184,27 @@ class _$UserNotConnectedException extends UserNotConnectedException {
 }
 
 abstract class UserNotConnectedException extends AppAuthException {
-  const factory UserNotConnectedException() = _$UserNotConnectedException;
+  const factory UserNotConnectedException(final String msg) =
+      _$UserNotConnectedException;
   const UserNotConnectedException._() : super._();
+
+  @override
+  String get msg;
+  @override
+  @JsonKey(ignore: true)
+  _$$UserNotConnectedExceptionCopyWith<_$UserNotConnectedException>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UnknownAuthCodeExceptionCopyWith<$Res> {
+abstract class _$$UnknownAuthCodeExceptionCopyWith<$Res>
+    implements $AppAuthExceptionCopyWith<$Res> {
   factory _$$UnknownAuthCodeExceptionCopyWith(_$UnknownAuthCodeException value,
           $Res Function(_$UnknownAuthCodeException) then) =
       __$$UnknownAuthCodeExceptionCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({String code});
+  $Res call({String msg, String code});
 }
 
 /// @nodoc
@@ -3535,9 +4218,14 @@ class __$$UnknownAuthCodeExceptionCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? msg = null,
     Object? code = null,
   }) {
     return _then(_$UnknownAuthCodeException(
+      null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
       null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -3549,21 +4237,29 @@ class __$$UnknownAuthCodeExceptionCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UnknownAuthCodeException extends UnknownAuthCodeException {
-  const _$UnknownAuthCodeException(this.code) : super._();
+  const _$UnknownAuthCodeException(this.msg, this.code) : super._();
 
   @override
+  final String msg;
+  @override
   final String code;
+
+  @override
+  String toString() {
+    return 'AppAuthException.unknownAuthCode(msg: $msg, code: $code)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UnknownAuthCodeException &&
+            (identical(other.msg, msg) || other.msg == msg) &&
             (identical(other.code, code) || other.code == code));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, code);
+  int get hashCode => Object.hash(runtimeType, msg, code);
 
   @JsonKey(ignore: true)
   @override
@@ -3576,75 +4272,75 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() invalidEmail,
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() missingAndroidPkgName,
-    required TResult Function() missingContinueUri,
-    required TResult Function() missingIosBundleId,
-    required TResult Function() invalidContinueUri,
-    required TResult Function() unauthorizedContinueUri,
-    required TResult Function() userNotFound,
-    required TResult Function() userDisabled,
-    required TResult Function() wrongPassword,
-    required TResult Function() emailAlreadyInUseException,
-    required TResult Function() operationNotAllowedException,
-    required TResult Function() weakPassword,
-    required TResult Function() expiredActionCode,
-    required TResult Function() invalidActionCode,
-    required TResult Function() notConnected,
-    required TResult Function(String code) unknownAuthCode,
+    required TResult Function(String msg) invalidEmail,
+    required TResult Function(String msg) invalidPhoneNumber,
+    required TResult Function(String msg) missingAndroidPkgName,
+    required TResult Function(String msg) missingContinueUri,
+    required TResult Function(String msg) missingIosBundleId,
+    required TResult Function(String msg) invalidContinueUri,
+    required TResult Function(String msg) unauthorizedContinueUri,
+    required TResult Function(String msg) userNotFound,
+    required TResult Function(String msg) userDisabled,
+    required TResult Function(String msg) wrongPassword,
+    required TResult Function(String msg) emailAlreadyInUseException,
+    required TResult Function(String msg) operationNotAllowedException,
+    required TResult Function(String msg) weakPassword,
+    required TResult Function(String msg) expiredActionCode,
+    required TResult Function(String msg) invalidActionCode,
+    required TResult Function(String msg) notConnected,
+    required TResult Function(String msg, String code) unknownAuthCode,
   }) {
-    return unknownAuthCode(code);
+    return unknownAuthCode(msg, code);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidEmail,
-    TResult? Function()? invalidPhoneNumber,
-    TResult? Function()? missingAndroidPkgName,
-    TResult? Function()? missingContinueUri,
-    TResult? Function()? missingIosBundleId,
-    TResult? Function()? invalidContinueUri,
-    TResult? Function()? unauthorizedContinueUri,
-    TResult? Function()? userNotFound,
-    TResult? Function()? userDisabled,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? emailAlreadyInUseException,
-    TResult? Function()? operationNotAllowedException,
-    TResult? Function()? weakPassword,
-    TResult? Function()? expiredActionCode,
-    TResult? Function()? invalidActionCode,
-    TResult? Function()? notConnected,
-    TResult? Function(String code)? unknownAuthCode,
+    TResult? Function(String msg)? invalidEmail,
+    TResult? Function(String msg)? invalidPhoneNumber,
+    TResult? Function(String msg)? missingAndroidPkgName,
+    TResult? Function(String msg)? missingContinueUri,
+    TResult? Function(String msg)? missingIosBundleId,
+    TResult? Function(String msg)? invalidContinueUri,
+    TResult? Function(String msg)? unauthorizedContinueUri,
+    TResult? Function(String msg)? userNotFound,
+    TResult? Function(String msg)? userDisabled,
+    TResult? Function(String msg)? wrongPassword,
+    TResult? Function(String msg)? emailAlreadyInUseException,
+    TResult? Function(String msg)? operationNotAllowedException,
+    TResult? Function(String msg)? weakPassword,
+    TResult? Function(String msg)? expiredActionCode,
+    TResult? Function(String msg)? invalidActionCode,
+    TResult? Function(String msg)? notConnected,
+    TResult? Function(String msg, String code)? unknownAuthCode,
   }) {
-    return unknownAuthCode?.call(code);
+    return unknownAuthCode?.call(msg, code);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidEmail,
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? missingAndroidPkgName,
-    TResult Function()? missingContinueUri,
-    TResult Function()? missingIosBundleId,
-    TResult Function()? invalidContinueUri,
-    TResult Function()? unauthorizedContinueUri,
-    TResult Function()? userNotFound,
-    TResult Function()? userDisabled,
-    TResult Function()? wrongPassword,
-    TResult Function()? emailAlreadyInUseException,
-    TResult Function()? operationNotAllowedException,
-    TResult Function()? weakPassword,
-    TResult Function()? expiredActionCode,
-    TResult Function()? invalidActionCode,
-    TResult Function()? notConnected,
-    TResult Function(String code)? unknownAuthCode,
+    TResult Function(String msg)? invalidEmail,
+    TResult Function(String msg)? invalidPhoneNumber,
+    TResult Function(String msg)? missingAndroidPkgName,
+    TResult Function(String msg)? missingContinueUri,
+    TResult Function(String msg)? missingIosBundleId,
+    TResult Function(String msg)? invalidContinueUri,
+    TResult Function(String msg)? unauthorizedContinueUri,
+    TResult Function(String msg)? userNotFound,
+    TResult Function(String msg)? userDisabled,
+    TResult Function(String msg)? wrongPassword,
+    TResult Function(String msg)? emailAlreadyInUseException,
+    TResult Function(String msg)? operationNotAllowedException,
+    TResult Function(String msg)? weakPassword,
+    TResult Function(String msg)? expiredActionCode,
+    TResult Function(String msg)? invalidActionCode,
+    TResult Function(String msg)? notConnected,
+    TResult Function(String msg, String code)? unknownAuthCode,
     required TResult orElse(),
   }) {
     if (unknownAuthCode != null) {
-      return unknownAuthCode(code);
+      return unknownAuthCode(msg, code);
     }
     return orElse();
   }
@@ -3745,11 +4441,14 @@ class _$UnknownAuthCodeException extends UnknownAuthCodeException {
 }
 
 abstract class UnknownAuthCodeException extends AppAuthException {
-  const factory UnknownAuthCodeException(final String code) =
+  const factory UnknownAuthCodeException(final String msg, final String code) =
       _$UnknownAuthCodeException;
   const UnknownAuthCodeException._() : super._();
 
+  @override
+  String get msg;
   String get code;
+  @override
   @JsonKey(ignore: true)
   _$$UnknownAuthCodeExceptionCopyWith<_$UnknownAuthCodeException>
       get copyWith => throw _privateConstructorUsedError;
