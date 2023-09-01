@@ -297,11 +297,21 @@ class SQLiteApiImpl implements SQLiteApi {
 
   /// returns 0 if no changes were made. Otherwise, returns the number of changes
   @override
-  Future<int> deleteById(String table, String id) {
-    return _database.rawDelete('''
+  Future<int> deleteById(String table, String id) async {
+    var result = await _database.rawDelete('''
       DELETE FROM $table
       WHERE id == $id;
     ''');
+
+    if (result == 0) {
+      throw AppSqliteException.dataNotDeleted(
+        id,
+        table,
+        Strings.sqlite,
+      );
+    }
+
+    return result;
   }
 
   /// Freezed lib still doesn't contain a way to have multiple different converters, so the simplest and less-code way is this one
