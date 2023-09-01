@@ -42,7 +42,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
       }
       try {
         var userDataJson =
-            await _sqLiteApi.findById(Strings.appUserLocalTable, user.uid);
+            await _sqLiteApi.findById(Strings.appUserLocalTable, user.uid, 0);
         if (userDataJson.isNotEmpty) {
           return UserData.fromJson(userDataJson);
         }
