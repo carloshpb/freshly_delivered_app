@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../../../constants/strings.dart';
+import '../../../../../../exceptions/app_firestore_exception.dart';
 import '../../../../../../exceptions/app_sqlite_exception.dart';
 import '../firestore_api.dart';
 
@@ -41,8 +42,8 @@ class FirestoreApiImpl implements FirestoreApi {
         productsJsonList.add(map);
       }
       return productsJsonList;
-    } on FirebaseException {
-      rethrow;
+    } on FirebaseException catch (e) {
+      throw AppFirestoreException.fromFirebaseException(e);
     }
   }
 
@@ -72,8 +73,8 @@ class FirestoreApiImpl implements FirestoreApi {
         productsJsonList.add(map);
       }
       return productsJsonList;
-    } on Exception {
-      rethrow;
+    } on FirebaseException catch (e) {
+      throw AppFirestoreException.fromFirebaseException(e);
     }
   }
 
@@ -88,45 +89,48 @@ class FirestoreApiImpl implements FirestoreApi {
       }
       productMap["id"] = docSnapshot.id;
       return productMap;
-    } on Exception {
-      rethrow;
+    } on FirebaseException catch (e) {
+      throw AppFirestoreException.fromFirebaseException(e);
     }
   }
 
   @override
   Future<dynamic> add(String collection, dynamic entity) async {
     var collectionRef = _firestore.collection(collection);
-
-    if (entity is List) {
-      for (int index = 0; index < entity.length; index++) {
-        var docRef = await collectionRef.add(
-          entity[index]
+    try {
+      if (entity is List) {
+        for (int index = 0; index < entity.length; index++) {
+          var docRef = await collectionRef.add(
+            entity[index]
+              ..putIfAbsent(
+                "created_at",
+                () => FieldValue.serverTimestamp(),
+              )
+              ..putIfAbsent(
+                "modified_at",
+                () => entity[index]["created_at"],
+              ),
+          );
+          entity[index]["id"] = docRef.id;
+        }
+        return entity;
+      } else {
+        var docSnapshot = await collectionRef.add(
+          (entity as Map<String, Object?>)
             ..putIfAbsent(
               "created_at",
               () => FieldValue.serverTimestamp(),
             )
             ..putIfAbsent(
               "modified_at",
-              () => entity[index]["created_at"],
+              () => entity["created_at"],
             ),
         );
-        entity[index]["id"] = docRef.id;
+        entity["id"] = docSnapshot.id;
+        return entity;
       }
-      return entity;
-    } else {
-      var docSnapshot = await collectionRef.add(
-        (entity as Map<String, Object?>)
-          ..putIfAbsent(
-            "created_at",
-            () => FieldValue.serverTimestamp(),
-          )
-          ..putIfAbsent(
-            "modified_at",
-            () => entity["created_at"],
-          ),
-      );
-      entity["id"] = docSnapshot.id;
-      return entity;
+    } on FirebaseException catch (e) {
+      throw AppFirestoreException.fromFirebaseException(e);
     }
   }
 
@@ -173,8 +177,8 @@ class FirestoreApiImpl implements FirestoreApi {
         mapList.add(map);
       }
       return mapList;
-    } on Exception {
-      rethrow;
+    } on FirebaseException catch (e) {
+      throw AppFirestoreException.fromFirebaseException(e);
     }
   }
 
@@ -188,58 +192,62 @@ class FirestoreApiImpl implements FirestoreApi {
   ) {
     late Query<Map<String, dynamic>> collectionRef;
 
-    if (collection.isEmpty) {
-      throw FirebaseException(
-        plugin: "firebase_firestore",
-        code: "not-found",
-        message: "It's not allowed to query for an empty collection name",
-      );
-    } else if ((attribute == null || attributeName.isEmpty) &&
-        descAttributeName.isEmpty) {
-      collectionRef = _firestore.collection(collection);
-    } else if ((attribute == null || attributeName.isEmpty) &&
-        descAttributeName.isNotEmpty) {
-      collectionRef = _firestore
-          .collection(collection)
-          .orderBy(descAttributeName, descending: true);
-    } else if ((attribute != null && attributeName.isNotEmpty) &&
-        descAttributeName.isEmpty) {
-      collectionRef = _firestore
-          .collection(collection)
-          .where(attributeName, isEqualTo: attribute);
-    } else {
-      collectionRef = _firestore
-          .collection(collection)
-          .orderBy(descAttributeName, descending: true)
-          .where(attributeName, isEqualTo: attribute);
-    }
+    try {
+      if (collection.isEmpty) {
+        throw FirebaseException(
+          plugin: "firebase_firestore",
+          code: "not-found",
+          message: "It's not allowed to query for an empty collection name",
+        );
+      } else if ((attribute == null || attributeName.isEmpty) &&
+          descAttributeName.isEmpty) {
+        collectionRef = _firestore.collection(collection);
+      } else if ((attribute == null || attributeName.isEmpty) &&
+          descAttributeName.isNotEmpty) {
+        collectionRef = _firestore
+            .collection(collection)
+            .orderBy(descAttributeName, descending: true);
+      } else if ((attribute != null && attributeName.isNotEmpty) &&
+          descAttributeName.isEmpty) {
+        collectionRef = _firestore
+            .collection(collection)
+            .where(attributeName, isEqualTo: attribute);
+      } else {
+        collectionRef = _firestore
+            .collection(collection)
+            .orderBy(descAttributeName, descending: true)
+            .where(attributeName, isEqualTo: attribute);
+      }
 
-    collectionRef.snapshots().listen(
-      (event) {
-        var docList = event.docs.map((e) => e.data()).toList();
-        for (var change in event.docChanges) {
-          switch (change.type) {
-            case DocumentChangeType.removed:
-              docList.removeWhere((doc) => doc == change.doc.data());
-              break;
-            default:
-              break;
+      collectionRef.snapshots().listen(
+        (event) {
+          var docList = event.docs.map((e) => e.data()).toList();
+          for (var change in event.docChanges) {
+            switch (change.type) {
+              case DocumentChangeType.removed:
+                docList.removeWhere((doc) => doc == change.doc.data());
+                break;
+              default:
+                break;
+            }
           }
-        }
-        streamSubject.sink.add(docList);
-      },
-    );
-
-    // await for (final query in collectionRef.snapshots()) {
-    //   var mapList = <Map<String, Object?>>[];
-    //   for (var docSnapshot in query.docs) {
-    //     var map = docSnapshot.data();
-    //     map["id"] = docSnapshot.id;
-    //     mapList.add(map);
-    //   }
-    //   yield mapList;
-    // }
+          streamSubject.sink.add(docList);
+        },
+      );
+    } on FirebaseException catch (e) {
+      throw AppFirestoreException.fromFirebaseException(e);
+    }
   }
+  // await for (final query in collectionRef.snapshots()) {
+  //   var mapList = <Map<String, Object?>>[];
+  //   for (var docSnapshot in query.docs) {
+  //     var map = docSnapshot.data();
+  //     map["id"] = docSnapshot.id;
+  //     mapList.add(map);
+  //   }
+  //   yield mapList;
+  // }
+  //}
 
   // @override
   // Future<void> update(
@@ -258,7 +266,11 @@ class FirestoreApiImpl implements FirestoreApi {
   @override
   Future<void> remove(String collection, String docId) {
     // TODO: remove doesnt remove subcollections. Handle it in the future (https://firebase.google.com/docs/firestore/manage-data/delete-data#delete_documents)
-    return _firestore.collection(collection).doc(docId).delete();
+    try {
+      return _firestore.collection(collection).doc(docId).delete();
+    } on FirebaseException catch (e) {
+      throw AppFirestoreException.fromFirebaseException(e);
+    }
   }
 
   @override
@@ -300,8 +312,8 @@ class FirestoreApiImpl implements FirestoreApi {
                 ),
             );
       }
-    } on Exception {
-      rethrow;
+    } on FirebaseException catch (e) {
+      throw AppFirestoreException.fromFirebaseException(e);
     }
   }
 
@@ -336,8 +348,8 @@ class FirestoreApiImpl implements FirestoreApi {
             ),
         );
       }
-    } on Exception {
-      rethrow;
+    } on FirebaseException catch (e) {
+      throw AppFirestoreException.fromFirebaseException(e);
     }
   }
 
@@ -350,39 +362,43 @@ class FirestoreApiImpl implements FirestoreApi {
   ) {
     late CollectionReference<Map<String, dynamic>> collectionRef;
 
-    if (parentCollection.isEmpty || childCollection.isEmpty) {
-      throw FirebaseException(
-        plugin: "firebase_firestore",
-        code: "not-found",
-        message: "It's not allowed to query for an empty collection name",
-      );
-    } else {
-      collectionRef = _firestore
-          .collection(parentCollection)
-          .doc(parentId)
-          .collection(childCollection);
-    }
+    try {
+      if (parentCollection.isEmpty || childCollection.isEmpty) {
+        throw FirebaseException(
+          plugin: "firebase_firestore",
+          code: "not-found",
+          message: "It's not allowed to query for an empty collection name",
+        );
+      } else {
+        collectionRef = _firestore
+            .collection(parentCollection)
+            .doc(parentId)
+            .collection(childCollection);
+      }
 
-    collectionRef.snapshots().listen(
-      (event) {
-        for (var change in event.docChanges) {
-          var doc = change.doc.data();
-          if (doc != null) {
-            doc["documentChangeType"] = change.type;
-            streamSubject.add(doc);
+      collectionRef.snapshots().listen(
+        (event) {
+          for (var change in event.docChanges) {
+            var doc = change.doc.data();
+            if (doc != null) {
+              doc["documentChangeType"] = change.type;
+              streamSubject.add(doc);
+            }
+
+            // switch (change.type) {
+            //   case DocumentChangeType.removed:
+            //     print("Removed City: ${change.doc.data()}");
+            //     return change.doc.data();
+            //     break;
+            //   default:
+            //     return change.doc.data();
+            // }
           }
-
-          // switch (change.type) {
-          //   case DocumentChangeType.removed:
-          //     print("Removed City: ${change.doc.data()}");
-          //     return change.doc.data();
-          //     break;
-          //   default:
-          //     return change.doc.data();
-          // }
-        }
-      },
-    );
+        },
+      );
+    } on FirebaseException catch (e) {
+      throw AppFirestoreException.fromFirebaseException(e);
+    }
 
     // await for (final query in collectionRef.snapshots()) {
     //   var mapList = <Map<String, Object?>>[];
@@ -407,7 +423,11 @@ class FirestoreApiImpl implements FirestoreApi {
         .doc(parentId)
         .collection(childCollection);
 
-    return ref.doc(entity["id"]).delete();
+    try {
+      return ref.doc(entity["id"]).delete();
+    } on FirebaseException catch (e) {
+      throw AppFirestoreException.fromFirebaseException(e);
+    }
   }
 
   // @override
