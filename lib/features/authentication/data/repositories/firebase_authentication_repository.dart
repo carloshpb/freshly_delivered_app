@@ -57,13 +57,14 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
           );
           return UserData.fromJson(userDataJson);
         } else {
-          throw const AppAuthException.userNotFound();
+          throw const AppAuthException.userNotFound(
+              "User not found at database");
         }
-      } on Exception {
+      } on FirebaseAuthException catch (e) {
         // TODO : Treat bad exceptions from user side
         // state = const AsyncValue.data(AppUser.notConnected());
         // return state.value!;
-        rethrow;
+        throw AppAuthException.fromFirebaseException(e);
       }
     }).asBroadcastStream();
   }
@@ -91,7 +92,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
       if (result != null && result.user != null) {
         await signOut();
       }
-      throw e.convertToAppException();
+      throw AppAuthException.fromFirebaseException(e);
     }
   }
 
@@ -128,7 +129,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
       if (result != null && result.user != null) {
         await result.user!.delete();
       }
-      throw e.convertToAppException();
+      throw AppAuthException.fromFirebaseException(e);
     }
   }
 
@@ -137,7 +138,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
-      throw e.convertToAppException();
+      throw AppAuthException.fromFirebaseException(e);
     }
   }
 
@@ -146,7 +147,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
     try {
       await _firebaseAuth.signOut();
     } on FirebaseAuthException catch (e) {
-      throw e.convertToAppException();
+      throw AppAuthException.fromFirebaseException(e);
     }
   }
 
