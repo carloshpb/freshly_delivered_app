@@ -4,7 +4,7 @@ import '../../../use_case.dart';
 import '../../application/dtos/product_dto.dart';
 
 abstract class FetchCartItemsUseCase
-    implements UseCase<void, Stream<List<NormalProductDto>>> {
+    implements UseCase<void, Stream<List<ProductDto>>> {
   @override
-  Stream<List<NormalProductDto>> execute([void request]);
+  Stream<List<ProductDto>> execute([void request]);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../exceptions/app_firestore_exception.dart';
 import '../../application/dtos/advertisement_dto.dart';
 import '../../data/repositories/advertisements_local_repository_impl.dart';
 import '../../data/repositories/advertisements_remote_repository_impl.dart';
@@ -52,6 +53,25 @@ class GetLastAdvertisementsUseCaseImpl implements GetLastAdvertisementsUseCase {
         // TODO : Treat when couldnt be saved locally
         _localAdvertisementsRepository.saveAdvertisements(advertisements);
       }
+    } else {
+      // handling expired data
+      var newAdvtersiments = <AdvertisementDto>[];
+
+      for (var i = 0; i < advertisements.length; i++) {
+        if (advertisements[i].id.endsWith("expired")) {
+          try {
+            var updatedAdv =
+                await _remoteAdvertisementsRepository.findAdvertisementById(
+                    advertisements[i].id.replaceFirst(RegExp(r'expired'), ""));
+            newAdvtersiments.add(AdvertisementDto.fromDomain(updatedAdv));
+          } on NotFoundException {
+            continue;
+          }
+        }
+        newAdvtersiments.add(AdvertisementDto.fromDomain(advertisements[i]));
+      }
+
+      return newAdvtersiments;
     }
 
     return (advertisements.isNotEmpty)

@@ -8,16 +8,16 @@ abstract class GetProductsByAdvertisementUseCase
     implements
         UseCase<
             ({
-              NormalAdvertisementDto advertisement,
+              AdvertisementDto advertisement,
               int lastProductPosition,
-              NormalProductDto? lastProductObject
+              ProductDto? lastProductObject
             }),
-            List<NormalProductDto>> {
+            List<ProductDto>> {
   @override
-  FutureOr<List<NormalProductDto>> execute(
+  FutureOr<List<ProductDto>> execute(
       ({
-        NormalAdvertisementDto advertisement,
+        AdvertisementDto advertisement,
         int lastProductPosition,
-        NormalProductDto? lastProductObject
+        ProductDto? lastProductObject
       }) request);
 }

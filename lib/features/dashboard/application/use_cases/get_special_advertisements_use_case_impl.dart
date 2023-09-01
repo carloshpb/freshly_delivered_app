@@ -35,7 +35,7 @@ class GetSpecialAdvertisementsUseCaseImpl
       10,
       (
         advertisementObject:
-            (request.object != null) ? request.object!.toModel() : null,
+            (request.object != null) ? request.object!.toDomain() : null,
         position: request.position,
       ),
     );
@@ -46,18 +46,19 @@ class GetSpecialAdvertisementsUseCaseImpl
         10,
         (
           advertisementObject:
-              (request.object != null) ? request.object!.toModel() : null,
+              (request.object != null) ? request.object!.toDomain() : null,
           position: request.position,
         ),
       );
       if (advertisements.isNotEmpty) {
-        // TODO : Treat when couldnt be saved locally
-        _localAdvertisementsRepository.saveAdvertisements(advertisements);
+        _localAdvertisementsRepository
+            .insertOrReplaceAdvertisements(advertisements);
+        return advertisements
+            .map((adv) => AdvertisementDto.fromDomain(adv))
+            .toList();
       }
     }
 
-    return (advertisements.isNotEmpty)
-        ? advertisements.map((adv) => adv.toDto()).toList()
-        : [];
+    return [];
   }
 }
