@@ -10,7 +10,6 @@ import '../../../authentication/data/repositories/firebase_authentication_reposi
 import '../../../authentication/domain/models/app_user.dart';
 import '../../../authentication/domain/repositories/authentication_repository.dart';
 import '../../domain/models/cart_item.dart';
-import '../../domain/models/product.dart';
 import '../../domain/repositories/cart_repository.dart';
 import '../apis/remote/firestore_api.dart';
 import '../apis/remote/impl/firestore_api_impl.dart';
@@ -44,45 +43,32 @@ final cartRemoteRepositoryProvider = Provider.autoDispose<CartRepository>(
         var product = await productsRemoteRepository
             .findProductById(data["id"] as String);
 
-        switch (product) {
-          case NormalProduct():
-            sink.add(
-              NormalCartItem(
-                product: product,
-                amount: data["amount"] as int,
-              ),
-            );
-            break;
-          case EmptyProduct():
-            break;
-        }
+        sink.add(
+          CartItem(
+            product: product,
+            amount: data["amount"] as int,
+          ),
+        );
       },
     );
 
     // TODO : This should be tested to see if any changes occurs on authenticationRepository or productsRemoteRepository will recreate the BehaviorSubject and fetch a new SubCollection again.
 
-    UserSimple currentSimpleUserData;
+    var currentSimpleUserData =
+        authenticationRepository.currentSimpleUserData();
 
-    try {
-      currentSimpleUserData = authenticationRepository.currentSimpleUserData();
-    } on UserNotConnectedException {
-      // TODO : test
-      ref.invalidateSelf();
-      rethrow;
+    switch (currentSimpleUserData) {
+      case UserNotConnected():
+        ref.invalidateSelf();
+        break;
+      default:
+        firestoreApi.fetchSubCollection(
+          Strings.userCartRemoteTable,
+          (currentSimpleUserData as UserSimple).id,
+          "items",
+          subject,
+        );
     }
-
-    firestoreApi.fetchSubCollection(
-      Strings.userCartRemoteTable,
-      currentSimpleUserData.uid,
-      "items",
-      subject,
-    );
-
-    // var streamCart = firestoreApi.fetchSubCollection(
-    //   Strings.userCartRemoteTable,
-    //   (currentSimpleUserData as UserSimple).uid,
-    //   "items",
-    // );
 
     ref.onDispose(
       () => subject.close(),
@@ -107,7 +93,6 @@ class CartRemoteRepositoryImpl implements CartRepository {
   final BehaviorSubject<Map<String, Object?>> _cartItemsStreamController;
   final StreamTransformer<Map<String, Object?>, CartItem>
       _streamCartItemTransformer;
-  final Ref _ref;
 
   CartRemoteRepositoryImpl(
     FirestoreApi firestoreApi,
@@ -120,77 +105,68 @@ class CartRemoteRepositoryImpl implements CartRepository {
         _authenticationRepository = authenticationRepository,
         //_productsRepository = productsRepository,
         _cartItemsStreamController = cartItemsStreamController,
-        _streamCartItemTransformer = streamCartItemTransformer,
-        _ref = ref;
+        _streamCartItemTransformer = streamCartItemTransformer;
 
   @override
   Stream<CartItem> get streamCartItems =>
       _cartItemsStreamController.transform(_streamCartItemTransformer);
 
   @override
-  Future<void> setProductToCart(CartItem item) async {
-    var itemJson = item.toFirestoreJson();
-    UserSimple currentSimpleUser;
-    try {
-      currentSimpleUser = _authenticationRepository.currentSimpleUserData();
+  Future<void> setProductToCart(CartItem item) {
+    var itemJson = item.toJson();
+    // UserSimple currentSimpleUser;
 
-      await _firestoreApi.setSubcollection(
-        Strings.userCartRemoteTable,
-        currentSimpleUser.uid,
-        "items",
-        itemJson,
-      );
-    } on UserNotConnectedException {
-      // TODO : test
-      _ref.invalidateSelf();
-      rethrow;
-    } on Exception {
-      // TODO : Handle errors
-      return;
+    var currentSimpleUser = _authenticationRepository.currentSimpleUserData();
+
+    switch (currentSimpleUser) {
+      case UserNotConnected():
+        throw const AppAuthException.notConnected(
+            "Not allowed to set product to cart because user is not connected");
+      default:
+        return _firestoreApi.setSubcollection(
+          Strings.userCartRemoteTable,
+          (currentSimpleUser as UserSimple).id,
+          "items",
+          itemJson,
+        );
     }
   }
 
   @override
   void fetchCartProducts() {
-    try {
-      var currentSimpleUser = _authenticationRepository.currentSimpleUserData();
+    var currentSimpleUser = _authenticationRepository.currentSimpleUserData();
 
-      _firestoreApi.fetchSubCollection(
-        Strings.userCartRemoteTable,
-        currentSimpleUser.uid,
-        "items",
-        _cartItemsStreamController,
-      );
-    } on UserNotConnectedException {
-      // TODO : test
-      _ref.invalidateSelf();
-      rethrow;
-    } on Exception {
-      // TODO : Handle errors
-      return;
+    switch (currentSimpleUser) {
+      case UserNotConnected():
+        throw const AppAuthException.notConnected(
+            "Not allowed to set product to cart because user is not connected");
+      default:
+        _firestoreApi.fetchSubCollection(
+          Strings.userCartRemoteTable,
+          (currentSimpleUser as UserSimple).id,
+          "items",
+          _cartItemsStreamController,
+        );
     }
   }
 
   @override
   Future<void> removeProductAtCart(CartItem item) async {
-    var itemJson = item.toFirestoreJson();
-    UserSimple currentSimpleUser;
-    try {
-      currentSimpleUser = _authenticationRepository.currentSimpleUserData();
+    var itemJson = item.toSimplifiedJson();
 
-      await _firestoreApi.removeFromSubcollection(
-        Strings.userCartRemoteTable,
-        currentSimpleUser.uid,
-        "items",
-        itemJson,
-      );
-    } on UserNotConnectedException {
-      // TODO : test
-      _ref.invalidateSelf();
-      rethrow;
-    } on Exception {
-      // TODO : Handle errors
-      return;
+    var currentSimpleUser = _authenticationRepository.currentSimpleUserData();
+
+    switch (currentSimpleUser) {
+      case UserNotConnected():
+        throw const AppAuthException.notConnected(
+            "Not allowed to set product to cart because user is not connected");
+      default:
+        return _firestoreApi.removeFromSubcollection(
+          Strings.userCartRemoteTable,
+          (currentSimpleUser as UserSimple).id,
+          "items",
+          itemJson,
+        );
     }
   }
 

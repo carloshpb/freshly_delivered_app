@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../constants/strings.dart';
-import '../../../../exceptions/app_sqflite_exception.dart';
-import '../../../../exceptions/object_already_added_exception.dart';
 import '../../domain/models/cart_item.dart';
 import '../../domain/repositories/cart_repository.dart';
 import '../../domain/repositories/products_repository.dart';
@@ -167,12 +165,8 @@ class CartLocalRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<void> removeProductAtCart(CartItem item) async {
-    var result = await _sqliteApi.deleteById(
-        Strings.userCartLocalTable, item.product.id);
-    if (result == 0) {
-      throw const ObjectNotDeletedException();
-    }
+  Future<void> removeProductAtCart(CartItem item) {
+    return _sqliteApi.deleteById(Strings.userCartLocalTable, item.product.id);
   }
 
   @override
