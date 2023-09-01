@@ -32,18 +32,18 @@ void main() {
     ),
   ];
 
-  const List<OnboardingMessageDTO> messagesDTO = [
-    OnboardingMessageDTO(
+  const List<OnboardingMessageDto> messagesDto = [
+    OnboardingMessageDto(
       imageSvgPath: 'imagePath1.svg.vec',
       message: 'TITLE1',
       title: 'message1',
     ),
-    OnboardingMessageDTO(
+    OnboardingMessageDto(
       imageSvgPath: 'imagePath2.svg.vec',
       message: 'TITLE2',
       title: 'message2',
     ),
-    OnboardingMessageDTO(
+    OnboardingMessageDto(
       imageSvgPath: 'imagePath3.svg.vec',
       message: 'TITLE3',
       title: 'message3',
@@ -77,7 +77,7 @@ void main() {
       () {
         expect(
           () => setOnboardingMessagesUseCase.execute(
-            messagesDTO,
+            messagesDto,
           ),
           returnsNormally,
         );
@@ -92,17 +92,17 @@ void main() {
       "execute - Adding message with empty values",
       () {
         var wrongMessages1 = [
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'imagePath1.svg.vec',
             message: '',
             title: 'message1',
           ),
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'imagePath2.svg.vec',
             message: 'TITLE2',
             title: 'message3',
           ),
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'imagePath3.svg.vec',
             message: 'TITLE3',
             title: 'message3',
@@ -110,17 +110,17 @@ void main() {
         ];
 
         var wrongMessages2 = [
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'imagePath1.svg.vec',
             message: 'TITLE1',
             title: 'message1',
           ),
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'imagePath2.svg.vec',
             message: '',
             title: 'message2',
           ),
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'imagePath3.svg.vec',
             message: 'TITLE3',
             title: 'message3',
@@ -128,17 +128,17 @@ void main() {
         ];
 
         var wrongMessages3 = [
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'imagePath1.svg.vec',
             message: 'TITLE1',
             title: 'message1',
           ),
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'imagePath2.svg.vec',
             message: 'TITLE2',
             title: 'message2',
           ),
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'imagePath3.svg.vec',
             message: 'TITLE3',
             title: '',

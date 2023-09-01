@@ -57,8 +57,8 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   @override
   FutureOr<Advertisement> findAdvertisementById(String id) async {
     var resultMap =
-        await _sqliteApi.findById(Strings.advertisementsLocalTable, id);
-    return Advertisement.fromSqliteJson(resultMap);
+        await _sqliteApi.findById(Strings.advertisementsLocalTable, id, 5);
+    return Advertisement.fromJson(resultMap);
   }
 
   @override
@@ -72,6 +72,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
       Strings.advertisementsLocalTable,
       limit,
       lastAdvertisement.position,
+      5,
     );
     return resultListMap
         .map(
@@ -83,7 +84,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   @override
   FutureOr<List<Advertisement>> findAllAdvertisements() async {
     var resultListMap =
-        await _sqliteApi.findAll(Strings.advertisementsLocalTable);
+        await _sqliteApi.findAll(Strings.advertisementsLocalTable, 5);
     return resultListMap
         .map(
           (prodMap) => Advertisement.fromJson(prodMap),
@@ -116,6 +117,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
       limit,
       "created_at",
       lastAdvertisement.position,
+      5,
       descending: true,
     );
     return resultListMap
@@ -136,6 +138,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
           0,
           "created_at",
           0,
+          5,
           descending: true,
         )
         .then((result) => _advertisementStream.add(result));
@@ -144,4 +147,15 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   @override
   Stream<List<Advertisement>> get advertisementsStream =>
       _advertisementStream.transform(_streamAdvertisementTransformer);
+
+  @override
+  Future<void> insertOrReplaceAdvertisements(
+      List<Advertisement> advertisements) {
+    var mapAdvertisements = advertisements.map((adv) => adv.toJson());
+    return _sqliteApi.insertOrReplace(
+      Strings.advertisementsLocalTable,
+      mapAdvertisements,
+      _advertisementStringProperties,
+    );
+  }
 }

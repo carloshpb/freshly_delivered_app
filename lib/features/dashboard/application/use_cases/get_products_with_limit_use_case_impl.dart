@@ -32,7 +32,7 @@ class GetProductsWithLimitUseCaseImpl implements GetProductsWithLimitUseCase {
       (
         position: request.position,
         productObject:
-            (request.object != null) ? request.object!.toModel() : null,
+            (request.object != null) ? request.object!.toDomain() : null,
       ),
     );
 
@@ -42,18 +42,17 @@ class GetProductsWithLimitUseCaseImpl implements GetProductsWithLimitUseCase {
         (
           position: request.position,
           productObject:
-              (request.object != null) ? request.object!.toModel() : null,
+              (request.object != null) ? request.object!.toDomain() : null,
         ),
       );
 
       if (products.isNotEmpty) {
         // TODO : Treat when couldnt be saved locally
-        _localProductsRepository.saveProducts(products);
+        _localProductsRepository.insertOrReplaceProducts(products);
+        return products.map((adv) => ProductDto.fromDomain(adv)).toList();
       }
     }
 
-    return (products.isNotEmpty)
-        ? products.map((adv) => adv.toDto()).toList()
-        : [];
+    return [];
   }
 }

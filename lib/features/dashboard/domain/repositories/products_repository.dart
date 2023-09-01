@@ -10,6 +10,7 @@ abstract class ProductsRepository {
       int limit, ({Product? productObject, int position}) lastProduct);
   FutureOr<List<Product>> findAllProducts();
   Future<void> saveProducts(List<Product> products);
+  Future<void> insertOrReplaceProducts(List<Product> products);
   FutureOr<List<Product>> findProductsByAdvertisementId(String advertisementId,
       int limit, ({Product? productObject, int position}) lastProduct);
   FutureOr<List<Product>> findProductsByPopularity(

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freshly_delivered_app/features/dashboard/application/dtos/product_dto.dart';
 
+import '../../../../exceptions/app_sqlite_exception.dart';
 import '../../data/repositories/products_local_repository_impl.dart';
 import '../../data/repositories/products_remote_repository_impl.dart';
 import '../../domain/models/product.dart';
@@ -24,19 +25,16 @@ class GetProductByIdUseCaseImpl implements GetProductByIdUseCase {
   )   : _localProductsRepository = localProductsRepository,
         _remoteProductsRepository = remoteProductsRepository;
 
+  // May throw NotFoundException
   @override
   Future<ProductDto> execute(String request) async {
-    var product = await _localProductsRepository.findProductById(request);
-
-    switch (product) {
-      case EmptyProduct():
-        product = await _remoteProductsRepository.findProductById(request);
-        return switch (product) {
-          EmptyProduct() => const ProductDto.empty(),
-          _ => ProductDto.fromDomain(product)
-        };
-      default:
-        return ProductDto.fromDomain(product);
+    Product product;
+    try {
+      product = await _localProductsRepository.findProductById(request);
+    } on IdNotFoundException {
+      product = await _remoteProductsRepository.findProductById(request);
+      _localProductsRepository.saveProducts([product]);
     }
+    return ProductDto.fromDomain(product);
   }
 }

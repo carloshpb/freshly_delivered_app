@@ -15,19 +15,19 @@ void main() {
   late OnboardingController controller;
 
   const defaultOnboardMessages = [
-    OnboardingMessageDTO(
+    OnboardingMessageDto(
       imageSvgPath: 'assets/images/onboarding1.svg.vec',
       title: 'SHOP CONVENIENTLY',
       message:
           'Shop from an unlimited stock of groceries from the convenience of your homes',
     ),
-    OnboardingMessageDTO(
+    OnboardingMessageDto(
       imageSvgPath: 'assets/images/onboarding2.svg.vec',
       title: 'EXPERTLY CURATED RECIPES',
       message:
           'Our recipes are prepared in the finest of conditions by experts in their fields',
     ),
-    OnboardingMessageDTO(
+    OnboardingMessageDto(
       imageSvgPath: 'assets/images/onboarding3.svg.vec',
       title: 'BRING OUT THE CHEF IN YOU',
       message:

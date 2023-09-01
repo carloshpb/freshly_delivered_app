@@ -8,37 +8,27 @@ part 'advertisement_dto.freezed.dart';
 class AdvertisementDto with _$AdvertisementDto {
   const AdvertisementDto._();
 
-  const factory AdvertisementDto.empty() = EmptyAdvertisementDto;
-
-  const factory AdvertisementDto.normal({
+  const factory AdvertisementDto({
     @Default('') String id,
     @Default('') String description,
     @Default('') String imagePath,
     @Default(false) bool isSpecial,
     @Default(0) int discount,
-  }) = NormalAdvertisementDto;
+  }) = _AdvertisementDto;
 
-  factory AdvertisementDto.fromDomain(Advertisement domain) => switch (domain) {
-        NormalAdvertisement() => NormalAdvertisementDto(
-            id: domain.id,
-            description: domain.description,
-            discount: domain.discount,
-            imagePath: domain.imagePath,
-            isSpecial: domain.isSpecial,
-          ),
-        _ => const EmptyAdvertisementDto(),
-      };
+  factory AdvertisementDto.fromDomain(Advertisement domain) => AdvertisementDto(
+        id: domain.id,
+        description: domain.description,
+        discount: domain.discount,
+        imagePath: domain.imagePath,
+        isSpecial: domain.isSpecial,
+      );
 
-  Advertisement toDomain() {
-    return switch (this) {
-      NormalAdvertisementDto() => NormalAdvertisement(
-          id: (this as NormalAdvertisementDto).id,
-          description: (this as NormalAdvertisementDto).description,
-          discount: (this as NormalAdvertisementDto).discount,
-          imagePath: (this as NormalAdvertisementDto).imagePath,
-          isSpecial: (this as NormalAdvertisementDto).isSpecial,
-        ),
-      _ => const EmptyAdvertisement(),
-    };
-  }
+  Advertisement toDomain() => Advertisement(
+        id: id,
+        description: description,
+        discount: discount,
+        imagePath: imagePath,
+        isSpecial: isSpecial,
+      );
 }

@@ -34,18 +34,18 @@ void main() {
     ),
   ];
 
-  const List<OnboardingMessageDTO> messagesDTO = [
-    OnboardingMessageDTO(
+  const List<OnboardingMessageDto> messagesDto = [
+    OnboardingMessageDto(
       imageSvgPath: 'imagePath1.svg.vec',
       message: 'TITLE1',
       title: 'message1',
     ),
-    OnboardingMessageDTO(
+    OnboardingMessageDto(
       imageSvgPath: 'imagePath2.svg.vec',
       message: 'TITLE2',
       title: 'message2',
     ),
-    OnboardingMessageDTO(
+    OnboardingMessageDto(
       imageSvgPath: 'imagePath3.svg.vec',
       message: 'TITLE3',
       title: 'message3',
@@ -53,19 +53,19 @@ void main() {
   ];
 
   const defaultMessages = [
-    OnboardingMessageDTO(
+    OnboardingMessageDto(
       imageSvgPath: 'assets/images/onboarding1.svg.vec',
       title: 'SHOP CONVENIENTLY',
       message:
           'Shop from an unlimited stock of groceries from the convenience of your homes',
     ),
-    OnboardingMessageDTO(
+    OnboardingMessageDto(
       imageSvgPath: 'assets/images/onboarding2.svg.vec',
       title: 'EXPERTLY CURATED RECIPES',
       message:
           'Our recipes are prepared in the finest of conditions by experts in their fields',
     ),
-    OnboardingMessageDTO(
+    OnboardingMessageDto(
       imageSvgPath: 'assets/images/onboarding3.svg.vec',
       title: 'BRING OUT THE CHEF IN YOU',
       message:
@@ -106,12 +106,12 @@ void main() {
 
       var result = getOnboardingMessagesUseCase.execute();
 
-      expect(result, equals(messagesDTO));
+      expect(result, equals(messagesDto));
 
       expect(
         result[0],
         equals(
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'imagePath1.svg.vec',
             message: 'TITLE1',
             title: 'message1',
@@ -121,7 +121,7 @@ void main() {
       expect(
         result[1],
         equals(
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'imagePath2.svg.vec',
             message: 'TITLE2',
             title: 'message2',
@@ -131,7 +131,7 @@ void main() {
       expect(
         result[2],
         equals(
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'imagePath3.svg.vec',
             message: 'TITLE3',
             title: 'message3',
@@ -151,7 +151,7 @@ void main() {
       expect(
         result[0],
         equals(
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'assets/images/onboarding1.svg.vec',
             title: 'SHOP CONVENIENTLY',
             message:
@@ -162,7 +162,7 @@ void main() {
       expect(
         result[1],
         equals(
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'assets/images/onboarding2.svg.vec',
             title: 'EXPERTLY CURATED RECIPES',
             message:
@@ -173,7 +173,7 @@ void main() {
       expect(
         result[2],
         equals(
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'assets/images/onboarding3.svg.vec',
             title: 'BRING OUT THE CHEF IN YOU',
             message:
@@ -202,7 +202,7 @@ void main() {
       expect(
         result[0],
         equals(
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'assets/images/onboarding1.svg.vec',
             title: 'SHOP CONVENIENTLY',
             message:
@@ -213,7 +213,7 @@ void main() {
       expect(
         result[1],
         equals(
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'assets/images/onboarding2.svg.vec',
             title: 'EXPERTLY CURATED RECIPES',
             message:
@@ -224,7 +224,7 @@ void main() {
       expect(
         result[2],
         equals(
-          const OnboardingMessageDTO(
+          const OnboardingMessageDto(
             imageSvgPath: 'assets/images/onboarding3.svg.vec',
             title: 'BRING OUT THE CHEF IN YOU',
             message:

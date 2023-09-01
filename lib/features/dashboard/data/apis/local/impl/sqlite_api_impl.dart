@@ -13,7 +13,7 @@ Future<void> sqliteOnCreate(Database db, int version) async {
   // When creating the db, create the table
   batch.execute('''
         CREATE TABLE ${Strings.productsLocalTable} (
-          id TEXT PRIMARY KEY,
+          id TEXT PRIMARY KEY UNIQUE,
           title TEXT NOT NULL, 
           price REAL NOT NULL, 
           description TEXT NOT NULL, 
@@ -23,7 +23,8 @@ Future<void> sqliteOnCreate(Database db, int version) async {
           advertisement_id TEXT NOT NULL,
           discount INTEGER NOT NULL,
           created_at INTEGER NOT NULL,
-          modified_at INTEGER NOT NULL
+          modified_at INTEGER NOT NULL,
+          expiration INTEGER NOT NULL
         )
         ''');
 
@@ -34,7 +35,8 @@ Future<void> sqliteOnCreate(Database db, int version) async {
           image_path TEXT NOT NULL, 
           is_special INTEGER NOT NULL,
           created_at INTEGER NOT NULL,
-          modified_at INTEGER NOT NULL
+          modified_at INTEGER NOT NULL,
+          expiration INTEGER NOT NULL
         )
         ''');
 
@@ -44,7 +46,9 @@ Future<void> sqliteOnCreate(Database db, int version) async {
           email TEXT NOT NULL, 
           fullname TEXT NOT NULL, 
           password TEXT NOT NULL,
-          phoneNumber TEXT NOT NULL
+          phoneNumber TEXT NOT NULL,
+          runtimeType TEXT NOT NULL,
+          expiration INTEGER NOT NULL
         )
       ''');
 
@@ -53,7 +57,8 @@ Future<void> sqliteOnCreate(Database db, int version) async {
           id TEXT PRIMARY KEY,
           amount INTEGER NOT NULL
           created_at INTEGER NOT NULL,
-          modified_at INTEGER NOT NULL
+          modified_at INTEGER NOT NULL,
+          expiration INTEGER NOT NULL
         )
       ''');
 
@@ -73,12 +78,17 @@ class SQLiteApiImpl implements SQLiteApi {
   SQLiteApiImpl(Database database) : _database = database;
 
   @override
-  Future<List<Map<String, Object?>>> findAll(String table) async {
+  Future<List<Map<String, Object?>>> findAll(
+    String table,
+    int expirationLimit,
+  ) async {
     var result = await _database.rawQuery(
       '''
       SELECT * FROM $table
       ''',
     );
+
+    result = _verifyExpirationTime(result, expirationLimit);
 
     if (result.isEmpty) {
       throw DataNotFoundInDbException(
@@ -96,7 +106,11 @@ class SQLiteApiImpl implements SQLiteApi {
 
   @override
   Future<List<Map<String, Object?>>> findAllWithLimit(
-      String table, int limit, int offset) async {
+    String table,
+    int limit,
+    int offset,
+    int expirationLimit,
+  ) async {
     var query = "SELECT * FROM $table ORDER BY modified_at DESC";
 
     if (limit != 0) {
@@ -107,6 +121,8 @@ class SQLiteApiImpl implements SQLiteApi {
     }
 
     var result = await _database.rawQuery(query);
+
+    result = _verifyExpirationTime(result, expirationLimit);
 
     if (result.isEmpty) {
       throw DataNotFoundInDbException(
@@ -123,7 +139,11 @@ class SQLiteApiImpl implements SQLiteApi {
   }
 
   @override
-  Future<Map<String, Object?>> findById(String table, String id) async {
+  Future<Map<String, Object?>> findById(
+    String table,
+    String id,
+    int expirationLimit,
+  ) async {
     var result = await _database.rawQuery(
       '''
       SELECT * FROM $table
@@ -131,7 +151,9 @@ class SQLiteApiImpl implements SQLiteApi {
       ''',
     );
 
-    if (result.isEmpty) {
+    result = _verifyExpirationTime(result, expirationLimit);
+
+    if (result.isEmpty || (result[0]["id"] as String).contains("expired")) {
       throw IdNotFoundException(id, table, Strings.sqlite);
     }
 
@@ -144,12 +166,14 @@ class SQLiteApiImpl implements SQLiteApi {
   /// returns 0 if value was not saved
   @override
   Future<int> save(String table, dynamic entity, List<String> columns) async {
+    columns.add('expiration');
     var insert = "INSERT INTO $table(${columns.join(", ")}) VALUES";
 
     if (entity is List) {
       var batch = _database.batch();
       for (var index = 0; index < entity.length; index++) {
         _timestampToMillisecondsSinceEpoch(entity[index]);
+        entity[index]['expiration'] = DateTime.now().millisecondsSinceEpoch;
         batch.rawInsert(
             "$insert (${(entity[index] as Map<String, Object?>).entries.join(",")})");
       }
@@ -168,6 +192,7 @@ class SQLiteApiImpl implements SQLiteApi {
       return (resultList.length == entity.length) ? resultList.length : 0;
     } else {
       _timestampToMillisecondsSinceEpoch(entity);
+      entity['expiration'] = DateTime.now().millisecondsSinceEpoch;
       var result = await _database.rawInsert(
           "$insert (${(entity as Map<String, Object?>).entries.join(",")})");
 
@@ -190,7 +215,8 @@ class SQLiteApiImpl implements SQLiteApi {
     String attributeName,
     int limit,
     String orderBy,
-    int offset, {
+    int offset,
+    int expirationLimit, {
     bool descending = false,
   }) async {
     var query = "SELECT * FROM $table";
@@ -216,6 +242,8 @@ class SQLiteApiImpl implements SQLiteApi {
     }
 
     var result = await _database.rawQuery(query);
+
+    result = _verifyExpirationTime(result, expirationLimit);
 
     if (result.isEmpty) {
       throw DataNotFoundInDbException(
@@ -271,7 +299,8 @@ class SQLiteApiImpl implements SQLiteApi {
       query =
           "$query ${setAttributes[index].attributeName} = ${setAttributes[index].value},";
     }
-    query = "$query modified_at = ${DateTime.now().millisecondsSinceEpoch}";
+    // query = "$query modified_at = ${DateTime.now().millisecondsSinceEpoch}";
+    query = "$query expiration = ${DateTime.now().millisecondsSinceEpoch}";
     // query = query.substring(0, query.length - 1);
     query =
         "$query WHERE ${whereSingleCondition.attributeName} == ${whereSingleCondition.equalValue};";
@@ -286,22 +315,37 @@ class SQLiteApiImpl implements SQLiteApi {
       );
     }
 
-    return _database.rawUpdate(query);
+    return result;
   }
 
   /// Should be treated at repository
   @override
-  Future<List<Map<String, Object?>>> customQuery(String query) {
-    return _database.rawQuery(query);
+  Future<List<Map<String, Object?>>> customQuery(
+      String query, int expirationLimit) async {
+    var result = await _database.rawQuery(query);
+
+    result = _verifyExpirationTime(result, expirationLimit);
+
+    return result;
   }
 
   /// returns 0 if no changes were made. Otherwise, returns the number of changes
   @override
-  Future<int> deleteById(String table, String id) {
-    return _database.rawDelete('''
+  Future<int> deleteById(String table, String id) async {
+    var result = await _database.rawDelete('''
       DELETE FROM $table
       WHERE id == $id;
     ''');
+
+    if (result == 0) {
+      throw AppSqliteException.dataNotDeleted(
+        id,
+        table,
+        Strings.sqlite,
+      );
+    }
+
+    return result;
   }
 
   /// Freezed lib still doesn't contain a way to have multiple different converters, so the simplest and less-code way is this one
@@ -327,6 +371,69 @@ class SQLiteApiImpl implements SQLiteApi {
       map["modified_at"] = ((map["modified_at"] as int?) == null)
           ? null
           : Timestamp.fromMillisecondsSinceEpoch(map["modified_at"] as int);
+    }
+  }
+
+  // cache expiration time : Return exception if it has expired, so we can get new one from server
+  List<Map<String, Object?>> _verifyExpirationTime(
+      List<Map<String, Object?>> result, int expirationLimit) {
+    if (expirationLimit != 0) {
+      result = result.map((element) {
+        var currentDateTime = DateTime.now();
+        var expirationDateTimeProduct =
+            DateTime.fromMillisecondsSinceEpoch(element['expiration'] as int);
+        if (currentDateTime.difference(expirationDateTimeProduct).inMinutes >
+            expirationLimit.abs()) {
+          element["id"] = "${element["id"]}expired";
+        }
+        return element;
+      }).toList();
+    }
+    return result;
+  }
+
+  @override
+  Future<int> insertOrReplace(
+      String table, entity, List<String> columns) async {
+    columns.add('expiration');
+    var insert = "INSERT OR REPLACE INTO $table(${columns.join(", ")}) VALUES";
+
+    if (entity is List) {
+      var batch = _database.batch();
+      for (var index = 0; index < entity.length; index++) {
+        _timestampToMillisecondsSinceEpoch(entity[index]);
+        entity[index]['expiration'] = DateTime.now().millisecondsSinceEpoch;
+        batch.rawInsert(
+            "$insert (${(entity[index] as Map<String, Object?>).entries.join(",")})");
+      }
+      var resultList = await batch.commit();
+      if (resultList.length != entity.length) {
+        var notAddedIds = entity
+            .where((element) => !resultList.contains(element["id"]))
+            .map((e) => e["id"])
+            .toList();
+        throw DataNotInsertedInDbException(
+          notAddedIds,
+          table,
+          Strings.sqlite,
+        );
+      }
+      return (resultList.length == entity.length) ? resultList.length : 0;
+    } else {
+      _timestampToMillisecondsSinceEpoch(entity);
+      entity['expiration'] = DateTime.now().millisecondsSinceEpoch;
+      var result = await _database.rawInsert(
+          "$insert (${(entity as Map<String, Object?>).entries.join(",")})");
+
+      if (result == 0) {
+        throw DataNotInsertedInDbException(
+          entity["id"],
+          table,
+          Strings.sqlite,
+        );
+      }
+
+      return result;
     }
   }
 }

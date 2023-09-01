@@ -5,9 +5,9 @@ import '../../application/dtos/advertisement_dto.dart';
 
 abstract class GetLastAdvertisementsUseCase
     implements
-        UseCase<({NormalAdvertisementDto? object, int position}),
-            List<NormalAdvertisementDto>> {
+        UseCase<({AdvertisementDto? object, int position}),
+            List<AdvertisementDto>> {
   @override
-  FutureOr<List<NormalAdvertisementDto>> execute(
-      ({NormalAdvertisementDto? object, int position}) request);
+  FutureOr<List<AdvertisementDto>> execute(
+      ({AdvertisementDto? object, int position}) request);
 }

@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../constants/strings.dart';
-import '../../../../exceptions/app_sqflite_exception.dart';
-import '../../../../exceptions/object_already_added_exception.dart';
 import '../../domain/models/cart_item.dart';
 import '../../domain/repositories/cart_repository.dart';
 import '../../domain/repositories/products_repository.dart';
@@ -48,7 +46,7 @@ final cartLocalRepositoryProvider = Provider.autoDispose<CartRepository>(
       },
     );
 
-    sqliteApi.customQuery(_customQuery).then((listCartItemsJson) {
+    sqliteApi.customQuery(_customQuery, 0).then((listCartItemsJson) {
       for (var index = 0; index < listCartItemsJson.length; index++) {
         cartStreamController.add(listCartItemsJson[index]);
       }
@@ -138,7 +136,7 @@ class CartLocalRepositoryImpl implements CartRepository {
 
   @override
   void fetchCartProducts() {
-    _sqliteApi.customQuery(_customQuery).then((listCartItemsJson) {
+    _sqliteApi.customQuery(_customQuery, 0).then((listCartItemsJson) {
       for (var index = 0; index < listCartItemsJson.length; index++) {
         _cartItemsStreamController.add(listCartItemsJson[index]);
       }
@@ -167,12 +165,8 @@ class CartLocalRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<void> removeProductAtCart(CartItem item) async {
-    var result = await _sqliteApi.deleteById(
-        Strings.userCartLocalTable, item.product.id);
-    if (result == 0) {
-      throw const ObjectNotDeletedException();
-    }
+  Future<void> removeProductAtCart(CartItem item) {
+    return _sqliteApi.deleteById(Strings.userCartLocalTable, item.product.id);
   }
 
   @override

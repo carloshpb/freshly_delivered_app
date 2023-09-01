@@ -115,18 +115,13 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
 
   @override
   void fetchLastAdvertisements() {
-    try {
-      _firestoreApi.fetchListByAttributeDesc(
-        Strings.advertisementsRemoteTable,
-        null,
-        "",
-        "created_at",
-        _advertisementStream,
-      );
-    } on Exception {
-      // TODO : Handle errors
-      return;
-    }
+    _firestoreApi.fetchListByAttributeDesc(
+      Strings.advertisementsRemoteTable,
+      null,
+      "",
+      "created_at",
+      _advertisementStream,
+    );
 
     // await for (final listMap in resultListMap) {
     //   var mapList = <Map<String, Object?>>[];
@@ -142,4 +137,12 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
   @override
   Stream<List<Advertisement>> get advertisementsStream =>
       _advertisementStream.transform(_streamAdvertisementTransformer);
+
+  @override
+  Future<void> insertOrReplaceAdvertisements(
+      List<Advertisement> advertisements) {
+    var mapAdvertisements = advertisements.map((adv) => adv.toJson());
+    return _firestoreApi.set(
+        Strings.advertisementsRemoteTable, mapAdvertisements);
+  }
 }
