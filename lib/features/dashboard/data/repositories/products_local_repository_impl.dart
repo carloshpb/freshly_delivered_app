@@ -142,4 +142,11 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
         )
         .toList();
   }
+
+  @override
+  Future<void> insertOrReplaceProducts(List<Product> products) {
+    var mapProducts = products.map((prod) => prod.toJson());
+    return _sqliteApi.insertOrReplace(
+        Strings.productsLocalTable, mapProducts, _productStringProperties);
+  }
 }

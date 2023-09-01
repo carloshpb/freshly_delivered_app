@@ -147,4 +147,15 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   @override
   Stream<List<Advertisement>> get advertisementsStream =>
       _advertisementStream.transform(_streamAdvertisementTransformer);
+
+  @override
+  Future<void> insertOrReplaceAdvertisements(
+      List<Advertisement> advertisements) {
+    var mapAdvertisements = advertisements.map((adv) => adv.toJson());
+    return _sqliteApi.insertOrReplace(
+      Strings.advertisementsLocalTable,
+      mapAdvertisements,
+      _advertisementStringProperties,
+    );
+  }
 }
