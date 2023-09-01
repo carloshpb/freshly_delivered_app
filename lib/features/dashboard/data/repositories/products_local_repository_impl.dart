@@ -32,7 +32,8 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   /// Throws
   @override
   FutureOr<Product> findProductById(String id) async {
-    var resultMap = await _sqliteApi.findById(Strings.productsLocalTable, id);
+    var resultMap =
+        await _sqliteApi.findById(Strings.productsLocalTable, id, 5);
 
     return Product.fromJson(resultMap);
   }
@@ -46,6 +47,7 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
       Strings.productsLocalTable,
       limit,
       lastProduct.position,
+      5,
     );
     return resultListMap
         .map(
@@ -58,6 +60,7 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   FutureOr<List<Product>> findAllProducts() async {
     var resultListMap = await _sqliteApi.findAll(
       Strings.productsLocalTable,
+      5,
     );
     return resultListMap
         .map(
@@ -83,6 +86,7 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
       limit,
       "title",
       lastProduct.position,
+      5,
     );
 
     return result
@@ -105,6 +109,7 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
       limit,
       "units_sold",
       lastProduct.position,
+      5,
       descending: true,
     );
 
@@ -127,6 +132,7 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
       limit,
       "units_sold",
       lastProduct.position,
+      5,
       descending: true,
     );
 

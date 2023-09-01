@@ -46,7 +46,7 @@ final cartLocalRepositoryProvider = Provider.autoDispose<CartRepository>(
       },
     );
 
-    sqliteApi.customQuery(_customQuery).then((listCartItemsJson) {
+    sqliteApi.customQuery(_customQuery, 0).then((listCartItemsJson) {
       for (var index = 0; index < listCartItemsJson.length; index++) {
         cartStreamController.add(listCartItemsJson[index]);
       }
@@ -136,7 +136,7 @@ class CartLocalRepositoryImpl implements CartRepository {
 
   @override
   void fetchCartProducts() {
-    _sqliteApi.customQuery(_customQuery).then((listCartItemsJson) {
+    _sqliteApi.customQuery(_customQuery, 0).then((listCartItemsJson) {
       for (var index = 0; index < listCartItemsJson.length; index++) {
         _cartItemsStreamController.add(listCartItemsJson[index]);
       }
