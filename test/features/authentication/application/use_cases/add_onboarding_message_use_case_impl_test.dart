@@ -51,7 +51,7 @@ void main() {
 
         expect(
           () => addOnboardingMessageUseCase.execute(
-            const OnboardingMessageDTO(
+            const OnboardingMessageDto(
               imageSvgPath: 'imagePath4.svg.vec',
               message: 'TITLE4',
               title: 'message4',
@@ -77,7 +77,7 @@ void main() {
       () {
         expect(
           () => addOnboardingMessageUseCase.execute(
-            const OnboardingMessageDTO(
+            const OnboardingMessageDto(
               imageSvgPath: '',
               message: 'TITLE4',
               title: 'message4',
@@ -88,7 +88,7 @@ void main() {
 
         expect(
           () => addOnboardingMessageUseCase.execute(
-            const OnboardingMessageDTO(
+            const OnboardingMessageDto(
               imageSvgPath: 'imagePath4.svg.vec',
               message: '',
               title: 'message4',
@@ -99,7 +99,7 @@ void main() {
 
         expect(
           () => addOnboardingMessageUseCase.execute(
-            const OnboardingMessageDTO(
+            const OnboardingMessageDto(
               imageSvgPath: 'imagePath4.svg.vec',
               message: 'TITLE4',
               title: '',

@@ -14,7 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @GenerateNiceMocks([
   MockSpec<Listener>(),
-  MockSpec<OnboardingMessageDTO>(),
+  MockSpec<OnboardingMessageDto>(),
   MockSpec<AuthenticationRepository>(),
   MockSpec<OnboardingMessagesRepository>(),
   MockSpec<SetOnboardingMessagesUseCase>(),
