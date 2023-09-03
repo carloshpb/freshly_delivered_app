@@ -12,7 +12,7 @@ import '../routers/app_router.dart';
 class ProductCard extends StatelessWidget {
   final double? _height;
   final double? _width;
-  final NormalProductDto _product;
+  final ProductDto _product;
   final VoidCallback? _onTap;
   final VoidCallback? _tapFavorite;
   final bool? _isFavorite;
@@ -23,7 +23,7 @@ class ProductCard extends StatelessWidget {
     super.key,
     double? height,
     double? width,
-    required NormalProductDto product,
+    required ProductDto product,
     VoidCallback? onTap,
     VoidCallback? tapFavorite,
     bool? isFavorite,
