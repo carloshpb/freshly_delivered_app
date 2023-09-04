@@ -15,7 +15,7 @@ class HomeSpecialOfferController extends AsyncNotifier<List<AdvertisementDto>> {
   @override
   FutureOr<List<AdvertisementDto>> build() async {
     var specialAdvertisement = await ref
-        .watch(findSpecialAdvertisementsUseCaseProvider)
+        .watch(getSpecialAdvertisementsUseCaseProvider)
         .execute((object: null, position: 0));
 
     return specialAdvertisement;

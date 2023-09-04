@@ -21,7 +21,7 @@ class HomeSearchProductsController extends Notifier<List<ProductDto>> {
     var searchProductTextFieldState =
         ref.watch(searchProductTextFieldHomeProvider);
     var homeControllerState =
-        ref.watch(findProductsByNameUseCaseProvider).execute(request);
+        ref.watch(getProductsByNameUseCaseProvider).execute((position: , productName: searchProductTextFieldState, productObject: ,));
     if (searchProductTextFieldState.isNotEmpty) {
       var regex = RegExp(searchProductTextFieldState, caseSensitive: false);
       if (homeControllerState.hasValue) {
