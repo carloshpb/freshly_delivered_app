@@ -1,16 +1,11 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../../common_widgets/animated/on_sale_card_carousel.dart';
-import '../../../../common_widgets/product_card.dart';
 import '../../../../constants/custom_colors.dart';
 import '../../../../constants/strings.dart';
 import '../../../../routers/app_router.dart';
-import '../../application/dtos/advertisement_dto.dart';
 import '../controllers/home_controller.dart';
 
 class HomeScreen extends ConsumerWidget {

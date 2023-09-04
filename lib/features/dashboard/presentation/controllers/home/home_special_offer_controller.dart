@@ -20,4 +20,27 @@ class HomeSpecialOfferController extends AsyncNotifier<List<AdvertisementDto>> {
 
     return specialAdvertisement;
   }
+
+  Future<void> updateSpecialOffer([bool isRefreshing = true]) async {
+    var currentAdvertisements = state.value;
+    var lastAdvertisement = (
+      object: currentAdvertisements?[currentAdvertisements.length - 1],
+      position: (currentAdvertisements?.length == null)
+          ? 0
+          : currentAdvertisements!.length - 1
+    );
+    state = const AsyncValue.loading();
+    try {
+      var specialAdvertisement = await ref
+          .watch(getSpecialAdvertisementsUseCaseProvider)
+          .execute(lastAdvertisement);
+      currentAdvertisements = (currentAdvertisements == null)
+          ? specialAdvertisement
+          : currentAdvertisements
+        ..addAll(specialAdvertisement);
+      state = AsyncValue.data(currentAdvertisements);
+    } on Exception {
+      // TODO : Get to know the exceptions thrown by getSpecialAdvertisementsUseCaseProvider
+    }
+  }
 }

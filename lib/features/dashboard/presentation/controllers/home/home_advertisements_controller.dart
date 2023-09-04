@@ -21,4 +21,23 @@ class HomeAdvertisementsController
 
     return advertisements;
   }
+
+  Future<void> updateAdvertisements() async {
+    var currentAdvertisements = state.value;
+
+    state = const AsyncValue.loading();
+
+    var lastAdv =
+        (currentAdvertisements == null || currentAdvertisements.isEmpty)
+            ? (object: null, position: 0)
+            : (
+                object: currentAdvertisements[currentAdvertisements.length - 1],
+                position: currentAdvertisements.length - 1,
+              );
+
+    var newAdvertisements =
+        await ref.watch(getLastAdvertisementsUseCaseProvider).execute(lastAdv);
+
+    state = AsyncValue.data([...?currentAdvertisements, ...newAdvertisements]);
+  }
 }
