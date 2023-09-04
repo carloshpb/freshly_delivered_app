@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../application/dtos/product_dto.dart';
@@ -6,34 +8,60 @@ import '../../../application/use_cases/get_products_by_name_use_case_impl.dart';
 final searchProductTextFieldHomeProvider = StateProvider<String>((ref) => '');
 
 final homeSearchProductsControllerProvider =
-    NotifierProvider<HomeSearchProductsController, List<ProductDto>>(
+    AsyncNotifierProvider<HomeSearchProductsController, List<ProductDto>>(
   () => HomeSearchProductsController(),
   name: r'homeSearchProductsControllerProvider',
 );
 
-class HomeSearchProductsController extends Notifier<List<ProductDto>> {
+class HomeSearchProductsController extends AsyncNotifier<List<ProductDto>> {
   @override
-  List<ProductDto> build() {
-    return [];
+  FutureOr<List<ProductDto>> build() {
+    var searchProductName = ref.watch(searchProductTextFieldHomeProvider);
+    return (searchProductName.isEmpty)
+        ? []
+        : ref.watch(getProductsByNameUseCaseProvider).execute((
+            position: 0,
+            productName: searchProductName,
+            productObject: null,
+          ));
   }
 
-  void setNewFilteredProducts() {
+  Future<void> setNewFilteredProducts() async {
     var searchProductTextFieldState =
         ref.watch(searchProductTextFieldHomeProvider);
-    var homeControllerState =
-        ref.watch(getProductsByNameUseCaseProvider).execute((position: , productName: searchProductTextFieldState, productObject: ,));
-    if (searchProductTextFieldState.isNotEmpty) {
-      var regex = RegExp(searchProductTextFieldState, caseSensitive: false);
-      if (homeControllerState.hasValue) {
-        state = [
-          ...homeControllerState.value!.firstPopularProducts
-              .where((product) => regex.hasMatch(product.title))
-              .toList(),
-          ...homeControllerState.value!.secondPopularProducts
-              .where((product) => regex.hasMatch(product.title))
-              .toList(),
-        ];
-      }
-    }
+
+    var currentFoundProductData = (state.value!.isNotEmpty)
+        ? (
+            position: state.value!.length - 1,
+            productName: searchProductTextFieldState,
+            productObject: state.value![state.value!.length - 1],
+          )
+        : (
+            position: 0,
+            productName: searchProductTextFieldState,
+            productObject: null,
+          );
+
+    state = const AsyncValue.loading();
+
+    var productsByName = await ref
+        .watch(getProductsByNameUseCaseProvider)
+        .execute(currentFoundProductData);
+
+    state = AsyncValue.data(state.value!..addAll(productsByName));
+
+    // if (searchProductTextFieldState.isNotEmpty) {
+    //   var regex = RegExp(searchProductTextFieldState, caseSensitive: false);
+    //   if (productsByName.hasValue) {
+    //     state = [
+    //       ...productsByName.value!.firstPopularProducts
+    //           .where((product) => regex.hasMatch(product.title))
+    //           .toList(),
+    //       ...productsByName.value!.secondPopularProducts
+    //           .where((product) => regex.hasMatch(product.title))
+    //           .toList(),
+    //     ];
+    //   }
+    // }
   }
 }

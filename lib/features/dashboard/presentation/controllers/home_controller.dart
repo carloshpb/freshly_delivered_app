@@ -22,7 +22,7 @@ class HomeController extends AsyncNotifier<HomeState> {
         .watch(getProductsWithLimitUseCaseProvider)
         .execute((object: null, position: 0));
     var specialAdvertisement = await ref
-        .watch(findSpecialAdvertisementsUseCaseProvider)
+        .watch(getSpecialAdvertisementsUseCaseProvider)
         .execute((object: null, position: 0));
     var firstSublistProducts =
         products.sublist(0, (products.length / 2).round());
