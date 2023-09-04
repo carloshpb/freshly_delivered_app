@@ -44,7 +44,7 @@ dependencies:
   cloud_firestore: ^4.9.1
   shimmer: ^3.0.0
   sqflite: ^2.3.0
-  logger: ^2.0.1
+  logger: ^2.0.2
   # uuid: ^4.0.0-beta3-1
 
 dev_dependencies:
