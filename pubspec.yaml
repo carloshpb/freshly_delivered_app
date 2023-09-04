@@ -12,8 +12,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   another_flushbar: ^1.12.30
+  auto_size_text: ^3.0.0
+  cached_network_image: ^3.2.3
   carousel_slider: ^4.2.1
+  cloud_firestore: ^4.9.1
   cupertino_icons: ^1.0.6
   easy_debounce: ^2.0.3
   email_validator: ^2.1.17
@@ -27,25 +32,20 @@ dependencies:
   freezed_annotation: ^2.4.1
   go_router: ^10.1.2
   input_history_text_field: ^0.2.0
+  intl: any
   json_annotation: ^4.8.1
   loader_overlay: ^2.3.2
+  logger: ^2.0.2
   multiple_result: ^5.1.0
   mockito: ^5.4.2
   riverpod_annotation: ^2.1.5
   rxdart: ^0.27.7
   shared_preferences: ^2.2.1
-  smooth_page_indicator: ^1.1.0
-  vector_graphics: ^1.1.7
-  cached_network_image: ^3.2.3
-  auto_size_text: ^3.0.0
-  flutter_localizations:
-    sdk: flutter
-  intl: any
-  cloud_firestore: ^4.9.1
   shimmer: ^3.0.0
+  smooth_page_indicator: ^1.1.0
   sqflite: ^2.3.0
-  logger: ^2.0.2
   # uuid: ^4.0.0-beta3-1
+  vector_graphics: ^1.1.7
 
 dev_dependencies:
   integration_test:
