@@ -18,11 +18,12 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomeState {
   List<AdvertisementDto> get advertisements =>
       throw _privateConstructorUsedError;
-  List<ProductDto> get firstPopularProducts =>
-      throw _privateConstructorUsedError;
-  List<ProductDto> get secondPopularProducts =>
-      throw _privateConstructorUsedError;
+  List<ProductDto> get popularProducts =>
+      throw _privateConstructorUsedError; // required List<ProductDto> firstPopularProducts,
+// required List<ProductDto> secondPopularProducts,
   AdvertisementDto get specialOffer => throw _privateConstructorUsedError;
+  List<ProductDto> get specialOfferProducts =>
+      throw _privateConstructorUsedError;
   String get searchProductName => throw _privateConstructorUsedError;
   List<ProductDto> get searchProductsResult =>
       throw _privateConstructorUsedError;
@@ -39,9 +40,9 @@ abstract class $HomeStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<AdvertisementDto> advertisements,
-      List<ProductDto> firstPopularProducts,
-      List<ProductDto> secondPopularProducts,
+      List<ProductDto> popularProducts,
       AdvertisementDto specialOffer,
+      List<ProductDto> specialOfferProducts,
       String searchProductName,
       List<ProductDto> searchProductsResult});
 
@@ -62,9 +63,9 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @override
   $Res call({
     Object? advertisements = null,
-    Object? firstPopularProducts = null,
-    Object? secondPopularProducts = null,
+    Object? popularProducts = null,
     Object? specialOffer = null,
+    Object? specialOfferProducts = null,
     Object? searchProductName = null,
     Object? searchProductsResult = null,
   }) {
@@ -73,18 +74,18 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.advertisements
           : advertisements // ignore: cast_nullable_to_non_nullable
               as List<AdvertisementDto>,
-      firstPopularProducts: null == firstPopularProducts
-          ? _value.firstPopularProducts
-          : firstPopularProducts // ignore: cast_nullable_to_non_nullable
-              as List<ProductDto>,
-      secondPopularProducts: null == secondPopularProducts
-          ? _value.secondPopularProducts
-          : secondPopularProducts // ignore: cast_nullable_to_non_nullable
+      popularProducts: null == popularProducts
+          ? _value.popularProducts
+          : popularProducts // ignore: cast_nullable_to_non_nullable
               as List<ProductDto>,
       specialOffer: null == specialOffer
           ? _value.specialOffer
           : specialOffer // ignore: cast_nullable_to_non_nullable
               as AdvertisementDto,
+      specialOfferProducts: null == specialOfferProducts
+          ? _value.specialOfferProducts
+          : specialOfferProducts // ignore: cast_nullable_to_non_nullable
+              as List<ProductDto>,
       searchProductName: null == searchProductName
           ? _value.searchProductName
           : searchProductName // ignore: cast_nullable_to_non_nullable
@@ -114,9 +115,9 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<AdvertisementDto> advertisements,
-      List<ProductDto> firstPopularProducts,
-      List<ProductDto> secondPopularProducts,
+      List<ProductDto> popularProducts,
       AdvertisementDto specialOffer,
+      List<ProductDto> specialOfferProducts,
       String searchProductName,
       List<ProductDto> searchProductsResult});
 
@@ -136,9 +137,9 @@ class __$$_HomeStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? advertisements = null,
-    Object? firstPopularProducts = null,
-    Object? secondPopularProducts = null,
+    Object? popularProducts = null,
     Object? specialOffer = null,
+    Object? specialOfferProducts = null,
     Object? searchProductName = null,
     Object? searchProductsResult = null,
   }) {
@@ -147,18 +148,18 @@ class __$$_HomeStateCopyWithImpl<$Res>
           ? _value._advertisements
           : advertisements // ignore: cast_nullable_to_non_nullable
               as List<AdvertisementDto>,
-      firstPopularProducts: null == firstPopularProducts
-          ? _value._firstPopularProducts
-          : firstPopularProducts // ignore: cast_nullable_to_non_nullable
-              as List<ProductDto>,
-      secondPopularProducts: null == secondPopularProducts
-          ? _value._secondPopularProducts
-          : secondPopularProducts // ignore: cast_nullable_to_non_nullable
+      popularProducts: null == popularProducts
+          ? _value._popularProducts
+          : popularProducts // ignore: cast_nullable_to_non_nullable
               as List<ProductDto>,
       specialOffer: null == specialOffer
           ? _value.specialOffer
           : specialOffer // ignore: cast_nullable_to_non_nullable
               as AdvertisementDto,
+      specialOfferProducts: null == specialOfferProducts
+          ? _value._specialOfferProducts
+          : specialOfferProducts // ignore: cast_nullable_to_non_nullable
+              as List<ProductDto>,
       searchProductName: null == searchProductName
           ? _value.searchProductName
           : searchProductName // ignore: cast_nullable_to_non_nullable
@@ -176,14 +177,14 @@ class __$$_HomeStateCopyWithImpl<$Res>
 class _$_HomeState implements _HomeState {
   const _$_HomeState(
       {required final List<AdvertisementDto> advertisements,
-      required final List<ProductDto> firstPopularProducts,
-      required final List<ProductDto> secondPopularProducts,
+      required final List<ProductDto> popularProducts,
       required this.specialOffer,
+      required final List<ProductDto> specialOfferProducts,
       required this.searchProductName,
       required final List<ProductDto> searchProductsResult})
       : _advertisements = advertisements,
-        _firstPopularProducts = firstPopularProducts,
-        _secondPopularProducts = secondPopularProducts,
+        _popularProducts = popularProducts,
+        _specialOfferProducts = specialOfferProducts,
         _searchProductsResult = searchProductsResult;
 
   final List<AdvertisementDto> _advertisements;
@@ -194,26 +195,27 @@ class _$_HomeState implements _HomeState {
     return EqualUnmodifiableListView(_advertisements);
   }
 
-  final List<ProductDto> _firstPopularProducts;
+  final List<ProductDto> _popularProducts;
   @override
-  List<ProductDto> get firstPopularProducts {
-    if (_firstPopularProducts is EqualUnmodifiableListView)
-      return _firstPopularProducts;
+  List<ProductDto> get popularProducts {
+    if (_popularProducts is EqualUnmodifiableListView) return _popularProducts;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_firstPopularProducts);
+    return EqualUnmodifiableListView(_popularProducts);
   }
 
-  final List<ProductDto> _secondPopularProducts;
-  @override
-  List<ProductDto> get secondPopularProducts {
-    if (_secondPopularProducts is EqualUnmodifiableListView)
-      return _secondPopularProducts;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_secondPopularProducts);
-  }
-
+// required List<ProductDto> firstPopularProducts,
+// required List<ProductDto> secondPopularProducts,
   @override
   final AdvertisementDto specialOffer;
+  final List<ProductDto> _specialOfferProducts;
+  @override
+  List<ProductDto> get specialOfferProducts {
+    if (_specialOfferProducts is EqualUnmodifiableListView)
+      return _specialOfferProducts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_specialOfferProducts);
+  }
+
   @override
   final String searchProductName;
   final List<ProductDto> _searchProductsResult;
@@ -227,7 +229,7 @@ class _$_HomeState implements _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(advertisements: $advertisements, firstPopularProducts: $firstPopularProducts, secondPopularProducts: $secondPopularProducts, specialOffer: $specialOffer, searchProductName: $searchProductName, searchProductsResult: $searchProductsResult)';
+    return 'HomeState(advertisements: $advertisements, popularProducts: $popularProducts, specialOffer: $specialOffer, specialOfferProducts: $specialOfferProducts, searchProductName: $searchProductName, searchProductsResult: $searchProductsResult)';
   }
 
   @override
@@ -238,11 +240,11 @@ class _$_HomeState implements _HomeState {
             const DeepCollectionEquality()
                 .equals(other._advertisements, _advertisements) &&
             const DeepCollectionEquality()
-                .equals(other._firstPopularProducts, _firstPopularProducts) &&
-            const DeepCollectionEquality()
-                .equals(other._secondPopularProducts, _secondPopularProducts) &&
+                .equals(other._popularProducts, _popularProducts) &&
             (identical(other.specialOffer, specialOffer) ||
                 other.specialOffer == specialOffer) &&
+            const DeepCollectionEquality()
+                .equals(other._specialOfferProducts, _specialOfferProducts) &&
             (identical(other.searchProductName, searchProductName) ||
                 other.searchProductName == searchProductName) &&
             const DeepCollectionEquality()
@@ -253,9 +255,9 @@ class _$_HomeState implements _HomeState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_advertisements),
-      const DeepCollectionEquality().hash(_firstPopularProducts),
-      const DeepCollectionEquality().hash(_secondPopularProducts),
+      const DeepCollectionEquality().hash(_popularProducts),
       specialOffer,
+      const DeepCollectionEquality().hash(_specialOfferProducts),
       searchProductName,
       const DeepCollectionEquality().hash(_searchProductsResult));
 
@@ -269,20 +271,21 @@ class _$_HomeState implements _HomeState {
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
       {required final List<AdvertisementDto> advertisements,
-      required final List<ProductDto> firstPopularProducts,
-      required final List<ProductDto> secondPopularProducts,
+      required final List<ProductDto> popularProducts,
       required final AdvertisementDto specialOffer,
+      required final List<ProductDto> specialOfferProducts,
       required final String searchProductName,
       required final List<ProductDto> searchProductsResult}) = _$_HomeState;
 
   @override
   List<AdvertisementDto> get advertisements;
   @override
-  List<ProductDto> get firstPopularProducts;
-  @override
-  List<ProductDto> get secondPopularProducts;
-  @override
+  List<ProductDto> get popularProducts;
+  @override // required List<ProductDto> firstPopularProducts,
+// required List<ProductDto> secondPopularProducts,
   AdvertisementDto get specialOffer;
+  @override
+  List<ProductDto> get specialOfferProducts;
   @override
   String get searchProductName;
   @override
