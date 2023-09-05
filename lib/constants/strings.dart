@@ -50,6 +50,9 @@ class Strings {
   static const searchProductsHint = "Search recipes, groceries and more";
   static const moreAdvertisementsSoon = "More advertisements soon!";
   static const addToCard = "Add to card";
+  static const advertisementsNotFound = "No advertisement was found for now.";
+  static const productsNotFound = "No product was found.";
+  static const tryAgainLater = "Try again later.";
 
   /// SQLite tables
   static const sqlite = "SQLite";
