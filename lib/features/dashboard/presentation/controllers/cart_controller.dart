@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'states/cart_state.dart';
@@ -13,8 +14,8 @@ class CartController extends AsyncNotifier<CartState> {
   @override
   FutureOr<CartState> build() async {
     // TODO : Test with a stream of CartItems -> change one item from elsewhere and see if this CartController is really listening to the changes
-    var cartItems = ref.watch();
+    // var cartItems = ref.watch();
 
-    return CartState(cartItems: cartItems);
+    return const CartState(cartItems: []);
   }
 }

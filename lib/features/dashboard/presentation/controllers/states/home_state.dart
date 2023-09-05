@@ -9,9 +9,9 @@ part 'home_state.freezed.dart';
 class HomeState with _$HomeState {
   const factory HomeState({
     required List<AdvertisementDto> advertisements,
-    required List<ProductDto> firstPopularProducts,
-    required List<ProductDto> secondPopularProducts,
+    required List<ProductDto> popularProducts,
     required AdvertisementDto specialOffer,
+    required List<ProductDto> specialOfferProducts,
     required String searchProductName,
     required List<ProductDto> searchProductsResult,
   }) = _HomeState;
