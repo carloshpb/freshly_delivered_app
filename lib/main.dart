@@ -11,7 +11,6 @@ import 'package:sqflite/sqflite.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 import 'constants/custom_colors.dart';
-import 'constants/strings.dart';
 import 'exceptions/async_error_logger.dart';
 import 'features/dashboard/data/apis/local/impl/sqlite_api_impl.dart';
 import 'features/top_level_providers.dart';

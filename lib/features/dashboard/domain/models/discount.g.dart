@@ -8,7 +8,7 @@ part of 'discount.dart';
 
 _$_Discount _$$_DiscountFromJson(Map<String, dynamic> json) => _$_Discount(
       id: json['id'] as String,
-      discountPercent: json['discountPercent'] as int? ?? 0,
+      discountPercent: json['discount_percent'] as int? ?? 0,
       expiresAt: const DateTimeTimestampConverter()
           .fromJson(json['expires_at'] as Timestamp?),
       createdAt: const DateTimeTimestampConverter()
@@ -20,7 +20,7 @@ _$_Discount _$$_DiscountFromJson(Map<String, dynamic> json) => _$_Discount(
 Map<String, dynamic> _$$_DiscountToJson(_$_Discount instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'discountPercent': instance.discountPercent,
+      'discount_percent': instance.discountPercent,
       'expires_at':
           const DateTimeTimestampConverter().toJson(instance.expiresAt),
       'created_at':

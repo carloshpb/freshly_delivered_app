@@ -21,6 +21,7 @@ Discount _$DiscountFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Discount {
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'discount_percent')
   int get discountPercent => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
   @JsonKey(name: 'expires_at')
@@ -45,7 +46,7 @@ abstract class $DiscountCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      int discountPercent,
+      @JsonKey(name: 'discount_percent') int discountPercent,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'expires_at')
       DateTime? expiresAt,
@@ -110,7 +111,7 @@ abstract class _$$_DiscountCopyWith<$Res> implements $DiscountCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      int discountPercent,
+      @JsonKey(name: 'discount_percent') int discountPercent,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'expires_at')
       DateTime? expiresAt,
@@ -170,7 +171,7 @@ class __$$_DiscountCopyWithImpl<$Res>
 class _$_Discount implements _Discount {
   const _$_Discount(
       {required this.id,
-      this.discountPercent = 0,
+      @JsonKey(name: 'discount_percent') this.discountPercent = 0,
       @DateTimeTimestampConverter() @JsonKey(name: 'expires_at') this.expiresAt,
       @DateTimeTimestampConverter() @JsonKey(name: 'created_at') this.createdAt,
       @DateTimeTimestampConverter()
@@ -186,7 +187,7 @@ class _$_Discount implements _Discount {
   @override
   final String id;
   @override
-  @JsonKey()
+  @JsonKey(name: 'discount_percent')
   final int discountPercent;
   @override
   @DateTimeTimestampConverter()
@@ -244,7 +245,7 @@ class _$_Discount implements _Discount {
 abstract class _Discount implements Discount {
   const factory _Discount(
       {required final String id,
-      final int discountPercent,
+      @JsonKey(name: 'discount_percent') final int discountPercent,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'expires_at')
       final DateTime? expiresAt,
@@ -260,6 +261,7 @@ abstract class _Discount implements Discount {
   @override
   String get id;
   @override
+  @JsonKey(name: 'discount_percent')
   int get discountPercent;
   @override
   @DateTimeTimestampConverter()

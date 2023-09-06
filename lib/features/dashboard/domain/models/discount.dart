@@ -16,7 +16,7 @@ sealed class Discount with _$Discount {
       'price cannot be negative or bigger than 100')
   const factory Discount({
     required String id,
-    @Default(0) int discountPercent,
+    @JsonKey(name: 'discount_percent') @Default(0) int discountPercent,
     @DateTimeTimestampConverter()
     @JsonKey(name: 'expires_at')
     DateTime? expiresAt,

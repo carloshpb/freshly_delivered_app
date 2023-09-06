@@ -12,6 +12,16 @@ Future<void> sqliteOnCreate(Database db, int version) async {
   var batch = db.batch();
   // When creating the db, create the table
   batch.execute('''
+        CREATE TABLE ${Strings.discountLocalTable} (
+          id TEXT PRIMARY KEY UNIQUE,
+          discount_percent INTEGER NOT NULL,
+          expires_at INTEGER NOT NULL,
+          created_at INTEGER NOT NULL,
+          modified_at INTEGER NOT NULL,
+          expiration INTEGER NOT NULL
+        )
+        ''');
+  batch.execute('''
         CREATE TABLE ${Strings.productsLocalTable} (
           id TEXT PRIMARY KEY UNIQUE,
           title TEXT NOT NULL, 
@@ -20,11 +30,11 @@ Future<void> sqliteOnCreate(Database db, int version) async {
           category TEXT NOT NULL,
           image_path TEXT NOT NULL, 
           units_sold INTEGER NOT NULL,
-          advertisement_id TEXT NOT NULL,
-          discount INTEGER NOT NULL,
+          discount_id TEXT NOT NULL,
           created_at INTEGER NOT NULL,
           modified_at INTEGER NOT NULL,
-          expiration INTEGER NOT NULL
+          expiration INTEGER NOT NULL,
+          FOREIGN KEY(discount_id) REFERENCES discounts(id)
         )
         ''');
 
@@ -34,9 +44,11 @@ Future<void> sqliteOnCreate(Database db, int version) async {
           description TEXT NOT NULL, 
           image_path TEXT NOT NULL, 
           is_special INTEGER NOT NULL,
+          discount_id TEXT NOT NULL,
           created_at INTEGER NOT NULL,
           modified_at INTEGER NOT NULL,
-          expiration INTEGER NOT NULL
+          expiration INTEGER NOT NULL,
+          FOREIGN KEY(discount_id) REFERENCES discounts(id)
         )
         ''');
 
