@@ -67,7 +67,7 @@ Future<void> sqliteOnCreate(Database db, int version) async {
   batch.execute('''
       CREATE TABLE ${Strings.userCartLocalTable} (
           id TEXT PRIMARY KEY,
-          amount INTEGER NOT NULL
+          amount INTEGER NOT NULL,
           created_at INTEGER NOT NULL,
           modified_at INTEGER NOT NULL,
           expiration INTEGER NOT NULL
