@@ -1,182 +1,312 @@
 [
-    {
-      "id": 1,
-      "title": "Pizza Margherita",
-      "price": 12.99,
-      "offer": 0,
-      "description": "Classic Italian pizza with tomato sauce, mozzarella, and basil.",
-      "imagePath": "path/to/pizza_margherita.jpg",
-      "category": "Pizza"
-    },
-    {
-      "id": 2,
-      "title": "Cheeseburger",
-      "price": 9.49,
-      "offer": 20,
-      "description": "Delicious cheeseburger with beef patty, cheese, lettuce, and pickles.",
-      "imagePath": "path/to/cheeseburger.jpg",
-      "category": "Burger"
-    },
-    {
-      "id": 3,
-      "title": "Pasta Carbonara",
-      "price": 11.79,
-      "offer": 10,
-      "description": "Classic Italian pasta with eggs, cheese, bacon, and black pepper.",
-      "imagePath": "path/to/pasta_carbonara.jpg",
-      "category": "Pasta"
-    },
-    {
-      "id": 4,
-      "title": "Sushi Platter",
-      "price": 23.99,
-      "offer": 5,
-      "description": "Assorted sushi platter with tuna, salmon, shrimp, and avocado rolls.",
-      "imagePath": "path/to/sushi_platter.jpg",
-      "category": "Sushi"
-    },
-    {
-      "id": 5,
-      "title": "Caesar Salad",
-      "price": 8.99,
-      "offer": 0,
-      "description": "Fresh and crisp Caesar salad with romaine lettuce and Caesar dressing.",
-      "imagePath": "path/to/caesar_salad.jpg",
-      "category": "Salad"
-    },
-    {
-      "id": 6,
-      "title": "Chicken Alfredo",
-      "price": 14.49,
-      "offer": 15,
-      "description": "Creamy chicken Alfredo pasta with garlic and parmesan cheese.",
-      "imagePath": "path/to/chicken_alfredo.jpg",
-      "category": "Pasta"
-    },
-    {
-      "id": 7,
-      "title": "Steak",
-      "price": 18.99,
-      "offer": 0,
-      "description": "Juicy and tender steak served with mashed potatoes and vegetables.",
-      "imagePath": "path/to/steak.jpg",
-      "category": "Meat"
-    },
-    {
-      "id": 8,
-      "title": "Mushroom Risotto",
-      "price": 10.99,
-      "offer": 0,
-      "description": "Creamy mushroom risotto made with Arborio rice and parmesan.",
-      "imagePath": "path/to/mushroom_risotto.jpg",
-      "category": "Risotto"
-    },
-    {
-      "id": 9,
-      "title": "Fish and Chips",
-      "price": 11.49,
-      "offer": 0,
-      "description": "Classic British dish with battered fish and crispy fries.",
-      "imagePath": "path/to/fish_and_chips.jpg",
-      "category": "Fish"
-    },
-    {
-      "id": 10,
-      "title": "Ice Cream Sundae",
-      "price": 6.99,
-      "offer": 0,
-      "description": "Delicious ice cream sundae with chocolate sauce and sprinkles.",
-      "imagePath": "path/to/ice_cream_sundae.jpg",
-      "category": "Dessert"
-    },
-    {
-      "id": 11,
-      "title": "Chicken Shawarma",
-      "price": 9.99,
-      "offer": 0,
-      "description": "Tender and flavorful chicken shawarma wrapped in pita bread.",
-      "imagePath": "path/to/chicken_shawarma.jpg",
-      "category": "Sandwich"
-    },
-    {
-      "id": 12,
-      "title": "Vegetable Stir-Fry",
-      "price": 10.99,
-      "offer": 0,
-      "description": "Healthy vegetable stir-fry with a mix of colorful vegetables and tofu.",
-      "imagePath": "path/to/vegetable_stir_fry.jpg",
-      "category": "Vegetarian"
-    },
-    {
-      "id": 13,
-      "title": "Pancakes",
-      "price": 7.49,
-      "offer": 0,
-      "description": "Fluffy pancakes served with maple syrup and fresh berries.",
-      "imagePath": "path/to/pancakes.jpg",
-      "category": "Breakfast"
-    },
-    {
-      "id": 14,
-      "title": "Falafel Wrap",
-      "price": 8.99,
-      "offer": 0,
-      "description": "Delicious falafel wrap with hummus and tahini sauce.",
-      "imagePath": "path/to/falafel_wrap.jpg",
-      "category": "Wrap"
-    },
-    {
-      "id": 15,
-      "title": "Sushi Burrito",
-      "price": 12.99,
-      "offer": 0,
-      "description": "Sushi roll wrapped in seaweed and rice, perfect for on-the-go.",
-      "imagePath": "path/to/sushi_burrito.jpg",
-      "category": "Sushi"
-    },
-    {
-      "id": 16,
-      "title": "Spaghetti Bolognese",
-      "price": 11.29,
-      "offer": 0,
-      "description": "Classic Italian spaghetti with Bolognese meat sauce.",
-      "imagePath": "path/to/spaghetti_bolognese.jpg",
-      "category": "Pasta"
-    },
-    {
-      "id": 17,
-      "title": "Mango Lassi",
-      "price": 4.99,
-      "offer": 0,
-      "description": "Refreshing Indian drink made with mango and yogurt.",
-      "imagePath": "path/to/mango_lassi.jpg",
-      "category": "Beverage"
-    },
-    {
-      "id": 18,
-      "title": "Avocado Toast",
-      "price": 8.49,
-      "offer": 0,
-      "description": "Healthy avocado toast topped with cherry tomatoes and feta cheese.",
-      "imagePath": "path/to/avocado_toast.jpg",
-      "category": "Vegetarian"
-    },
-    {
-      "id": 19,
-      "title": "Chicken Noodle Soup",
-      "price": 9.99,
-      "offer": 0,
-      "description": "Comforting chicken noodle soup, perfect for a cold day.",
-      "imagePath": "path/to/chicken_noodle_soup.jpg",
-      "category": "Soup"
-    },
-    {
-        "id": 20,
-        "title": "Tiramisu",
-        "price": 6.99,
-        "offer": 0,
-        "description": "Classic Italian dessert made with layers of coffee-soaked ladyfingers and mascarpone cheese.",
-        "imagePath": "path/to/tiramisu.jpg",
-        "category": "Dessert"
-      }
+  {
+    "id": "food1",
+    "title": "Pizza Margherita",
+    "price": 9.99,
+    "description": "Classic Margherita pizza with tomato and mozzarella",
+    "category": "Pizza",
+    "image_path": "pizza_margherita.jpg",
+    "units_sold": 50,
+    "discount": {
+      "id": "discount1",
+      "discountPercent": 10
+    }
+  },
+  {
+    "id": "food2",
+    "title": "Cheeseburger",
+    "price": 5.99,
+    "description": "Juicy cheeseburger with lettuce, tomato, and cheese",
+    "category": "Burgers",
+    "image_path": "cheeseburger.jpg",
+    "units_sold": 45
+  },
+  {
+    "id": "food3",
+    "title": "Chicken Alfredo",
+    "price": 12.99,
+    "description": "Creamy chicken Alfredo pasta with garlic bread",
+    "category": "Pasta",
+    "image_path": "chicken_alfredo.jpg",
+    "units_sold": 30
+  },
+  {
+    "id": "food4",
+    "title": "Fried Chicken",
+    "price": 8.99,
+    "description": "Crispy fried chicken with coleslaw and fries",
+    "category": "Chicken",
+    "image_path": "fried_chicken.jpg",
+    "units_sold": 55
+  },
+  {
+    "id": "food5",
+    "title": "Sushi Platter",
+    "price": 15.99,
+    "description": "Assorted sushi rolls and sashimi",
+    "category": "Sushi",
+    "image_path": "sushi_platter.jpg",
+    "units_sold": 40,
+    "discount": {
+      "id": "discount2",
+      "discountPercent": 15
+    }
+  },
+  {
+    "id": "food6",
+    "title": "Vegetable Salad",
+    "price": 6.99,
+    "description": "Fresh garden salad with mixed vegetables",
+    "category": "Salads",
+    "image_path": "vegetable_salad.jpg",
+    "units_sold": 38,
+    "discount": {
+      "id": "discount3",
+      "discountPercent": 20
+    }
+  },
+  {
+    "id": "food7",
+    "title": "Ice Cream Sundae",
+    "price": 4.99,
+    "description": "Delicious ice cream sundae with toppings",
+    "category": "Desserts",
+    "image_path": "ice_cream_sundae.jpg",
+    "units_sold": 60,
+    "discount": {
+      "id": "discount4",
+      "discountPercent": 25
+    }
+  },
+  {
+    "id": "food8",
+    "title": "Grilled Steak",
+    "price": 14.99,
+    "description": "Juicy grilled steak with mashed potatoes and vegetables",
+    "category": "Steak",
+    "image_path": "grilled_steak.jpg",
+    "units_sold": 25
+  },
+  {
+    "id": "food9",
+    "title": "Fish Tacos",
+    "price": 7.99,
+    "description": "Tasty fish tacos with salsa and guacamole",
+    "category": "Tacos",
+    "image_path": "fish_tacos.jpg",
+    "units_sold": 48
+  },
+  {
+    "id": "food10",
+    "title": "Caesar Salad",
+    "price": 8.99,
+    "description": "Classic Caesar salad with Caesar dressing",
+    "category": "Salads",
+    "image_path": "caesar_salad.jpg",
+    "units_sold": 42
+  },
+  {
+    "id": "food11",
+    "title": "Mushroom Risotto",
+    "price": 10.99,
+    "description": "Creamy mushroom risotto with parmesan cheese",
+    "category": "Risotto",
+    "image_path": "mushroom_risotto.jpg",
+    "units_sold": 33
+  },
+  {
+    "id": "food12",
+    "title": "BBQ Ribs",
+    "price": 13.99,
+    "description": "Savory BBQ ribs with coleslaw and cornbread",
+    "category": "BBQ",
+    "image_path": "bbq_ribs.jpg",
+    "units_sold": 28
+  },
+  {
+    "id": "food13",
+    "title": "Veggie Pizza",
+    "price": 9.99,
+    "description": "Vegetarian pizza with a variety of fresh vegetables",
+    "category": "Pizza",
+    "image_path": "veggie_pizza.jpg",
+    "units_sold": 36
+  },
+  {
+    "id": "food14",
+    "title": "Chocolate Cake",
+    "price": 6.99,
+    "description": "Decadent chocolate cake with chocolate frosting",
+    "category": "Desserts",
+    "image_path": "chocolate_cake.jpg",
+    "units_sold": 70
+  },
+  {
+    "id": "food15",
+    "title": "Tuna Sandwich",
+    "price": 7.99,
+    "description": "Tuna sandwich with lettuce and mayonnaise",
+    "category": "Sandwiches",
+    "image_path": "tuna_sandwich.jpg",
+    "units_sold": 23,
+    "discount": {
+      "id": "discount1",
+      "discountPercent": 10
+    }
+  },
+  {
+    "id": "food16",
+    "title": "Pho Noodle Soup",
+    "price": 9.99,
+    "description": "Vietnamese pho noodle soup with beef or chicken",
+    "category": "Noodles",
+    "image_path": "pho_noodle_soup.jpg",
+    "units_sold": 44,
+    "discount": {
+      "id": "discount2",
+      "discountPercent": 15
+    }
+  },
+  {
+    "id": "food17",
+    "title": "Chicken Quesadilla",
+    "price": 8.99,
+    "description": "Cheesy chicken quesadilla with salsa and sour cream",
+    "category": "Mexican",
+    "image_path": "chicken_quesadilla.jpg",
+    "units_sold": 39,
+    "discount": {
+      "id": "discount3",
+      "discountPercent": 20
+    }
+  },
+  {
+    "id": "food18",
+    "title": "Pancake Breakfast",
+    "price": 6.99,
+    "description": "Fluffy pancakes with bacon and eggs",
+    "category": "Breakfast",
+    "image_path": "pancake_breakfast.jpg",
+    "units_sold": 52
+  },
+  {
+    "id": "food19",
+    "title": "Vegetable Stir-Fry",
+    "price": 10.99,
+    "description": "Healthy vegetable stir-fry with tofu or chicken",
+    "category": "Stir-Fry",
+    "image_path": "vegetable_stir_fry.jpg",
+    "units_sold": 31
+  },
+  {
+    "id": "food20",
+    "title": "Fruit Smoothie",
+    "price": 4.99,
+    "description": "Refreshing fruit smoothie with mixed fruits",
+    "category": "Smoothies",
+    "image_path": "fruit_smoothie.jpg",
+    "units_sold": 55,
+    "discount": {
+      "id": "discount4",
+      "discountPercent": 25
+    }
+  },
+  {
+    "id": "food21",
+    "title": "Egg Fried Rice",
+    "price": 7.99,
+    "description": "Delicious egg fried rice with vegetables and soy sauce",
+    "category": "Rice Dishes",
+    "image_path": "egg_fried_rice.jpg",
+    "units_sold": 47
+  },
+  {
+    "id": "food22",
+    "title": "Spaghetti Bolognese",
+    "price": 10.99,
+    "description": "Classic spaghetti bolognese with meat sauce",
+    "category": "Pasta",
+    "image_path": "spaghetti_bolognese.jpg",
+    "units_sold": 34
+  },
+  {
+    "id": "food23",
+    "title": "Taco Salad",
+    "price": 8.99,
+    "description": "Taco salad with seasoned ground beef, lettuce, and cheese",
+    "category": "Salads",
+    "image_path": "taco_salad.jpg",
+    "units_sold": 41,
+    "discount": {
+      "id": "discount4",
+      "discountPercent": 25
+    }
+  },
+  {
+    "id": "food24",
+    "title": "Sushi Combo",
+    "price": 14.99,
+    "description": "Assorted sushi rolls and sashimi",
+    "category": "Sushi",
+    "image_path": "sushi_combo.jpg",
+    "units_sold": 29
+  },
+  {
+    "id": "food25",
+    "title": "Chicken Tenders",
+    "price": 7.99,
+    "description": "Crispy chicken tenders with dipping sauce",
+    "category": "Chicken",
+    "image_path": "chicken_tenders.jpg",
+    "units_sold": 63,
+    "discount": {
+      "id": "discount4",
+      "discountPercent": 25
+    }
+  },
+  {
+    "id": "food26",
+    "title": "Veggie Burger",
+    "price": 6.99,
+    "description": "Vegetarian burger with lettuce, tomato, and cheese",
+    "category": "Burgers",
+    "image_path": "veggie_burger.jpg",
+    "units_sold": 37
+  },
+  {
+    "id": "food27",
+    "title": "Creamy Tomato Soup",
+    "price": 5.99,
+    "description": "Creamy tomato soup with croutons",
+    "category": "Soup",
+    "image_path": "creamy_tomato_soup.jpg",
+    "units_sold": 53
+  },
+  {
+    "id": "food28",
+    "title": "Tiramisu",
+    "price": 7.99,
+    "description": "Classic Italian tiramisu dessert",
+    "category": "Desserts",
+    "image_path": "tiramisu.jpg",
+    "units_sold": 22
+  },
+  {
+    "id": "food29",
+    "title": "Beef Stir-Fry",
+    "price": 11.99,
+    "description": "Savory beef stir-fry with broccoli and garlic sauce",
+    "category": "Stir-Fry",
+    "image_path": "beef_stir_fry.jpg",
+    "units_sold": 32
+  },
+  {
+    "id": "food30",
+    "title": "Fruit Salad",
+    "price": 5.99,
+    "description": "Fresh fruit salad with assorted fruits",
+    "category": "Salads",
+    "image_path": "fruit_salad.jpg",
+    "units_sold": 48
+  }
 ]
