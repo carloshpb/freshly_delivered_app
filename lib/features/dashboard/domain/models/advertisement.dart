@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../utils/converters/datetime_timestamp_converter.dart';
+import 'discount.dart';
 
 part 'advertisement.freezed.dart';
 part 'advertisement.g.dart';
@@ -16,7 +17,6 @@ class Advertisement with _$Advertisement {
   // const factory Advertisement.empty() = EmptyAdvertisement;
 
   @JsonSerializable(explicitToJson: true)
-  @Assert('discount >= 0', 'discount cannot be negative')
   @Assert('id != ""', 'id cannot be empty')
   @Assert('description != ""', 'description cannot be empty')
   @Assert('imagePath != ""', 'imagePath cannot be empty')
@@ -25,7 +25,7 @@ class Advertisement with _$Advertisement {
     required String description,
     @JsonKey(name: 'image_path') required String imagePath,
     @JsonKey(name: 'is_special') @Default(false) bool isSpecial,
-    @Default(0) int discount,
+    @Default(Discount(id: '-1')) Discount discount,
     @DateTimeTimestampConverter()
     @JsonKey(name: 'created_at')
     DateTime? createdAt,

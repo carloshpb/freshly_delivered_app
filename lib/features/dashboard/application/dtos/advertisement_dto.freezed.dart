@@ -20,7 +20,7 @@ mixin _$AdvertisementDto {
   String get description => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
   bool get isSpecial => throw _privateConstructorUsedError;
-  int get discount => throw _privateConstructorUsedError;
+  DiscountDto get discount => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AdvertisementDtoCopyWith<AdvertisementDto> get copyWith =>
@@ -38,7 +38,9 @@ abstract class $AdvertisementDtoCopyWith<$Res> {
       String description,
       String imagePath,
       bool isSpecial,
-      int discount});
+      DiscountDto discount});
+
+  $DiscountDtoCopyWith<$Res> get discount;
 }
 
 /// @nodoc
@@ -80,8 +82,16 @@ class _$AdvertisementDtoCopyWithImpl<$Res, $Val extends AdvertisementDto>
       discount: null == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as DiscountDto,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DiscountDtoCopyWith<$Res> get discount {
+    return $DiscountDtoCopyWith<$Res>(_value.discount, (value) {
+      return _then(_value.copyWith(discount: value) as $Val);
+    });
   }
 }
 
@@ -98,7 +108,10 @@ abstract class _$$_AdvertisementDtoCopyWith<$Res>
       String description,
       String imagePath,
       bool isSpecial,
-      int discount});
+      DiscountDto discount});
+
+  @override
+  $DiscountDtoCopyWith<$Res> get discount;
 }
 
 /// @nodoc
@@ -138,7 +151,7 @@ class __$$_AdvertisementDtoCopyWithImpl<$Res>
       discount: null == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as DiscountDto,
     ));
   }
 }
@@ -151,8 +164,11 @@ class _$_AdvertisementDto extends _AdvertisementDto {
       this.description = '',
       this.imagePath = '',
       this.isSpecial = false,
-      this.discount = 0})
-      : super._();
+      this.discount = const DiscountDto(id: "-1")})
+      : assert(id != "", 'id cannot be empty'),
+        assert(description != "", 'description cannot be empty'),
+        assert(imagePath != "", 'imagePath cannot be empty'),
+        super._();
 
   @override
   @JsonKey()
@@ -168,7 +184,7 @@ class _$_AdvertisementDto extends _AdvertisementDto {
   final bool isSpecial;
   @override
   @JsonKey()
-  final int discount;
+  final DiscountDto discount;
 
   @override
   String toString() {
@@ -208,7 +224,7 @@ abstract class _AdvertisementDto extends AdvertisementDto {
       final String description,
       final String imagePath,
       final bool isSpecial,
-      final int discount}) = _$_AdvertisementDto;
+      final DiscountDto discount}) = _$_AdvertisementDto;
   const _AdvertisementDto._() : super._();
 
   @override
@@ -220,7 +236,7 @@ abstract class _AdvertisementDto extends AdvertisementDto {
   @override
   bool get isSpecial;
   @override
-  int get discount;
+  DiscountDto get discount;
   @override
   @JsonKey(ignore: true)
   _$$_AdvertisementDtoCopyWith<_$_AdvertisementDto> get copyWith =>

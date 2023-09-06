@@ -14,8 +14,9 @@ _$_Product _$$_ProductFromJson(Map<String, dynamic> json) => _$_Product(
       category: json['category'] as String,
       imagePath: json['image_path'] as String,
       unitsSold: json['units_sold'] as int? ?? 0,
-      advertisementId: json['advertisement_id'] as String? ?? '',
-      discount: json['discount'] as int? ?? 0,
+      discount: json['discount'] == null
+          ? const Discount(id: "-1")
+          : Discount.fromJson(json['discount'] as Map<String, dynamic>),
       createdAt: const DateTimeTimestampConverter()
           .fromJson(json['created_at'] as Timestamp?),
       modifiedAt: const DateTimeTimestampConverter()
@@ -31,8 +32,7 @@ Map<String, dynamic> _$$_ProductToJson(_$_Product instance) =>
       'category': instance.category,
       'image_path': instance.imagePath,
       'units_sold': instance.unitsSold,
-      'advertisement_id': instance.advertisementId,
-      'discount': instance.discount,
+      'discount': instance.discount.toJson(),
       'created_at':
           const DateTimeTimestampConverter().toJson(instance.createdAt),
       'modified_at':

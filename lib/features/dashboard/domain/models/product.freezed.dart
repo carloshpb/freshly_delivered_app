@@ -28,10 +28,9 @@ mixin _$Product {
   @JsonKey(name: 'image_path')
   String get imagePath => throw _privateConstructorUsedError;
   @JsonKey(name: 'units_sold')
-  int get unitsSold => throw _privateConstructorUsedError;
-  @JsonKey(name: 'advertisement_id')
-  String get advertisementId => throw _privateConstructorUsedError;
-  int get discount => throw _privateConstructorUsedError;
+  int get unitsSold =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'advertisement_id') @Default('') String advertisementId,
+  Discount get discount => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -57,14 +56,15 @@ abstract class $ProductCopyWith<$Res> {
       String category,
       @JsonKey(name: 'image_path') String imagePath,
       @JsonKey(name: 'units_sold') int unitsSold,
-      @JsonKey(name: 'advertisement_id') String advertisementId,
-      int discount,
+      Discount discount,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'created_at')
       DateTime? createdAt,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'modified_at')
       DateTime? modifiedAt});
+
+  $DiscountCopyWith<$Res> get discount;
 }
 
 /// @nodoc
@@ -87,7 +87,6 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? category = null,
     Object? imagePath = null,
     Object? unitsSold = null,
-    Object? advertisementId = null,
     Object? discount = null,
     Object? createdAt = freezed,
     Object? modifiedAt = freezed,
@@ -121,14 +120,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.unitsSold
           : unitsSold // ignore: cast_nullable_to_non_nullable
               as int,
-      advertisementId: null == advertisementId
-          ? _value.advertisementId
-          : advertisementId // ignore: cast_nullable_to_non_nullable
-              as String,
       discount: null == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as Discount,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -138,6 +133,14 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           : modifiedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DiscountCopyWith<$Res> get discount {
+    return $DiscountCopyWith<$Res>(_value.discount, (value) {
+      return _then(_value.copyWith(discount: value) as $Val);
+    });
   }
 }
 
@@ -156,14 +159,16 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String category,
       @JsonKey(name: 'image_path') String imagePath,
       @JsonKey(name: 'units_sold') int unitsSold,
-      @JsonKey(name: 'advertisement_id') String advertisementId,
-      int discount,
+      Discount discount,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'created_at')
       DateTime? createdAt,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'modified_at')
       DateTime? modifiedAt});
+
+  @override
+  $DiscountCopyWith<$Res> get discount;
 }
 
 /// @nodoc
@@ -183,7 +188,6 @@ class __$$_ProductCopyWithImpl<$Res>
     Object? category = null,
     Object? imagePath = null,
     Object? unitsSold = null,
-    Object? advertisementId = null,
     Object? discount = null,
     Object? createdAt = freezed,
     Object? modifiedAt = freezed,
@@ -217,14 +221,10 @@ class __$$_ProductCopyWithImpl<$Res>
           ? _value.unitsSold
           : unitsSold // ignore: cast_nullable_to_non_nullable
               as int,
-      advertisementId: null == advertisementId
-          ? _value.advertisementId
-          : advertisementId // ignore: cast_nullable_to_non_nullable
-              as String,
       discount: null == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as Discount,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -249,8 +249,7 @@ class _$_Product implements _Product {
       required this.category,
       @JsonKey(name: 'image_path') required this.imagePath,
       @JsonKey(name: 'units_sold') this.unitsSold = 0,
-      @JsonKey(name: 'advertisement_id') this.advertisementId = '',
-      this.discount = 0,
+      this.discount = const Discount(id: "-1"),
       @DateTimeTimestampConverter() @JsonKey(name: 'created_at') this.createdAt,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'modified_at')
@@ -281,12 +280,10 @@ class _$_Product implements _Product {
   @override
   @JsonKey(name: 'units_sold')
   final int unitsSold;
-  @override
-  @JsonKey(name: 'advertisement_id')
-  final String advertisementId;
+// @JsonKey(name: 'advertisement_id') @Default('') String advertisementId,
   @override
   @JsonKey()
-  final int discount;
+  final Discount discount;
   @override
   @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
@@ -298,7 +295,7 @@ class _$_Product implements _Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, title: $title, price: $price, description: $description, category: $category, imagePath: $imagePath, unitsSold: $unitsSold, advertisementId: $advertisementId, discount: $discount, createdAt: $createdAt, modifiedAt: $modifiedAt)';
+    return 'Product(id: $id, title: $title, price: $price, description: $description, category: $category, imagePath: $imagePath, unitsSold: $unitsSold, discount: $discount, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
@@ -317,8 +314,6 @@ class _$_Product implements _Product {
                 other.imagePath == imagePath) &&
             (identical(other.unitsSold, unitsSold) ||
                 other.unitsSold == unitsSold) &&
-            (identical(other.advertisementId, advertisementId) ||
-                other.advertisementId == advertisementId) &&
             (identical(other.discount, discount) ||
                 other.discount == discount) &&
             (identical(other.createdAt, createdAt) ||
@@ -329,19 +324,8 @@ class _$_Product implements _Product {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      title,
-      price,
-      description,
-      category,
-      imagePath,
-      unitsSold,
-      advertisementId,
-      discount,
-      createdAt,
-      modifiedAt);
+  int get hashCode => Object.hash(runtimeType, id, title, price, description,
+      category, imagePath, unitsSold, discount, createdAt, modifiedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -366,8 +350,7 @@ abstract class _Product implements Product {
       required final String category,
       @JsonKey(name: 'image_path') required final String imagePath,
       @JsonKey(name: 'units_sold') final int unitsSold,
-      @JsonKey(name: 'advertisement_id') final String advertisementId,
-      final int discount,
+      final Discount discount,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'created_at')
       final DateTime? createdAt,
@@ -393,11 +376,8 @@ abstract class _Product implements Product {
   @override
   @JsonKey(name: 'units_sold')
   int get unitsSold;
-  @override
-  @JsonKey(name: 'advertisement_id')
-  String get advertisementId;
-  @override
-  int get discount;
+  @override // @JsonKey(name: 'advertisement_id') @Default('') String advertisementId,
+  Discount get discount;
   @override
   @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')

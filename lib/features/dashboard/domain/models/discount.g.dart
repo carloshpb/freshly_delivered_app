@@ -1,33 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'advertisement.dart';
+part of 'discount.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Advertisement _$$_AdvertisementFromJson(Map<String, dynamic> json) =>
-    _$_Advertisement(
+_$_Discount _$$_DiscountFromJson(Map<String, dynamic> json) => _$_Discount(
       id: json['id'] as String,
-      description: json['description'] as String,
-      imagePath: json['image_path'] as String,
-      isSpecial: json['is_special'] as bool? ?? false,
-      discount: json['discount'] == null
-          ? const Discount(id: '-1')
-          : Discount.fromJson(json['discount'] as Map<String, dynamic>),
+      discountPercent: json['discountPercent'] as int? ?? 0,
+      expiresAt: const DateTimeTimestampConverter()
+          .fromJson(json['expires_at'] as Timestamp?),
       createdAt: const DateTimeTimestampConverter()
           .fromJson(json['created_at'] as Timestamp?),
       modifiedAt: const DateTimeTimestampConverter()
           .fromJson(json['modified_at'] as Timestamp?),
     );
 
-Map<String, dynamic> _$$_AdvertisementToJson(_$_Advertisement instance) =>
+Map<String, dynamic> _$$_DiscountToJson(_$_Discount instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'description': instance.description,
-      'image_path': instance.imagePath,
-      'is_special': instance.isSpecial,
-      'discount': instance.discount.toJson(),
+      'discountPercent': instance.discountPercent,
+      'expires_at':
+          const DateTimeTimestampConverter().toJson(instance.expiresAt),
       'created_at':
           const DateTimeTimestampConverter().toJson(instance.createdAt),
       'modified_at':

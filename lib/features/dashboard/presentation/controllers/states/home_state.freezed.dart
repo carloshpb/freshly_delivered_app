@@ -18,9 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomeState {
   List<AdvertisementDto> get advertisements =>
       throw _privateConstructorUsedError;
-  List<ProductDto> get popularProducts =>
-      throw _privateConstructorUsedError; // required List<ProductDto> firstPopularProducts,
-// required List<ProductDto> secondPopularProducts,
+  List<ProductDto> get popularProducts => throw _privateConstructorUsedError;
   AdvertisementDto get specialOffer => throw _privateConstructorUsedError;
   List<ProductDto> get specialOfferProducts =>
       throw _privateConstructorUsedError;
@@ -203,8 +201,6 @@ class _$_HomeState implements _HomeState {
     return EqualUnmodifiableListView(_popularProducts);
   }
 
-// required List<ProductDto> firstPopularProducts,
-// required List<ProductDto> secondPopularProducts,
   @override
   final AdvertisementDto specialOffer;
   final List<ProductDto> _specialOfferProducts;
@@ -281,8 +277,7 @@ abstract class _HomeState implements HomeState {
   List<AdvertisementDto> get advertisements;
   @override
   List<ProductDto> get popularProducts;
-  @override // required List<ProductDto> firstPopularProducts,
-// required List<ProductDto> secondPopularProducts,
+  @override
   AdvertisementDto get specialOffer;
   @override
   List<ProductDto> get specialOfferProducts;

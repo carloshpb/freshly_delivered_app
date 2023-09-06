@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/models/product.dart';
+import 'discount_dto.dart';
 
 part 'product_dto.freezed.dart';
 
@@ -22,8 +23,7 @@ sealed class ProductDto with _$ProductDto {
     required String imagePath,
     required String category,
     @Default(0) int unitsSold,
-    @Default('') String advertisementId,
-    @Default(0) int discount,
+    @Default(DiscountDto(id: "-1")) DiscountDto discount,
   }) = _ProductDto;
 
   factory ProductDto.fromDomain(Product domain) => ProductDto(
@@ -34,8 +34,7 @@ sealed class ProductDto with _$ProductDto {
         imagePath: domain.imagePath,
         category: domain.category,
         unitsSold: domain.unitsSold,
-        advertisementId: domain.advertisementId,
-        discount: domain.discount,
+        discount: DiscountDto.fromDomain(domain.discount),
       );
 
   Product toDomain() => Product(
@@ -46,7 +45,6 @@ sealed class ProductDto with _$ProductDto {
         imagePath: imagePath,
         category: category,
         unitsSold: unitsSold,
-        advertisementId: advertisementId,
-        discount: discount,
+        discount: discount.toDomain(),
       );
 }
