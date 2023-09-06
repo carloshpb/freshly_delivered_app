@@ -17,6 +17,8 @@ class CartState with _$CartState {
       (previousTotalPrice, cartItem) =>
           (cartItem.amount *
               (cartItem.product.price -
-                  cartItem.product.price * cartItem.product.discount / 100)) +
+                  cartItem.product.price *
+                      cartItem.product.discount.discountPercent /
+                      100)) +
           previousTotalPrice);
 }

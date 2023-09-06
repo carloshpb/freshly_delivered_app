@@ -23,8 +23,7 @@ mixin _$ProductDto {
   String get imagePath => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   int get unitsSold => throw _privateConstructorUsedError;
-  String get advertisementId => throw _privateConstructorUsedError;
-  int get discount => throw _privateConstructorUsedError;
+  DiscountDto get discount => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductDtoCopyWith<ProductDto> get copyWith =>
@@ -45,8 +44,9 @@ abstract class $ProductDtoCopyWith<$Res> {
       String imagePath,
       String category,
       int unitsSold,
-      String advertisementId,
-      int discount});
+      DiscountDto discount});
+
+  $DiscountDtoCopyWith<$Res> get discount;
 }
 
 /// @nodoc
@@ -69,7 +69,6 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
     Object? imagePath = null,
     Object? category = null,
     Object? unitsSold = null,
-    Object? advertisementId = null,
     Object? discount = null,
   }) {
     return _then(_value.copyWith(
@@ -101,15 +100,19 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
           ? _value.unitsSold
           : unitsSold // ignore: cast_nullable_to_non_nullable
               as int,
-      advertisementId: null == advertisementId
-          ? _value.advertisementId
-          : advertisementId // ignore: cast_nullable_to_non_nullable
-              as String,
       discount: null == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as DiscountDto,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DiscountDtoCopyWith<$Res> get discount {
+    return $DiscountDtoCopyWith<$Res>(_value.discount, (value) {
+      return _then(_value.copyWith(discount: value) as $Val);
+    });
   }
 }
 
@@ -129,8 +132,10 @@ abstract class _$$_ProductDtoCopyWith<$Res>
       String imagePath,
       String category,
       int unitsSold,
-      String advertisementId,
-      int discount});
+      DiscountDto discount});
+
+  @override
+  $DiscountDtoCopyWith<$Res> get discount;
 }
 
 /// @nodoc
@@ -151,7 +156,6 @@ class __$$_ProductDtoCopyWithImpl<$Res>
     Object? imagePath = null,
     Object? category = null,
     Object? unitsSold = null,
-    Object? advertisementId = null,
     Object? discount = null,
   }) {
     return _then(_$_ProductDto(
@@ -183,14 +187,10 @@ class __$$_ProductDtoCopyWithImpl<$Res>
           ? _value.unitsSold
           : unitsSold // ignore: cast_nullable_to_non_nullable
               as int,
-      advertisementId: null == advertisementId
-          ? _value.advertisementId
-          : advertisementId // ignore: cast_nullable_to_non_nullable
-              as String,
       discount: null == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as DiscountDto,
     ));
   }
 }
@@ -206,8 +206,7 @@ class _$_ProductDto extends _ProductDto {
       required this.imagePath,
       required this.category,
       this.unitsSold = 0,
-      this.advertisementId = '',
-      this.discount = 0})
+      this.discount = const DiscountDto(id: "-1")})
       : assert(price >= 0.0, 'price cannot be negative'),
         assert(id != "", 'id cannot be empty'),
         assert(title != "", 'title cannot be empty'),
@@ -233,14 +232,11 @@ class _$_ProductDto extends _ProductDto {
   final int unitsSold;
   @override
   @JsonKey()
-  final String advertisementId;
-  @override
-  @JsonKey()
-  final int discount;
+  final DiscountDto discount;
 
   @override
   String toString() {
-    return 'ProductDto(id: $id, title: $title, price: $price, description: $description, imagePath: $imagePath, category: $category, unitsSold: $unitsSold, advertisementId: $advertisementId, discount: $discount)';
+    return 'ProductDto(id: $id, title: $title, price: $price, description: $description, imagePath: $imagePath, category: $category, unitsSold: $unitsSold, discount: $discount)';
   }
 
   @override
@@ -259,15 +255,13 @@ class _$_ProductDto extends _ProductDto {
                 other.category == category) &&
             (identical(other.unitsSold, unitsSold) ||
                 other.unitsSold == unitsSold) &&
-            (identical(other.advertisementId, advertisementId) ||
-                other.advertisementId == advertisementId) &&
             (identical(other.discount, discount) ||
                 other.discount == discount));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, title, price, description,
-      imagePath, category, unitsSold, advertisementId, discount);
+      imagePath, category, unitsSold, discount);
 
   @JsonKey(ignore: true)
   @override
@@ -285,8 +279,7 @@ abstract class _ProductDto extends ProductDto {
       required final String imagePath,
       required final String category,
       final int unitsSold,
-      final String advertisementId,
-      final int discount}) = _$_ProductDto;
+      final DiscountDto discount}) = _$_ProductDto;
   const _ProductDto._() : super._();
 
   @override
@@ -304,9 +297,7 @@ abstract class _ProductDto extends ProductDto {
   @override
   int get unitsSold;
   @override
-  String get advertisementId;
-  @override
-  int get discount;
+  DiscountDto get discount;
   @override
   @JsonKey(ignore: true)
   _$$_ProductDtoCopyWith<_$_ProductDto> get copyWith =>

@@ -1,0 +1,43 @@
+[
+    {
+      "id": "advertisement1",
+      "description": "Summer Sale",
+      "image_path": "summer_sale.jpg",
+      "is_special": false,
+      "discount": {
+        "id": "discount1",
+        "discountPercent": 10
+      }
+    },
+    {
+      "id": "advertisement2",
+      "description": "Back-to-School",
+      "image_path": "back_to_school.jpg",
+      "is_special": false,
+      "discount": {
+        "id": "discount2",
+        "discountPercent": 15
+      }
+    },
+    {
+      "id": "advertisement3",
+      "description": "Holiday Season",
+      "image_path": "holiday_season.jpg",
+      "is_special": false,
+      "discount": {
+        "id": "discount3",
+        "discountPercent": 20
+      }
+    },
+    {
+      "id": "advertisement4",
+      "description": "Special Offer",
+      "image_path": "special_offer.jpg",
+      "is_special": true,
+      "discount": {
+        "id": "discount4",
+        "discountPercent": 25
+      }
+    }
+  ]
+  

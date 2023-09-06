@@ -60,6 +60,7 @@ class Strings {
   static const productsLocalTable = "products";
   static const advertisementsLocalTable = "advertisements";
   static const userCartLocalTable = "user_cart";
+  static const discountLocalTable = "discounts";
 
   /// Firestore tables
   static const firestore = "Firestore";
@@ -67,6 +68,7 @@ class Strings {
   static const productsRemoteTable = "products";
   static const advertisementsRemoteTable = "advertisements";
   static const userCartRemoteTable = "carts";
+  static const discountRemoteTable = "discounts";
   static const onboardingMessagesRemoteTable = "onboarding_messages";
 
   /// Exceptions

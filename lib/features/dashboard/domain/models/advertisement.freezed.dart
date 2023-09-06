@@ -26,7 +26,7 @@ mixin _$Advertisement {
   String get imagePath => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_special')
   bool get isSpecial => throw _privateConstructorUsedError;
-  int get discount => throw _privateConstructorUsedError;
+  Discount get discount => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -51,13 +51,15 @@ abstract class $AdvertisementCopyWith<$Res> {
       String description,
       @JsonKey(name: 'image_path') String imagePath,
       @JsonKey(name: 'is_special') bool isSpecial,
-      int discount,
+      Discount discount,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'created_at')
       DateTime? createdAt,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'modified_at')
       DateTime? modifiedAt});
+
+  $DiscountCopyWith<$Res> get discount;
 }
 
 /// @nodoc
@@ -101,7 +103,7 @@ class _$AdvertisementCopyWithImpl<$Res, $Val extends Advertisement>
       discount: null == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as Discount,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -111,6 +113,14 @@ class _$AdvertisementCopyWithImpl<$Res, $Val extends Advertisement>
           : modifiedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DiscountCopyWith<$Res> get discount {
+    return $DiscountCopyWith<$Res>(_value.discount, (value) {
+      return _then(_value.copyWith(discount: value) as $Val);
+    });
   }
 }
 
@@ -127,13 +137,16 @@ abstract class _$$_AdvertisementCopyWith<$Res>
       String description,
       @JsonKey(name: 'image_path') String imagePath,
       @JsonKey(name: 'is_special') bool isSpecial,
-      int discount,
+      Discount discount,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'created_at')
       DateTime? createdAt,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'modified_at')
       DateTime? modifiedAt});
+
+  @override
+  $DiscountCopyWith<$Res> get discount;
 }
 
 /// @nodoc
@@ -175,7 +188,7 @@ class __$$_AdvertisementCopyWithImpl<$Res>
       discount: null == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as Discount,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -197,13 +210,12 @@ class _$_Advertisement implements _Advertisement {
       required this.description,
       @JsonKey(name: 'image_path') required this.imagePath,
       @JsonKey(name: 'is_special') this.isSpecial = false,
-      this.discount = 0,
+      this.discount = const Discount(id: '-1'),
       @DateTimeTimestampConverter() @JsonKey(name: 'created_at') this.createdAt,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'modified_at')
       this.modifiedAt})
-      : assert(discount >= 0, 'discount cannot be negative'),
-        assert(id != "", 'id cannot be empty'),
+      : assert(id != "", 'id cannot be empty'),
         assert(description != "", 'description cannot be empty'),
         assert(imagePath != "", 'imagePath cannot be empty');
 
@@ -222,7 +234,7 @@ class _$_Advertisement implements _Advertisement {
   final bool isSpecial;
   @override
   @JsonKey()
-  final int discount;
+  final Discount discount;
   @override
   @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
@@ -282,7 +294,7 @@ abstract class _Advertisement implements Advertisement {
       required final String description,
       @JsonKey(name: 'image_path') required final String imagePath,
       @JsonKey(name: 'is_special') final bool isSpecial,
-      final int discount,
+      final Discount discount,
       @DateTimeTimestampConverter()
       @JsonKey(name: 'created_at')
       final DateTime? createdAt,
@@ -304,7 +316,7 @@ abstract class _Advertisement implements Advertisement {
   @JsonKey(name: 'is_special')
   bool get isSpecial;
   @override
-  int get discount;
+  Discount get discount;
   @override
   @DateTimeTimestampConverter()
   @JsonKey(name: 'created_at')
