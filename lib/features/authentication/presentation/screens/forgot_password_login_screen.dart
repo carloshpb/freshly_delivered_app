@@ -63,7 +63,11 @@ class _ForgotPasswordLoginScreenState
           },
           loading: () => context.loaderOverlay.show(),
           error: (error, stackTrace) {
-            CustomSnackbar.showErrorToast(context, 'Error', error.toString());
+            CustomSnackbar.showErrorToast(
+              context,
+              'Error',
+              (error is AppAuthException) ? error.message : error.toString(),
+            );
           },
         );
       },

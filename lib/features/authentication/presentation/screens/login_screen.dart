@@ -99,7 +99,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final mediaQuerySize = MediaQuery.sizeOf(context);
 
     // error handling
-    ref.listen<AsyncValue<void>>(
+    ref.listen<
+        AsyncValue<
+            ({
+              String email,
+              String password,
+              bool loginSuccess,
+            })>>(
       loginControllerProvider,
       (previousState, nextState) {
         if (previousState!.isLoading) {
@@ -116,6 +122,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             } else {
               CustomSnackbar.showErrorToast(context,
                   (error is AppAuthException) ? '' : 'Error', error.toString());
+            }
+          },
+          data: (data) {
+            if (data.loginSuccess == true) {
+              ref.watch(goRouterProvider).go(AppRouter.home.path);
             }
           },
         );
@@ -211,8 +222,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                                       is UserNotFoundException ||
                                                   state.error
                                                       is InvalidEmailException))
-                                          ? (state.error as Exception)
-                                              .toString()
+                                          ? (state.error as AppAuthException)
+                                              .message
                                           : null,
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(
@@ -367,8 +378,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                       TextButton(
                                         onPressed: () => ref
                                             .watch(goRouterProvider)
-                                            .go(AppRouter
-                                                .forgotPasswordLogin.path),
+                                            .go("${AppRouter.login.path}/${AppRouter.forgotPasswordLogin.path}"),
                                         style: TextButton.styleFrom(
                                           minimumSize: Size.zero,
                                           padding: const EdgeInsets.symmetric(
@@ -388,30 +398,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     ],
                                   ),
                                 ),
-                                // Center(
-                                //   child: ButtonCircularProgress(
-                                //     Strings.login.toUpperCase(),
-                                //     onPressed: ((state.hasError &&
-                                //                 (state.error
-                                //                         is WrongPasswordException ||
-                                //                     state.error
-                                //                         is UserNotFoundException)) ||
-                                //             state.value!.$1.isEmpty ||
-                                //             state.value!.$2.isEmpty)
-                                //         ? null
-                                //         : () {
-                                //             FocusManager.instance.primaryFocus
-                                //                 ?.unfocus();
-                                //             loginController.signIn();
-                                //           },
-                                //     state: state.isLoading
-                                //         ? ButtonState.loading
-                                //         : state.value!.$3
-                                //             ? ButtonState.done
-                                //             : ButtonState.init,
-                                //   ),
-                                // ),
-
                                 ElevatedButton(
                                   onPressed: ((state.hasError &&
                                               (state.error
@@ -420,8 +406,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                                       is UserNotFoundException ||
                                                   state.error
                                                       is InvalidEmailException)) ||
-                                          state.value!.$1.isEmpty ||
-                                          state.value!.$2.isEmpty)
+                                          state.value!.email.isEmpty ||
+                                          state.value!.password.isEmpty)
                                       ? null
                                       : () {
                                           FocusManager.instance.primaryFocus
@@ -450,7 +436,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     TextButton(
                                       onPressed: () => ref
                                           .watch(goRouterProvider)
-                                          .go(AppRouter.signUp.path),
+                                          .go("${AppRouter.login.path}/${AppRouter.signUp.path}"),
                                       child: Text(
                                         Strings.register.toUpperCase(),
                                         style: const TextStyle(

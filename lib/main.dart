@@ -86,6 +86,8 @@ class App extends ConsumerWidget {
     final goRouter = ref.watch(goRouterProvider);
     return GlobalLoaderOverlay(
       useDefaultLoading: false,
+      overlayColor: Colors.grey.withOpacity(0.3),
+      //overlayOpacity: 0.2,
       overlayWidget: const Center(
         child: CircularProgressIndicator(
           backgroundColor: Colors.white,

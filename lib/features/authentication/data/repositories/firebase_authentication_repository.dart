@@ -12,11 +12,16 @@ import '../../../dashboard/data/apis/remote/firestore_api.dart';
 import '../../../dashboard/data/apis/remote/impl/firestore_api_impl.dart';
 import '../../domain/repositories/authentication_repository.dart';
 
+final _isCreatingUserState = StateProvider<bool>(
+  (ref) => false,
+);
+
 final authenticationRepositoryProvider = Provider<AuthenticationRepository>(
   (ref) => FirebaseAuthenticationRepository(
     FirebaseAuth.instance,
     ref.watch(sqliteApiProvider),
     ref.watch(firestoreApiProvider),
+    ref,
   ),
   name: r"authenticationRepositoryProvider",
 );
@@ -25,22 +30,27 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   final FirebaseAuth _firebaseAuth;
   final SQLiteApi _sqLiteApi;
   final FirestoreApi _firestoreApi;
+  final Ref _ref;
 
   FirebaseAuthenticationRepository(
     this._firebaseAuth,
     this._sqLiteApi,
     this._firestoreApi,
+    this._ref,
   );
 
   @override
   Stream<AppUser> authStateChanges() {
     var authState = _firebaseAuth.authStateChanges();
     return authState.asyncMap<AppUser>((user) async {
-      if (user == null) {
+      var isCreatingUser = _ref.read(_isCreatingUserState);
+      if (user == null && !isCreatingUser) {
         _sqLiteApi.clearDatabase();
         return const AppUser.notConnected();
       }
       try {
+        // TODO : Change state if isCreatingUser is true && false
+        if()
         var userDataJson =
             await _sqLiteApi.findById(Strings.appUserLocalTable, user.uid, 0);
         if (userDataJson.isNotEmpty) {
@@ -57,6 +67,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
           );
           return UserData.fromJson(userDataJson);
         } else {
+          // TODO : treat if is authState after signUp, so it wont do anything if user hasnt saved user data in firestore
           throw const AppAuthException.userNotFound(
               "User not found at database");
         }
@@ -101,6 +112,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
       String fullName, String phoneNumber) async {
     UserCredential? result;
     try {
+      _ref.read(_isCreatingUserState.notifier).state = true;
       result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -114,7 +126,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
           fullname: fullName,
           phoneNumber: phoneNumber,
         ).toJson();
-        await _firestoreApi.add(
+        await _firestoreApi.set(
           Strings.appUserRemoteTable,
           fullUserJson,
         );
@@ -130,6 +142,8 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
         await result.user!.delete();
       }
       throw AppAuthException.fromFirebaseException(e);
+    } finally {
+      _ref.read(_isCreatingUserState.notifier).state = false;
     }
   }
 
