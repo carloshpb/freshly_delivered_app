@@ -19,7 +19,8 @@ class AsyncErrorLogger extends ProviderObserver {
     if (asyncError != null) {
       if (asyncError.error is Exception) {
         // only prints the AppException data
-        logger.e(asyncError.error as Exception);
+        logger.e(asyncError.error as Exception,
+            stackTrace: asyncError.stackTrace);
         //errorLogger.logException(error.error as Exception);
       } else {
         // prints everything including the stack trace
