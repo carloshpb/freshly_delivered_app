@@ -45,7 +45,7 @@ enum AppRouter {
   signUp("sign-up"),
   successSignUp("success"),
   forgotPasswordLogin('forgot-password'),
-  resetLinkSent('/login/reset-link-sent'),
+  resetLinkSent('reset-link-sent'),
   home("/home"),
   wishlist("/wishlist"),
   cart("/cart"),
@@ -227,7 +227,10 @@ final goRouterProvider = Provider<GoRouter>(
       // redirect to the login page if the user is not logged in
       redirect: (context, state) {
         // If our async state is loading, don't perform redirects, yet
-        if (authState.isLoading) {
+        // Also, it won't redirect if it's not in home tree
+        if (authState.isLoading ||
+            (state.fullPath != null &&
+                !state.fullPath!.startsWith(AppRouter.home.path))) {
           return null;
         } else if (authState.hasError && authState.error is AppAuthException) {
           // TODO : Treat better each Auth Exception to each route that was thrown by authStateChangesProvider
