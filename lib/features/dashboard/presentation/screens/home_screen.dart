@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
@@ -114,6 +115,9 @@ class HomeScreen extends ConsumerWidget {
     );
 
     final mediaQuerySize = MediaQuery.sizeOf(context);
+
+    FlutterNativeSplash.remove();
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
