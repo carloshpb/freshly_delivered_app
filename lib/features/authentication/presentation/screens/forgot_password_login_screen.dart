@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../common_widgets/custom_snackbar.dart';
@@ -33,7 +34,7 @@ class _ForgotPasswordLoginScreenState
   Widget build(BuildContext context) {
     final state = ref.watch(forgotPasswordLoginControllerProvider);
     final resendTimeMailLinkState = ref.watch(resendTimeMailLinkProvider);
-    final goRouterState = ref.watch(goRouterProvider);
+    // final goRouterState = ref.watch(goRouterProvider);
     final forgotPasswordScreenController =
         ref.read(forgotPasswordLoginControllerProvider.notifier);
 
@@ -42,7 +43,7 @@ class _ForgotPasswordLoginScreenState
       backgroundColor: CustomColors.mainGreen,
       leading: BackButton(
         color: Colors.white,
-        onPressed: () => goRouterState.go(AppRouter.login.path),
+        onPressed: () => context.go(AppRouter.login.path),
       ),
     );
 
@@ -278,8 +279,7 @@ class _ForgotPasswordLoginScreenState
                               ),
                             ),
                             TextButton(
-                              onPressed: () =>
-                                  goRouterState.go(AppRouter.login.path),
+                              onPressed: () => context.go(AppRouter.login.path),
                               child: Text(
                                 "${Strings.login} ${Strings.here}"
                                     .toUpperCase(),
@@ -305,8 +305,7 @@ class _ForgotPasswordLoginScreenState
                           ),
                         ),
                         TextButton(
-                          onPressed: () =>
-                              goRouterState.go(AppRouter.signUp.path),
+                          onPressed: () => context.go(AppRouter.signUp.path),
                           child: Text(
                             Strings.register.toUpperCase(),
                             style: const TextStyle(

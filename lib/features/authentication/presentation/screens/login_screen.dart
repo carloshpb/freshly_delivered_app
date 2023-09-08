@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../common_widgets/custom_snackbar.dart';
@@ -126,7 +127,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           },
           data: (data) {
             if (data.loginSuccess == true) {
-              ref.watch(goRouterProvider).go(AppRouter.home.path);
+              context.go(AppRouter.home.path);
             }
           },
         );
@@ -376,9 +377,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         ),
                                       ),
                                       TextButton(
-                                        onPressed: () => ref
-                                            .watch(goRouterProvider)
-                                            .go("${AppRouter.login.path}/${AppRouter.forgotPasswordLogin.path}"),
+                                        onPressed: () => context.go(
+                                            "${AppRouter.login.path}/${AppRouter.forgotPasswordLogin.path}"),
                                         style: TextButton.styleFrom(
                                           minimumSize: Size.zero,
                                           padding: const EdgeInsets.symmetric(
@@ -434,9 +434,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                       ),
                                     ),
                                     TextButton(
-                                      onPressed: () => ref
-                                          .watch(goRouterProvider)
-                                          .go("${AppRouter.login.path}/${AppRouter.signUp.path}"),
+                                      onPressed: () => context.go(
+                                          "${AppRouter.login.path}/${AppRouter.signUp.path}"),
                                       child: Text(
                                         Strings.register.toUpperCase(),
                                         style: const TextStyle(

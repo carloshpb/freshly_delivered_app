@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../common_widgets/custom_snackbar.dart';
 import '../../../../constants/custom_colors.dart';
@@ -21,27 +22,33 @@ class _SuccessSignUpScreenState extends ConsumerState<SuccessSignUpScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(
-        const Duration(
-          seconds: 3,
-        ),
-      );
-      ref.read(goRouterProvider).go(AppRouter.home.path);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) async {
+    // await Future.delayed(
+    //   const Duration(
+    //     seconds: 3,
+    //   ),
+    // );
+    //   context.go(AppRouter.home.path);
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     // error handling
-    ref.listen<AsyncValue<void>>(
-      successSignUpControllerProvider,
-      (previousState, nextState) => nextState.whenOrNull(
-        error: (error, stackTrace) {
-          CustomSnackbar.showErrorToast(context, 'Error', error.toString());
-        },
-      ),
-    );
+    // ref.listen<AsyncValue<void>>(
+    //   successSignUpControllerProvider,
+    //   (previousState, nextState) => nextState.whenOrNull(
+    //     error: (error, stackTrace) {
+    //       CustomSnackbar.showErrorToast(context, 'Error', error.toString());
+    //     },
+    //   ),
+    // );
+
+    // Future.delayed(
+    //   const Duration(
+    //     seconds: 3,
+    //   ),
+    // ).then((_) => context.go(AppRouter.home.path));
 
     return WillPopScope(
       onWillPop: () async => false,
