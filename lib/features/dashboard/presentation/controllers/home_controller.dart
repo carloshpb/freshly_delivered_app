@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart';
 
+import '../../../authentication/application/use_cases/auth_state_use_case_impl.dart';
+import '../../application/dtos/advertisement_dto.dart';
 import '../../application/use_cases/get_products_by_advertisement_use_case_impl.dart';
 import '../../application/use_cases/get_special_advertisements_use_case_impl.dart';
 import '../../application/use_cases/get_last_advertisements_use_case_impl.dart';
@@ -16,6 +19,19 @@ final homeControllerProvider = AsyncNotifierProvider<HomeController, HomeState>(
 class HomeController extends AsyncNotifier<HomeState> {
   @override
   FutureOr<HomeState> build() async {
+    // Just to avoid to load anything if user is going to home without being connected
+    if (ref.watch(authStateUseCaseProvider).value == null ||
+        ref.watch(authStateUseCaseProvider).value! is UserNotConnected) {
+      return HomeState(
+        advertisements: [],
+        specialOffer: AdvertisementDto.empty(),
+        searchProductName: '',
+        searchProductsResult: [],
+        popularProducts: [],
+        specialOfferProducts: [],
+      );
+    }
+
     var advertisements = await ref
         .watch(getLastAdvertisementsUseCaseProvider)
         .execute((object: null, position: 0));

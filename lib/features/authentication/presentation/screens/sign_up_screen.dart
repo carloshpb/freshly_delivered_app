@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../common_widgets/custom_snackbar.dart';
@@ -163,7 +164,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               color: Colors.white,
               onPressed: () {
                 if (!ref.watch(signUpControllerProvider).value!) {
-                  ref.watch(goRouterProvider).go(AppRouter.login.path);
+                  context.go(AppRouter.login.path);
                 }
               },
             ),
@@ -179,17 +180,25 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     ref.listen<AsyncValue<bool>>(
       signUpControllerProvider,
       (previousState, nextState) {
+        print("LISTENER DO SIGN UP ; INICIO");
         if (context.loaderOverlay.visible) {
+          print("ESCONDENDO OVERLAY");
           context.loaderOverlay.hide();
         }
-        nextState.whenOrNull(
+        nextState.when(
           data: (isRegistered) {
+            print("OPA TEM DATA ! : $isRegistered");
             if (isRegistered) {
-              ref.watch(goRouterProvider).go(AppRouter.successSignUp.path);
+              context.go(
+                  "${AppRouter.login.path}/${AppRouter.signUp.path}/${AppRouter.successSignUp.path}");
             }
           },
-          loading: () => context.loaderOverlay.show(),
+          loading: () {
+            print("LISTENER LOADING ....");
+            context.loaderOverlay.show();
+          },
           error: (error, stackTrace) {
+            print("LISTENER DEU RUIM!!!");
             if (error is EmailAlreadyInUseException ||
                 error is InvalidEmailException) {
               _emailFocusNode.requestFocus();

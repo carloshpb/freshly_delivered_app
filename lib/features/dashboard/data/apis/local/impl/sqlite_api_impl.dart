@@ -205,8 +205,16 @@ class SQLiteApiImpl implements SQLiteApi {
     } else {
       _timestampToMillisecondsSinceEpoch(entity);
       entity['expiration'] = DateTime.now().millisecondsSinceEpoch;
-      var result = await _database.rawInsert(
-          "$insert (${(entity as Map<String, Object?>).entries.join(",")})");
+      var dataToInsertString = "";
+
+      for (var i = 0; i < columns.length; i++) {
+        if (i != 0) {
+          dataToInsertString = "$dataToInsertString, ";
+        }
+        dataToInsertString = "$dataToInsertString${entity[columns[i]]}";
+      }
+
+      var result = await _database.rawInsert("$insert ($dataToInsertString)");
 
       if (result == 0) {
         throw DataNotInsertedInDbException(

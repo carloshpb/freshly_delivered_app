@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart';
+import 'package:logger/logger.dart';
 
 import '../../../../constants/strings.dart';
 import '../../../../exceptions/app_auth_exception.dart';
@@ -43,14 +44,16 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   Stream<AppUser> authStateChanges() {
     var authState = _firebaseAuth.authStateChanges();
     return authState.asyncMap<AppUser>((user) async {
+      // Logger().i(
+      //     "Changing auth state : $user - ${_ref.read(_isCreatingUserState)}");
       var isCreatingUser = _ref.read(_isCreatingUserState);
-      if (user == null && !isCreatingUser) {
+      if (isCreatingUser) {
+        return const AppUser.notConnected();
+      } else if (user == null) {
         _sqLiteApi.clearDatabase();
         return const AppUser.notConnected();
       }
       try {
-        // TODO : Change state if isCreatingUser is true && false
-        if()
         var userDataJson =
             await _sqLiteApi.findById(Strings.appUserLocalTable, user.uid, 0);
         if (userDataJson.isNotEmpty) {
@@ -67,7 +70,6 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
           );
           return UserData.fromJson(userDataJson);
         } else {
-          // TODO : treat if is authState after signUp, so it wont do anything if user hasnt saved user data in firestore
           throw const AppAuthException.userNotFound(
               "User not found at database");
         }
@@ -112,7 +114,9 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
       String fullName, String phoneNumber) async {
     UserCredential? result;
     try {
+      // To avoid authState to try to get data from Firestore at the same time as it's creating user data on it
       _ref.read(_isCreatingUserState.notifier).state = true;
+
       result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -131,19 +135,22 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
           fullUserJson,
         );
 
-        await _sqLiteApi.save(
-          Strings.appUserLocalTable,
-          fullUserJson,
-          fullUserJson.keys.toList(),
-        );
+        // await _sqLiteApi.save(
+        //   Strings.appUserLocalTable,
+        //   fullUserJson,
+        //   fullUserJson.keys.toList(),
+        // );
+
+        await _firebaseAuth.signOut();
+
+        _ref.read(_isCreatingUserState.notifier).state = false;
+        // await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       }
     } on FirebaseAuthException catch (e) {
       if (result != null && result.user != null) {
         await result.user!.delete();
       }
       throw AppAuthException.fromFirebaseException(e);
-    } finally {
-      _ref.read(_isCreatingUserState.notifier).state = false;
     }
   }
 

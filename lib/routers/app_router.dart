@@ -33,11 +33,8 @@ final _shellNavigatorSettingsKey =
 
 /// Enum for Router
 enum AppRouter {
-  intro('/'),
+  intro('/intro'),
   login('/login'),
-  loginPhone('/login/phone'),
-  loginName('/login/name'),
-  loginProfile('/login/profile'),
   buyer('/comprador'),
   seller('/vendedor'),
   loginVerificationCode('/login/validation'),
@@ -46,7 +43,7 @@ enum AppRouter {
   successSignUp("success"),
   forgotPasswordLogin('forgot-password'),
   resetLinkSent('reset-link-sent'),
-  home("/home"),
+  home("/"),
   wishlist("/wishlist"),
   cart("/cart"),
   settings("/settings"),
@@ -63,13 +60,14 @@ enum AppRouter {
 
 final goRouterProvider = Provider<GoRouter>(
   (ref) {
+    // TODO : remove authState from here, because its reseting the GoRouter and going to initialLocation all the time
+    AQUI
     final authState = ref.watch(authStateUseCaseProvider);
 
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
-      initialLocation: (authState.hasValue && authState.value is UserData)
-          ? AppRouter.home.path
-          : AppRouter.intro.path,
+      debugLogDiagnostics: true,
+      initialLocation: AppRouter.home.path,
       routes: [
         // Stateful nested navigation based on:
         // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
@@ -228,9 +226,7 @@ final goRouterProvider = Provider<GoRouter>(
       redirect: (context, state) {
         // If our async state is loading, don't perform redirects, yet
         // Also, it won't redirect if it's not in home tree
-        if (authState.isLoading ||
-            (state.fullPath != null &&
-                !state.fullPath!.startsWith(AppRouter.home.path))) {
+        if (authState.isLoading) {
           return null;
         } else if (authState.hasError && authState.error is AppAuthException) {
           // TODO : Treat better each Auth Exception to each route that was thrown by authStateChangesProvider
@@ -248,15 +244,31 @@ final goRouterProvider = Provider<GoRouter>(
 
         // Here we guarantee that hasData == true, i.e. we have a readable value
 
+        // switch (authState.value!) {
+        //   case UserData():
+        //     return (state.fullPath == AppRouter.login.path)
+        //         ? AppRouter.home.path
+        //         : null;
+        //   default:
+        //     return (state.fullPath == AppRouter.login.path)
+        //         ? null
+        //         : AppRouter.login.path;
+        // }
+
+        print("PATH ATUAL : ${state.fullPath}");
+
         switch (authState.value!) {
-          case UserData():
-            return (state.fullPath == AppRouter.login.path)
-                ? AppRouter.home.path
+          case UserNotConnected():
+            return (state.fullPath! == AppRouter.home.path ||
+                    state.fullPath!.contains(AppRouter.itemDetails.path) ||
+                    state.fullPath!.contains(AppRouter.searchResults.path) ||
+                    state.fullPath!.contains(AppRouter.wishlist.path) ||
+                    state.fullPath!.contains(AppRouter.cart.path) ||
+                    state.fullPath!.contains(AppRouter.settings.path))
+                ? AppRouter.intro.path
                 : null;
           default:
-            return (state.fullPath == AppRouter.login.path)
-                ? null
-                : AppRouter.login.path;
+            return null;
         }
       },
     );

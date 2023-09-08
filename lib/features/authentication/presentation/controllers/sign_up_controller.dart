@@ -23,6 +23,7 @@ class SignUpController extends AutoDisposeAsyncNotifier<bool> {
     required String password,
   }) async {
     state = const AsyncValue<bool>.loading();
+
     state = await AsyncValue.guard(() async {
       await ref
           .watch(signUpUseCaseProvider)
