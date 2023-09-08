@@ -315,34 +315,22 @@ class FirestoreApiImpl implements FirestoreApi {
 
   @override
   Future<void> set(String collection, dynamic entity) async {
-    var docRef = _firestore.collection(collection).doc(entity["id"]);
     try {
       if (entity is List) {
         for (int index = 0; index < entity.length; index++) {
-          await docRef.set(
-            entity[index]
-              ..putIfAbsent(
-                "created_at",
-                () => FieldValue.serverTimestamp(),
-              )
-              ..putIfAbsent(
-                "modified_at",
-                () => entity[index]["created_at"],
-              ),
-          );
+          var docRef =
+              _firestore.collection(collection).doc(entity[index]["id"]);
+          (entity[index] as Map).remove("id");
+          entity[index]["created_at"] = FieldValue.serverTimestamp();
+          entity[index]["modified_at"] = entity[index]["created_at"];
+          await docRef.set((entity[index] as Map<String, Object?>));
         }
       } else {
-        await docRef.set(
-          (entity as Map<String, Object?>)
-            ..putIfAbsent(
-              "created_at",
-              () => FieldValue.serverTimestamp(),
-            )
-            ..putIfAbsent(
-              "modified_at",
-              () => entity["created_at"],
-            ),
-        );
+        var docRef = _firestore.collection(collection).doc(entity["id"]);
+        (entity as Map).remove("id");
+        entity["created_at"] = FieldValue.serverTimestamp();
+        entity["modified_at"] = entity["created_at"];
+        await docRef.set((entity as Map<String, Object?>));
       }
     } on FirebaseException catch (e) {
       throw AppFirestoreException.fromFirebaseException(e);
