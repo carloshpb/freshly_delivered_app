@@ -61,6 +61,7 @@ enum AppRouter {
 final goRouterProvider = Provider<GoRouter>(
   (ref) {
     // TODO : remove authState from here, because its reseting the GoRouter and going to initialLocation all the time
+    AQUI
     final authState = ref.watch(authStateUseCaseProvider);
 
     return GoRouter(
