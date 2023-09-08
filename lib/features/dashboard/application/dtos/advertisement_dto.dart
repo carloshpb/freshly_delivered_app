@@ -20,6 +20,9 @@ class AdvertisementDto with _$AdvertisementDto {
     @Default(DiscountDto(id: "-1")) DiscountDto discount,
   }) = _AdvertisementDto;
 
+  factory AdvertisementDto.empty() =>
+      const AdvertisementDto(id: "-1", description: "none", imagePath: "none");
+
   factory AdvertisementDto.fromDomain(Advertisement domain) => AdvertisementDto(
         id: domain.id,
         description: domain.description,
