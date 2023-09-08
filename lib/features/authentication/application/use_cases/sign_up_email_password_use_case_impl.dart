@@ -6,7 +6,7 @@ import '../../data/repositories/firebase_authentication_repository.dart';
 import '../../domain/repositories/authentication_repository.dart';
 import '../../domain/use_cases/sign_up_email_password_use_case.dart';
 
-final signUpUseCaseProvider = Provider.autoDispose<SignUpEmailPasswordUseCase>(
+final signUpUseCaseProvider = Provider<SignUpEmailPasswordUseCase>(
   (ref) {
     return SignUpEmailPasswordUseCaseImpl(
       authRepository: ref.watch(authenticationRepositoryProvider),
