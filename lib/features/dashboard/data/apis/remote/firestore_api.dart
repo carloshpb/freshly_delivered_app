@@ -34,6 +34,8 @@ abstract class FirestoreApi {
     String childCollection,
     dynamic entity,
   );
+  Future<void> update(
+      String collection, String docId, Map<String, Object> entity);
   void fetchListByAttributeDesc(
     String collection,
     dynamic attribute,
