@@ -1,10 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart';
 
 import '../../data/repositories/firebase_authentication_repository.dart';
+import '../dtos/app_user_dto.dart';
 
-final authStateUseCaseProvider = StreamProvider<AppUser>(
-  (ref) => ref.watch(authenticationRepositoryProvider).authStateChanges(),
+final authStateUseCaseProvider = StreamProvider<AppUserDto>(
+  (ref) {
+    return ref
+        .watch(authenticationRepositoryProvider)
+        .authStateChanges()
+        .asyncMap((event) => AppUserDto.fromDomain(event));
+  },
 );
 
 // class AuthStateUseCaseImpl implements AuthStateUseCase {
