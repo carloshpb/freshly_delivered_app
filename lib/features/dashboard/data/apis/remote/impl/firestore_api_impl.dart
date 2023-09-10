@@ -248,8 +248,6 @@ class FirestoreApiImpl implements FirestoreApi {
   @override
   Future<void> update(
       String collection, String docId, Map<String, Object> entity) async {
-    // TODO : handle remove field if new update doesnt have an old field (https://firebase.google.com/docs/firestore/manage-data/delete-data#fields)
-    FAZER UPDATE
     var collectionRef = _firestore.collection(collection);
     try {
       entity["modified_at"] = FieldValue.serverTimestamp();

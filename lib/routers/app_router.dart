@@ -61,8 +61,8 @@ enum AppRouter {
 final goRouterProvider = Provider<GoRouter>(
   (ref) {
     // TODO : remove authState from here, because its reseting the GoRouter and going to initialLocation all the time
-    AQUI
-    final authState = ref.watch(authStateUseCaseProvider);
+    // AQUI
+    // final authState = ref.read(authStateUseCaseProvider);
 
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
@@ -224,6 +224,8 @@ final goRouterProvider = Provider<GoRouter>(
       ],
       // redirect to the login page if the user is not logged in
       redirect: (context, state) {
+        var authState = ref.read(authStateUseCaseProvider);
+
         // If our async state is loading, don't perform redirects, yet
         // Also, it won't redirect if it's not in home tree
         if (authState.isLoading) {
