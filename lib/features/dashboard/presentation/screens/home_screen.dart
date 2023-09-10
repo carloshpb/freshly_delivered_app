@@ -14,6 +14,7 @@ import '../../../../routers/app_router.dart';
 import '../../application/dtos/advertisement_dto.dart';
 import '../../application/dtos/product_dto.dart';
 import '../controllers/home_controller.dart';
+import '../controllers/states/home_state.dart';
 
 class HomeScreen extends ConsumerWidget {
   //final _emailController = TextEditingController();
@@ -22,6 +23,23 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(homeControllerProvider, (previous, next) {
+      if ((previous == null && next.value == HomeState.blank()) ||
+          previous?.value == HomeState.blank() &&
+              next.value == HomeState.blank()) {
+        //ref.read(homeControllerProvider.notifier).authState();
+        //ref.invalidate(homeControllerProvider);
+        context.go(AppRouter.intro.path);
+        return;
+      }
+    });
+
+    if (ref.watch(homeControllerProvider).hasValue &&
+        ref.watch(homeControllerProvider).value == HomeState.blank()) {
+      ref.refresh(homeControllerProvider);
+      return Scaffold(body: Container());
+    }
+
     AsyncValue<List<AdvertisementDto>> currentAdvertisementsState = ref.watch(
       homeControllerProvider.select(
         (asyncState) => switch (asyncState) {
