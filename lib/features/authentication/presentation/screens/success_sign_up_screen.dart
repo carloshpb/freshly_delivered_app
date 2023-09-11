@@ -22,14 +22,16 @@ class _SuccessSignUpScreenState extends ConsumerState<SuccessSignUpScreen> {
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    // await Future.delayed(
-    //   const Duration(
-    //     seconds: 3,
-    //   ),
-    // );
-    //   context.go(AppRouter.home.path);
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(
+        const Duration(
+          seconds: 3,
+        ),
+      );
+      if (context.mounted) {
+        context.go(AppRouter.home.path);
+      }
+    });
   }
 
   @override
@@ -56,6 +58,7 @@ class _SuccessSignUpScreenState extends ConsumerState<SuccessSignUpScreen> {
         backgroundColor: CustomColors.mainGreen,
         appBar: AppBar(
           backgroundColor: CustomColors.mainGreen,
+          automaticallyImplyLeading: false,
         ),
         body: SafeArea(
           child: Column(

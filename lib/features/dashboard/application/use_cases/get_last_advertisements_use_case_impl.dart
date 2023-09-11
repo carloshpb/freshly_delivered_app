@@ -30,8 +30,7 @@ class GetLastAdvertisementsUseCaseImpl implements GetLastAdvertisementsUseCase {
       ({AdvertisementDto? object, int position}) request) async {
     var advertisements =
         await _localAdvertisementsRepository.findAdvertisementsWithLimit(
-      10,
-      (
+      lastAdvertisement: (
         advertisementObject:
             (request.object != null) ? request.object!.toDomain() : null,
         position: request.position,
@@ -41,8 +40,7 @@ class GetLastAdvertisementsUseCaseImpl implements GetLastAdvertisementsUseCase {
     if (advertisements.isEmpty) {
       advertisements =
           await _remoteAdvertisementsRepository.findAdvertisementsWithLimit(
-        10,
-        (
+        lastAdvertisement: (
           advertisementObject:
               (request.object != null) ? request.object!.toDomain() : null,
           position: request.position,

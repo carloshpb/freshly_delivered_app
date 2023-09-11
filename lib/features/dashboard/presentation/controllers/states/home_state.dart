@@ -15,13 +15,4 @@ class HomeState with _$HomeState {
     required String searchProductName,
     required List<ProductDto> searchProductsResult,
   }) = _HomeState;
-
-  factory HomeState.blank() => HomeState(
-        advertisements: [],
-        specialOffer: AdvertisementDto.empty(),
-        searchProductName: '',
-        searchProductsResult: [],
-        popularProducts: [],
-        specialOfferProducts: [],
-      );
 }

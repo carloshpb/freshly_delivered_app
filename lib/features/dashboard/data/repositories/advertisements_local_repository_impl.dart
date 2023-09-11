@@ -62,17 +62,18 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   }
 
   @override
-  FutureOr<List<Advertisement>> findAdvertisementsWithLimit(
-      int limit,
-      ({
-        Advertisement? advertisementObject,
-        int position
-      }) lastAdvertisement) async {
+  FutureOr<List<Advertisement>> findAdvertisementsWithLimit({
+    required ({
+      Advertisement? advertisementObject,
+      int position,
+    }) lastAdvertisement,
+    int expirationLimitMinutes = 10,
+  }) async {
     var resultListMap = await _sqliteApi.findAllWithLimit(
       Strings.advertisementsLocalTable,
-      limit,
-      lastAdvertisement.position,
-      5,
+      expirationLimitMinutes,
+      limit: 5,
+      offset: lastAdvertisement.position,
     );
     return resultListMap
         .map(
@@ -104,20 +105,21 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   }
 
   @override
-  FutureOr<List<Advertisement>> findSpecialAdvertisements(
-      int limit,
-      ({
-        Advertisement? advertisementObject,
-        int position
-      }) lastAdvertisement) async {
+  FutureOr<List<Advertisement>> findSpecialAdvertisements({
+    required ({
+      Advertisement? advertisementObject,
+      int position,
+    }) lastAdvertisement,
+    int expirationLimitMinutes = 10,
+  }) async {
     var resultListMap = await _sqliteApi.findByAttributeDesc(
       Strings.advertisementsLocalTable,
       true,
       "is_special",
-      limit,
       "created_at",
-      lastAdvertisement.position,
-      5,
+      expirationLimitMinutes,
+      limit: 5,
+      offset: lastAdvertisement.position,
       descending: true,
     );
     return resultListMap
@@ -135,10 +137,9 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
           Strings.advertisementsLocalTable,
           null,
           "",
-          0,
           "created_at",
           0,
-          5,
+          limit: 5,
           descending: true,
         )
         .then((result) => _advertisementStream.add(result));

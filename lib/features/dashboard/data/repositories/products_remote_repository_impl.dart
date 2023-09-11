@@ -26,13 +26,13 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  FutureOr<List<Product>> findProductsWithLimit(
-    int limit,
-    ({Product? productObject, int position}) lastProduct,
-  ) async {
+  FutureOr<List<Product>> findProductsWithLimit({
+    required ({Product? productObject, int position}) lastProduct,
+    int expirationTimeLimit = 5,
+  }) async {
     var resultListMap = await _firestoreApi.findAllWithLimit(
       Strings.productsRemoteTable,
-      limit,
+      expirationTimeLimit,
       lastProduct.productObject,
     );
     return resultListMap
@@ -60,13 +60,16 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  FutureOr<List<Product>> findProductsByNameWithLimit(String name, int limit,
-      ({int position, Product? productObject}) lastProduct) async {
+  FutureOr<List<Product>> findProductsByNameWithLimit({
+    required String name,
+    required ({Product? productObject, int position}) lastProduct,
+    int expirationTimeLimit = 5,
+  }) async {
     var result = await _firestoreApi.findByAttributeDesc(
       Strings.productsRemoteTable,
       name,
       "title",
-      limit,
+      10,
       "title",
       lastProduct.productObject,
     );
@@ -79,16 +82,16 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  FutureOr<List<Product>> findProductsByAdvertisementId(
-    String advertisementId,
-    int limit,
-    ({Product? productObject, int position}) lastProduct,
-  ) async {
+  FutureOr<List<Product>> findProductsByAdvertisementId({
+    required String advertisementId,
+    required ({Product? productObject, int position}) lastProduct,
+    int expirationTimeLimit = 5,
+  }) async {
     var result = await _firestoreApi.findByAttributeDesc(
       Strings.productsRemoteTable,
       advertisementId,
       'advertisement_id',
-      limit,
+      10,
       "units_sold",
       lastProduct.productObject,
       descending: true,
@@ -102,15 +105,15 @@ class ProductsRemoteRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  FutureOr<List<Product>> findProductsByPopularity(
-    int limit,
-    ({int position, Product? productObject}) lastProduct,
-  ) async {
+  FutureOr<List<Product>> findProductsByPopularity({
+    required ({Product? productObject, int position}) lastProduct,
+    int expirationTimeLimit = 5,
+  }) async {
     var result = await _firestoreApi.findByAttributeDesc(
       Strings.productsRemoteTable,
       null,
       '',
-      limit,
+      10,
       "units_sold",
       lastProduct.productObject,
       descending: true,

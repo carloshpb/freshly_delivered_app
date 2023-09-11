@@ -39,15 +39,15 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  FutureOr<List<Product>> findProductsWithLimit(
-    int limit,
-    ({Product? productObject, int position}) lastProduct,
-  ) async {
+  FutureOr<List<Product>> findProductsWithLimit({
+    required ({Product? productObject, int position}) lastProduct,
+    int expirationTimeLimit = 5,
+  }) async {
     var resultListMap = await _sqliteApi.findAllWithLimit(
       Strings.productsLocalTable,
-      limit,
-      lastProduct.position,
-      5,
+      expirationTimeLimit,
+      limit: 10,
+      offset: lastProduct.position,
     );
     return resultListMap
         .map(
@@ -77,16 +77,19 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  FutureOr<List<Product>> findProductsByNameWithLimit(String name, int limit,
-      ({int position, Product? productObject}) lastProduct) async {
+  FutureOr<List<Product>> findProductsByNameWithLimit({
+    required String name,
+    required ({Product? productObject, int position}) lastProduct,
+    int expirationTimeLimit = 5,
+  }) async {
     var result = await _sqliteApi.findByAttributeDesc(
       Strings.productsLocalTable,
       name,
       "title",
-      limit,
       "title",
-      lastProduct.position,
-      5,
+      expirationTimeLimit,
+      limit: 10,
+      offset: lastProduct.position,
     );
 
     return result
@@ -97,19 +100,19 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  FutureOr<List<Product>> findProductsByAdvertisementId(
-    String advertisementId,
-    int limit,
-    ({int position, Product? productObject}) lastProduct,
-  ) async {
+  FutureOr<List<Product>> findProductsByAdvertisementId({
+    required String advertisementId,
+    required ({Product? productObject, int position}) lastProduct,
+    int expirationTimeLimit = 5,
+  }) async {
     var result = await _sqliteApi.findByAttributeDesc(
       Strings.productsLocalTable,
       advertisementId,
       'advertisement_id',
-      limit,
       "units_sold",
-      lastProduct.position,
-      5,
+      expirationTimeLimit,
+      limit: 10,
+      offset: lastProduct.position,
       descending: true,
     );
 
@@ -121,18 +124,18 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  FutureOr<List<Product>> findProductsByPopularity(
-    int limit,
-    ({int position, Product? productObject}) lastProduct,
-  ) async {
+  FutureOr<List<Product>> findProductsByPopularity({
+    required ({Product? productObject, int position}) lastProduct,
+    int expirationTimeLimit = 5,
+  }) async {
     var result = await _sqliteApi.findByAttributeDesc(
       Strings.productsLocalTable,
       null,
       '',
-      limit,
       "units_sold",
-      lastProduct.position,
-      5,
+      expirationTimeLimit,
+      limit: 10,
+      offset: lastProduct.position,
       descending: true,
     );
 

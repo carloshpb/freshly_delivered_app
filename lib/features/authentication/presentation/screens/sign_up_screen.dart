@@ -321,8 +321,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                                       is EmailAlreadyInUseException ||
                                                   state.error
                                                       is InvalidEmailException))
-                                          ? (state.error as Exception)
-                                              .toString()
+                                          ? (state.error as AppAuthException)
+                                              .message
                                           : (ref.watch(_validEmailProvider))
                                               ? null
                                               : Strings.insertValidEmail,
@@ -756,9 +756,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                       ),
                                     ),
                                     TextButton(
-                                      onPressed: () => ref
-                                          .watch(goRouterProvider)
-                                          .go(AppRouter.login.path),
+                                      onPressed: () =>
+                                          context.go(AppRouter.login.path),
                                       child: Text(
                                         "${Strings.login} ${Strings.here}"
                                             .toUpperCase(),

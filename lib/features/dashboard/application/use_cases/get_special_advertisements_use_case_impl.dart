@@ -32,8 +32,7 @@ class GetSpecialAdvertisementsUseCaseImpl
       ({AdvertisementDto? object, int position}) request) async {
     var advertisements =
         await _localAdvertisementsRepository.findSpecialAdvertisements(
-      10,
-      (
+      lastAdvertisement: (
         advertisementObject:
             (request.object != null) ? request.object!.toDomain() : null,
         position: request.position,
@@ -43,8 +42,7 @@ class GetSpecialAdvertisementsUseCaseImpl
     if (advertisements.isEmpty) {
       advertisements =
           await _remoteAdvertisementsRepository.findSpecialAdvertisements(
-        10,
-        (
+        lastAdvertisement: (
           advertisementObject:
               (request.object != null) ? request.object!.toDomain() : null,
           position: request.position,
