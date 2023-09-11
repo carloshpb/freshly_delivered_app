@@ -28,8 +28,7 @@ class GetProductsWithLimitUseCaseImpl implements GetProductsWithLimitUseCase {
   Future<List<ProductDto>> execute(
       ({ProductDto? object, int position}) request) async {
     var products = await _localProductsRepository.findProductsWithLimit(
-      10,
-      (
+      lastProduct: (
         position: request.position,
         productObject:
             (request.object != null) ? request.object!.toDomain() : null,
@@ -38,8 +37,7 @@ class GetProductsWithLimitUseCaseImpl implements GetProductsWithLimitUseCase {
 
     if (products.isEmpty) {
       products = await _remoteProductsRepository.findProductsWithLimit(
-        10,
-        (
+        lastProduct: (
           position: request.position,
           productObject:
               (request.object != null) ? request.object!.toDomain() : null,

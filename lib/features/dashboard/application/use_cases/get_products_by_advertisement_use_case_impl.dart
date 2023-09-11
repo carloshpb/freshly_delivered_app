@@ -41,9 +41,8 @@ class GetProductsByAdvertisementUseCaseImpl
       }) request) async {
     var products =
         await _remoteProductsRepository.findProductsByAdvertisementId(
-      request.advertisement.id,
-      10,
-      (
+      advertisementId: request.advertisement.id,
+      lastProduct: (
         position: request.lastProductPosition,
         productObject: request.lastProductObject?.toDomain(),
       ),

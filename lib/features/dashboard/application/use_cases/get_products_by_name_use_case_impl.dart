@@ -33,9 +33,8 @@ class GetProductsByNameUseCaseImpl implements GetProductsByNameUseCase {
         ProductDto? productObject
       }) request) async {
     var products = await _remoteProductsRepository.findProductsByNameWithLimit(
-      request.productName,
-      10,
-      (
+      name: request.productName,
+      lastProduct: (
         position: request.position,
         productObject: (request.productObject != null)
             ? request.productObject!.toDomain()
