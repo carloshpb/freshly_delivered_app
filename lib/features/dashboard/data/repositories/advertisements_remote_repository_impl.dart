@@ -54,15 +54,16 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
   }
 
   @override
-  FutureOr<List<Advertisement>> findAdvertisementsWithLimit(
-      int limit,
-      ({
-        Advertisement? advertisementObject,
-        int position
-      }) lastAdvertisement) async {
+  FutureOr<List<Advertisement>> findAdvertisementsWithLimit({
+    required ({
+      Advertisement? advertisementObject,
+      int position,
+    }) lastAdvertisement,
+    int expirationLimitMinutes = 10,
+  }) async {
     var resultListMap = await _firestoreApi.findAllWithLimit(
       Strings.advertisementsRemoteTable,
-      limit,
+      5,
       lastAdvertisement.advertisementObject,
     );
     return resultListMap
@@ -91,17 +92,18 @@ class AdvertisementsRemoteRepositoryImpl implements AdvertisementsRepository {
   }
 
   @override
-  FutureOr<List<Advertisement>> findSpecialAdvertisements(
-      int limit,
-      ({
-        Advertisement? advertisementObject,
-        int position
-      }) lastAdvertisement) async {
+  FutureOr<List<Advertisement>> findSpecialAdvertisements({
+    required ({
+      Advertisement? advertisementObject,
+      int position,
+    }) lastAdvertisement,
+    int expirationLimitMinutes = 10,
+  }) async {
     var resultListMap = await _firestoreApi.findByAttributeDesc(
       Strings.advertisementsRemoteTable,
       true,
       "is_special",
-      limit,
+      5,
       "created_at",
       lastAdvertisement.advertisementObject,
       descending: true,
