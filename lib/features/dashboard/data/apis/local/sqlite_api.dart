@@ -3,10 +3,10 @@ import 'dart:async';
 abstract class SQLiteApi {
   Future<List<Map<String, Object?>>> findAllWithLimit(
     String table,
-    int limit,
-    int offset,
-    int expirationLimit,
-  );
+    int expirationLimit, {
+    int limit = -1,
+    int offset = 0,
+  });
   Future<List<Map<String, Object?>>> findAll(
     String table,
     int expirationLimit,
@@ -20,10 +20,10 @@ abstract class SQLiteApi {
     String table,
     dynamic attribute,
     String attributeName,
-    int limit,
     String orderBy,
-    int offset,
     int expirationLimit, {
+    int limit = -1,
+    int offset = 0,
     bool descending = false,
   });
   Future<int> save(String table, dynamic entity, List<String> columns);

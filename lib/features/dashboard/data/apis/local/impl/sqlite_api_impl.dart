@@ -92,7 +92,7 @@ class SQLiteApiImpl implements SQLiteApi {
   @override
   Future<List<Map<String, Object?>>> findAll(
     String table,
-    int expirationLimit,
+    int expirationLimitMinutes,
   ) async {
     var result = await _database.rawQuery(
       '''
@@ -100,7 +100,7 @@ class SQLiteApiImpl implements SQLiteApi {
       ''',
     );
 
-    result = _verifyExpirationTime(result, expirationLimit);
+    result = _verifyExpirationTime(result, expirationLimitMinutes);
 
     if (result.isEmpty) {
       throw DataNotFoundInDbException(
@@ -119,22 +119,18 @@ class SQLiteApiImpl implements SQLiteApi {
   @override
   Future<List<Map<String, Object?>>> findAllWithLimit(
     String table,
-    int limit,
-    int offset,
-    int expirationLimit,
-  ) async {
+    int expirationLimitMinutes, {
+    int limit = -1,
+    int offset = 0,
+  }) async {
     var query = "SELECT * FROM $table ORDER BY modified_at DESC";
 
-    if (limit != 0) {
-      query = "$query OFFSET $limit";
-    }
-    if (offset != 0) {
-      query = "$query LIMIT $offset";
-    }
+    query = "$query LIMIT $offset";
+    query = "$query OFFSET $limit";
 
     var result = await _database.rawQuery(query);
 
-    result = _verifyExpirationTime(result, expirationLimit);
+    result = _verifyExpirationTime(result, expirationLimitMinutes);
 
     if (result.isEmpty) {
       throw DataNotFoundInDbException(
@@ -154,7 +150,7 @@ class SQLiteApiImpl implements SQLiteApi {
   Future<Map<String, Object?>> findById(
     String table,
     String id,
-    int expirationLimit,
+    int expirationLimitMinutes,
   ) async {
     var result = await _database.rawQuery(
       '''
@@ -163,7 +159,8 @@ class SQLiteApiImpl implements SQLiteApi {
       ''',
     );
 
-    result = _verifyExpirationTime(result, expirationLimit);
+    result =
+        _verifyExpirationTime(result, DateTime.now().millisecondsSinceEpoch);
 
     if (result.isEmpty || (result[0]["id"] as String).contains("expired")) {
       throw IdNotFoundException(id, table, Strings.sqlite);
@@ -233,10 +230,10 @@ class SQLiteApiImpl implements SQLiteApi {
     String table,
     dynamic attribute,
     String attributeName,
-    int limit,
     String orderBy,
-    int offset,
-    int expirationLimit, {
+    int expirationLimitMinutes, {
+    int limit = -1,
+    int offset = 0,
     bool descending = false,
   }) async {
     var query = "SELECT * FROM $table";
@@ -253,17 +250,13 @@ class SQLiteApiImpl implements SQLiteApi {
 
     query = "$query ORDER BY $orderBy $ascOrDesc";
 
-    if (limit != 0) {
-      query = "$query LIMIT $limit";
-    }
+    query = "$query LIMIT $limit";
 
-    if (offset != 0) {
-      query = "$query OFFSET $offset";
-    }
+    query = "$query OFFSET $offset";
 
     var result = await _database.rawQuery(query);
 
-    result = _verifyExpirationTime(result, expirationLimit);
+    result = _verifyExpirationTime(result, expirationLimitMinutes);
 
     if (result.isEmpty) {
       throw DataNotFoundInDbException(
@@ -341,10 +334,10 @@ class SQLiteApiImpl implements SQLiteApi {
   /// Should be treated at repository
   @override
   Future<List<Map<String, Object?>>> customQuery(
-      String query, int expirationLimit) async {
+      String query, int expirationLimitMinutes) async {
     var result = await _database.rawQuery(query);
 
-    result = _verifyExpirationTime(result, expirationLimit);
+    result = _verifyExpirationTime(result, expirationLimitMinutes);
 
     return result;
   }
@@ -396,14 +389,14 @@ class SQLiteApiImpl implements SQLiteApi {
 
   // cache expiration time : Return exception if it has expired, so we can get new one from server
   List<Map<String, Object?>> _verifyExpirationTime(
-      List<Map<String, Object?>> result, int expirationLimit) {
-    if (expirationLimit != 0) {
+      List<Map<String, Object?>> result, int expirationLimitMinutes) {
+    if (expirationLimitMinutes != 0) {
       result = result.map((element) {
         var currentDateTime = DateTime.now();
         var expirationDateTimeProduct =
             DateTime.fromMillisecondsSinceEpoch(element['expiration'] as int);
         if (currentDateTime.difference(expirationDateTimeProduct).inMinutes >
-            expirationLimit.abs()) {
+            expirationLimitMinutes.abs()) {
           element["id"] = "${element["id"]}expired";
         }
         return element;
