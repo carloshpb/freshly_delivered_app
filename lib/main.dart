@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
@@ -35,6 +37,14 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  // This was created to handle initial route of the app in a better way, depending on the user connected
+  var initialCurrentUser = (FirebaseAuth.instance.currentUser == null)
+      ? const AppUser.notConnected()
+      : AppUser.simple(
+          id: FirebaseAuth.instance.currentUser!.uid,
+          email: FirebaseAuth.instance.currentUser!.email!,
+        );
+
   // Emulator Firebase Auth for tests
   // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
 
@@ -60,6 +70,7 @@ Future<void> main() async {
         return sqliteApi;
       }),
       sharedPreferencesProvider.overrideWithValue(prefs),
+      goRouterProvider
     ],
     observers: [AsyncErrorLogger()],
   );
@@ -67,7 +78,9 @@ Future<void> main() async {
   runApp(
     UncontrolledProviderScope(
       container: container,
-      child: const App(),
+      child: App(
+        initialAccount: initialCurrentUser,
+      ),
     ),
   );
 
@@ -79,11 +92,16 @@ Future<void> main() async {
 }
 
 class App extends ConsumerWidget {
-  const App({super.key});
+  final AppUser _initialAccount;
+
+  const App({
+    super.key,
+    required AppUser initialAccount,
+  }) : _initialAccount = initialAccount;
 
   @override
   Widget build(BuildContext context, ref) {
-    final goRouter = ref.watch(goRouterProvider);
+    final goRouter = ref.watch(goRouterProvider(_initialAccount));
     return GlobalLoaderOverlay(
       useDefaultLoading: false,
       overlayColor: Colors.grey.withOpacity(0.3),

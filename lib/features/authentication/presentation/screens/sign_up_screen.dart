@@ -756,9 +756,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                       ),
                                     ),
                                     TextButton(
-                                      onPressed: () => ref
-                                          .watch(goRouterProvider)
-                                          .go(AppRouter.login.path),
+                                      onPressed: () =>
+                                          context.go(AppRouter.login.path),
                                       child: Text(
                                         "${Strings.login} ${Strings.here}"
                                             .toUpperCase(),

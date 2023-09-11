@@ -58,8 +58,8 @@ enum AppRouter {
   final String path;
 }
 
-final goRouterProvider = Provider<GoRouter>(
-  (ref) {
+final goRouterProvider = Provider.family<GoRouter, AppUser>(
+  (ref, appUser) {
     // TODO : remove authState from here, because its reseting the GoRouter and going to initialLocation all the time
     // AQUI
     // final authState = ref.read(authStateUseCaseProvider);
@@ -67,7 +67,9 @@ final goRouterProvider = Provider<GoRouter>(
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
       debugLogDiagnostics: true,
-      initialLocation: AppRouter.home.path,
+      initialLocation: (appUser is UserNotConnected)
+          ? AppRouter.intro.path
+          : AppRouter.home.path,
       routes: [
         // Stateful nested navigation based on:
         // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart

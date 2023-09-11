@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freshly_delivered_app/exceptions/app_auth_exception.dart';
 import 'package:freshly_delivered_app/features/authentication/domain/models/app_user.dart';
 
 import '../../../authentication/application/dtos/app_user_dto.dart';
@@ -20,12 +21,6 @@ final homeControllerProvider = AsyncNotifierProvider<HomeController, HomeState>(
 class HomeController extends AsyncNotifier<HomeState> {
   @override
   FutureOr<HomeState> build() async {
-    // Just to avoid to load anything if user is going to home without being connected
-    if (ref.watch(authStateUseCaseProvider).value == null ||
-        ref.watch(authStateUseCaseProvider).value! is UserNotConnected) {
-      return HomeState.blank();
-    }
-
     var advertisements = await ref
         .watch(getLastAdvertisementsUseCaseProvider)
         .execute((object: null, position: 0));
@@ -53,48 +48,6 @@ class HomeController extends AsyncNotifier<HomeState> {
       specialOfferProducts: specialAdvProducts,
     );
   }
-
-  // Future<AppUserDto> authState() async {
-  //   state = const AsyncValue.loading();
-
-  //   state = await AsyncValue.guard(() async {
-  //     var currentAuthState = ref.watch(authStateUseCaseProvider);
-
-  //     if (currentAuthState.value == null ||
-  //         currentAuthState.value is UserNotConnectedDto) {
-  //       return HomeState.blank();
-  //     }
-
-  //     var advertisements = await ref
-  //         .watch(getLastAdvertisementsUseCaseProvider)
-  //         .execute((object: null, position: 0));
-  //     var popularProducts = await ref
-  //         .watch(getProductsWithLimitUseCaseProvider)
-  //         .execute((object: null, position: 0));
-  //     var specialAdvertisement = await ref
-  //         .watch(getSpecialAdvertisementsUseCaseProvider)
-  //         .execute((object: null, position: 0));
-  //     var specialAdvProducts =
-  //         await ref.watch(getProductsByAdvertisementUseCaseProvider).execute(
-  //       (
-  //         advertisement: specialAdvertisement[0],
-  //         lastProductObject: null,
-  //         lastProductPosition: 0,
-  //       ),
-  //     );
-
-  //     return HomeState(
-  //       advertisements: advertisements,
-  //       specialOffer: specialAdvertisement[0],
-  //       searchProductName: '',
-  //       searchProductsResult: [],
-  //       popularProducts: popularProducts,
-  //       specialOfferProducts: specialAdvProducts,
-  //     );
-  //   });
-
-  //   return ref.watch(authStateUseCaseProvider);
-  // }
 
   void toggleFavorite() {}
 }
