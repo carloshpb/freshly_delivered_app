@@ -12,13 +12,11 @@ class AppUserDto with _$AppUserDto {
 
   @Assert('id != ""', 'id cannot be empty')
   @Assert('email != ""', 'id cannot be empty')
-  @Assert('password != ""', 'id cannot be empty')
   @Assert('fullname != ""', 'id cannot be empty')
   @Assert('phoneNumber != ""', 'id cannot be empty')
   const factory AppUserDto.data({
     required String id,
     required String email,
-    required String password,
     required String fullname,
     required String phoneNumber,
     DateTime? createdAt,
@@ -40,7 +38,6 @@ class AppUserDto with _$AppUserDto {
         UserData() => UserDataDto(
             id: domain.id,
             email: domain.email,
-            password: domain.password,
             fullname: domain.fullname,
             phoneNumber: domain.phoneNumber,
             createdAt: domain.createdAt,
@@ -54,7 +51,6 @@ class AppUserDto with _$AppUserDto {
       UserDataDto() => UserData(
           id: (this as UserDataDto).id,
           email: (this as UserDataDto).email,
-          password: (this as UserDataDto).password,
           fullname: (this as UserDataDto).fullname,
           phoneNumber: (this as UserDataDto).phoneNumber,
         ),

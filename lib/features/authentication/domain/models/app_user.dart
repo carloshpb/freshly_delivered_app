@@ -17,13 +17,11 @@ sealed class AppUser with _$AppUser {
   @JsonSerializable(explicitToJson: true)
   @Assert('id != ""', 'id cannot be empty')
   @Assert('email != ""', 'id cannot be empty')
-  @Assert('password != ""', 'id cannot be empty')
   @Assert('fullname != ""', 'id cannot be empty')
   @Assert('phoneNumber != ""', 'id cannot be empty')
   const factory AppUser.data({
     required String id,
     required String email,
-    required String password,
     required String fullname,
     @JsonKey(name: 'phone_number') required String phoneNumber,
     @DateTimeTimestampConverter()
