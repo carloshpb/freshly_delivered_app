@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../dashboard/data/apis/local/impl/sqlite_api_impl.dart';
 import '../../data/repositories/firebase_authentication_repository.dart';
 import '../../domain/repositories/authentication_repository.dart';
 import '../../domain/use_cases/sign_up_email_password_use_case.dart';
@@ -30,7 +31,16 @@ class SignUpEmailPasswordUseCaseImpl implements SignUpEmailPasswordUseCase {
         String fullName,
         String phoneNumber
       ) request) async {
-    return _authRepository.createUserWithEmailAndPassword(
-        request.$1, request.$2, request.$3, request.$4);
+    try {
+      await _authRepository.createUserWithEmailAndPassword(
+          request.$1, request.$2, request.$3, request.$4);
+
+      // It'll run async
+      _authRepository.signInWithEmailAndPassword(request.$1, request.$2);
+
+      return;
+    } on Exception {
+      rethrow;
+    }
   }
 }

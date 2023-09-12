@@ -5,6 +5,9 @@ import '../dtos/app_user_dto.dart';
 
 final authStateUseCaseProvider = StreamProvider<AppUserDto>(
   (ref) {
+    // ref.onDispose(ref
+    //     .watch(authenticationRepositoryProvider)
+    //     .authStateChanges().);
     return ref
         .watch(authenticationRepositoryProvider)
         .authStateChanges()
