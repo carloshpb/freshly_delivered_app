@@ -56,9 +56,10 @@ Future<void> sqliteOnCreate(Database db, int version) async {
       CREATE TABLE ${Strings.appUserLocalTable} (
           id TEXT PRIMARY KEY,
           email TEXT NOT NULL, 
-          fullname TEXT NOT NULL, 
-          password TEXT NOT NULL,
-          phoneNumber TEXT NOT NULL,
+          fullname TEXT NOT NULL,
+          phone_number TEXT NOT NULL,
+          created_at INTEGER NOT NULL,
+          modified_at INTEGER NOT NULL,
           runtimeType TEXT NOT NULL,
           expiration INTEGER NOT NULL
         )
