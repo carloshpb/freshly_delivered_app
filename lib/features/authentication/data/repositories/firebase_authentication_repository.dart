@@ -126,7 +126,6 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
         var fullUserJson = UserData(
           id: result.user!.uid,
           email: email,
-          password: password,
           fullname: fullName,
           phoneNumber: phoneNumber,
         ).toJson();
