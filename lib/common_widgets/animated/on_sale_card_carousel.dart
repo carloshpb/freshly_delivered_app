@@ -22,7 +22,6 @@ class OnSaleCardCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return (_advertisements.isEmpty)
         ? const Card(
-            color: CustomColors.buttonGreen,
             child: Center(
               child: Text(
                 Strings.moreAdvertisementsSoon,

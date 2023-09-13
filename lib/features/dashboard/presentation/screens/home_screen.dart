@@ -213,13 +213,12 @@ class HomeScreen extends ConsumerWidget {
                             (!currentAdvertisementsState.hasValue ||
                                     currentAdvertisementsState.value!.isEmpty)
                                 ? const Card(
-                                    color: CustomColors.buttonGreen,
                                     child: Center(
                                       child: Text(
                                         Strings.advertisementsNotFound,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
+                                        // style: TextStyle(
+                                        //   color: Colors.white,
+                                        // ),
                                       ),
                                     ),
                                   )
@@ -251,7 +250,7 @@ class HomeScreen extends ConsumerWidget {
                           ),
                           child: AutoSizeText(
                             Strings.popular.toUpperCase(),
-                            textAlign: TextAlign.center,
+                            // textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontWeight: FontWeight.w400,
                               height: 15.0,
@@ -427,7 +426,6 @@ class HomeScreen extends ConsumerWidget {
                                 ),
                           _ => (!specialOfferState.hasValue)
                               ? const Card(
-                                  color: CustomColors.buttonGreen,
                                   child: Center(
                                     child: Text(
                                       Strings.advertisementsNotFound,
