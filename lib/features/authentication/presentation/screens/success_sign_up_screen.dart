@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,10 +23,10 @@ class _SuccessSignUpScreenState extends ConsumerState<SuccessSignUpScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       Future.delayed(
         const Duration(
-          seconds: 2,
+          seconds: 4,
         ),
       ).then((_) =>
           ref.read(successSignUpControllerProvider.notifier).authState());
@@ -47,7 +48,7 @@ class _SuccessSignUpScreenState extends ConsumerState<SuccessSignUpScreen> {
         // Add delay to call authState from controller again
         Future.delayed(
           const Duration(
-            seconds: 2,
+            seconds: 4,
           ),
         ).then((_) =>
             ref.read(successSignUpControllerProvider.notifier).authState());
