@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freshly_delivered_app/features/dashboard/application/dtos/product_dto.dart';
+import 'package:logger/logger.dart';
 
+import '../../../../exceptions/app_firestore_exception.dart';
 import '../../../../exceptions/app_sqlite_exception.dart';
 import '../../data/repositories/products_local_repository_impl.dart';
 import '../../data/repositories/products_remote_repository_impl.dart';
@@ -31,9 +33,27 @@ class GetProductByIdUseCaseImpl implements GetProductByIdUseCase {
     Product product;
     try {
       product = await _localProductsRepository.findProductById(request);
+
+      if (product.id.endsWith("expired")) {
+        var updatedAdv = await _remoteProductsRepository
+            .findProductById(product.id.replaceFirst(RegExp(r'expired'), ""));
+
+        product = updatedAdv;
+      }
     } on IdNotFoundException {
-      product = await _remoteProductsRepository.findProductById(request);
-      _localProductsRepository.saveProducts([product]);
+      try {
+        product = await _remoteProductsRepository.findProductById(request);
+      } on NotFoundException {
+        product = Product.empty();
+      }
+
+      try {
+        _localProductsRepository.saveProducts([product]);
+      } on DataNotInsertedInDbException catch (e) {
+        Logger().e(e.message);
+      }
+    } on NotFoundException {
+      product = Product.empty();
     }
     return ProductDto.fromDomain(product);
   }

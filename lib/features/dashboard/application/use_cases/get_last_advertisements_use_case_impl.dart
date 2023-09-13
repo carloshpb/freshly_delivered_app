@@ -1,9 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 
 import '../../../../exceptions/app_firestore_exception.dart';
+import '../../../../exceptions/app_sqlite_exception.dart';
 import '../../application/dtos/advertisement_dto.dart';
 import '../../data/repositories/advertisements_local_repository_impl.dart';
 import '../../data/repositories/advertisements_remote_repository_impl.dart';
+import '../../domain/models/advertisement.dart';
 import '../../domain/repositories/advertisements_repository.dart';
 import '../../domain/use_cases/get_last_advertisements_use_case.dart';
 
@@ -28,32 +31,16 @@ class GetLastAdvertisementsUseCaseImpl implements GetLastAdvertisementsUseCase {
   @override
   Future<List<AdvertisementDto>> execute(
       ({AdvertisementDto? object, int position}) request) async {
-    var advertisements =
-        await _localAdvertisementsRepository.findAdvertisementsWithLimit(
-      lastAdvertisement: (
-        advertisementObject:
-            (request.object != null) ? request.object!.toDomain() : null,
-        position: request.position,
-      ),
-    );
+    List<Advertisement> advertisements;
 
-    if (advertisements.isEmpty) {
+    try {
       advertisements =
-          await _remoteAdvertisementsRepository.findAdvertisementsWithLimit(
+          await _localAdvertisementsRepository.findAdvertisementsWithLimit(
         lastAdvertisement: (
-          advertisementObject:
-              (request.object != null) ? request.object!.toDomain() : null,
+          advertisementObject: request.object?.toDomain(),
           position: request.position,
         ),
       );
-
-      if (advertisements.isNotEmpty) {
-        // TODO : Treat when couldnt be saved locally
-        _localAdvertisementsRepository.saveAdvertisements(advertisements);
-      }
-    } else {
-      // handling expired data
-      var newAdvtersiments = <AdvertisementDto>[];
 
       for (var i = 0; i < advertisements.length; i++) {
         if (advertisements[i].id.endsWith("expired")) {
@@ -61,15 +48,30 @@ class GetLastAdvertisementsUseCaseImpl implements GetLastAdvertisementsUseCase {
             var updatedAdv =
                 await _remoteAdvertisementsRepository.findAdvertisementById(
                     advertisements[i].id.replaceFirst(RegExp(r'expired'), ""));
-            newAdvtersiments.add(AdvertisementDto.fromDomain(updatedAdv));
+
+            advertisements[i] = updatedAdv;
           } on NotFoundException {
+            advertisements.removeAt(i);
             continue;
           }
         }
-        newAdvtersiments.add(AdvertisementDto.fromDomain(advertisements[i]));
       }
+    } on DataNotFoundInDbException {
+      advertisements =
+          await _remoteAdvertisementsRepository.findAdvertisementsWithLimit(
+        lastAdvertisement: (
+          advertisementObject: request.object?.toDomain(),
+          position: request.position,
+        ),
+      );
 
-      return newAdvtersiments;
+      if (advertisements.isNotEmpty) {
+        try {
+          _localAdvertisementsRepository.saveAdvertisements(advertisements);
+        } on DataNotInsertedInDbException catch (e) {
+          Logger().e(e.message);
+        }
+      }
     }
 
     return (advertisements.isNotEmpty)

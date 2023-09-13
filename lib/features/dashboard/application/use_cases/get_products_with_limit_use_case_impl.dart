@@ -1,8 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freshly_delivered_app/features/dashboard/application/dtos/product_dto.dart';
+import 'package:logger/logger.dart';
 
+import '../../../../exceptions/app_firestore_exception.dart';
+import '../../../../exceptions/app_sqlite_exception.dart';
 import '../../data/repositories/products_local_repository_impl.dart';
 import '../../data/repositories/products_remote_repository_impl.dart';
+import '../../domain/models/product.dart';
 import '../../domain/repositories/products_repository.dart';
 import '../../domain/use_cases/get_products_with_limit_use_case.dart';
 
@@ -27,30 +31,48 @@ class GetProductsWithLimitUseCaseImpl implements GetProductsWithLimitUseCase {
   @override
   Future<List<ProductDto>> execute(
       ({ProductDto? object, int position}) request) async {
-    var products = await _localProductsRepository.findProductsWithLimit(
-      lastProduct: (
-        position: request.position,
-        productObject:
-            (request.object != null) ? request.object!.toDomain() : null,
-      ),
-    );
+    List<Product> products;
+    try {
+      products = await _localProductsRepository.findProductsWithLimit(
+        lastProduct: (
+          position: request.position,
+          productObject: request.object?.toDomain(),
+        ),
+      );
 
-    if (products.isEmpty) {
+      for (var i = 0; i < products.length; i++) {
+        if (products[i].id.endsWith("expired")) {
+          try {
+            var updatedProduct =
+                await _remoteProductsRepository.findProductById(
+                    products[i].id.replaceFirst(RegExp(r'expired'), ""));
+
+            products[i] = updatedProduct;
+          } on NotFoundException {
+            products.removeAt(i);
+            continue;
+          }
+        }
+      }
+    } on DataNotFoundInDbException {
       products = await _remoteProductsRepository.findProductsWithLimit(
         lastProduct: (
           position: request.position,
-          productObject:
-              (request.object != null) ? request.object!.toDomain() : null,
+          productObject: request.object?.toDomain(),
         ),
       );
 
       if (products.isNotEmpty) {
-        // TODO : Treat when couldnt be saved locally
-        _localProductsRepository.insertOrReplaceProducts(products);
-        return products.map((adv) => ProductDto.fromDomain(adv)).toList();
+        try {
+          _localProductsRepository.saveProducts(products);
+        } on DataNotInsertedInDbException catch (e) {
+          Logger().e(e.message);
+        }
       }
     }
 
-    return [];
+    return (products.isNotEmpty)
+        ? products.map((product) => ProductDto.fromDomain(product)).toList()
+        : [];
   }
 }
