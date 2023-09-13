@@ -22,16 +22,14 @@ class _SuccessSignUpScreenState extends ConsumerState<SuccessSignUpScreen> {
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //   await Future.delayed(
-    //     const Duration(
-    //       seconds: 3,
-    //     ),
-    //   );
-    //   if (context.mounted) {
-    //     context.go(AppRouter.home.path);
-    //   }
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(
+        const Duration(
+          seconds: 2,
+        ),
+      ).then((_) =>
+          ref.read(successSignUpControllerProvider.notifier).authState());
+    });
   }
 
   @override
@@ -40,19 +38,21 @@ class _SuccessSignUpScreenState extends ConsumerState<SuccessSignUpScreen> {
     ref.listen<AsyncValue<void>>(successSignUpControllerProvider,
         (previousState, nextState) {
       if (previousState is AsyncLoading && nextState is AsyncError) {
-        // TODO : Go to login screen with error
+        // Go to login screen with error
+        context.go(AppRouter.login.path);
       } else if (previousState is AsyncLoading && nextState is AsyncData) {
-        // TODO : Go to home screen
+        // Go to home screen
+        context.go(AppRouter.home.path);
       } else {
-        // TODO : Add delay to call authState from controller again
+        // Add delay to call authState from controller again
+        Future.delayed(
+          const Duration(
+            seconds: 2,
+          ),
+        ).then((_) =>
+            ref.read(successSignUpControllerProvider.notifier).authState());
       }
-    }
-        // nextState.whenOrNull(
-        //   error: (error, stackTrace) {
-        //     CustomSnackbar.showErrorToast(context, 'Error', error.toString());
-        //   },
-        // ),
-        );
+    });
 
     // Future.delayed(
     //   const Duration(
