@@ -63,11 +63,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
             await _firestoreApi.findById(Strings.appUserRemoteTable, user.uid);
 
         if (userDataJson.isNotEmpty) {
-          _sqLiteApi.save(
-            Strings.appUserLocalTable,
-            userDataJson,
-            userDataJson.keys.toList(),
-          );
+          _sqLiteApi.save(Strings.appUserLocalTable, userDataJson);
           return UserData.fromJson(userDataJson);
         } else {
           throw const AppAuthException.userNotFound(
@@ -94,11 +90,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
           result.user!.uid,
         );
 
-        await _sqLiteApi.save(
-          Strings.appUserLocalTable,
-          userJson,
-          userJson.keys.toList(),
-        );
+        await _sqLiteApi.save(Strings.appUserLocalTable, userJson);
       }
     } on FirebaseAuthException catch (e) {
       // invalid-email , user-disabled , user-not-found , wrong-password
