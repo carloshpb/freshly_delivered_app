@@ -204,16 +204,23 @@ class SQLiteApiImpl implements SQLiteApi {
     } else {
       _timestampToMillisecondsSinceEpoch(entity);
       entity['expiration'] = DateTime.now().millisecondsSinceEpoch;
-      var dataToInsertString = "";
+      var dataFields = (entity as Map<String, Object?>).entries
+        ..forEach((element) => _convertValueToSqliteTypeValue(element));
 
-      for (var i = 0; i < columns.length; i++) {
-        if (i != 0) {
-          dataToInsertString = "$dataToInsertString, ";
-        }
-        dataToInsertString = "$dataToInsertString${entity[columns[i]]}";
-      }
+      // var dataToInsertString = "";
 
-      var result = await _database.rawInsert("$insert ($dataToInsertString)");
+      // for (var i = 0; i < columns.length; i++) {
+      //   if (i != 0) {
+      //     dataToInsertString = "$dataToInsertString, ";
+      //   }
+      //   dataToInsertString =
+      //       "$dataToInsertString${_convertValueToSqliteTypeValue(entity[columns[i]])}";
+      // }
+
+      // var result = await _database.rawInsert("$insert ($dataToInsertString)");
+
+      var result =
+          await _database.rawInsert("$insert (${dataFields.join(",")})");
 
       if (result == 0) {
         throw DataNotInsertedInDbException(
@@ -451,8 +458,10 @@ class SQLiteApiImpl implements SQLiteApi {
     } else {
       _timestampToMillisecondsSinceEpoch(entity);
       entity['expiration'] = DateTime.now().millisecondsSinceEpoch;
-      var result = await _database.rawInsert(
-          "$insert (${(entity as Map<String, Object?>).entries.join(",")})");
+      var dataFields = (entity as Map<String, Object?>).entries
+        ..forEach((element) => _convertValueToSqliteTypeValue(element));
+      var result =
+          await _database.rawInsert("$insert (${dataFields.join(",")})");
 
       if (result == 0) {
         throw DataNotInsertedInDbException(
