@@ -90,11 +90,7 @@ class CartLocalRepositoryImpl implements CartRepository {
   @override
   Future<void> setProductToCart(CartItem item) async {
     var itemJson = item.toSimplifiedJson();
-    await _sqliteApi.save(
-      Strings.userCartLocalTable,
-      itemJson,
-      itemJson.keys.toList(),
-    );
+    return await _sqliteApi.save(Strings.userCartLocalTable, itemJson);
 
     // // TODO :
 

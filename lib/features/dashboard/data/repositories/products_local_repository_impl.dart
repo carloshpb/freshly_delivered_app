@@ -13,18 +13,6 @@ final productsLocalRepositoryProvider = Provider<ProductsRepository>(
 );
 
 class ProductsLocalRepositoryImpl implements ProductsRepository {
-  final _productStringProperties = [
-    "id",
-    "title",
-    "price",
-    "offer",
-    "description",
-    "image_path",
-    "category",
-    "created_at",
-    "modified_at",
-  ];
-
   final SQLiteApi _sqliteApi;
 
   ProductsLocalRepositoryImpl(SQLiteApi sqliteApi) : _sqliteApi = sqliteApi;
@@ -72,8 +60,7 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   @override
   Future<void> saveProducts(List<Product> products) async {
     var mapProducts = products.map((prod) => prod.toJson());
-    await _sqliteApi.save(
-        Strings.productsLocalTable, mapProducts, _productStringProperties);
+    await _sqliteApi.save(Strings.productsLocalTable, mapProducts);
   }
 
   @override
@@ -149,7 +136,6 @@ class ProductsLocalRepositoryImpl implements ProductsRepository {
   @override
   Future<void> insertOrReplaceProducts(List<Product> products) {
     var mapProducts = products.map((prod) => prod.toJson());
-    return _sqliteApi.insertOrReplace(
-        Strings.productsLocalTable, mapProducts, _productStringProperties);
+    return _sqliteApi.insertOrReplace(Strings.productsLocalTable, mapProducts);
   }
 }

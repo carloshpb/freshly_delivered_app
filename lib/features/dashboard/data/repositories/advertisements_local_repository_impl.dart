@@ -32,14 +32,6 @@ final advertisementsLocalRepositoryProvider =
 );
 
 class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
-  final _advertisementStringProperties = [
-    'id',
-    'description',
-    'image_path',
-    'created_at',
-    'modified_at',
-  ];
-
   final SQLiteApi _sqliteApi;
   final BehaviorSubject<List<Map<String, Object?>>> _advertisementStream;
   final StreamTransformer<List<Map<String, Object?>>, List<Advertisement>>
@@ -67,7 +59,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
       Advertisement? advertisementObject,
       int position,
     }) lastAdvertisement,
-    int expirationLimitMinutes = 10,
+    int expirationLimitMinutes = 5,
   }) async {
     var resultListMap = await _sqliteApi.findAllWithLimit(
       Strings.advertisementsLocalTable,
@@ -97,11 +89,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
   Future<void> saveAdvertisements(List<Advertisement> advertisements) async {
     var mapAdvertisements =
         advertisements.map((prod) => prod.toJson()).toList();
-    await _sqliteApi.save(
-      Strings.advertisementsLocalTable,
-      mapAdvertisements,
-      _advertisementStringProperties,
-    );
+    await _sqliteApi.save(Strings.advertisementsLocalTable, mapAdvertisements);
   }
 
   @override
@@ -110,7 +98,7 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
       Advertisement? advertisementObject,
       int position,
     }) lastAdvertisement,
-    int expirationLimitMinutes = 10,
+    int expirationLimitMinutes = 5,
   }) async {
     var resultListMap = await _sqliteApi.findByAttributeDesc(
       Strings.advertisementsLocalTable,
@@ -154,9 +142,6 @@ class AdvertisementsLocalRepositoryImpl implements AdvertisementsRepository {
       List<Advertisement> advertisements) {
     var mapAdvertisements = advertisements.map((adv) => adv.toJson());
     return _sqliteApi.insertOrReplace(
-      Strings.advertisementsLocalTable,
-      mapAdvertisements,
-      _advertisementStringProperties,
-    );
+        Strings.advertisementsLocalTable, mapAdvertisements);
   }
 }
