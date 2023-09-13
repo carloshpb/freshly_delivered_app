@@ -36,6 +36,15 @@ sealed class Product with _$Product {
     DateTime? modifiedAt,
   }) = _Product;
 
+  factory Product.empty() => Product(
+        id: '',
+        title: '',
+        price: 0.0,
+        description: '',
+        category: '',
+        imagePath: '',
+      );
+
   factory Product.fromJson(Map<String, Object?> json) =>
       _$ProductFromJson(json);
 }
