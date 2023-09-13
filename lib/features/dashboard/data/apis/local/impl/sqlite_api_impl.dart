@@ -388,6 +388,16 @@ class SQLiteApiImpl implements SQLiteApi {
     }
   }
 
+  String convertValueToSqliteTypeValue(dynamic value) {
+    if (value is String) {
+      return "'$value'";
+    } else if (value is num) {
+      return value.toString();
+    } else if (value is bool) {
+      return (value == true) ? '1' : '0';
+    }
+  }
+
   // cache expiration time : Return exception if it has expired, so we can get new one from server
   List<Map<String, Object?>> _verifyExpirationTime(
       List<Map<String, Object?>> result, int expirationLimitMinutes) {
