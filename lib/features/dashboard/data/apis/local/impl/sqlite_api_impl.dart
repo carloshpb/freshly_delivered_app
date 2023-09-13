@@ -95,11 +95,7 @@ class SQLiteApiImpl implements SQLiteApi {
     String table,
     int expirationLimitMinutes,
   ) async {
-    var result = await _database.rawQuery(
-      '''
-      SELECT * FROM $table
-      ''',
-    );
+    var result = await _database.rawQuery("SELECT * FROM $table");
 
     result = _verifyExpirationTime(result, expirationLimitMinutes);
 
@@ -111,9 +107,10 @@ class SQLiteApiImpl implements SQLiteApi {
       );
     }
 
-    return result.map((e) {
-      _millisecondsSinceEpochToTimestamp(e);
-      return e;
+    return result.map((value) {
+      var multableMap = {...value};
+      _millisecondsSinceEpochToTimestamp(multableMap);
+      return multableMap;
     }).toList();
   }
 
@@ -141,9 +138,10 @@ class SQLiteApiImpl implements SQLiteApi {
       );
     }
 
-    return result.map((e) {
-      _millisecondsSinceEpochToTimestamp(e);
-      return e;
+    return result.map((value) {
+      var multableMap = {...value};
+      _millisecondsSinceEpochToTimestamp(multableMap);
+      return multableMap;
     }).toList();
   }
 
@@ -153,42 +151,40 @@ class SQLiteApiImpl implements SQLiteApi {
     String id,
     int expirationLimitMinutes,
   ) async {
-    var result = await _database.rawQuery(
-      '''
-      SELECT * FROM $table
-      WHERE id = ${_convertValueToSqliteTypeValue(id)}
-      ''',
-    );
+    var result =
+        await _database.rawQuery("SELECT * FROM $table WHERE id = ?", [id]);
 
-    result =
-        _verifyExpirationTime(result, DateTime.now().millisecondsSinceEpoch);
+    result = _verifyExpirationTime(result, expirationLimitMinutes);
 
     if (result.isEmpty || (result[0]["id"] as String).contains("expired")) {
       throw IdNotFoundException(id, table, Strings.sqlite);
     }
 
-    _millisecondsSinceEpochToTimestamp(result[0]);
+    var multableMap = {...result[0]};
 
-    return result[0];
+    _millisecondsSinceEpochToTimestamp(multableMap);
+
+    return multableMap;
   }
 
   /// May throw TypeError
   /// returns 0 if value was not saved
   @override
-  Future<int> save(String table, dynamic entity, List<String> columns) async {
-    columns.add('expiration');
-    var insert = "INSERT INTO $table(${columns.join(", ")}) VALUES";
-
+  Future<void> save(String table, dynamic entity) async {
     if (entity is List) {
       var batch = _database.batch();
+
       for (var index = 0; index < entity.length; index++) {
-        _timestampToMillisecondsSinceEpoch(entity[index]);
-        entity[index]['expiration'] = DateTime.now().millisecondsSinceEpoch;
-        var dataFields = (entity[index] as Map<String, Object?>).entries
-          ..forEach((element) => _convertValueToSqliteTypeValue(element));
-        batch.rawInsert("$insert (${dataFields.join(",")})");
+        var keysValues = _keysAndValuesInStringParenthesis(entity[index]);
+
+        var insert =
+            "INSERT INTO $table(${keysValues.keys}) VALUES (${keysValues.interrogationPoints})";
+
+        batch.rawInsert(insert, keysValues.values);
       }
+
       var resultList = await batch.commit();
+
       if (resultList.length != entity.length) {
         var notAddedIds = entity
             .where((element) => !resultList.contains(element["id"]))
@@ -200,27 +196,15 @@ class SQLiteApiImpl implements SQLiteApi {
           Strings.sqlite,
         );
       }
-      return (resultList.length == entity.length) ? resultList.length : 0;
+
+      return;
     } else {
-      _timestampToMillisecondsSinceEpoch(entity);
-      entity['expiration'] = DateTime.now().millisecondsSinceEpoch;
-      var dataFields = (entity as Map<String, Object?>).entries
-        ..forEach((element) => _convertValueToSqliteTypeValue(element));
+      var keysValues = _keysAndValuesInStringParenthesis(entity);
 
-      // var dataToInsertString = "";
+      var insert =
+          "INSERT INTO $table(${keysValues.keys}) VALUES (${keysValues.interrogationPoints})";
 
-      // for (var i = 0; i < columns.length; i++) {
-      //   if (i != 0) {
-      //     dataToInsertString = "$dataToInsertString, ";
-      //   }
-      //   dataToInsertString =
-      //       "$dataToInsertString${_convertValueToSqliteTypeValue(entity[columns[i]])}";
-      // }
-
-      // var result = await _database.rawInsert("$insert ($dataToInsertString)");
-
-      var result =
-          await _database.rawInsert("$insert (${dataFields.join(",")})");
+      var result = await _database.rawInsert(insert, keysValues.values);
 
       if (result == 0) {
         throw DataNotInsertedInDbException(
@@ -230,7 +214,7 @@ class SQLiteApiImpl implements SQLiteApi {
         );
       }
 
-      return result;
+      return;
     }
   }
 
@@ -248,8 +232,7 @@ class SQLiteApiImpl implements SQLiteApi {
     var query = "SELECT * FROM $table";
 
     if (attribute != null && attributeName.isNotEmpty) {
-      query =
-          "$query WHERE $attributeName = ${_convertValueToSqliteTypeValue(attribute)}";
+      query = "$query WHERE $attributeName = ?";
     }
 
     if (orderBy.isEmpty) {
@@ -260,11 +243,11 @@ class SQLiteApiImpl implements SQLiteApi {
 
     query = "$query ORDER BY $orderBy $ascOrDesc";
 
-    query = "$query LIMIT $limit";
+    query = "$query LIMIT ?";
 
-    query = "$query OFFSET $offset";
+    query = "$query OFFSET ?";
 
-    var result = await _database.rawQuery(query);
+    var result = await _database.rawQuery(query, [attribute, limit, offset]);
 
     result = _verifyExpirationTime(result, expirationLimitMinutes);
 
@@ -276,24 +259,12 @@ class SQLiteApiImpl implements SQLiteApi {
       );
     }
 
-    return result.map((e) {
-      _millisecondsSinceEpochToTimestamp(e);
-      return e;
+    return result.map((valueMap) {
+      var multableMap = {...valueMap};
+      _millisecondsSinceEpochToTimestamp(multableMap);
+      return multableMap;
     }).toList();
   }
-
-  // @override
-  // StreamController<Map<String, Object?>> fetchByAttribute(
-  //     String table, attribute, String attributeName) {
-  //   // TODO - finish this
-  //   final streamController = StreamController<Map<String, Object?>>(
-  //     onListen: () => print('Listens'),
-  //   );
-
-  //   // _database.ra
-
-  //   // streamController.
-  // }
 
   @override
   Future<void> clearDatabase() async {
@@ -312,23 +283,25 @@ class SQLiteApiImpl implements SQLiteApi {
   /// May throw TypeError
   /// returns 0 if value was not updated
   @override
-  Future<int> update(
+  Future<void> update(
     String table,
     List<({String attributeName, dynamic value})> setAttributes,
     ({String attributeName, dynamic equalValue}) whereSingleCondition,
   ) async {
+    List<Object?> arguments = [];
     var query = "UPDATE $table SET";
     for (int index = 0; index < setAttributes.length; index++) {
-      query =
-          "$query ${setAttributes[index].attributeName} = ${_convertValueToSqliteTypeValue(setAttributes[index].value)},";
+      query = "$query ${setAttributes[index].attributeName} = ?,";
+      arguments.add(setAttributes[index].value);
     }
     // query = "$query modified_at = ${DateTime.now().millisecondsSinceEpoch}";
-    query = "$query expiration = ${DateTime.now().millisecondsSinceEpoch}";
+    query = "$query expiration = ?";
+    arguments.add(DateTime.now().millisecondsSinceEpoch);
     // query = query.substring(0, query.length - 1);
-    query =
-        "$query WHERE ${whereSingleCondition.attributeName} == ${_convertValueToSqliteTypeValue(whereSingleCondition.equalValue)};";
+    query = "$query WHERE ${whereSingleCondition.attributeName} == ?";
+    arguments.add(whereSingleCondition.equalValue);
 
-    var result = await _database.rawUpdate(query);
+    var result = await _database.rawUpdate(query, []);
 
     if (result == 0) {
       throw DataNotUpdatedInDbException(
@@ -338,7 +311,7 @@ class SQLiteApiImpl implements SQLiteApi {
       );
     }
 
-    return result;
+    return;
   }
 
   /// Should be treated at repository
@@ -355,10 +328,8 @@ class SQLiteApiImpl implements SQLiteApi {
   /// returns 0 if no changes were made. Otherwise, returns the number of changes
   @override
   Future<int> deleteById(String table, String id) async {
-    var result = await _database.rawDelete('''
-      DELETE FROM $table
-      WHERE id == ${_convertValueToSqliteTypeValue(id)};
-    ''');
+    var result =
+        await _database.rawDelete("DELETE FROM $table WHERE id == ?", [id]);
 
     if (result == 0) {
       throw AppSqliteException.dataNotDeleted(
@@ -369,6 +340,58 @@ class SQLiteApiImpl implements SQLiteApi {
     }
 
     return result;
+  }
+
+  @override
+  Future<void> insertOrReplace(
+    String table,
+    dynamic entity,
+  ) async {
+    if (entity is List) {
+      var batch = _database.batch();
+
+      for (var index = 0; index < entity.length; index++) {
+        var keysValues = _keysAndValuesInStringParenthesis(entity[index]);
+
+        var insert =
+            "INSERT OR REPLACE INTO $table(${keysValues.keys}) VALUES (${keysValues.interrogationPoints})";
+
+        batch.rawInsert(insert, keysValues.values);
+      }
+
+      var resultList = await batch.commit();
+
+      if (resultList.length != entity.length) {
+        var notAddedIds = entity
+            .where((element) => !resultList.contains(element["id"]))
+            .map((e) => e["id"])
+            .toList();
+        throw DataNotInsertedInDbException(
+          notAddedIds,
+          table,
+          Strings.sqlite,
+        );
+      }
+
+      return;
+    } else {
+      var keysValues = _keysAndValuesInStringParenthesis(entity);
+
+      var insert =
+          "INSERT OR REPLACE INTO $table(${keysValues.keys}) VALUES (${keysValues.interrogationPoints})";
+
+      var result = await _database.rawInsert(insert, keysValues.values);
+
+      if (result == 0) {
+        throw DataNotInsertedInDbException(
+          entity["id"],
+          table,
+          Strings.sqlite,
+        );
+      }
+
+      return;
+    }
   }
 
   /// Freezed lib still doesn't contain a way to have multiple different converters, so the simplest and less-code way is this one
@@ -397,29 +420,33 @@ class SQLiteApiImpl implements SQLiteApi {
     }
   }
 
-  String _convertValueToSqliteTypeValue(dynamic value) {
-    if (value is String) {
-      return "'$value'";
-    } else if (value is num) {
-      return value.toString();
-    } else if (value is bool) {
-      return (value == true) ? '1' : '0';
-    } else {
-      return "$value";
-    }
-  }
+  // String _convertValueToSqliteTypeValue(dynamic value) {
+  //   if (value is String) {
+  //     return "'$value'";
+  //   } else if (value is num) {
+  //     return value.toString();
+  //   } else if (value is bool) {
+  //     return (value == true) ? '1' : '0';
+  //   } else if (value == null) {
+  //     return "''";
+  //   } else {
+  //     return "$value";
+  //   }
+  // }
 
   // cache expiration time : Return exception if it has expired, so we can get new one from server
   List<Map<String, Object?>> _verifyExpirationTime(
       List<Map<String, Object?>> result, int expirationLimitMinutes) {
-    if (expirationLimitMinutes != 0) {
+    if (expirationLimitMinutes > 0 && result.isNotEmpty) {
       result = result.map((element) {
         var currentDateTime = DateTime.now();
         var expirationDateTimeProduct =
             DateTime.fromMillisecondsSinceEpoch(element['expiration'] as int);
         if (currentDateTime.difference(expirationDateTimeProduct).inMinutes >
             expirationLimitMinutes.abs()) {
-          element["id"] = "${element["id"]}expired";
+          var mutableElement = {...element};
+          mutableElement["id"] = "${mutableElement["id"]}expired";
+          return mutableElement;
         }
         return element;
       }).toList();
@@ -427,51 +454,25 @@ class SQLiteApiImpl implements SQLiteApi {
     return result;
   }
 
-  @override
-  Future<int> insertOrReplace(
-      String table, entity, List<String> columns) async {
-    columns.add('expiration');
-    var insert = "INSERT OR REPLACE INTO $table(${columns.join(", ")}) VALUES";
+  ({String keys, List<Object?> values, String interrogationPoints})
+      _keysAndValuesInStringParenthesis(Map<String, Object?> mapObject) {
+    _timestampToMillisecondsSinceEpoch(mapObject);
+    mapObject['expiration'] = DateTime.now().millisecondsSinceEpoch;
 
-    if (entity is List) {
-      var batch = _database.batch();
-      for (var index = 0; index < entity.length; index++) {
-        _timestampToMillisecondsSinceEpoch(entity[index]);
-        entity[index]['expiration'] = DateTime.now().millisecondsSinceEpoch;
-        var dataFields = (entity[index] as Map<String, Object?>).entries
-          ..forEach((element) => _convertValueToSqliteTypeValue(element));
-        batch.rawInsert("$insert (${dataFields.join(",")})");
-      }
-      var resultList = await batch.commit();
-      if (resultList.length != entity.length) {
-        var notAddedIds = entity
-            .where((element) => !resultList.contains(element["id"]))
-            .map((e) => e["id"])
-            .toList();
-        throw DataNotInsertedInDbException(
-          notAddedIds,
-          table,
-          Strings.sqlite,
-        );
-      }
-      return (resultList.length == entity.length) ? resultList.length : 0;
-    } else {
-      _timestampToMillisecondsSinceEpoch(entity);
-      entity['expiration'] = DateTime.now().millisecondsSinceEpoch;
-      var dataFields = (entity as Map<String, Object?>).entries
-        ..forEach((element) => _convertValueToSqliteTypeValue(element));
-      var result =
-          await _database.rawInsert("$insert (${dataFields.join(",")})");
+    var entries = mapObject.entries;
 
-      if (result == 0) {
-        throw DataNotInsertedInDbException(
-          entity["id"],
-          table,
-          Strings.sqlite,
-        );
-      }
+    var keys = entries.first.key;
+    var interrogationPoints = "?";
 
-      return result;
+    for (var i = 1; i < entries.length; i++) {
+      keys = "$keys, ${entries.elementAt(i).key}";
+      interrogationPoints = "$interrogationPoints, ?";
     }
+
+    return (
+      keys: keys,
+      values: mapObject.values.toList(),
+      interrogationPoints: interrogationPoints
+    );
   }
 }

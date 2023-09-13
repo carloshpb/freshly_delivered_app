@@ -26,15 +26,14 @@ abstract class SQLiteApi {
     int offset = 0,
     bool descending = false,
   });
-  Future<int> save(String table, dynamic entity, List<String> columns);
+  Future<void> save(String table, dynamic entity);
   // StreamController<Map<String, Object?>> fetchByAttribute(
   //   String table,
   //   dynamic attribute,
   //   String attributeName,
   // );
-  Future<int> insertOrReplace(
-      String table, dynamic entity, List<String> columns);
-  Future<int> update(
+  Future<void> insertOrReplace(String table, dynamic entity);
+  Future<void> update(
     String table,
     List<({String attributeName, dynamic value})> setAttributes,
     ({String attributeName, dynamic equalValue}) whereSingleCondition,
