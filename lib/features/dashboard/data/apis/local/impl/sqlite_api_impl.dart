@@ -156,7 +156,7 @@ class SQLiteApiImpl implements SQLiteApi {
     var result = await _database.rawQuery(
       '''
       SELECT * FROM $table
-      WHERE id = $id
+      WHERE id = ${_convertValueToSqliteTypeValue(id)}
       ''',
     );
 
@@ -184,8 +184,9 @@ class SQLiteApiImpl implements SQLiteApi {
       for (var index = 0; index < entity.length; index++) {
         _timestampToMillisecondsSinceEpoch(entity[index]);
         entity[index]['expiration'] = DateTime.now().millisecondsSinceEpoch;
-        batch.rawInsert(
-            "$insert (${(entity[index] as Map<String, Object?>).entries.join(",")})");
+        var dataFields = (entity[index] as Map<String, Object?>).entries
+          ..forEach((element) => _convertValueToSqliteTypeValue(element));
+        batch.rawInsert("$insert (${dataFields.join(",")})");
       }
       var resultList = await batch.commit();
       if (resultList.length != entity.length) {
@@ -240,7 +241,8 @@ class SQLiteApiImpl implements SQLiteApi {
     var query = "SELECT * FROM $table";
 
     if (attribute != null && attributeName.isNotEmpty) {
-      query = "$query WHERE $attributeName = $attribute";
+      query =
+          "$query WHERE $attributeName = ${_convertValueToSqliteTypeValue(attribute)}";
     }
 
     if (orderBy.isEmpty) {
@@ -311,13 +313,13 @@ class SQLiteApiImpl implements SQLiteApi {
     var query = "UPDATE $table SET";
     for (int index = 0; index < setAttributes.length; index++) {
       query =
-          "$query ${setAttributes[index].attributeName} = ${setAttributes[index].value},";
+          "$query ${setAttributes[index].attributeName} = ${_convertValueToSqliteTypeValue(setAttributes[index].value)},";
     }
     // query = "$query modified_at = ${DateTime.now().millisecondsSinceEpoch}";
     query = "$query expiration = ${DateTime.now().millisecondsSinceEpoch}";
     // query = query.substring(0, query.length - 1);
     query =
-        "$query WHERE ${whereSingleCondition.attributeName} == ${whereSingleCondition.equalValue};";
+        "$query WHERE ${whereSingleCondition.attributeName} == ${_convertValueToSqliteTypeValue(whereSingleCondition.equalValue)};";
 
     var result = await _database.rawUpdate(query);
 
@@ -348,7 +350,7 @@ class SQLiteApiImpl implements SQLiteApi {
   Future<int> deleteById(String table, String id) async {
     var result = await _database.rawDelete('''
       DELETE FROM $table
-      WHERE id == $id;
+      WHERE id == ${_convertValueToSqliteTypeValue(id)};
     ''');
 
     if (result == 0) {
@@ -388,13 +390,15 @@ class SQLiteApiImpl implements SQLiteApi {
     }
   }
 
-  String convertValueToSqliteTypeValue(dynamic value) {
+  String _convertValueToSqliteTypeValue(dynamic value) {
     if (value is String) {
       return "'$value'";
     } else if (value is num) {
       return value.toString();
     } else if (value is bool) {
       return (value == true) ? '1' : '0';
+    } else {
+      return "$value";
     }
   }
 
@@ -427,8 +431,9 @@ class SQLiteApiImpl implements SQLiteApi {
       for (var index = 0; index < entity.length; index++) {
         _timestampToMillisecondsSinceEpoch(entity[index]);
         entity[index]['expiration'] = DateTime.now().millisecondsSinceEpoch;
-        batch.rawInsert(
-            "$insert (${(entity[index] as Map<String, Object?>).entries.join(",")})");
+        var dataFields = (entity[index] as Map<String, Object?>).entries
+          ..forEach((element) => _convertValueToSqliteTypeValue(element));
+        batch.rawInsert("$insert (${dataFields.join(",")})");
       }
       var resultList = await batch.commit();
       if (resultList.length != entity.length) {
