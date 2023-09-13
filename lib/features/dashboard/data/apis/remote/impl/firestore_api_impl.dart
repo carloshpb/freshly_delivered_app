@@ -96,34 +96,21 @@ class FirestoreApiImpl implements FirestoreApi {
     try {
       if (entity is List) {
         for (int index = 0; index < entity.length; index++) {
-          var docRef = await collectionRef.add(
-            entity[index]
-              ..putIfAbsent(
-                "created_at",
-                () => FieldValue.serverTimestamp(),
-              )
-              ..putIfAbsent(
-                "modified_at",
-                () => entity[index]["created_at"],
-              ),
-          );
-          entity[index]["id"] = docRef.id;
+          var newDoc = {...entity[index] as Map<String, Object?>};
+          newDoc["created_at"] = FieldValue.serverTimestamp();
+          newDoc["modified_at"] = newDoc["created_at"];
+          var docRef = await collectionRef.add(newDoc);
+          newDoc["id"] = docRef.id;
+          entity[index] = newDoc;
         }
         return entity;
       } else {
-        var docSnapshot = await collectionRef.add(
-          (entity as Map<String, Object?>)
-            ..putIfAbsent(
-              "created_at",
-              () => FieldValue.serverTimestamp(),
-            )
-            ..putIfAbsent(
-              "modified_at",
-              () => entity["created_at"],
-            ),
-        );
-        entity["id"] = docSnapshot.id;
-        return entity;
+        var newDoc = {...entity as Map<String, Object?>};
+        newDoc["created_at"] = FieldValue.serverTimestamp();
+        newDoc["modified_at"] = newDoc["created_at"];
+        var docRef = await collectionRef.add(newDoc);
+        newDoc["id"] = docRef.id;
+        return newDoc;
       }
     } on FirebaseException catch (e) {
       throw AppFirestoreException.fromFirebaseException(e);
@@ -282,30 +269,16 @@ class FirestoreApiImpl implements FirestoreApi {
     try {
       if (entity is List) {
         for (int index = 0; index < entity.length; index++) {
-          await ref.doc(entity[index]["id"]).set(
-                entity[index]
-                  ..putIfAbsent(
-                    "created_at",
-                    () => FieldValue.serverTimestamp(),
-                  )
-                  ..putIfAbsent(
-                    "modified_at",
-                    () => entity[index]["created_at"],
-                  ),
-              );
+          var newDoc = {...entity[index] as Map<String, Object?>};
+          newDoc["created_at"] = FieldValue.serverTimestamp();
+          newDoc["modified_at"] = newDoc["created_at"];
+          await ref.doc(entity[index]["id"]).set(newDoc);
         }
       } else {
-        await ref.doc(entity["id"]).set(
-              (entity as Map<String, Object?>)
-                ..putIfAbsent(
-                  "created_at",
-                  () => FieldValue.serverTimestamp(),
-                )
-                ..putIfAbsent(
-                  "modified_at",
-                  () => entity["created_at"],
-                ),
-            );
+        var newDoc = {...entity as Map<String, Object?>};
+        newDoc["created_at"] = FieldValue.serverTimestamp();
+        newDoc["modified_at"] = newDoc["created_at"];
+        await ref.doc(newDoc["id"] as String?).set(newDoc);
       }
     } on FirebaseException catch (e) {
       throw AppFirestoreException.fromFirebaseException(e);

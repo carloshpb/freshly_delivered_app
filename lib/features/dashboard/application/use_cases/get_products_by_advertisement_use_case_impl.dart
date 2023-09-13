@@ -1,11 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 
+import '../../../../exceptions/app_firestore_exception.dart';
+import '../../../../exceptions/app_sqlite_exception.dart';
 import '../../application/dtos/advertisement_dto.dart';
 import '../../application/dtos/product_dto.dart';
 import '../../data/repositories/products_local_repository_impl.dart';
 import '../../data/repositories/products_remote_repository_impl.dart';
+import '../../domain/models/product.dart';
 import '../../domain/repositories/products_repository.dart';
 import '../../domain/use_cases/get_products_by_advertisement_use_case.dart';
 
@@ -39,20 +43,50 @@ class GetProductsByAdvertisementUseCaseImpl
         ProductDto? lastProductObject,
         int lastProductPosition
       }) request) async {
-    var products =
-        await _remoteProductsRepository.findProductsByAdvertisementId(
-      advertisementId: request.advertisement.id,
-      lastProduct: (
-        position: request.lastProductPosition,
-        productObject: request.lastProductObject?.toDomain(),
-      ),
-    );
+    List<Product> products;
+    try {
+      products = await _localProductsRepository.findProductsByAdvertisementId(
+        advertisementId: request.advertisement.id,
+        lastProduct: (
+          position: request.lastProductPosition,
+          productObject: request.lastProductObject?.toDomain(),
+        ),
+      );
 
-    if (products.isNotEmpty) {
-      _localProductsRepository.insertOrReplaceProducts(products);
-      return products.map((prod) => ProductDto.fromDomain(prod)).toList();
+      for (var i = 0; i < products.length; i++) {
+        if (products[i].id.endsWith("expired")) {
+          try {
+            var updatedProduct =
+                await _remoteProductsRepository.findProductById(
+                    products[i].id.replaceFirst(RegExp(r'expired'), ""));
+
+            products[i] = updatedProduct;
+          } on NotFoundException {
+            products.removeAt(i);
+            continue;
+          }
+        }
+      }
+    } on DataNotFoundInDbException {
+      products = await _remoteProductsRepository.findProductsByAdvertisementId(
+        advertisementId: request.advertisement.id,
+        lastProduct: (
+          position: request.lastProductPosition,
+          productObject: request.lastProductObject?.toDomain(),
+        ),
+      );
+
+      if (products.isNotEmpty) {
+        try {
+          _localProductsRepository.saveProducts(products);
+        } on DataNotInsertedInDbException catch (e) {
+          Logger().e(e.message);
+        }
+      }
     }
 
-    return [];
+    return (products.isNotEmpty)
+        ? products.map((product) => ProductDto.fromDomain(product)).toList()
+        : [];
   }
 }

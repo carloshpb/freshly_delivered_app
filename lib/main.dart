@@ -139,6 +139,9 @@ class App extends ConsumerWidget {
               textStyle: const TextStyle(color: Colors.white),
             ),
           ),
+          cardTheme: const CardTheme(
+            color: CustomColors.buttonGreen,
+          ),
         ),
         routerConfig: goRouter,
       ),
