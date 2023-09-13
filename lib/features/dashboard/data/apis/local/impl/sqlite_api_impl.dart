@@ -56,9 +56,10 @@ Future<void> sqliteOnCreate(Database db, int version) async {
       CREATE TABLE ${Strings.appUserLocalTable} (
           id TEXT PRIMARY KEY,
           email TEXT NOT NULL, 
-          fullname TEXT NOT NULL, 
-          password TEXT NOT NULL,
-          phoneNumber TEXT NOT NULL,
+          fullname TEXT NOT NULL,
+          phone_number TEXT NOT NULL,
+          created_at INTEGER NOT NULL,
+          modified_at INTEGER NOT NULL,
           runtimeType TEXT NOT NULL,
           expiration INTEGER NOT NULL
         )
@@ -384,6 +385,16 @@ class SQLiteApiImpl implements SQLiteApi {
       map["modified_at"] = ((map["modified_at"] as int?) == null)
           ? null
           : Timestamp.fromMillisecondsSinceEpoch(map["modified_at"] as int);
+    }
+  }
+
+  String convertValueToSqliteTypeValue(dynamic value) {
+    if (value is String) {
+      return "'$value'";
+    } else if (value is num) {
+      return value.toString();
+    } else if (value is bool) {
+      return (value == true) ? '1' : '0';
     }
   }
 

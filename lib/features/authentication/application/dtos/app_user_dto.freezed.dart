@@ -19,14 +19,8 @@ mixin _$AppUserDto {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() notConnected,
-    required TResult Function(
-            String id,
-            String email,
-            String password,
-            String fullname,
-            String phoneNumber,
-            DateTime? createdAt,
-            DateTime? modifiedAt)
+    required TResult Function(String id, String email, String fullname,
+            String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)
         data,
     required TResult Function(String id, String email) simple,
   }) =>
@@ -34,7 +28,7 @@ mixin _$AppUserDto {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notConnected,
-    TResult? Function(String id, String email, String password, String fullname,
+    TResult? Function(String id, String email, String fullname,
             String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
     TResult? Function(String id, String email)? simple,
@@ -43,7 +37,7 @@ mixin _$AppUserDto {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notConnected,
-    TResult Function(String id, String email, String password, String fullname,
+    TResult Function(String id, String email, String fullname,
             String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
     TResult Function(String id, String email)? simple,
@@ -131,14 +125,8 @@ class _$UserNotConnectedDto extends UserNotConnectedDto {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() notConnected,
-    required TResult Function(
-            String id,
-            String email,
-            String password,
-            String fullname,
-            String phoneNumber,
-            DateTime? createdAt,
-            DateTime? modifiedAt)
+    required TResult Function(String id, String email, String fullname,
+            String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)
         data,
     required TResult Function(String id, String email) simple,
   }) {
@@ -149,7 +137,7 @@ class _$UserNotConnectedDto extends UserNotConnectedDto {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notConnected,
-    TResult? Function(String id, String email, String password, String fullname,
+    TResult? Function(String id, String email, String fullname,
             String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
     TResult? Function(String id, String email)? simple,
@@ -161,7 +149,7 @@ class _$UserNotConnectedDto extends UserNotConnectedDto {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notConnected,
-    TResult Function(String id, String email, String password, String fullname,
+    TResult Function(String id, String email, String fullname,
             String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
     TResult Function(String id, String email)? simple,
@@ -222,7 +210,6 @@ abstract class _$$UserDataDtoCopyWith<$Res> {
   $Res call(
       {String id,
       String email,
-      String password,
       String fullname,
       String phoneNumber,
       DateTime? createdAt,
@@ -242,7 +229,6 @@ class __$$UserDataDtoCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? email = null,
-    Object? password = null,
     Object? fullname = null,
     Object? phoneNumber = null,
     Object? createdAt = freezed,
@@ -256,10 +242,6 @@ class __$$UserDataDtoCopyWithImpl<$Res>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
               as String,
       fullname: null == fullname
           ? _value.fullname
@@ -287,14 +269,12 @@ class _$UserDataDto extends UserDataDto {
   const _$UserDataDto(
       {required this.id,
       required this.email,
-      required this.password,
       required this.fullname,
       required this.phoneNumber,
       this.createdAt,
       this.modifiedAt})
       : assert(id != "", 'id cannot be empty'),
         assert(email != "", 'id cannot be empty'),
-        assert(password != "", 'id cannot be empty'),
         assert(fullname != "", 'id cannot be empty'),
         assert(phoneNumber != "", 'id cannot be empty'),
         super._();
@@ -303,8 +283,6 @@ class _$UserDataDto extends UserDataDto {
   final String id;
   @override
   final String email;
-  @override
-  final String password;
   @override
   final String fullname;
   @override
@@ -316,7 +294,7 @@ class _$UserDataDto extends UserDataDto {
 
   @override
   String toString() {
-    return 'AppUserDto.data(id: $id, email: $email, password: $password, fullname: $fullname, phoneNumber: $phoneNumber, createdAt: $createdAt, modifiedAt: $modifiedAt)';
+    return 'AppUserDto.data(id: $id, email: $email, fullname: $fullname, phoneNumber: $phoneNumber, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
@@ -326,8 +304,6 @@ class _$UserDataDto extends UserDataDto {
             other is _$UserDataDto &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
             (identical(other.fullname, fullname) ||
                 other.fullname == fullname) &&
             (identical(other.phoneNumber, phoneNumber) ||
@@ -339,8 +315,8 @@ class _$UserDataDto extends UserDataDto {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, email, password, fullname,
-      phoneNumber, createdAt, modifiedAt);
+  int get hashCode => Object.hash(
+      runtimeType, id, email, fullname, phoneNumber, createdAt, modifiedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -352,47 +328,38 @@ class _$UserDataDto extends UserDataDto {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() notConnected,
-    required TResult Function(
-            String id,
-            String email,
-            String password,
-            String fullname,
-            String phoneNumber,
-            DateTime? createdAt,
-            DateTime? modifiedAt)
+    required TResult Function(String id, String email, String fullname,
+            String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)
         data,
     required TResult Function(String id, String email) simple,
   }) {
-    return data(
-        id, email, password, fullname, phoneNumber, createdAt, modifiedAt);
+    return data(id, email, fullname, phoneNumber, createdAt, modifiedAt);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notConnected,
-    TResult? Function(String id, String email, String password, String fullname,
+    TResult? Function(String id, String email, String fullname,
             String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
     TResult? Function(String id, String email)? simple,
   }) {
-    return data?.call(
-        id, email, password, fullname, phoneNumber, createdAt, modifiedAt);
+    return data?.call(id, email, fullname, phoneNumber, createdAt, modifiedAt);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notConnected,
-    TResult Function(String id, String email, String password, String fullname,
+    TResult Function(String id, String email, String fullname,
             String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
     TResult Function(String id, String email)? simple,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(
-          id, email, password, fullname, phoneNumber, createdAt, modifiedAt);
+      return data(id, email, fullname, phoneNumber, createdAt, modifiedAt);
     }
     return orElse();
   }
@@ -436,7 +403,6 @@ abstract class UserDataDto extends AppUserDto {
   const factory UserDataDto(
       {required final String id,
       required final String email,
-      required final String password,
       required final String fullname,
       required final String phoneNumber,
       final DateTime? createdAt,
@@ -445,7 +411,6 @@ abstract class UserDataDto extends AppUserDto {
 
   String get id;
   String get email;
-  String get password;
   String get fullname;
   String get phoneNumber;
   DateTime? get createdAt;
@@ -531,14 +496,8 @@ class _$UserSimpleDto extends UserSimpleDto {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() notConnected,
-    required TResult Function(
-            String id,
-            String email,
-            String password,
-            String fullname,
-            String phoneNumber,
-            DateTime? createdAt,
-            DateTime? modifiedAt)
+    required TResult Function(String id, String email, String fullname,
+            String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)
         data,
     required TResult Function(String id, String email) simple,
   }) {
@@ -549,7 +508,7 @@ class _$UserSimpleDto extends UserSimpleDto {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notConnected,
-    TResult? Function(String id, String email, String password, String fullname,
+    TResult? Function(String id, String email, String fullname,
             String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
     TResult? Function(String id, String email)? simple,
@@ -561,7 +520,7 @@ class _$UserSimpleDto extends UserSimpleDto {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notConnected,
-    TResult Function(String id, String email, String password, String fullname,
+    TResult Function(String id, String email, String fullname,
             String phoneNumber, DateTime? createdAt, DateTime? modifiedAt)?
         data,
     TResult Function(String id, String email)? simple,

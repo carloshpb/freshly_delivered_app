@@ -37,7 +37,6 @@ mixin _$AppUser {
     required TResult Function(
             String id,
             String email,
-            String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
             @DateTimeTimestampConverter()
@@ -56,7 +55,6 @@ mixin _$AppUser {
     TResult? Function(
             String id,
             String email,
-            String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
             @DateTimeTimestampConverter()
@@ -75,7 +73,6 @@ mixin _$AppUser {
     TResult Function(
             String id,
             String email,
-            String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
             @DateTimeTimestampConverter()
@@ -182,7 +179,6 @@ class _$UserNotConnected extends UserNotConnected {
     required TResult Function(
             String id,
             String email,
-            String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
             @DateTimeTimestampConverter()
@@ -204,7 +200,6 @@ class _$UserNotConnected extends UserNotConnected {
     TResult? Function(
             String id,
             String email,
-            String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
             @DateTimeTimestampConverter()
@@ -226,7 +221,6 @@ class _$UserNotConnected extends UserNotConnected {
     TResult Function(
             String id,
             String email,
-            String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
             @DateTimeTimestampConverter()
@@ -304,7 +298,6 @@ abstract class _$$UserDataCopyWith<$Res> {
   $Res call(
       {String id,
       String email,
-      String password,
       String fullname,
       @JsonKey(name: 'phone_number') String phoneNumber,
       @DateTimeTimestampConverter()
@@ -327,7 +320,6 @@ class __$$UserDataCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? email = null,
-    Object? password = null,
     Object? fullname = null,
     Object? phoneNumber = null,
     Object? createdAt = freezed,
@@ -341,10 +333,6 @@ class __$$UserDataCopyWithImpl<$Res>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
               as String,
       fullname: null == fullname
           ? _value.fullname
@@ -373,7 +361,6 @@ class _$UserData extends UserData {
   const _$UserData(
       {required this.id,
       required this.email,
-      required this.password,
       required this.fullname,
       @JsonKey(name: 'phone_number') required this.phoneNumber,
       @DateTimeTimestampConverter() @JsonKey(name: 'created_at') this.createdAt,
@@ -383,7 +370,6 @@ class _$UserData extends UserData {
       final String? $type})
       : assert(id != "", 'id cannot be empty'),
         assert(email != "", 'id cannot be empty'),
-        assert(password != "", 'id cannot be empty'),
         assert(fullname != "", 'id cannot be empty'),
         assert(phoneNumber != "", 'id cannot be empty'),
         $type = $type ?? 'data',
@@ -396,8 +382,6 @@ class _$UserData extends UserData {
   final String id;
   @override
   final String email;
-  @override
-  final String password;
   @override
   final String fullname;
   @override
@@ -417,7 +401,7 @@ class _$UserData extends UserData {
 
   @override
   String toString() {
-    return 'AppUser.data(id: $id, email: $email, password: $password, fullname: $fullname, phoneNumber: $phoneNumber, createdAt: $createdAt, modifiedAt: $modifiedAt)';
+    return 'AppUser.data(id: $id, email: $email, fullname: $fullname, phoneNumber: $phoneNumber, createdAt: $createdAt, modifiedAt: $modifiedAt)';
   }
 
   @override
@@ -427,8 +411,6 @@ class _$UserData extends UserData {
             other is _$UserData &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
             (identical(other.fullname, fullname) ||
                 other.fullname == fullname) &&
             (identical(other.phoneNumber, phoneNumber) ||
@@ -441,8 +423,8 @@ class _$UserData extends UserData {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, email, password, fullname,
-      phoneNumber, createdAt, modifiedAt);
+  int get hashCode => Object.hash(
+      runtimeType, id, email, fullname, phoneNumber, createdAt, modifiedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -457,7 +439,6 @@ class _$UserData extends UserData {
     required TResult Function(
             String id,
             String email,
-            String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
             @DateTimeTimestampConverter()
@@ -469,8 +450,7 @@ class _$UserData extends UserData {
         data,
     required TResult Function(String id, String email) simple,
   }) {
-    return data(
-        id, email, password, fullname, phoneNumber, createdAt, modifiedAt);
+    return data(id, email, fullname, phoneNumber, createdAt, modifiedAt);
   }
 
   @override
@@ -480,7 +460,6 @@ class _$UserData extends UserData {
     TResult? Function(
             String id,
             String email,
-            String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
             @DateTimeTimestampConverter()
@@ -492,8 +471,7 @@ class _$UserData extends UserData {
         data,
     TResult? Function(String id, String email)? simple,
   }) {
-    return data?.call(
-        id, email, password, fullname, phoneNumber, createdAt, modifiedAt);
+    return data?.call(id, email, fullname, phoneNumber, createdAt, modifiedAt);
   }
 
   @override
@@ -503,7 +481,6 @@ class _$UserData extends UserData {
     TResult Function(
             String id,
             String email,
-            String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
             @DateTimeTimestampConverter()
@@ -517,8 +494,7 @@ class _$UserData extends UserData {
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(
-          id, email, password, fullname, phoneNumber, createdAt, modifiedAt);
+      return data(id, email, fullname, phoneNumber, createdAt, modifiedAt);
     }
     return orElse();
   }
@@ -569,7 +545,6 @@ abstract class UserData extends AppUser {
   const factory UserData(
       {required final String id,
       required final String email,
-      required final String password,
       required final String fullname,
       @JsonKey(name: 'phone_number') required final String phoneNumber,
       @DateTimeTimestampConverter()
@@ -584,7 +559,6 @@ abstract class UserData extends AppUser {
 
   String get id;
   String get email;
-  String get password;
   String get fullname;
   @JsonKey(name: 'phone_number')
   String get phoneNumber;
@@ -688,7 +662,6 @@ class _$UserSimple extends UserSimple {
     required TResult Function(
             String id,
             String email,
-            String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
             @DateTimeTimestampConverter()
@@ -710,7 +683,6 @@ class _$UserSimple extends UserSimple {
     TResult? Function(
             String id,
             String email,
-            String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
             @DateTimeTimestampConverter()
@@ -732,7 +704,6 @@ class _$UserSimple extends UserSimple {
     TResult Function(
             String id,
             String email,
-            String password,
             String fullname,
             @JsonKey(name: 'phone_number') String phoneNumber,
             @DateTimeTimestampConverter()

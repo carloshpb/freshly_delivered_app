@@ -22,29 +22,37 @@ class _SuccessSignUpScreenState extends ConsumerState<SuccessSignUpScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(
         const Duration(
-          seconds: 3,
+          seconds: 2,
         ),
-      );
-      if (context.mounted) {
-        context.go(AppRouter.home.path);
-      }
+      ).then((_) =>
+          ref.read(successSignUpControllerProvider.notifier).authState());
     });
   }
 
   @override
   Widget build(BuildContext context) {
     // error handling
-    // ref.listen<AsyncValue<void>>(
-    //   successSignUpControllerProvider,
-    //   (previousState, nextState) => nextState.whenOrNull(
-    //     error: (error, stackTrace) {
-    //       CustomSnackbar.showErrorToast(context, 'Error', error.toString());
-    //     },
-    //   ),
-    // );
+    ref.listen<AsyncValue<void>>(successSignUpControllerProvider,
+        (previousState, nextState) {
+      if (previousState is AsyncLoading && nextState is AsyncError) {
+        // Go to login screen with error
+        context.go(AppRouter.login.path);
+      } else if (previousState is AsyncLoading && nextState is AsyncData) {
+        // Go to home screen
+        context.go(AppRouter.home.path);
+      } else {
+        // Add delay to call authState from controller again
+        Future.delayed(
+          const Duration(
+            seconds: 2,
+          ),
+        ).then((_) =>
+            ref.read(successSignUpControllerProvider.notifier).authState());
+      }
+    });
 
     // Future.delayed(
     //   const Duration(

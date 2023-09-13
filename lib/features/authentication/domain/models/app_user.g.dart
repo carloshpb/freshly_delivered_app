@@ -19,7 +19,6 @@ Map<String, dynamic> _$$UserNotConnectedToJson(_$UserNotConnected instance) =>
 _$UserData _$$UserDataFromJson(Map<String, dynamic> json) => _$UserData(
       id: json['id'] as String,
       email: json['email'] as String,
-      password: json['password'] as String,
       fullname: json['fullname'] as String,
       phoneNumber: json['phone_number'] as String,
       createdAt: const DateTimeTimestampConverter()
@@ -33,7 +32,6 @@ Map<String, dynamic> _$$UserDataToJson(_$UserData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'email': instance.email,
-      'password': instance.password,
       'fullname': instance.fullname,
       'phone_number': instance.phoneNumber,
       'created_at':
