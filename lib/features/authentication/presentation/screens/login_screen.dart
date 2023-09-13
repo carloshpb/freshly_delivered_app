@@ -7,6 +7,7 @@ import '../../../../common_widgets/custom_snackbar.dart';
 import '../../../../constants/custom_colors.dart';
 import '../../../../constants/paths.dart';
 import '../../../../constants/strings.dart';
+import '../../../../exceptions/app_api_exception.dart';
 import '../../../../exceptions/app_auth_exception.dart';
 import '../../../../routers/app_router.dart';
 import '../controllers/login_controller.dart';
@@ -39,7 +40,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.exception != null) {
         CustomSnackbar.showErrorToast(
-            context, 'Error', widget.exception.toString());
+            context,
+            'Error',
+            (widget.exception is AppApiException)
+                ? (widget.exception as AppApiException).message
+                : widget.exception.toString());
       }
     });
     _emailFocusNode.addListener(() {
