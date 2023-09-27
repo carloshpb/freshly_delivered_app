@@ -15,6 +15,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   another_flushbar: ^1.12.30
+  archive: ^3.4.2
   auto_size_text: ^3.0.0
   cached_network_image: ^3.3.0
   carousel_slider: ^4.2.1
